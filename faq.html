@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The OceanParcels project a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models">
+  <meta name="author" content="The OceanParcels team">
+
+  <title>OceanParcels - a Lagrangian Ocean Analysis toolbox</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="vendor/academicons/css/academicons.min.css"/>
+
+  <!-- syntax highlighting for Python and Bash -->
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+  <script src="vendor/prism/prism.js"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-96368922-1', 'auto');
+      ga('send', 'pageview');
+  </script>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">OceanParcels</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#developmentstatus">Development status</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#designoverview">Design overview</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#fieldset_construction">Constructing FieldSets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#kernelwriting">Writing Kernels</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#outputformat">Output files</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+  <hr>
+
+  <h1>Frequenty Asked Questions and support for Parcels</h1>
+
+  <hr>
+
+  <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian <b>S</b>imulator) is a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models. Parcels focusses on tracking of passive water parcels, as well as active particulates such as plankton, <a href="https://oceanparcels.github.io/TOPIOS/">plastic</a> and <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
+  </p><p>
+  The Parcels code is licensed under an open source <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md">MIT license</a> and can be downloaded from <a href="https://github.com/OceanParcels/parcels">https://github.com/OceanParcels/parcels</a>.
+
+  <hr>
+
+  <h2 id="developmentstatus">Parcels development status</h2>
+  The current release of Parcels, version 1.1, is a fully-functional, feature-complete code for offline Lagrangian ocean analysis. See below for a list of features, or keep an eye on the <a href="https://github.com/OceanParcels/parcels/projects/1">Github Development Timeline page</a>
+  <p></p>
+  <h4>Major features</h4>
+  <div class="card-columns">
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Advection of particles in 2D and 3D </h5>
+        <small class="text-muted">Using inbuilt kernels for <code class="language-python">Runge-Kutta4</code>, <code class="language-python">Runge-Kutta45</code> and <code class="language-python">Euler Forward</code></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Simple horizontal diffusion of particles</h5>
+        <small class="text-muted">Using inbuilt kernels for <code class="language-python">Brownian Motion</code></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Define and execute custom kernels</h5>
+        <small class="text-muted">See the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Adding-a-custom-behaviour-kernel">Adding-a-custom-behaviour-kernel</a> part of the Parcels tutorial</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Add custom Variables to Particles</h5>
+        <small class="text-muted">See the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Sampling-a-Field-with-Particles">sampling a Field with Particles</a> part of the Parcels tutorial</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Add and remove Particles during execution.</h5>
+        <small class="text-muted"> See the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb">delayed start tutorial</a></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Read in hydrodynamic data from any rectilinear or curvilinear horizontal grid</h5>
+        <small class="text-muted">see the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Reading-in-data-from-arbritrary-NetCDF-files">reading in data from arbitrary NetCDF files</a> part of the Parcels tutorial</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Output particle data in NetCDF format</h5>
+        <small class="text-muted"></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Basic plotting of particles</h5>
+        <small class="text-muted">Both on the fly and from netcdf output files, see the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_plotting.ipynb">plotting tutorial</a></small>
+      </div>
+    </div>
+  </div>
+
+  <p></p>
+
+  <h4>Experimental features</h4>
+  <div class="card-columns">
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Compute particles in any vertical coordinate model</h5>
+        <small class="text-muted">z-level, sigma-level (terrain-following), or rho-level (density-following)</small>
+      </div>
+    </div>
+  </div>
+
+  <p></p>
+
+  <h4>Future development goals</h4>
+  <div class="card-columns">
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>More types of particle diffusion</h5>
+        <small class="text-muted"></small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Support for unstructured grids</h5>
+        <small class="text-muted">Supporting data from hydrodynamic models with fully unstructured grids</small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Parallel execution</h5>
+        <small class="text-muted">Implementing advanced load balancing techniques</small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Advanced control of particles near land boundaries</h5>
+        <small class="text-muted">To reduce the amount of particles 'stuck' near land</small>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <h2 id="designoverview">Parcels design overview</h2>
+
+  <img src="images/parcelsdesign_minimal.png" class="img-fluid">
+  <p></p>
+  The figure above gives a brief overview of the most important classes and methods in Parcels and how they are related. Classes are in blue, methods are in green. Note that not all classes and methods are shown.
+
+  <hr>
+  <h2 id="fieldset_construction">Tips on constructing FieldSet objects</h2>
+
+  Probably the trickiest bit to get right when starting with Parcels on your own model output is how to construct a <code class="language-python">FieldSet</code> object.
+
+  The general method to use is <code class="language-python">FieldSet.from_netcdf()</code>, which requires <code class="language-python">filenames</code>, <code class="language-python">variables</code> and <code class="language-python">dimensions</code>. Each of these is a dictionary, and <code class="language-python">variables</code> requires at least a <code class="language-python">U</code> and <code class="language-python">V</code>, but any other <code class="language-python">variable</code> can be added too (e.g. temperature, mixedlayerdepth, etc). Note also that <code class="language-python">filenames</code> can contain wildcards.
+
+  For example, the GlobCurrent data that is shipped with Parcels can be read with:
+  <pre><code class="language-python">
+    fname = 'GlobCurrent_example_data/*.nc'
+    filenames = {'U': fname, 'V': fname}
+    variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity'}
+    dimensions = {'lat': 'lat', 'lon': ‘lon', 'depth': 'depth', 'time': 'time'}
+    fset = FieldSet.from_netcdf(filenames, variables, dimensions)
+  </code></pre>
+  Note that <code class="language-python">dimensions</code> can also be a dictionary-of-dictionaries. For example, if you have wind data on a completely different grid (and without <code class="language-python">depth</code> dimension), you can do:
+
+  <pre><code class="language-python">
+    fname = 'GlobCurrent_example_data/*.nc'
+    wname = 'path_to_your_windfiles'
+    filenames = {'U': fname, 'V': fname, 'wind': wname}
+    variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity', 'wind': 'wind'}
+    dimensions = {}
+    dimensions['U'] = {'lat': 'lat', 'lon': 'lon', 'depth': ‘depth’, 'time': 'time'}
+    dimensions['V'] = {'lat': 'lat', 'lon': 'lon', 'depth': ‘depth’, 'time': 'time'}
+    dimensions['wind'] = {'lat': 'latw', 'lon': 'lonw', 'time': ‘time'}
+    fset = FieldSet.from_netcdf(filenames, variables, dimensions)
+  </code></pre>
+  In a similar way, you can add <code class="language-python">U</code> and <code class="language-python">V</code> fields that are on different grids (e.g. Arakawa C-grids). Parcels will take care under the hood that the different grids are dealt with properly.
+
+  <hr>
+  <h2 id="kernelwriting">Writing Parcels Kernels</h2>
+
+  One of the most powerful features of Parcels is the ability to write custom Kernels (see e.g. the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Adding-a-custom-behaviour-kernel">Adding-a-custom-behaviour-kernel</a> part of the Tutorial). These Kernels are little snippets of code that get executed by Parcels, giving the ability to add ‘behaviour’ to particles.
+  <p></p>
+  However, there are some key limitations to the Kernels that everyone who wants to write their own should be aware of:
+  <ul>
+    <li>Every Kernel must be a function with the following (and only those) arguments: <code class="language-python">(particle, fieldset, time, dt)</code></li>
+
+    <li>In order to run successfully in JIT mode, Kernel definitions can only contain the following types of commands:</li>
+    <ul>
+      <li>Basic arithmetical operators (<code class="language-python">+</code>, <code class="language-python">-</code>, <code class="language-python">*</code>, <code class="language-python">/</code>) and assignments (<code class="language-python">=</code>).</li>
+
+      <li>Basic logical operators (<code class="language-python"><</code>, <code class="language-python">==</code>, <code class="language-python">></code>, <code class="language-python">&</code>, <code class="language-python">|</code>)</li>
+
+      <li><code class="language-python">if</code> and <code class="language-python">while</code> loops, as well as <code class="language-python">break</code> statements. Note that <code class="language-python">for</code>-loops are not supported in JIT mode</li>
+
+      <li>Interpolation of a <code class="language-python">Field</code> from the <code class="language-python">FieldSet</code> at a <code class="language-python">(time, lon, lat, depth)</code> point, using using square brackets notation. For example, to interpolate the zonal velocity (U) field at the particle location, use the following statement:<br>
+
+        <pre><code class="language-python">value = fieldset.U[time, particle.lon, particle.lat, particle.depth]</code></pre></li>
+
+      <li>Functions from the <code class="language-python">maths</code> standard library and from the custom <code class="language-python">random</code> library at <code class="language-python">parcels.rng</code></li>
+
+      <li>Simple <code class="language-python">print</code> statements, such as:</li>
+      <ul>
+        <li><code class="language-python">print("Some print")</code></li>
+        <li><code class="language-python">print(particle.lon)</code></li>
+        <li><code class="language-python">print("particle id: %d" % particle.id)</code></li>
+        <li><code class="language-python">print("lon: %f, lat: %f" % (particle.lon, particle.lat))</code></li>
+      </ul>
+    </ul>
+    <li>Local variables can be used in Kernels, and these variables will be accessible in all concatenated Kernels. Note that these local variables are not shared between particles, and also not between time steps.</li>
+
+    <li>Note that one has to be careful with writing kernels for vector fields on Curvilinear grids. While Parcels automatically rotates the U and V field when necessary, this is not the case for for example wind data. In that case, a custom rotation function will have to be written.</li>
+  </ul>
+
+  All other functions and methods are not supported yet in Parcels Kernels. If there is a functionality that can not be programmed with this limited set of commands, please create an <a href="https://github.com/OceanParcels/parcels/issues">Issue ticket</a>.
+
+  <hr>
+  <h2 id="outputformat">The output format of ParticleFile</h2>
+  The information on particle trajectories is stored in NetCDF format, when using the <code class="language-python">ParticleFile</code> class. The file contains arrays of at least the <code class="language-python">time</code>, <code class="language-python">lon</code>, <code class="language-python">lat</code> and <code class="language-python">z</code> (depth) of each particle trajectory, plus any extra custom <code class="language-python">Variables</code> defined in the <code class="language-python">pclass</code>.
+  <p></p>
+  Each row in these arrays corresponds to a particle, and each column is an 'observation'. Note that, when particles are added during runtime, their first position is still stored in the first column, so that not all particles in the same column necessarily share the same <code class="language-python">time</code>. The time of each observation is stored in the <code class="language-python">time</code> array.
+
+  <hr>
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">
+      Copyright &copy; OceanParcels project, 2018<br>
+      <small>Based on the <a href ="https://blackrockdigital.github.io/startbootstrap-modern-business/">Modern Business</a> theme, distributed by <a href="https://startbootstrap.com/template-overviews/modern-business/">Start Bootstrap</a> under an MIT license</small>
+    </p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

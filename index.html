@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The OceanParcels project a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models">
+  <meta name="author" content="The OceanParcels team">
+
+  <title>OceanParcels - a Lagrangian Ocean Analysis toolbox</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="vendor/academicons/css/academicons.min.css"/>
+
+  <!-- syntax highlighting for Python and Bash -->
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+  <script src="vendor/prism/prism.js"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-96368922-1', 'auto');
+      ga('send', 'pageview');
+  </script>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">OceanParcels</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#whatisparcels">What is Parcels?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#installing">Installation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#tutorials">Tutorials</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#peerreviewedarticles">Articles</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <!-- Slide One - Set the background image for this slide in the line below -->
+      <div class="carousel-item active" style="background-image: url('images/globcurrent_fullyseeded.gif')">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>Animation of virtual particles carried by ocean surface flow in the Agulhas Current off South Africa.</h3>
+          <p>The particles are advected with Parcels in data from the <a href="http://globcurrent.ifremer.fr/products-data/products-overview">GlobCurrent Project</a>.<br>
+            See <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Agulhasparticles.ipynb">this tutorial</a> for the Parcels code behind this animated gif.</p>
+        </div>
+      </div>
+    </div>
+    <!--<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+      <!--<span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+      <!--<span class="sr-only">Previous</span>-->
+    <!--</a>-->
+    <!--<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+      <!--<span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+      <!--<span class="sr-only">Next</span>-->
+    <!--</a>-->
+  </div>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+  <hr>
+
+  <h2 id="whatisparcels">What is Parcels?</h2>
+  <div class="row">
+    <div class="col align-self-center">
+      <p class="card-text">
+        <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian <b>S</b>imulator) is a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models. Parcels focusses on tracking of passive water parcels, as well as active particulates such as plankton, <a href="https://oceanparcels.github.io/TOPIOS/">plastic</a> and <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
+      </p><p>
+        The Parcels code is licensed under an open source <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md">MIT license</a> and can be downloaded from <a href="https://github.com/OceanParcels/parcels">https://github.com/OceanParcels/parcels</a>.
+      The manuscript detailing this first release of Parcels, version 0.9, has been published in <a href="https://www.geosci-model-dev.net/10/4175/2017/gmd-10-4175-2017.html">Geoscientific Model Development</a> and can be cited as
+      </p><p>
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            Parcels v0.9: prototyping a Lagrangian Ocean Analysis framework for the petascale age
+          </h5>
+          Lange, M and E van Sebille (2017), <i>Geoscientific Model Development</i>, <i>10</i>, 4175-4186 <br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#LangeVanSebille1" aria-expanded="true">[ Expand abstract]</a>
+          <a class="card-link" href="https://doi.org/10.5194/gmd-10-4175-2017"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i> ]</a>
+        </div>
+        <div id="LangeVanSebille1" class="collapse" role="tabpanel">
+          <div class="card-body">
+            As ocean general circulation models (OGCMs) move into the petascale age, where the output of single simulations exceeds petabytes of storage space, tools to analyse the output of these models will need to scale up too. Lagrangian ocean analysis, where virtual particles are tracked through hydrodynamic fields, is an increasingly popular way to analyse OGCM output, by mapping pathways and connectivity of biotic and abiotic particulates. However, the current software stack of Lagrangian ocean analysis codes is not dynamic enough to cope with the increasing complexity, scale and need for customization of use-cases. Furthermore, most community codes are developed for stand-alone use, making it a nontrivial task to integrate virtual particles at runtime of the OGCM. Here, we introduce the new Parcels code, which was designed from the ground up to be sufficiently scalable to cope with petascale computing. We highlight its API design that combines flexibility and customization with the ability to optimize for HPC workflows, following the paradigm of domain-specific languages. Parcels is primarily written in Python, utilizing the wide range of tools available in the scientific Python ecosystem, while generating low-level C code and using just-in-time compilation for performance-critical computation. We show a worked-out example of its API, and validate the accuracy of the code against seven idealized test cases. This version 0.9 of Parcels is focused on laying out the API, with future work concentrating on support for curvilinear grids, optimization, efficiency and at-runtime coupling with OGCMs.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+  <h2 id="installing">Installing Parcels</h2>
+
+  This is the “batteries-included” solution probably suitable for most users.
+  <p></p>
+  The simplest way to install Parcels is to use Anaconda and the Parcels Conda-Forge package with the latest release of Parcels.  This package will automatically install (almost) all the requirements for a fully functional installaion of Parcels.
+  <p></p>
+  The steps below are the installation instructions for Linux / macOS and for Windows.  If the commands for Linux / macOS and Windows differ, this is indicated with a comment at the end of the line.
+  <ol>
+    <li>Install Anaconda's Miniconda following the steps at <a href="https://conda.io/docs/user-guide/install/">https://conda.io/docs/user-guide/install/</a>.  All the code below assumes that you download the Python-2 version, although Parcels also works with Python-3.  If you're on Linux / macOS, it also assumes that you installed Miniconda-2 to your home directory.</li>
+
+    <li>Start a terminal (Linux / macOS) or the Anaconda prompt (Windows). Activate the root (or base) environment of your Miniconda and create an environment containing Parcels, all its essential dependencies, and the nice-to-have Jupyter and Basemap package:
+    <pre><code class="language-bash">
+      source $HOME/miniconda2/bin/activate root  # Linux / macOS
+      activate root                              # Windows
+
+      conda create -n py2_parcels -c conda-forge parcels jupyter basemap basemap-data-hires
+    </code></pre></li>
+
+    <li>Activate the newly created Parcels environment, get a copy of the the Parcels tutorials and examples, and run the simplest of the examples to validate that you have a working Parcels setup:
+    <pre><code class="language-bash">
+      source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
+      activate py2_parcels                              # Windows
+
+      parcels_get_examples parcels_examples
+      cd parcels_examples
+
+      python example_peninsula.py --fieldset 100 100
+    </code></pre></li>
+
+    <li>Optionally, if you want to run all the examples and tutorials, start Jupyter and open the tutorial notebooks:
+    <pre><code class="language-bash">
+    jupyter notebook
+    </code></pre></li>
+
+    <li>The next time you start a terminal and want to work with Parcels, activate the environment with:
+    <pre><code class="language-bash">
+      source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
+      activate py2_parcels                              # Windows
+    </code></pre></li>
+  </ol>
+
+  <h4>Installing a non-released version of Parcels</h4>
+
+    There might be cases where you want to install a version of Parcels that has not been released yet.  (Perhaps, if you want to use a bleeding-edge feature which already is included on Github, but not in the conda-forge package.)
+
+    Then, just after step 2 of <a href="#installing">Installing Parcels</a> above, use the following commands to remove the conda-forge package again, and use Pip to install Parcels from Github:
+    <pre><code class="language-bash">
+      source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
+      activate py2_parcels                              # Windows
+
+      conda remove parcels
+      pip install git+https://github.com/OceanParcels/parcels.git@master
+    </code></pre>
+
+  <h4>Installation for developers</h4>
+
+  Parcels depends on a working Python installation, a netCDF installation, a C compiler, and various Python packages.  If you prefer to maintain your own Python installation providing all this, <code>git clone</code> the <a href="https://github.com/OceanParcels/parcels">master branch of Parcels</a> and manually <code>pip install</code> all packages listed under <code>dependencies</code> in the environment files
+  <ul>
+
+    <li><a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py2_linux.yml">environment_py2_linux.yml</a> for Linux</li>
+    <li><a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py2_osx.yml">environment_py2_osx.yml</a> for OSX</li>
+    <li><a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py2_win.yml">environment_py2_win.yml</a> for Windows</li>
+  </ul>
+
+  <hr>
+  <h2 id="tutorials">Parcels tutorials</h2>
+
+  The best way to get started with Parcels is to have a look at the Jupyter notebooks below:
+
+  <p></p>
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">Parcels tutorial</h4>
+        <div class="card-body">
+          <img class="card-img-top team-photo" src="images/parcels_tutorial.png" alt="">
+          <p class="card-text">
+            The Parcels tutorial provides an overview of the main features of Parcels and is therefore a good starting point for new users
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb" class="btn btn-primary">Try it</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">Periodic boundaries tutorial</h4>
+        <div class="card-body">
+          <img class="card-img-top team-photo" src="images/tutorial_periodicbcs.png" alt="">
+          <p class="card-text">
+            A tutorial to explain how to implement periodic (east-west or north-south) boundaries in Parcels
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb" class="btn btn-primary">Try it</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">Curvilinear grid tutorial</h4>
+        <div class="card-body">
+          <img class="card-img-top team-photo" src="images/tutorial_nemo.png" alt="">
+          <p class="card-text">
+            A tutorial to explain how to use Parcels with hydrodynamic models that use curvilinear grids, such as NEMO
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_curvilinear.ipynb" class="btn btn-primary">Try it</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">Delay start tutorial</h4>
+        <div class="card-body">
+          <img class="card-img-top team-photo" src="images/tutorial_delaystart.gif" alt="">
+          <p class="card-text">
+            A tutorial on how to add particles to a ParticleSet during runtime, so that not all particles are released on the start of the run.
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb" class="btn btn-primary">Try it</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">Argo sampling Kernel tutorial</h4>
+        <div class="card-body">
+          <img class="card-img-top team-photo" src="images/tutorial_argo.png" alt="">
+          <p class="card-text">
+            A tutorial on how to create a custom Kernel that mimics sampling of Argo floats.
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb" class="btn btn-primary">Try it</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">Plotting tutorial</h4>
+        <div class="card-body">
+          <img class="card-img-top team-photo" src="images/tutorial_plotting.png" alt="">
+          <p class="card-text">
+            A tutorial on how to plot particle trajectories.
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_plotting.ipynb" class="btn btn-primary">Try it</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+  <h2 id="faq">Frequently Asked Questions and further support</h2>
+
+  See the <a href="faq.html">FAQ page</a> for further information on using and developing Parcels. This includes information on <a href="faq.html#developmentstatus">the Parcels development status</a>, <a href="faq.html#designoverview">the Parcels design overview</a>, <a href="faq.html#fieldset_construction">tips on construction of FieldSet objects</a>, <a href="faq.html#kernelwriting">support for writing custom Kernels</a> and <a href="faq.html#outputformat">an explanation of the NetCDF output format</a>.
+
+  <hr>
+  <h2 id="peerreviewedarticles">Peer-reviewed articles using Parcels</h2>
+
+  <div class="row">
+    <div class="col">
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            Surface connectivity and inter-ocean exchanges from drifter-based transition matrices
+          </h5>
+          McAdam R and E van Sebille  (2018), <i>Journal of Geophysical Research</i>, <i>123</i>, 514-523<br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#McAdam_etal" aria-expanded="true">[ Expand abstract]</a>
+          <a class="card-link" href="https://doi.org/10.1002/2017JC013363"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a>
+        </div>
+        <div id="McAdam_etal" class="collapse" role="tabpanel">
+          <div class="card-body">
+            Global surface transport in the ocean can be represented by using the observed trajectories of drifters to calculate probability distribution functions. The oceanographic applications of the Markov Chain approach to modelling include tracking of floating debris and water masses, globally and on yearly-to-centennial timescales. Here, we analyse the error inherent with mapping trajectories onto a grid and the consequences for ocean transport modelling and detection of accumulation structures. A sensitivity analysis of Markov Chain parameters is performed in an idealised Stommel gyre and western boundary current as well as with observed ocean drifters, complementing previous studies on widespread floating debris accumulation. Focusing on two key areas of inter-ocean exchange - the Agulhas System and the North Atlantic intergyre transport barrier - we assess the capacity of the Markov Chain methodology to detect surface connectivity and dynamic transport barriers. Finally, we extend the methodology's functionality to separate the geostrophic and non-geostrophic contributions to inter-ocean exchange in these key regions.
+          </div>
+        </div>
+      </div>
+
+      <p></p>
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            Lagrangian ocean analysis: fundamentals and practices
+          </h5>
+          van Sebille, E, SM Griffies, R Abernathey, TP Adams, P Berloff, A Biastoch, B Blanke, EP Chassignet, Y Cheng, CJ Cotter, E Deleersnijder, K Döös, HF Drake, S Drijfhout, SF Gary, AW Heemink, J Kjellsson, IM Koszalka, M Lange, C Lique, GA MacGilchrist, R Marsh, CG Mayorga Adame, R McAdam, F Nencioli, CB Paris, MD Piggott, JA Polton, S Rühs, SHAM Shah, MD Thomas, J Wang, PJ Wolfram, L Zanna, and JD Zika  (2018), <i>Ocean Modeling</i>, <i>121</i>, 49-75 <br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#vanSebille_om" aria-expanded="true">[ Expand abstract]</a>
+          <a class="card-link" href="https://doi.org/10.1016/j.ocemod.2017.11.008"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i> ]</a>
+        </div>
+        <div id="vanSebille_om" class="collapse" role="tabpanel">
+          <div class="card-body">
+            Lagrangian analysis is a powerful way to analyse the output of ocean circulation models and other ocean velocity data such as from altimetry. In the Lagrangian approach, large sets of virtual particles are integrated within the three-dimensional, time-evolving velocity fields. Over several decades, a variety of tools and methods for this purpose have emerged. Here, we review the state of the art in the field of Lagrangian analysis of ocean velocity data, starting from a fundamental kinematic framework and with a focus on large-scale open ocean applications. Beyond the use of explicit velocity fields, we consider the influence of unresolved physics and dynamics on particle trajectories. We comprehensively list and discuss the tools currently available for tracking virtual particles. We then showcase some of the innovative applications of trajectory data, and conclude with some open questions and an outlook. The overall goal of this review paper is to reconcile some of the different techniques and methods in Lagrangian ocean analysis, while recognising the rich diversity of codes that have and continue to emerge, and the challenges of the coming age of petascale computing.
+          </div>
+        </div>
+      </div>
+
+      <p></p>
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            Parcels v0.9: prototyping a Lagrangian Ocean Analysis framework for the petascale age
+          </h5>
+          Lange, M and E van Sebille (2017), <i>Geoscientific Model Development</i>, <i>10</i>, 4175-4186 <br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#LangeVanSebille" aria-expanded="true">[ Expand abstract]</a>
+          <a class="card-link" href="https://doi.org/10.5194/gmd-10-4175-2017"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i> ]</a>
+        </div>
+        <div id="LangeVanSebille" class="collapse" role="tabpanel">
+          <div class="card-body">
+            As ocean general circulation models (OGCMs) move into the petascale age, where the output of single simulations exceeds petabytes of storage space, tools to analyse the output of these models will need to scale up too. Lagrangian ocean analysis, where virtual particles are tracked through hydrodynamic fields, is an increasingly popular way to analyse OGCM output, by mapping pathways and connectivity of biotic and abiotic particulates. However, the current software stack of Lagrangian ocean analysis codes is not dynamic enough to cope with the increasing complexity, scale and need for customization of use-cases. Furthermore, most community codes are developed for stand-alone use, making it a nontrivial task to integrate virtual particles at runtime of the OGCM. Here, we introduce the new Parcels code, which was designed from the ground up to be sufficiently scalable to cope with petascale computing. We highlight its API design that combines flexibility and customization with the ability to optimize for HPC workflows, following the paradigm of domain-specific languages. Parcels is primarily written in Python, utilizing the wide range of tools available in the scientific Python ecosystem, while generating low-level C code and using just-in-time compilation for performance-critical computation. We show a worked-out example of its API, and validate the accuracy of the code against seven idealized test cases. This version 0.9 of Parcels is focused on laying out the API, with future work concentrating on support for curvilinear grids, optimization, efficiency and at-runtime coupling with OGCMs.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 id="funding">Parcels funding and support</h2>
+  <p>Parcels development has been supported by the following organisations:</p>
+  <img src="images/funderlogos.png" class="img-fluid">
+  <p></p>
+  <ul>
+    <li>The <a href="https://erc.europa.eu/sites/default/files/press_release/files/erc_press_release_stg2016_results.pdf">European Research Council under the H2020 Starting Grant</a> <a href="http://erik.vansebille.com/science/topios.html">TOPIOS (grant agreement No 715386)</a>.</li>
+    <li><a href="https://www.imperial.ac.uk/">Imperial College London</a> and specifically the <a href="https://www.imperial.ac.uk/grantham/">Grantham Institute</a>.</li>
+    <li><a href="https://www.uu.nl/">Utrecht University</a> and specifically the <a href="https://www.uu.nl/en/research/institute-for-marine-and-atmospheric-research-imau">Institute for Marine and Atmospheric Research</a>.</li>
+    <li>The <a href="https://www.epsrc.ac.uk/">EPSRC</a> through an Institutional Sponsorship grant to Erik van Sebille under reference number EP/N50869X/1.</li>
+  </ul>
+
+  <hr>
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">
+      Copyright &copy; OceanParcels project, 2018<br>
+      <small>Based on the <a href ="https://blackrockdigital.github.io/startbootstrap-modern-business/">Modern Business</a> theme, distributed by <a href="https://startbootstrap.com/template-overviews/modern-business/">Start Bootstrap</a> under an MIT license</small>
+    </p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
