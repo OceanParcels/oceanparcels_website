@@ -203,26 +203,22 @@
   The general method to use is <code class="language-python">FieldSet.from_netcdf()</code>, which requires <code class="language-python">filenames</code>, <code class="language-python">variables</code> and <code class="language-python">dimensions</code>. Each of these is a dictionary, and <code class="language-python">variables</code> requires at least a <code class="language-python">U</code> and <code class="language-python">V</code>, but any other <code class="language-python">variable</code> can be added too (e.g. temperature, mixedlayerdepth, etc). Note also that <code class="language-python">filenames</code> can contain wildcards.
 
   For example, the GlobCurrent data that is shipped with Parcels can be read with:
-  <pre><code class="language-python">
-    fname = 'GlobCurrent_example_data/*.nc'
-    filenames = {'U': fname, 'V': fname}
-    variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity'}
-    dimensions = {'lat': 'lat', 'lon': ‘lon', 'depth': 'depth', 'time': 'time'}
-    fset = FieldSet.from_netcdf(filenames, variables, dimensions)
-  </code></pre>
+  <pre><code class="language-python">fname = 'GlobCurrent_example_data/*.nc'
+filenames = {'U': fname, 'V': fname}
+variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity'}
+dimensions = {'lat': 'lat', 'lon': ‘lon', 'depth': 'depth', 'time': 'time'}
+fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   Note that <code class="language-python">dimensions</code> can also be a dictionary-of-dictionaries. For example, if you have wind data on a completely different grid (and without <code class="language-python">depth</code> dimension), you can do:
 
-  <pre><code class="language-python">
-    fname = 'GlobCurrent_example_data/*.nc'
-    wname = 'path_to_your_windfiles'
-    filenames = {'U': fname, 'V': fname, 'wind': wname}
-    variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity', 'wind': 'wind'}
-    dimensions = {}
-    dimensions['U'] = {'lat': 'lat', 'lon': 'lon', 'depth': ‘depth’, 'time': 'time'}
-    dimensions['V'] = {'lat': 'lat', 'lon': 'lon', 'depth': ‘depth’, 'time': 'time'}
-    dimensions['wind'] = {'lat': 'latw', 'lon': 'lonw', 'time': ‘time'}
-    fset = FieldSet.from_netcdf(filenames, variables, dimensions)
-  </code></pre>
+  <pre><code class="language-python">fname = 'GlobCurrent_example_data/*.nc'
+wname = 'path_to_your_windfiles'
+filenames = {'U': fname, 'V': fname, 'wind': wname}
+variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity', 'wind': 'wind'}
+dimensions = {}
+dimensions['U'] = {'lat': 'lat', 'lon': 'lon', 'depth': ‘depth’, 'time': 'time'}
+dimensions['V'] = {'lat': 'lat', 'lon': 'lon', 'depth': ‘depth’, 'time': 'time'}
+dimensions['wind'] = {'lat': 'latw', 'lon': 'lonw', 'time': ‘time'}
+fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   In a similar way, you can add <code class="language-python">U</code> and <code class="language-python">V</code> fields that are on different grids (e.g. Arakawa C-grids). Parcels will take care under the hood that the different grids are dealt with properly.
 
   <hr>
