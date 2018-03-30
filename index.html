@@ -102,7 +102,7 @@
   <div class="row">
     <div class="col align-self-center">
       <p class="card-text">
-        <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian <b>S</b>imulator) is a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models. Parcels focusses on tracking of passive water parcels, as well as active particulates such as plankton, <a href="https://oceanparcels.github.io/TOPIOS/">plastic</a> and <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
+        <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian <b>S</b>imulator) is a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models. Parcels can be used to track passive and active particulates such as water, plankton, <a href="https://oceanparcels.github.io/TOPIOS/">plastic</a> and <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
       </p><p>
         The Parcels code is licensed under an open source <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md">MIT license</a> and can be downloaded from <a href="https://github.com/OceanParcels/parcels">https://github.com/OceanParcels/parcels</a>.
       The manuscript detailing this first release of Parcels, version 0.9, has been published in <a href="https://www.geosci-model-dev.net/10/4175/2017/gmd-10-4175-2017.html">Geoscientific Model Development</a> and can be cited as
@@ -130,9 +130,7 @@
   <hr>
   <h2 id="installing">Installing Parcels</h2>
 
-  This is the “batteries-included” solution probably suitable for most users.
-  <p></p>
-  The simplest way to install Parcels is to use Anaconda and the Parcels Conda-Forge package with the latest release of Parcels.  This package will automatically install (almost) all the requirements for a fully functional installaion of Parcels.
+  The simplest way to install Parcels is to use Anaconda and the Parcels Conda-Forge package with the latest release of Parcels.  This package will automatically install (almost) all the requirements for a fully functional installation of Parcels. This is the “batteries-included” solution probably suitable for most users.
   <p></p>
   The steps below are the installation instructions for Linux / macOS and for Windows.  If the commands for Linux / macOS and Windows differ, this is indicated with a comment at the end of the line.
   <ol>
@@ -165,7 +163,7 @@ activate py2_parcels                              # Windows</code></pre></li>
 
     There might be cases where you want to install a version of Parcels that has not been released yet.  (Perhaps, if you want to use a bleeding-edge feature which already is included on Github, but not in the conda-forge package.)
 
-    Then, just after step 2 of <a href="#installing">Installing Parcels</a> above, use the following commands to remove the conda-forge package again, and use Pip to install Parcels from Github:
+  Then, just after step 2 of <a href="#installing">Installing Parcels</a> above, use the following commands to remove the conda-forge package again, and use <code>pip</code> to install Parcels from Github:
     <pre><code class="language-bash">source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
 activate py2_parcels                              # Windows
 
@@ -175,7 +173,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master</code></pre>
   <h4>Installation for developers</h4>
 
   Parcels depends on a working Python installation, a netCDF installation, a C compiler, and various Python packages.  If you prefer to maintain your own Python installation providing all this, <code>git clone</code> the <a href="https://github.com/OceanParcels/parcels">master branch of Parcels</a> and manually install all packages listed under <code>dependencies</code> in the environment files (<a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py2_linux.yml">environment_py2_linux.yml</a> for Linux, <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py2_osx.yml">environment_py2_osx.yml</a> for OSX and
-    <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py2_win.yml">environment_py2_win.yml</a> for Windows)
+    <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py2_win.yml">environment_py2_win.yml</a> for Windows).
 
   <hr>
   <h2 id="tutorials">Parcels tutorials</h2>
@@ -235,7 +233,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master</code></pre>
         <div class="card-body">
           <img class="card-img-top team-photo" src="images/tutorial_delaystart.gif" alt="">
           <p class="card-text">
-            A tutorial on how to add particles to a ParticleSet during runtime, so that not all particles are released on the start of the run.
+            A tutorial on how to release particles after the start of a run
           </p>
         </div>
         <div class="card-footer">
@@ -250,7 +248,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master</code></pre>
         <div class="card-body">
           <img class="card-img-top team-photo" src="images/tutorial_argo.png" alt="">
           <p class="card-text">
-            A tutorial on how to create a custom Kernel that mimics sampling of Argo floats.
+            A tutorial on how to create a custom Kernel that mimics sampling of Argo floats
           </p>
         </div>
         <div class="card-footer">
@@ -265,7 +263,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master</code></pre>
         <div class="card-body">
           <img class="card-img-top team-photo" src="images/tutorial_plotting.png" alt="">
           <p class="card-text">
-            A tutorial on how to plot particle trajectories.
+            A tutorial on how to plot particle trajectories
           </p>
         </div>
         <div class="card-footer">
