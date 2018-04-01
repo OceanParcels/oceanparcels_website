@@ -56,6 +56,9 @@
           <a class="nav-link" href="#tutorials">Tutorials</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#developmentstatus">Development status</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
         </li>
         <li class="nav-item">
@@ -275,9 +278,116 @@ pip install git+https://github.com/OceanParcels/parcels.git@master</code></pre>
   </div>
 
   <hr>
+
+  <h2 id="developmentstatus">Parcels development status</h2>
+  The current release of Parcels, version 1.1, is a fully-functional, feature-complete code for offline Lagrangian ocean analysis. See below for a list of features, or keep an eye on the <a href="https://github.com/OceanParcels/parcels/projects/1">Github Development Timeline page</a>
+  <p></p>
+  <h4>Major features</h4>
+  <div class="card-columns">
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Advection of particles in 2D and 3D </h5>
+        <small class="text-muted">Using inbuilt kernels for <code class="language-python">Runge-Kutta4</code>, <code class="language-python">Runge-Kutta45</code> and <code class="language-python">Euler Forward</code></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Simple horizontal diffusion of particles</h5>
+        <small class="text-muted">Using inbuilt kernels for <code class="language-python">Brownian Motion</code></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Define and execute custom kernels</h5>
+        <small class="text-muted">See the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Adding-a-custom-behaviour-kernel">Adding-a-custom-behaviour-kernel</a> part of the Parcels tutorial</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Add custom Variables to Particles</h5>
+        <small class="text-muted">See the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Sampling-a-Field-with-Particles">sampling a Field with Particles</a> part of the Parcels tutorial</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Add and remove Particles during execution.</h5>
+        <small class="text-muted"> See the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb">delayed start tutorial</a></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Read in hydrodynamic data from any rectilinear or curvilinear horizontal grid</h5>
+        <small class="text-muted">see the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Reading-in-data-from-arbritrary-NetCDF-files">reading in data from arbitrary NetCDF files</a> part of the Parcels tutorial</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Output particle data in NetCDF format</h5>
+        <small class="text-muted"></small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Basic plotting of particles</h5>
+        <small class="text-muted">Both on the fly and from netcdf output files, see the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_plotting.ipynb">plotting tutorial</a></small>
+      </div>
+    </div>
+  </div>
+
+  <p></p>
+
+  <h4>Experimental features</h4>
+  <div class="card-columns">
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Compute particles in any vertical coordinate model</h5>
+        <small class="text-muted">z-level, sigma-level (terrain-following), or rho-level (density-following)</small>
+      </div>
+    </div>
+  </div>
+
+  <p></p>
+
+  <h4>Future development goals</h4>
+  <div class="card-columns">
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>More types of particle diffusion</h5>
+        <small class="text-muted"></small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Support for unstructured grids</h5>
+        <small class="text-muted">Supporting data from hydrodynamic models with fully unstructured grids</small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Parallel execution</h5>
+        <small class="text-muted">Implementing advanced load balancing techniques</small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab">
+        <h5>Advanced control of particles near land boundaries</h5>
+        <small class="text-muted">To reduce the amount of particles 'stuck' near land</small>
+      </div>
+    </div>
+  </div>
+
+  <hr>
   <h2 id="faq">Frequently Asked Questions and further support</h2>
 
-  See the <a href="faq.html">FAQ page</a> for further information on using and developing Parcels. This includes information on <a href="faq.html#developmentstatus">the Parcels development status</a>, <a href="faq.html#designoverview">the Parcels design overview</a>, <a href="faq.html#fieldset_construction">tips on construction of FieldSet objects</a>, <a href="faq.html#kernelwriting">support for writing custom Kernels</a> and <a href="faq.html#outputformat">an explanation of the NetCDF output format</a>.
+  See the <a href="faq.html">FAQ page</a> for further information on using and developing Parcels. This includes information on <a href="faq.html#designoverview">the Parcels design overview</a>, <a href="faq.html#fieldset_construction">tips on construction of FieldSet objects</a>, <a href="faq.html#kernelwriting">support for writing custom Kernels</a> and <a href="faq.html#outputformat">an explanation of the NetCDF output format</a>.
 
   <hr>
   <h2 id="peerreviewedarticles">Peer-reviewed articles using Parcels</h2>
