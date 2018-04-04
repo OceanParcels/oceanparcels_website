@@ -1,4 +1,4 @@
-# Repository for TOPIOS website
+# Repository for the OceanParcels.org website
 
 This git repository holds the code for the oceanparcels website
 
