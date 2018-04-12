@@ -139,13 +139,13 @@
   <p></p>
   <ol>
     <li>Install Anaconda's Miniconda following the steps at <a href="https://conda.io/docs/user-guide/install/">https://conda.io/docs/user-guide/install/</a>.  All the code below assumes that you download the Python-2 version, although Parcels also works with Python-3.  If you're on Linux / macOS, it also assumes that you installed Miniconda-2 to your home directory.</li>
-
+    <p></p>
     <li>Start a terminal (Linux / macOS) or the Anaconda prompt (Windows). Activate the root (or base) environment of your Miniconda and create an environment containing Parcels, all its essential dependencies, and the nice-to-have Jupyter and Basemap package:
     <pre><code class="language-bash">source $HOME/miniconda2/bin/activate root  # Linux / macOS
 activate root                              # Windows
 
 conda create -n py2_parcels -c conda-forge python=2.7 parcels jupyter basemap basemap-data-hires</code></pre></li>
-
+    <p></p>
     <li>Activate the newly created Parcels environment, get a copy of the the Parcels tutorials and examples, and run the simplest of the examples to validate that you have a working Parcels setup:
     <pre><code class="language-bash">source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
 activate py2_parcels                              # Windows
@@ -154,10 +154,11 @@ parcels_get_examples parcels_examples
 cd parcels_examples
 
 python example_peninsula.py --fieldset 100 100</code></pre></li>
-
+    <i>*Note that if you are on macOS and get a compilation error, you may need to accept the Apple xcode license </i> (<code  class="language-bash">xcode-select --install</code>).
+    <p></p>
     <li>Optionally, if you want to run all the examples and tutorials, start Jupyter and open the tutorial notebooks:
     <pre><code class="language-bash">jupyter notebook</code></pre></li>
-
+    <p></p>
     <li>The next time you start a terminal and want to work with Parcels, activate the environment with:
     <pre><code class="language-bash">source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
 activate py2_parcels                              # Windows</code></pre></li>
