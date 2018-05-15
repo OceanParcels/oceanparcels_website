@@ -1,0 +1,179 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>parcels.compiler &#8212; Parcels  documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96368922-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/parcelslogo.png" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for parcels.compiler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">makedirs</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="k">import</span> <span class="n">calcsize</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">getuid</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># Windows does not have getuid(), so define to simply return &#39;tmp&#39;</span>
+    <span class="k">def</span> <span class="nf">getuid</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;tmp&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">get_package_dir</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">get_cache_dir</span><span class="p">():</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s2">&quot;parcels-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">getuid</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">directory</span>
+
+
+<div class="viewcode-block" id="Compiler"><a class="viewcode-back" href="../../index.html#parcels.compiler.Compiler">[docs]</a><span class="k">class</span> <span class="nc">Compiler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A compiler object for creating and loading shared libraries.</span>
+
+<span class="sd">    :arg cc: C compiler executable (can be overriden by exporting the</span>
+<span class="sd">        environment variable ``CC``).</span>
+<span class="sd">    :arg ld: Linker executable (optional, if ``None``, we assume the compiler</span>
+<span class="sd">        can build object files and link in a single invocation, can be</span>
+<span class="sd">        overridden by exporting the environment variable ``LDSHARED``).</span>
+<span class="sd">    :arg cppargs: A list of arguments to the C compiler (optional).</span>
+<span class="sd">    :arg ldargs: A list of arguments to the linker (optional).&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">ld</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="p">[],</span> <span class="n">ldargs</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cc</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CC&#39;</span><span class="p">,</span> <span class="n">cc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ld</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LDSHARED&#39;</span><span class="p">,</span> <span class="n">ld</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cppargs</span> <span class="o">=</span> <span class="n">cppargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ldargs</span> <span class="o">=</span> <span class="n">ldargs</span>
+
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_cc</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cppargs</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">src</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ldargs</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">logfile</span><span class="p">:</span>
+            <span class="n">logfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Compiling: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cc</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">logfile</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">logfile</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;OSError during compilation</span>
+<span class="s2">Please check if compiler exists: </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cc</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">logfile2</span><span class="p">:</span>
+                    <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Error during compilation:</span>
+<span class="s2">Compilation command: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">Source file: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">Log file: </span><span class="si">%s</span><span class="s2"></span>
+
+<span class="s2">Log output: </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cc</span><span class="p">),</span> <span class="n">src</span><span class="p">,</span> <span class="n">logfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">logfile2</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GNUCompiler"><a class="viewcode-back" href="../../index.html#parcels.compiler.GNUCompiler">[docs]</a><span class="k">class</span> <span class="nc">GNUCompiler</span><span class="p">(</span><span class="n">Compiler</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A compiler object for the GNU Linux toolchain.</span>
+
+<span class="sd">    :arg cppargs: A list of arguments to pass to the C compiler</span>
+<span class="sd">         (optional).</span>
+<span class="sd">    :arg ldargs: A list of arguments to pass to the linker (optional).&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="p">[],</span> <span class="n">ldargs</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="n">opt_flags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="s1">&#39;-O3&#39;</span><span class="p">]</span>
+        <span class="n">arch_flag</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m64&#39;</span> <span class="k">if</span> <span class="n">calcsize</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">8</span> <span class="k">else</span> <span class="s1">&#39;-m32&#39;</span><span class="p">]</span>
+        <span class="n">cppargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-Wall&#39;</span><span class="p">,</span> <span class="s1">&#39;-fPIC&#39;</span><span class="p">,</span> <span class="s1">&#39;-I</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_package_dir</span><span class="p">(),</span> <span class="s1">&#39;include&#39;</span><span class="p">)]</span> <span class="o">+</span> <span class="n">opt_flags</span> <span class="o">+</span> <span class="n">cppargs</span>
+        <span class="n">cppargs</span> <span class="o">+=</span> <span class="n">arch_flag</span>
+        <span class="n">ldargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-shared&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ldargs</span> <span class="o">+</span> <span class="n">arch_flag</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GNUCompiler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="n">cppargs</span><span class="p">,</span> <span class="n">ldargs</span><span class="o">=</span><span class="n">ldargs</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

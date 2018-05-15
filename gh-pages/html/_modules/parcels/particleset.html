@@ -1,0 +1,656 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>parcels.particleset &#8212; Parcels  documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96368922-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/parcelslogo.png" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for parcels.particleset</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">parcels.kernel</span> <span class="k">import</span> <span class="n">Kernel</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">UnitConverter</span>
+<span class="kn">from</span> <span class="nn">parcels.particle</span> <span class="k">import</span> <span class="n">JITParticle</span>
+<span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="k">import</span> <span class="n">GNUCompiler</span>
+<span class="kn">from</span> <span class="nn">parcels.kernels.advection</span> <span class="k">import</span> <span class="n">AdvectionRK4</span>
+<span class="kn">from</span> <span class="nn">parcels.particlefile</span> <span class="k">import</span> <span class="n">ParticleFile</span>
+<span class="kn">from</span> <span class="nn">parcels.loggers</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">bisect</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span> <span class="k">as</span> <span class="n">delta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ParticleSet&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="ParticleSet"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet">[docs]</a><span class="k">class</span> <span class="nc">ParticleSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Container class for storing particle and executing kernel over them.</span>
+
+<span class="sd">    Please note that this currently only supports fixed size particle sets.</span>
+
+<span class="sd">    :param fieldset: :mod:`parcels.fieldset.FieldSet` object from which to sample velocity</span>
+<span class="sd">    :param pclass: Optional :mod:`parcels.particle.JITParticle` or</span>
+<span class="sd">                 :mod:`parcels.particle.ScipyParticle` object that defines custom particle</span>
+<span class="sd">    :param lon: List of initial longitude values for particles</span>
+<span class="sd">    :param lat: List of initial latitude values for particles</span>
+<span class="sd">    :param depth: Optional list of initial depth values for particles. Default is 0m</span>
+<span class="sd">    :param time: Optional list of initial time values for particles. Default is fieldset.U.grid.time[0]</span>
+<span class="sd">    :param repeatdt: Optional interval (in seconds) on which to repeat the release of the ParticleSet</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">JITParticle</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="p">[],</span> <span class="n">lat</span><span class="o">=</span><span class="p">[],</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="n">fieldset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">check_complete</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">convert_to_list</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+            <span class="c1"># Convert numpy arrays and single integers/floats to one-dimensional lists</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">var</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">var</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">var</span>
+
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">convert_to_list</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">convert_to_list</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">depth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">depth</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">depth</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">convert_to_list</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="n">time</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="p">[</span><span class="n">time</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">time</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">datetime</span><span class="p">)</span> <span class="k">else</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_origin</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;If fieldset.U.grid.time_origin is not a date, time of a particle must be a double&#39;</span><span class="p">)</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="p">[((</span><span class="n">t</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">))</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">)</span> <span class="k">else</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time</span><span class="p">]</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">=</span> <span class="n">repeatdt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">repeatdt</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span> <span class="k">else</span> <span class="n">repeatdt</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span><span class="p">(</span><span class="s1">&#39;Repeatdt should be &gt; 0&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="p">(</span><span class="s1">&#39;All Particle.time should be the same when repeatdt is not None&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatlon</span> <span class="o">=</span> <span class="n">lon</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatlat</span> <span class="o">=</span> <span class="n">lat</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatdepth</span> <span class="o">=</span> <span class="n">depth</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatpclass</span> <span class="o">=</span> <span class="n">pclass</span>
+
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">particles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">pclass</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span> <span class="o">=</span> <span class="n">pclass</span><span class="o">.</span><span class="n">getPType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
+            <span class="c1"># Allocate underlying data for C-allocated particles</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">cptr</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">cptr</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">lon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">lat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Initialise from lists of lon/lat coordinates</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="ow">and</span> <span class="n">size</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pclass</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cptr</span><span class="o">=</span><span class="n">cptr</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Latitude and longitude required for generating ParticleSet&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ParticleSet.from_list"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.from_list">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet from lists of lon and lat</span>
+
+<span class="sd">        :param fieldset: :mod:`parcels.fieldset.FieldSet` object from which to sample velocity</span>
+<span class="sd">        :param pclass: mod:`parcels.particle.JITParticle` or :mod:`parcels.particle.ScipyParticle`</span>
+<span class="sd">                 object that defines custom particle</span>
+<span class="sd">        :param lon: List of initial longitude values for particles</span>
+<span class="sd">        :param lat: List of initial latitude values for particles</span>
+<span class="sd">        :param depth: Optional list of initial depth values for particles. Default is 0m</span>
+<span class="sd">        :param time: Optional list of start time values for particles. Default is fieldset.U.time[0]</span>
+<span class="sd">        :param repeatdt: Optional interval (in seconds) on which to repeat the release of the ParticleSet</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="n">repeatdt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ParticleSet.from_line"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.from_line">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_line</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet from start/finish coordinates with equidistant spacing</span>
+<span class="sd">        Note that this method uses simple numpy.linspace calls and does not take into account</span>
+<span class="sd">        great circles, so may not be a exact on a globe</span>
+
+<span class="sd">        :param fieldset: :mod:`parcels.fieldset.FieldSet` object from which to sample velocity</span>
+<span class="sd">        :param pclass: mod:`parcels.particle.JITParticle` or :mod:`parcels.particle.ScipyParticle`</span>
+<span class="sd">                 object that defines custom particle</span>
+<span class="sd">        :param start: Starting point for initialisation of particles on a straight line.</span>
+<span class="sd">        :param finish: End point for initialisation of particles on a straight line.</span>
+<span class="sd">        :param size: Initial size of particle set</span>
+<span class="sd">        :param depth: Optional list of initial depth values for particles. Default is 0m</span>
+<span class="sd">        :param time: Optional start time value for particles. Default is fieldset.U.time[0]</span>
+<span class="sd">        :param repeatdt: Optional interval (in seconds) on which to repeat the release of the ParticleSet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">finish</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">finish</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="n">repeatdt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ParticleSet.from_field"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.from_field">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_field</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">start_field</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;monte_carlo&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet randomly drawn according to distribution from a field</span>
+
+<span class="sd">        :param fieldset: :mod:`parcels.fieldset.FieldSet` object from which to sample velocity</span>
+<span class="sd">        :param pclass: mod:`parcels.particle.JITParticle` or :mod:`parcels.particle.ScipyParticle`</span>
+<span class="sd">                 object that defines custom particle</span>
+<span class="sd">        :param start_field: Field for initialising particles stochastically according to the presented density field.</span>
+<span class="sd">        :param size: Initial size of particle set</span>
+<span class="sd">        :param mode: Type of random sampling. Currently only &#39;monte_carlo&#39; is implemented</span>
+<span class="sd">        :param depth: Optional list of initial depth values for particles. Default is 0m</span>
+<span class="sd">        :param time: Optional start time value for particles. Default is fieldset.U.time[0]</span>
+<span class="sd">        :param repeatdt: Optional interval (in seconds) on which to repeat the release of the ParticleSet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lonwidth</span> <span class="o">=</span> <span class="p">(</span><span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">latwidth</span> <span class="o">=</span> <span class="p">(</span><span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="k">def</span> <span class="nf">add_jitter</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">width</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">width</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;monte_carlo&#39;</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">start_field</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_field</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">start_field</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+            <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">inds</span><span class="p">,</span> <span class="n">start_field</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="n">lon</span><span class="p">]</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">lat</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lon</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">add_jitter</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lonwidth</span><span class="p">,</span> <span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">add_jitter</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">latwidth</span><span class="p">,</span> <span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">start_field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Mode </span><span class="si">%s</span><span class="s1"> not implemented. Please use &quot;monte carlo&quot; algorithm instead.&#39;</span> <span class="o">%</span> <span class="n">mode</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="n">repeatdt</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particles</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">particles</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="ParticleSet.add"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particles</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to add particles to the ParticleSet&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">ParticleSet</span><span class="p">):</span>
+            <span class="n">particles</span> <span class="o">=</span> <span class="n">particles</span><span class="o">.</span><span class="n">particles</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="n">particles</span> <span class="o">=</span> <span class="p">[</span><span class="n">particles</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">particles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">,</span> <span class="n">particles</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
+            <span class="n">particles_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">_cptr</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">particles</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span><span class="p">,</span> <span class="n">particles_data</span><span class="p">)</span>
+            <span class="c1"># Update C-pointer on particles</span>
+            <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">pdata</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span><span class="p">):</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">_cptr</span> <span class="o">=</span> <span class="n">pdata</span></div>
+
+<div class="viewcode-block" id="ParticleSet.remove"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to remove particles from the ParticleSet, based on their `indices`&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="n">particles</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">particles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">particles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
+            <span class="c1"># Update C-pointer on particles</span>
+            <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">pdata</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_particle_data</span><span class="p">):</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">_cptr</span> <span class="o">=</span> <span class="n">pdata</span>
+        <span class="k">return</span> <span class="n">particles</span></div>
+
+<div class="viewcode-block" id="ParticleSet.execute"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">AdvectionRK4</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">runtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+                <span class="n">moviedt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">movie_background_field</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute a given kernel function over the particle set for</span>
+<span class="sd">        multiple timesteps. Optionally also provide sub-timestepping</span>
+<span class="sd">        for particle output.</span>
+
+<span class="sd">        :param pyfunc: Kernel function to execute. This can be the name of a</span>
+<span class="sd">                       defined Python function or a :class:`parcels.kernel.Kernel` object.</span>
+<span class="sd">                       Kernels can be concatenated using the + operator</span>
+<span class="sd">        :param endtime: End time for the timestepping loop.</span>
+<span class="sd">                        It is either a datetime object or a positive double.</span>
+<span class="sd">        :param runtime: Length of the timestepping loop. Use instead of endtime.</span>
+<span class="sd">                        It is either a timedelta object or a positive double.</span>
+<span class="sd">        :param dt: Timestep interval to be passed to the kernel.</span>
+<span class="sd">                   It is either a timedelta object or a double.</span>
+<span class="sd">                   Use a negative value for a backward-in-time simulation.</span>
+<span class="sd">        :param moviedt:  Interval for inner sub-timestepping (leap), which dictates</span>
+<span class="sd">                         the update frequency of animation.</span>
+<span class="sd">                         It is either a timedelta object or a positive double.</span>
+<span class="sd">                         None value means no animation.</span>
+<span class="sd">        :param output_file: :mod:`parcels.particlefile.ParticleFile` object for particle output</span>
+<span class="sd">        :param recovery: Dictionary with additional `:mod:parcels.kernels.error`</span>
+<span class="sd">                         recovery kernels to allow custom recovery behaviour in case of</span>
+<span class="sd">                         kernel errors.</span>
+<span class="sd">        :param movie_background_field: field plotted as background in the movie if moviedt is set.</span>
+<span class="sd">                                       &#39;vector&#39; shows the velocity as a vector field.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># check if pyfunc has changed since last compile. If so, recompile</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">pyfunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">pyfunc</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">pyfunc</span><span class="p">):</span>
+            <span class="c1"># Generate and store Kernel</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pyfunc</span><span class="p">,</span> <span class="n">Kernel</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">pyfunc</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Kernel</span><span class="p">(</span><span class="n">pyfunc</span><span class="p">)</span>
+            <span class="c1"># Prepare JIT kernel execution</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">remove_lib</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">compiler</span><span class="o">=</span><span class="n">GNUCompiler</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">load_lib</span><span class="p">()</span>
+
+        <span class="c1"># Convert all time variables to seconds</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">endtime</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;endtime must be either a datetime or a double&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">endtime</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+            <span class="n">endtime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">endtime</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">endtime</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;If fieldset.U.grid.time_origin is not a date, execution endtime must be a double&#39;</span><span class="p">)</span>
+            <span class="n">endtime</span> <span class="o">=</span> <span class="p">(</span><span class="n">endtime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="n">runtime</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">outputdt</span> <span class="o">=</span> <span class="n">output_file</span><span class="o">.</span><span class="n">outputdt</span> <span class="k">if</span> <span class="n">output_file</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outputdt</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="n">outputdt</span> <span class="o">=</span> <span class="n">outputdt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">moviedt</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="n">moviedt</span> <span class="o">=</span> <span class="n">moviedt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">runtime</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">runtime</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;runtime must be positive&#39;</span>
+        <span class="k">assert</span> <span class="n">outputdt</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">outputdt</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;outputdt must be positive&#39;</span>
+        <span class="k">assert</span> <span class="n">moviedt</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">moviedt</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;moviedt must be positive&#39;</span>
+
+        <span class="c1"># Set particle.time defaults based on sign of dt, if not set at ParticleSet construction</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">):</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Derive _starttime and endtime from arguments or fieldset defaults</span>
+        <span class="k">if</span> <span class="n">runtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">endtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Only one of (endtime, runtime) can be specified&#39;</span><span class="p">)</span>
+        <span class="n">_starttime</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">time</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span> <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">max</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">time</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span> <span class="o">=</span> <span class="n">_starttime</span>
+        <span class="k">if</span> <span class="n">runtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">endtime</span> <span class="o">=</span> <span class="n">_starttime</span> <span class="o">+</span> <span class="n">runtime</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">endtime</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">endtime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">_starttime</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-5</span> <span class="ow">or</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">runtime</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">runtime</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">endtime</span> <span class="o">=</span> <span class="n">_starttime</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning_once</span><span class="p">(</span><span class="s2">&quot;dt or runtime are zero, or endtime is equal to Particle.time. &quot;</span>
+                                <span class="s2">&quot;The kernels will be executed once, without incrementing time&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Initialise particle timestepping</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
+
+        <span class="c1"># First write output_file, because particles could have been added</span>
+        <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_starttime</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">moviedt</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">movie_background_field</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="n">_starttime</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">moviedt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">moviedt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">_starttime</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span><span class="p">:</span>
+            <span class="n">next_prelease</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span> <span class="o">+</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">next_prelease</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span> <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span>
+        <span class="n">next_output</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="n">outputdt</span> <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">time</span> <span class="o">-</span> <span class="n">outputdt</span>
+        <span class="n">next_movie</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="n">moviedt</span> <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">time</span> <span class="o">-</span> <span class="n">moviedt</span>
+        <span class="n">next_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">))</span>
+
+        <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-12</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">endtime</span> <span class="ow">and</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">time</span> <span class="o">&gt;</span> <span class="n">endtime</span> <span class="ow">and</span> <span class="n">dt</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">next_prelease</span><span class="p">,</span> <span class="n">next_input</span><span class="p">,</span> <span class="n">next_output</span><span class="p">,</span> <span class="n">next_movie</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">next_prelease</span><span class="p">,</span> <span class="n">next_input</span><span class="p">,</span> <span class="n">next_output</span><span class="p">,</span> <span class="n">next_movie</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="n">recovery</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span><span class="o">-</span><span class="n">next_prelease</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="n">pset_new</span> <span class="o">=</span> <span class="n">ParticleSet</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">repeatlon</span><span class="p">,</span>
+                                       <span class="n">lat</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">repeatlat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">repeatdepth</span><span class="p">,</span>
+                                       <span class="n">pclass</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">repeatpclass</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pset_new</span><span class="p">:</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pset_new</span><span class="p">)</span>
+                <span class="n">next_prelease</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span><span class="o">-</span><span class="n">next_output</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
+                    <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+                <span class="n">next_output</span> <span class="o">+=</span> <span class="n">outputdt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span><span class="o">-</span><span class="n">next_movie</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">movie_background_field</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">next_movie</span> <span class="o">+=</span> <span class="n">moviedt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="n">next_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ParticleSet.show"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">land</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to &#39;show&#39; a Parcels ParticleSet</span>
+
+<span class="sd">        :param particles: Boolean whether to show particles</span>
+<span class="sd">        :param show_time: Time at which to show the ParticleSet</span>
+<span class="sd">        :param field: Field to plot under particles (either None, a Field object, or &#39;vector&#39;)</span>
+<span class="sd">        :param domain: Four-vector (latN, latS, lonE, lonW) defining domain to show</span>
+<span class="sd">        :param land: Boolean whether to show land (in field=&#39;vector&#39; mode only)</span>
+<span class="sd">        :param vmin: minimum colour scale (only in single-plot mode)</span>
+<span class="sd">        :param vmax: maximum colour scale (only in single-plot mode)</span>
+<span class="sd">        :param savefile: Name of a file to save the plot to</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Visualisation is not possible. Matplotlib not found.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">mpl_toolkits.basemap</span> <span class="k">import</span> <span class="n">Basemap</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">Basemap</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">plon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">lon</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
+        <span class="n">plat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">lat</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
+        <span class="n">show_time</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">time</span> <span class="k">if</span> <span class="n">show_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">show_time</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">show_time</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+            <span class="n">show_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">show_time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">show_time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;If fieldset.U.grid.time_origin is not a date, showtime cannot be a date in particleset.show()&#39;</span><span class="p">)</span>
+            <span class="n">show_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">show_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">show_time</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="n">show_time</span> <span class="o">=</span> <span class="n">show_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">show_time</span><span class="p">):</span>
+            <span class="n">show_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">domain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">nearest_index</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+                <span class="sd">&quot;&quot;&quot;returns index of the nearest value in array using O(log n) bisection method&quot;&quot;&quot;</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">-</span> <span class="n">value</span><span class="p">)):</span>
+                    <span class="k">return</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">y</span>
+
+            <span class="n">latN</span> <span class="o">=</span> <span class="n">nearest_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">latS</span> <span class="o">=</span> <span class="n">nearest_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">domain</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">lonE</span> <span class="o">=</span> <span class="n">nearest_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">domain</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">lonW</span> <span class="o">=</span> <span class="n">nearest_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">domain</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">latN</span><span class="p">,</span> <span class="n">latS</span><span class="p">,</span> <span class="n">lonE</span><span class="p">,</span> <span class="n">lonW</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;vector&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">land</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">particles</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">plon</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">plat</span><span class="p">),</span> <span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="n">lonW</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="n">lonE</span><span class="p">]])</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">latS</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">latN</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">Field</span><span class="p">):</span>
+                    <span class="n">field</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+                <span class="n">field</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">with_particles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="n">show_time</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+            <span class="n">xlbl</span> <span class="o">=</span> <span class="s1">&#39;Zonal distance [m]&#39;</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="n">UnitConverter</span> <span class="k">else</span> <span class="s1">&#39;Longitude [degrees]&#39;</span>
+            <span class="n">ylbl</span> <span class="o">=</span> <span class="s1">&#39;Meridional distance [m]&#39;</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">units</span><span class="p">)</span> <span class="ow">is</span> <span class="n">UnitConverter</span> <span class="k">else</span> <span class="s1">&#39;Latitude [degrees]&#39;</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlbl</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylbl</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">Basemap</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Visualisation is not possible. Basemap not found.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">show_time</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">periods</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">time_index</span><span class="p">(</span><span class="n">show_time</span><span class="p">)</span>
+            <span class="n">show_time</span> <span class="o">-=</span> <span class="n">periods</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lon</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">lat</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">lon</span><span class="p">[</span><span class="n">lonW</span><span class="p">:</span><span class="n">lonE</span><span class="p">]</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">lat</span><span class="p">[</span><span class="n">latS</span><span class="p">:</span><span class="n">latN</span><span class="p">]</span>
+
+            <span class="c1"># configuring plot</span>
+            <span class="n">lat_median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+            <span class="n">lon_median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">Basemap</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;merc&#39;</span><span class="p">,</span> <span class="n">lat_0</span><span class="o">=</span><span class="n">lat_median</span><span class="p">,</span> <span class="n">lon_0</span><span class="o">=</span><span class="n">lon_median</span><span class="p">,</span>
+                        <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">area_thresh</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                        <span class="n">llcrnrlon</span><span class="o">=</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">llcrnrlat</span><span class="o">=</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">urcrnrlon</span><span class="o">=</span><span class="n">lon</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">urcrnrlat</span><span class="o">=</span><span class="n">lat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">parallels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">abs</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">lat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">parallels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">parallels</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">parallels</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">meridians</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lon</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">abs</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">lon</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">meridians</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">meridians</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">meridians</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">land</span><span class="p">:</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">drawcoastlines</span><span class="p">()</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">fillcontinents</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;burlywood&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="s1">&#39;vector&#39;</span><span class="p">:</span>
+                <span class="c1"># formating velocity data for quiver plotting</span>
+                <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">temporal_interpolate_fullfield</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">show_time</span><span class="p">))</span>
+                <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">temporal_interpolate_fullfield</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">show_time</span><span class="p">))</span>
+                <span class="n">U</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">latS</span><span class="p">:</span><span class="n">latN</span><span class="p">,</span> <span class="n">lonW</span><span class="p">:</span><span class="n">lonE</span><span class="p">]</span>
+                <span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">latS</span><span class="p">:</span><span class="n">latN</span><span class="p">,</span> <span class="n">lonW</span><span class="p">:</span><span class="n">lonE</span><span class="p">]</span>
+                <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">U</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">))])</span>
+                <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">V</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">))])</span>
+                <span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">U</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">V</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">normU</span> <span class="o">=</span> <span class="n">U</span><span class="o">/</span><span class="n">speed</span>
+                <span class="n">normV</span> <span class="o">=</span> <span class="n">V</span><span class="o">/</span><span class="n">speed</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">))</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span>
+
+                <span class="c1"># plotting velocity vector field</span>
+                <span class="n">vecs</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">normU</span><span class="p">,</span> <span class="n">normV</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gist_ncar</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">latlon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;5%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="s2">&quot;2%&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">field</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Plotting of both a field and land=True is not supported in this version of Parcels&#39;</span><span class="p">)</span>
+            <span class="c1"># plotting particle data</span>
+            <span class="k">if</span> <span class="n">particles</span><span class="p">:</span>
+                <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">plon</span><span class="p">,</span> <span class="n">plat</span><span class="p">)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">:</span>
+            <span class="n">timestr</span> <span class="o">=</span> <span class="s1">&#39; after &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">delta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">show_time</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; hours&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">date_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">show_time</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">))</span>
+            <span class="n">timestr</span> <span class="o">=</span> <span class="s1">&#39; on &#39;</span> <span class="o">+</span> <span class="n">date_str</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">date_str</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">19</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">particles</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Particles&#39;</span> <span class="o">+</span> <span class="n">timestr</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">field</span> <span class="ow">is</span> <span class="s1">&#39;vector&#39;</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Particles and velocity field&#39;</span> <span class="o">+</span> <span class="n">timestr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Particles and &#39;</span><span class="o">+</span><span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">timestr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="s1">&#39;vector&#39;</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Velocity field&#39;</span> <span class="o">+</span> <span class="n">timestr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">timestr</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">savefile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefile</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Plot saved to &#39;</span><span class="o">+</span><span class="n">savefile</span><span class="o">+</span><span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ParticleSet.density"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.density">[docs]</a>    <span class="k">def</span> <span class="nf">density</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">particle_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">area_scale</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to calculate the density of particles in a ParticleSet from their locations,</span>
+<span class="sd">        through a 2D histogram.</span>
+
+<span class="sd">        :param field: Optional :mod:`parcels.field.Field` object to calculate the histogram</span>
+<span class="sd">                      on. Default is `fieldset.U`</span>
+<span class="sd">        :param particle_val: Optional numpy-array of values to weigh each particle with,</span>
+<span class="sd">                             or string name of particle variable to use weigh particles with.</span>
+<span class="sd">                             Default is None, resulting in a value of 1 for each particle</span>
+<span class="sd">        :param relative: Boolean to control whether the density is scaled by the total</span>
+<span class="sd">                         weight of all particles. Default is False</span>
+<span class="sd">        :param area_scale: Boolean to control whether the density is scaled by the area</span>
+<span class="sd">                           (in m^2) of each grid cell. Default is False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">field</span> <span class="o">=</span> <span class="n">field</span> <span class="k">if</span> <span class="n">field</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">U</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">particle_val</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">particle_val</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">particle_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">particle_val</span> <span class="o">=</span> <span class="n">particle_val</span> <span class="k">if</span> <span class="n">particle_val</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">))</span>
+        <span class="n">density</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">pi</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>  <span class="c1"># breaks if either p.xi, p.yi, p.zi, p.ti do not exist (in scipy) or field not in fieldset</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">ti</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">igrid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># xi, yi, zi, ti, not initialised</span>
+                    <span class="k">raise</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+                <span class="n">xi</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">xi</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">igrid</span><span class="p">]</span>
+                <span class="n">yi</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">yi</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">igrid</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">search_indices</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">search2D</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">density</span><span class="p">[</span><span class="n">yi</span><span class="p">,</span> <span class="n">xi</span><span class="p">]</span> <span class="o">+=</span> <span class="n">particle_val</span><span class="p">[</span><span class="n">pi</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">relative</span><span class="p">:</span>
+            <span class="n">density</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">particle_val</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">area_scale</span><span class="p">:</span>
+            <span class="n">density</span> <span class="o">/=</span> <span class="n">field</span><span class="o">.</span><span class="n">cell_areas</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">density</span></div>
+
+<div class="viewcode-block" id="ParticleSet.Kernel"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.Kernel">[docs]</a>    <span class="k">def</span> <span class="nf">Kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pyfunc</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wrapper method to convert a `pyfunc` into a :class:`parcels.kernel.Kernel` object</span>
+<span class="sd">        based on `fieldset` and `ptype` of the ParticleSet&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">pyfunc</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="n">c_include</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ParticleSet.ParticleFile"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.ParticleFile">[docs]</a>    <span class="k">def</span> <span class="nf">ParticleFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wrapper method to initialise a :class:`parcels.particlefile.ParticleFile`</span>
+<span class="sd">        object from the ParticleSet&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ParticleFile</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">particleset</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

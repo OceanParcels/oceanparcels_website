@@ -1,0 +1,213 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>parcels.rng &#8212; Parcels  documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96368922-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/parcelslogo.png" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for parcels.rng</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="k">import</span> <span class="n">get_cache_dir</span><span class="p">,</span> <span class="n">GNUCompiler</span>
+<span class="kn">from</span> <span class="nn">parcels.loggers</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">numpy.ctypeslib</span> <span class="k">as</span> <span class="nn">npct</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_float</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;randint&#39;</span><span class="p">,</span> <span class="s1">&#39;normalvariate&#39;</span><span class="p">,</span> <span class="s1">&#39;expovariate&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Random</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">stmt_import</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;#include &quot;parcels.h&quot;</span><span class="se">\n\n</span><span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_seed</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern void pcls_seed(int seed){</span>
+<span class="s2">  parcels_seed(seed);</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_random</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern float pcls_random(){</span>
+<span class="s2">  return parcels_random();</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_uniform</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern float pcls_uniform(float low, float high){</span>
+<span class="s2">  return parcels_uniform(low, high);</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_randint</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern int pcls_randint(int low, int high){</span>
+<span class="s2">  return parcels_randint(low, high);</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_normalvariate</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern float pcls_normalvariate(float loc, float scale){</span>
+<span class="s2">  return parcels_normalvariate(loc, scale);</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_expovariate</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern float pcls_expovariate(float lamb){</span>
+<span class="s2">  return parcels_expovariate(lamb);</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">ccode</span> <span class="o">=</span> <span class="n">stmt_import</span> <span class="o">+</span> <span class="n">fnct_seed</span>
+    <span class="n">ccode</span> <span class="o">+=</span> <span class="n">fnct_random</span> <span class="o">+</span> <span class="n">fnct_uniform</span> <span class="o">+</span> <span class="n">fnct_randint</span> <span class="o">+</span> <span class="n">fnct_normalvariate</span> <span class="o">+</span> <span class="n">fnct_expovariate</span>
+    <span class="n">src_file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="s2">&quot;random.c&quot;</span><span class="p">)</span>
+    <span class="n">lib_file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="s2">&quot;random.so&quot;</span><span class="p">)</span>
+    <span class="n">log_file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="s2">&quot;random.log&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compiler</span><span class="o">=</span><span class="n">GNUCompiler</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccode</span><span class="p">)</span>
+            <span class="n">compiler</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Compiled </span><span class="si">%s</span><span class="s2"> ==&gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;random&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span> <span class="o">=</span> <span class="n">npct</span><span class="o">.</span><span class="n">load_library</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span>
+
+
+<span class="n">parcels_random</span> <span class="o">=</span> <span class="n">Random</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="seed"><a class="viewcode-back" href="../../index.html#parcels.rng.seed">[docs]</a><span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sets the seed for parcels internal RNG&quot;&quot;&quot;</span>
+    <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_seed</span><span class="p">(</span><span class="n">c_int</span><span class="p">(</span><span class="n">seed</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="random"><a class="viewcode-back" href="../../index.html#parcels.rng.random">[docs]</a><span class="k">def</span> <span class="nf">random</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Returns a random float between 0. and 1.&quot;&quot;&quot;</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_random</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
+    <span class="k">return</span> <span class="n">rnd</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="uniform"><a class="viewcode-back" href="../../index.html#parcels.rng.uniform">[docs]</a><span class="k">def</span> <span class="nf">uniform</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a random float between `low` and `high`&quot;&quot;&quot;</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_uniform</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">]</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
+    <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">low</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">high</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="randint"><a class="viewcode-back" href="../../index.html#parcels.rng.randint">[docs]</a><span class="k">def</span> <span class="nf">randint</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a random int between `low` and `high`&quot;&quot;&quot;</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_randint</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_int</span>
+    <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_int</span><span class="p">(</span><span class="n">low</span><span class="p">),</span> <span class="n">c_int</span><span class="p">(</span><span class="n">high</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="normalvariate"><a class="viewcode-back" href="../../index.html#parcels.rng.normalvariate">[docs]</a><span class="k">def</span> <span class="nf">normalvariate</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a random float on normal distribution with mean `loc` and width `scale`&quot;&quot;&quot;</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_normalvariate</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">]</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
+    <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">loc</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">scale</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="expovariate"><a class="viewcode-back" href="../../index.html#parcels.rng.expovariate">[docs]</a><span class="k">def</span> <span class="nf">expovariate</span><span class="p">(</span><span class="n">lamb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a randome float of an exponential distribution with parameter lamb&quot;&quot;&quot;</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_expovariate</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="n">c_float</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
+    <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">lamb</span><span class="p">))</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>
