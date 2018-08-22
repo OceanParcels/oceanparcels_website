@@ -85,13 +85,13 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span> <span class="s1">&#39;KernelError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfBoundsError&#39;</span><span class="p">,</span> <span class="s1">&#39;recovery_map&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="ErrorCode"><a class="viewcode-back" href="../../../index.html#parcels.kernels.error.ErrorCode">[docs]</a><span class="k">class</span> <span class="nc">ErrorCode</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ErrorCode</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
     <span class="n">Success</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">Repeat</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">Delete</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">Error</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">ErrorOutOfBounds</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">ErrorTimeExtrapolation</span> <span class="o">=</span> <span class="mi">5</span></div>
+    <span class="n">ErrorTimeExtrapolation</span> <span class="o">=</span> <span class="mi">5</span>
 
 
 <div class="viewcode-block" id="KernelError"><a class="viewcode-back" href="../../../index.html#parcels.kernels.error.KernelError">[docs]</a><span class="k">class</span> <span class="nc">KernelError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
@@ -108,8 +108,8 @@
 
 
 <span class="k">def</span> <span class="nf">parse_particletime</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">fieldset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_origin</span><span class="p">:</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fieldset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">time_origin</span><span class="p">:</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">time</span>
 
 
@@ -188,7 +188,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>

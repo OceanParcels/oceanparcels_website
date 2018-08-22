@@ -89,7 +89,6 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grids</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">add_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
         <span class="n">grid</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">grid</span>
@@ -112,8 +111,23 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">existing_grid</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">field</span><span class="o">.</span><span class="n">igrid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">grid</span><span class="p">)</span></div>
+        <span class="n">field</span><span class="o">.</span><span class="n">igrid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">grid</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GridSet.dimrange"><a class="viewcode-back" href="../../index.html#parcels.gridset.GridSet.dimrange">[docs]</a>    <span class="k">def</span> <span class="nf">dimrange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns maximum value of a dimension (lon, lat, depth or time)</span>
+<span class="sd">           on &#39;left&#39; side and minimum value on &#39;right&#39; side for all grids</span>
+<span class="sd">           in a gridset. Useful for finding e.g. longitude range that</span>
+<span class="sd">           overlaps on all grids in a gridset&quot;&quot;&quot;</span>
+
+        <span class="n">maxleft</span><span class="p">,</span> <span class="n">minright</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
+            <span class="n">maxleft</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxleft</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">minright</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">minright</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">maxleft</span><span class="p">,</span> <span class="n">minright</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -136,7 +150,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>

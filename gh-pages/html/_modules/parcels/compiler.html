@@ -78,7 +78,7 @@
             
   <h1>Source code for parcels.compiler</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">makedirs</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">getenv</span><span class="p">,</span> <span class="n">makedirs</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="k">import</span> <span class="n">calcsize</span>
 <span class="k">try</span><span class="p">:</span>
@@ -103,17 +103,17 @@
 <div class="viewcode-block" id="Compiler"><a class="viewcode-back" href="../../index.html#parcels.compiler.Compiler">[docs]</a><span class="k">class</span> <span class="nc">Compiler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A compiler object for creating and loading shared libraries.</span>
 
-<span class="sd">    :arg cc: C compiler executable (can be overriden by exporting the</span>
-<span class="sd">        environment variable ``CC``).</span>
-<span class="sd">    :arg ld: Linker executable (optional, if ``None``, we assume the compiler</span>
-<span class="sd">        can build object files and link in a single invocation, can be</span>
-<span class="sd">        overridden by exporting the environment variable ``LDSHARED``).</span>
+<span class="sd">    :arg cc: C compiler executable (uses environment variable ``CC`` if not provided).</span>
 <span class="sd">    :arg cppargs: A list of arguments to the C compiler (optional).</span>
 <span class="sd">    :arg ldargs: A list of arguments to the linker (optional).&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">ld</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="p">[],</span> <span class="n">ldargs</span><span class="o">=</span><span class="p">[]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cc</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CC&#39;</span><span class="p">,</span> <span class="n">cc</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ld</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LDSHARED&#39;</span><span class="p">,</span> <span class="n">ld</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ldargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cppargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cppargs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">ldargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ldargs</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cc</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CC&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">cc</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cppargs</span> <span class="o">=</span> <span class="n">cppargs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ldargs</span> <span class="o">=</span> <span class="n">ldargs</span>
 
@@ -144,7 +144,12 @@
 <span class="sd">    :arg cppargs: A list of arguments to pass to the C compiler</span>
 <span class="sd">         (optional).</span>
 <span class="sd">    :arg ldargs: A list of arguments to pass to the linker (optional).&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="p">[],</span> <span class="n">ldargs</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ldargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cppargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cppargs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">ldargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ldargs</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="n">opt_flags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="s1">&#39;-O3&#39;</span><span class="p">]</span>
         <span class="n">arch_flag</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m64&#39;</span> <span class="k">if</span> <span class="n">calcsize</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">8</span> <span class="k">else</span> <span class="s1">&#39;-m32&#39;</span><span class="p">]</span>
         <span class="n">cppargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-Wall&#39;</span><span class="p">,</span> <span class="s1">&#39;-fPIC&#39;</span><span class="p">,</span> <span class="s1">&#39;-I</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_package_dir</span><span class="p">(),</span> <span class="s1">&#39;include&#39;</span><span class="p">)]</span> <span class="o">+</span> <span class="n">opt_flags</span> <span class="o">+</span> <span class="n">cppargs</span>
@@ -173,7 +178,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>

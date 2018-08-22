@@ -168,19 +168,20 @@
         <span class="c1"># Generate the kernel function and add the outer loop</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
             <span class="n">kernelgen</span> <span class="o">=</span> <span class="n">KernelGenerator</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">ptype</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">field_args</span>
             <span class="n">kernel_ccode</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">py_ast</span><span class="p">),</span>
                                               <span class="bp">self</span><span class="o">.</span><span class="n">funcvars</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">field_args</span>
-            <span class="k">if</span> <span class="s1">&#39;UV&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">:</span>
-                <span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="s1">&#39;UV&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fieldset</span>
-                <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;cosU&#39;</span><span class="p">,</span> <span class="s1">&#39;sinU&#39;</span><span class="p">,</span> <span class="s1">&#39;cosV&#39;</span><span class="p">,</span> <span class="s1">&#39;sinV&#39;</span><span class="p">]:</span>
-                    <span class="k">if</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vector_field_args</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">vector_field_args</span>
+            <span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span>
+            <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_field_args</span><span class="p">:</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+                <span class="n">Wname</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">W</span> <span class="k">else</span> <span class="s1">&#39;not_defined&#39;</span>
+                <span class="k">for</span> <span class="n">sF</span> <span class="ow">in</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Wname</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">sF</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">:</span>
                         <span class="k">try</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="n">sF</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">sF</span><span class="p">)</span>
                         <span class="k">except</span><span class="p">:</span>
                             <span class="k">continue</span>
-                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="s1">&#39;UV&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">const_args</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">const_args</span>
             <span class="n">loopgen</span> <span class="o">=</span> <span class="n">LoopGenerator</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">ptype</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">c_include</span><span class="p">):</span>
@@ -266,7 +267,12 @@
 <div class="viewcode-block" id="Kernel.execute_python"><a class="viewcode-back" href="../../index.html#parcels.kernel.Kernel.execute_python">[docs]</a>    <span class="k">def</span> <span class="nf">execute_python</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Performs the core update loop via Python&quot;&quot;&quot;</span>
         <span class="n">sign_dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="c1"># back up variables in case of ErrorCode.Repeat</span>
+        <span class="n">p_var_back</span> <span class="o">=</span> <span class="p">{}</span>
+
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">particles</span><span class="p">:</span>
+            <span class="n">ptype</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">getPType</span><span class="p">()</span>
             <span class="c1"># Don&#39;t execute particles that aren&#39;t started yet</span>
             <span class="n">sign_end_part</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">sign_end_part</span> <span class="o">!=</span> <span class="n">sign_dt</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">dt</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
@@ -275,6 +281,8 @@
             <span class="c1"># Compute min/max dt for first timestep</span>
             <span class="n">dt_pos</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">dt</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">))</span>
             <span class="k">while</span> <span class="n">dt_pos</span> <span class="o">&gt;</span> <span class="mf">1e-6</span> <span class="ow">or</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ptype</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+                    <span class="n">p_var_back</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyfunc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">sign_dt</span> <span class="o">*</span> <span class="n">dt_pos</span><span class="p">)</span>
                 <span class="k">except</span> <span class="n">FieldSamplingError</span> <span class="k">as</span> <span class="n">fse</span><span class="p">:</span>
@@ -298,8 +306,11 @@
                     <span class="k">continue</span>
                 <span class="k">elif</span> <span class="n">res</span> <span class="o">==</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Repeat</span><span class="p">:</span>
                     <span class="c1"># Try again without time update</span>
+                    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ptype</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">]:</span>
+                            <span class="nb">setattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p_var_back</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
                     <span class="n">dt_pos</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">dt</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">))</span>
-                    <span class="k">continue</span>
+                    <span class="k">break</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">break</span>  <span class="c1"># Failure - stop time loop</span></div>
 
@@ -328,15 +339,18 @@
         <span class="c1"># Remove all particles that signalled deletion</span>
         <span class="n">remove_deleted</span><span class="p">(</span><span class="n">pset</span><span class="p">)</span>
 
-        <span class="c1"># Idenitify particles that threw errors</span>
+        <span class="c1"># Identify particles that threw errors</span>
         <span class="n">error_particles</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">particles</span>
-                           <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Repeat</span><span class="p">]]</span>
+                           <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">!=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span><span class="p">]</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">error_particles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># Apply recovery kernel</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">error_particles</span><span class="p">:</span>
-                <span class="n">recovery_kernel</span> <span class="o">=</span> <span class="n">recovery_map</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">state</span><span class="p">]</span>
-                <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span>
-                <span class="n">recovery_kernel</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Repeat</span><span class="p">:</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">recovery_kernel</span> <span class="o">=</span> <span class="n">recovery_map</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">state</span><span class="p">]</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span>
+                    <span class="n">recovery_kernel</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
 
             <span class="c1"># Remove all particles that signalled deletion</span>
             <span class="n">remove_deleted</span><span class="p">(</span><span class="n">pset</span><span class="p">)</span>
@@ -348,7 +362,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">execute_python</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
 
             <span class="n">error_particles</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">particles</span>
-                               <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Repeat</span><span class="p">]]</span></div>
+                               <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">!=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span><span class="p">]</span></div>
 
     <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
         <span class="n">funcname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcname</span> <span class="o">+</span> <span class="n">kernel</span><span class="o">.</span><span class="n">funcname</span>
@@ -390,7 +404,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>
