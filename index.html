@@ -149,11 +149,13 @@ activate root                              # Windows
 
 conda create -n py2_parcels -c conda-forge python=2.7 parcels jupyter cartopy</code></pre></li>
     <p></p>
-    <li>Activate the newly created Parcels environment, get a copy of the the Parcels tutorials and examples, and run the simplest of the examples to validate that you have a working Parcels setup:
-    <pre><code class="language-bash">source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
+    <li>Activate the newly created Parcels environment and run the <code  class="language-bash">install</code> script.
+      <pre><code class="language-bash">source $HOME/miniconda2/bin/activate py2_parcels  # Linux / macOS
 activate py2_parcels                              # Windows
 
-parcels_get_examples parcels_examples
+python setup.py install</code></pre></li>
+    <li>Get a copy of the Parcels tutorials and examples, and run the simplest of the examples to validate that you have a working Parcels setup:
+    <pre><code class="language-bash">parcels_get_examples parcels_examples
 cd parcels_examples
 
 python example_peninsula.py --fieldset 100 100</code></pre></li>
