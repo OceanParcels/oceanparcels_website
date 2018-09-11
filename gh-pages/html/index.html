@@ -4,20 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Parcels documentation &#8212; Parcels  documentation</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -38,8 +30,7 @@
   ga('send', 'pageview');
 </script>
 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -68,13 +59,14 @@
 <li><a class="reference internal" href="#module-parcels.particle">parcels.particle module</a></li>
 <li><a class="reference internal" href="#module-parcels.kernels.advection">parcels.kernels.advection module</a></li>
 <li><a class="reference internal" href="#module-parcels.kernels.diffusion">parcels.kernels.diffusion module</a></li>
-<li><a class="reference internal" href="#module-parcels.kernels.error">parcels.kernels.error module</a></li>
 <li><a class="reference internal" href="#module-parcels.codegenerator">parcels.codegenerator module</a></li>
 <li><a class="reference internal" href="#module-parcels.compiler">parcels.compiler module</a></li>
 <li><a class="reference internal" href="#module-parcels.kernel">parcels.kernel module</a></li>
 <li><a class="reference internal" href="#module-parcels.particlefile">parcels.particlefile module</a></li>
 <li><a class="reference internal" href="#module-parcels.rng">parcels.rng module</a></li>
-<li><a class="reference internal" href="#module-parcels.loggers">parcels.loggers module</a></li>
+<li><a class="reference internal" href="#module-parcels.tools.error">parcels.tools.error module</a></li>
+<li><a class="reference internal" href="#module-parcels.tools.converters">parcels.tools.converters module</a></li>
+<li><a class="reference internal" href="#module-parcels.tools.loggers">parcels.tools.loggers module</a></li>
 <li><a class="reference internal" href="#module-parcels.plotting">parcels.plotting module</a></li>
 <li><a class="reference internal" href="#module-scripts.plottrajectoriesfile">scripts.plottrajectoriesfile module</a></li>
 <li><a class="reference internal" href="#module-scripts.get_examples">scripts.get_examples module</a></li>
@@ -92,12 +84,14 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -117,7 +111,7 @@
 <dl class="class">
 <dt id="parcels.particleset.ParticleSet">
 <em class="property">class </em><code class="descclassname">parcels.particleset.</code><code class="descname">ParticleSet</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass=&lt;class 'parcels.particle.JITParticle'&gt;</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Container class for storing particle and executing kernel over them.</p>
 <p>Please note that this currently only supports fixed size particle sets.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -125,9 +119,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
-<li><strong>pclass</strong> – Optional <a class="reference internal" href="#parcels.particle.JITParticle" title="parcels.particle.JITParticle"><code class="xref py py-mod docutils literal"><span class="pre">parcels.particle.JITParticle</span></code></a> or
-<a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal"><span class="pre">parcels.particle.ScipyParticle</span></code></a> object that defines custom particle</li>
+<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
+<li><strong>pclass</strong> – Optional <a class="reference internal" href="#parcels.particle.JITParticle" title="parcels.particle.JITParticle"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.particle.JITParticle</span></code></a> or
+<a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.particle.ScipyParticle</span></code></a> object that defines custom particle</li>
 <li><strong>lon</strong> – List of initial longitude values for particles</li>
 <li><strong>lat</strong> – List of initial latitude values for particles</li>
 <li><strong>depth</strong> – Optional list of initial depth values for particles. Default is 0m</li>
@@ -142,14 +136,14 @@
 <dl class="method">
 <dt id="parcels.particleset.ParticleSet.Kernel">
 <code class="descname">Kernel</code><span class="sig-paren">(</span><em>pyfunc</em>, <em>c_include=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.Kernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.Kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper method to convert a <cite>pyfunc</cite> into a <a class="reference internal" href="#parcels.kernel.Kernel" title="parcels.kernel.Kernel"><code class="xref py py-class docutils literal"><span class="pre">parcels.kernel.Kernel</span></code></a> object
+<dd><p>Wrapper method to convert a <cite>pyfunc</cite> into a <a class="reference internal" href="#parcels.kernel.Kernel" title="parcels.kernel.Kernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.kernel.Kernel</span></code></a> object
 based on <cite>fieldset</cite> and <cite>ptype</cite> of the ParticleSet</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="parcels.particleset.ParticleSet.ParticleFile">
 <code class="descname">ParticleFile</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.ParticleFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.ParticleFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper method to initialise a <a class="reference internal" href="#parcels.particlefile.ParticleFile" title="parcels.particlefile.ParticleFile"><code class="xref py py-class docutils literal"><span class="pre">parcels.particlefile.ParticleFile</span></code></a>
+<dd><p>Wrapper method to initialise a <a class="reference internal" href="#parcels.particlefile.ParticleFile" title="parcels.particlefile.ParticleFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particlefile.ParticleFile</span></code></a>
 object from the ParticleSet</p>
 </dd></dl>
 
@@ -169,7 +163,7 @@ through a 2D histogram.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>field</strong> – Optional <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-mod docutils literal"><span class="pre">parcels.field.Field</span></code></a> object to calculate the histogram
+<li><strong>field</strong> – Optional <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> object to calculate the histogram
 on. Default is <cite>fieldset.U</cite></li>
 <li><strong>particle_val</strong> – Optional numpy-array of values to weigh each particle with,
 or string name of particle variable to use weigh particles with.
@@ -197,7 +191,7 @@ for particle output.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>pyfunc</strong> – Kernel function to execute. This can be the name of a
-defined Python function or a <a class="reference internal" href="#parcels.kernel.Kernel" title="parcels.kernel.Kernel"><code class="xref py py-class docutils literal"><span class="pre">parcels.kernel.Kernel</span></code></a> object.
+defined Python function or a <a class="reference internal" href="#parcels.kernel.Kernel" title="parcels.kernel.Kernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.kernel.Kernel</span></code></a> object.
 Kernels can be concatenated using the + operator</li>
 <li><strong>endtime</strong> – End time for the timestepping loop.
 It is either a datetime object or a positive double.</li>
@@ -210,8 +204,8 @@ Use a negative value for a backward-in-time simulation.</li>
 the update frequency of animation.
 It is either a timedelta object or a positive double.
 None value means no animation.</li>
-<li><strong>output_file</strong> – <a class="reference internal" href="#parcels.particlefile.ParticleFile" title="parcels.particlefile.ParticleFile"><code class="xref py py-mod docutils literal"><span class="pre">parcels.particlefile.ParticleFile</span></code></a> object for particle output</li>
-<li><strong>recovery</strong> – Dictionary with additional <cite>:mod:parcels.kernels.error</cite>
+<li><strong>output_file</strong> – <a class="reference internal" href="#parcels.particlefile.ParticleFile" title="parcels.particlefile.ParticleFile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.particlefile.ParticleFile</span></code></a> object for particle output</li>
+<li><strong>recovery</strong> – Dictionary with additional <cite>:mod:parcels.tools.error</cite>
 recovery kernels to allow custom recovery behaviour in case of
 kernel errors.</li>
 <li><strong>movie_background_field</strong> – field plotted as background in the movie if moviedt is set.
@@ -233,8 +227,8 @@ kernel errors.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
-<li><strong>pclass</strong> – mod:<cite>parcels.particle.JITParticle</cite> or <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal"><span class="pre">parcels.particle.ScipyParticle</span></code></a>
+<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
+<li><strong>pclass</strong> – mod:<cite>parcels.particle.JITParticle</cite> or <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.particle.ScipyParticle</span></code></a>
 object that defines custom particle</li>
 <li><strong>start_field</strong> – Field for initialising particles stochastically according to the presented density field.</li>
 <li><strong>size</strong> – Initial size of particle set</li>
@@ -260,8 +254,8 @@ great circles, so may not be a exact on a globe</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
-<li><strong>pclass</strong> – mod:<cite>parcels.particle.JITParticle</cite> or <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal"><span class="pre">parcels.particle.ScipyParticle</span></code></a>
+<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
+<li><strong>pclass</strong> – mod:<cite>parcels.particle.JITParticle</cite> or <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.particle.ScipyParticle</span></code></a>
 object that defines custom particle</li>
 <li><strong>start</strong> – Starting point for initialisation of particles on a straight line.</li>
 <li><strong>finish</strong> – End point for initialisation of particles on a straight line.</li>
@@ -285,8 +279,8 @@ object that defines custom particle</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
-<li><strong>pclass</strong> – mod:<cite>parcels.particle.JITParticle</cite> or <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal"><span class="pre">parcels.particle.ScipyParticle</span></code></a>
+<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object from which to sample velocity</li>
+<li><strong>pclass</strong> – mod:<cite>parcels.particle.JITParticle</cite> or <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.particle.ScipyParticle</span></code></a>
 object that defines custom particle</li>
 <li><strong>lon</strong> – List of initial longitude values for particles</li>
 <li><strong>lat</strong> – List of initial latitude values for particles</li>
@@ -341,16 +335,16 @@ object that defines custom particle</li>
 <dl class="class">
 <dt id="parcels.fieldset.FieldSet">
 <em class="property">class </em><code class="descclassname">parcels.fieldset.</code><code class="descname">FieldSet</code><span class="sig-paren">(</span><em>U</em>, <em>V</em>, <em>fields=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>FieldSet class that holds hydrodynamic data needed to execute particles</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>U</strong> – <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> object for zonal velocity component</li>
-<li><strong>V</strong> – <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> object for meridional velocity component</li>
-<li><strong>fields</strong> – Dictionary of additional <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> objects</li>
+<li><strong>U</strong> – <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> object for zonal velocity component</li>
+<li><strong>V</strong> – <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> object for meridional velocity component</li>
+<li><strong>fields</strong> – Dictionary of additional <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> objects</li>
 </ul>
 </td>
 </tr>
@@ -379,14 +373,14 @@ execution in SciPy mode, they can not be updated in JIT mode.</p>
 <dl class="method">
 <dt id="parcels.fieldset.FieldSet.add_field">
 <code class="descname">add_field</code><span class="sig-paren">(</span><em>field</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.add_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.add_field" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> object to the FieldSet</p>
+<dd><p>Add a <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> object to the FieldSet</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>field</strong> – <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> object to be added</li>
-<li><strong>name</strong> – Name of the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> object to be added</li>
+<li><strong>field</strong> – <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> object to be added</li>
+<li><strong>name</strong> – Name of the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> object to be added</li>
 </ul>
 </td>
 </tr>
@@ -397,7 +391,7 @@ execution in SciPy mode, they can not be updated in JIT mode.</p>
 <dl class="method">
 <dt id="parcels.fieldset.FieldSet.add_periodic_halo">
 <code class="descname">add_periodic_halo</code><span class="sig-paren">(</span><em>zonal=False</em>, <em>meridional=False</em>, <em>halosize=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.add_periodic_halo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.add_periodic_halo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a ‘halo’ to all <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> objects in a FieldSet,
+<dd><p>Add a ‘halo’ to all <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> objects in a FieldSet,
 through extending the Field (and lon/lat) by copying a small portion
 of the field on one side of the domain to the other.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -418,12 +412,12 @@ of the field on one side of the domain to the other.</p>
 <dl class="method">
 <dt id="parcels.fieldset.FieldSet.add_vector_field">
 <code class="descname">add_vector_field</code><span class="sig-paren">(</span><em>vfield</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.add_vector_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.add_vector_field" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a <a class="reference internal" href="#parcels.field.VectorField" title="parcels.field.VectorField"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.VectorField</span></code></a> object to the FieldSet</p>
+<dd><p>Add a <a class="reference internal" href="#parcels.field.VectorField" title="parcels.field.VectorField"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.VectorField</span></code></a> object to the FieldSet</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vfield</strong> – <a class="reference internal" href="#parcels.field.VectorField" title="parcels.field.VectorField"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.VectorField</span></code></a> object to be added</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vfield</strong> – <a class="reference internal" href="#parcels.field.VectorField" title="parcels.field.VectorField"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.VectorField</span></code></a> object to be added</td>
 </tr>
 </tbody>
 </table>
@@ -460,7 +454,7 @@ of the field on one side of the domain to the other.</p>
 <dl class="attribute">
 <dt id="parcels.fieldset.FieldSet.fields">
 <code class="descname">fields</code><a class="headerlink" href="#parcels.fieldset.FieldSet.fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of all the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">parcels.field.Field</span></code></a> objects
+<dd><p>Returns a list of all the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> objects
 associated with this FieldSet</p>
 </dd></dl>
 
@@ -654,7 +648,7 @@ full_load is however sometimes necessary for plotting the fields.</li>
 <dl class="class">
 <dt id="parcels.field.Field">
 <em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">Field</code><span class="sig-paren">(</span><em>name</em>, <em>data</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>grid=None</em>, <em>mesh='flat'</em>, <em>fieldtype=None</em>, <em>transpose=False</em>, <em>vmin=None</em>, <em>vmax=None</em>, <em>time_origin=None</em>, <em>interp_method='linear'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that encapsulates access to field data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -683,9 +677,9 @@ correction for zonal velocity U near the poles.</li>
 <li>flat: No conversion, lat/lon are assumed to be in m.</li>
 </ol>
 </li>
-<li><strong>grid</strong> – <code class="xref py py-class docutils literal"><span class="pre">parcels.grid.Grid</span></code> object containing all the lon, lat depth, time
+<li><strong>grid</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.Grid</span></code> object containing all the lon, lat depth, time
 mesh and time_origin information. Can be constructed from any of the Grid objects</li>
-<li><strong>fieldtype</strong> – Type of Field to be used for UnitConverter when using FieldLists
+<li><strong>fieldtype</strong> – Type of Field to be used for UnitConverter when using SummedFields
 (either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_Meridional’ or None)</li>
 <li><strong>transpose</strong> – Transpose data to required (lon, lat) layout</li>
 <li><strong>vmin</strong> – Minimum allowed value on the field. Data below this value are set to zero</li>
@@ -800,7 +794,7 @@ full_load is however sometimes necessary for plotting the fields.</li>
 
 <dl class="method">
 <dt id="parcels.field.Field.gradient">
-<code class="descname">gradient</code><span class="sig-paren">(</span><em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.gradient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.gradient" title="Permalink to this definition">¶</a></dt>
+<code class="descname">gradient</code><span class="sig-paren">(</span><em>update=False</em>, <em>tindex=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.gradient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.gradient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to calculate horizontal gradients of Field.
 Returns two Fields: the zonal and meridional gradients,
 on the same Grid as the original Field, using numpy.gradient() method
@@ -862,7 +856,7 @@ using linear interpolation</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ti</strong> – Index in time array associated with time (via <a class="reference internal" href="#parcels.field.Field.time_index" title="parcels.field.Field.time_index"><code class="xref py py-func docutils literal"><span class="pre">time_index()</span></code></a>)</li>
+<li><strong>ti</strong> – Index in time array associated with time (via <a class="reference internal" href="#parcels.field.Field.time_index" title="parcels.field.Field.time_index"><code class="xref py py-func docutils literal notranslate"><span class="pre">time_index()</span></code></a>)</li>
 <li><strong>time</strong> – Time to interpolate to</li>
 </ul>
 </td>
@@ -885,7 +879,7 @@ if the sampled value is outside the time value range.</p>
 <dl class="method">
 <dt id="parcels.field.Field.write">
 <code class="descname">write</code><span class="sig-paren">(</span><em>filename</em>, <em>varname=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write a <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> to a netcdf file</p>
+<dd><p>Write a <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code></a> to a netcdf file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -905,7 +899,7 @@ if the sampled value is outside the time value range.</p>
 <dl class="class">
 <dt id="parcels.field.VectorField">
 <em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">VectorField</code><span class="sig-paren">(</span><em>name</em>, <em>U</em>, <em>V</em>, <em>W=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#VectorField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.VectorField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class VectorField stores 2 or 3 fields which defines together a vector field.
 This enables to interpolate them as one single vector field in the kernels.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -941,33 +935,37 @@ Curvilinear grids are treated properly, since the element is projected to a rect
 </dd></dl>
 
 <dl class="class">
-<dt id="parcels.field.Geographic">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">Geographic</code><a class="reference internal" href="_modules/parcels/field.html#Geographic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Geographic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.field.UnitConverter</span></code></p>
-<p>Unit converter from geometric to geographic coordinates (m to degree)</p>
+<dt id="parcels.field.SummedField">
+<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">SummedField</code><a class="reference internal" href="_modules/parcels/field.html#SummedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.SummedField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>Class SummedField is a list of Fields over which Field interpolation
+is summed. This can e.g. be used when combining multiple flow fields,
+where the total flow is the sum of all the individual flows.
+Note that the individual Fields can be on different Grids.
+Also note that, since SummedFields are lists, the individual Fields can
+still be queried through their list index (e.g. SummedField[1]).</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="parcels.field.GeographicPolar">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">GeographicPolar</code><a class="reference internal" href="_modules/parcels/field.html#GeographicPolar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.GeographicPolar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.field.UnitConverter</span></code></p>
-<p>Unit converter from geometric to geographic coordinates (m to degree)
-with a correction to account for narrower grid cells closer to the poles.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="parcels.field.GeographicSquare">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">GeographicSquare</code><a class="reference internal" href="_modules/parcels/field.html#GeographicSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.GeographicSquare" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.field.UnitConverter</span></code></p>
-<p>Square distance converter from geometric to geographic coordinates (m2 to degree2)</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="parcels.field.GeographicPolarSquare">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">GeographicPolarSquare</code><a class="reference internal" href="_modules/parcels/field.html#GeographicPolarSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.GeographicPolarSquare" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.field.UnitConverter</span></code></p>
-<p>Square distance converter from geometric to geographic coordinates (m2 to degree2)
-with a correction to account for narrower grid cells closer to the poles.</p>
+<dt id="parcels.field.SummedVectorField">
+<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">SummedVectorField</code><span class="sig-paren">(</span><em>name</em>, <em>U</em>, <em>V</em>, <em>W=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#SummedVectorField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.SummedVectorField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>Class SummedVectorField stores 2 or 3 SummedFields which defines together a vector field.
+This enables to interpolate them as one single vector SummedField in the kernels.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – Name of the vector field</li>
+<li><strong>U</strong> – SummedField defining the zonal component</li>
+<li><strong>V</strong> – SummedField defining the meridional component</li>
+<li><strong>W</strong> – SummedField defining the vertical component (default: None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -976,7 +974,7 @@ with a correction to account for narrower grid cells closer to the poles.</p>
 <dl class="class">
 <dt id="parcels.gridset.GridSet">
 <em class="property">class </em><code class="descclassname">parcels.gridset.</code><code class="descname">GridSet</code><a class="reference internal" href="_modules/parcels/gridset.html#GridSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.gridset.GridSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>GridSet class that holds the Grids on which the Fields are defined</p>
 <dl class="method">
 <dt id="parcels.gridset.GridSet.dimrange">
@@ -993,9 +991,15 @@ overlaps on all grids in a gridset</p>
 <div class="section" id="module-parcels.grid">
 <span id="parcels-grid-module"></span><h2>parcels.grid module<a class="headerlink" href="#module-parcels.grid" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="parcels.grid.GridCode">
+<em class="property">class </em><code class="descclassname">parcels.grid.</code><code class="descname">GridCode</code><a class="reference internal" href="_modules/parcels/grid.html#GridCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.GridCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
+</dd></dl>
+
+<dl class="class">
 <dt id="parcels.grid.RectilinearZGrid">
 <em class="property">class </em><code class="descclassname">parcels.grid.</code><code class="descname">RectilinearZGrid</code><span class="sig-paren">(</span><em>lon</em>, <em>lat</em>, <em>depth=None</em>, <em>time=None</em>, <em>time_origin=None</em>, <em>mesh='flat'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#RectilinearZGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.RectilinearZGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
 <p>Rectilinear Z Grid</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1026,7 +1030,7 @@ correction for zonal velocity U near the poles.</li>
 <dl class="class">
 <dt id="parcels.grid.RectilinearSGrid">
 <em class="property">class </em><code class="descclassname">parcels.grid.</code><code class="descname">RectilinearSGrid</code><span class="sig-paren">(</span><em>lon</em>, <em>lat</em>, <em>depth</em>, <em>time=None</em>, <em>time_origin=None</em>, <em>mesh='flat'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#RectilinearSGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.RectilinearSGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
 <dl class="docutils">
 <dt>Rectilinear S Grid. Same horizontal discretisation as a rectilinear z grid,</dt>
 <dd>but with s vertical coordinates</dd>
@@ -1065,7 +1069,7 @@ correction for zonal velocity U near the poles.</li>
 <dl class="class">
 <dt id="parcels.grid.CurvilinearZGrid">
 <em class="property">class </em><code class="descclassname">parcels.grid.</code><code class="descname">CurvilinearZGrid</code><span class="sig-paren">(</span><em>lon</em>, <em>lat</em>, <em>depth=None</em>, <em>time=None</em>, <em>time_origin=None</em>, <em>mesh='flat'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#CurvilinearZGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.CurvilinearZGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.grid.CurvilinearGrid</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.CurvilinearGrid</span></code></p>
 <p>Curvilinear Z Grid.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1096,7 +1100,7 @@ correction for zonal velocity U near the poles.</li>
 <dl class="class">
 <dt id="parcels.grid.CurvilinearSGrid">
 <em class="property">class </em><code class="descclassname">parcels.grid.</code><code class="descname">CurvilinearSGrid</code><span class="sig-paren">(</span><em>lon</em>, <em>lat</em>, <em>depth</em>, <em>time=None</em>, <em>time_origin=None</em>, <em>mesh='flat'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#CurvilinearSGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.CurvilinearSGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.grid.CurvilinearGrid</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.CurvilinearGrid</span></code></p>
 <p>Curvilinear S Grid.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1129,13 +1133,19 @@ correction for zonal velocity U near the poles.</li>
 </table>
 </dd></dl>
 
+<dl class="class">
+<dt id="parcels.grid.CGrid">
+<em class="property">class </em><code class="descclassname">parcels.grid.</code><code class="descname">CGrid</code><a class="reference internal" href="_modules/parcels/grid.html#CGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.CGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-parcels.particle">
 <span id="parcels-particle-module"></span><h2>parcels.particle module<a class="headerlink" href="#module-parcels.particle" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="parcels.particle.ScipyParticle">
 <em class="property">class </em><code class="descclassname">parcels.particle.</code><code class="descname">ScipyParticle</code><span class="sig-paren">(</span><em>lon</em>, <em>lat</em>, <em>fieldset</em>, <em>depth=0.0</em>, <em>time=0.0</em>, <em>cptr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#ScipyParticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.ScipyParticle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">parcels.particle._Particle</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particle._Particle</span></code></p>
 <p>Class encapsulating the basic attributes of a particle,
 to be executed in SciPy mode</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1146,7 +1156,7 @@ to be executed in SciPy mode</p>
 <li><strong>lon</strong> – Initial longitude of particle</li>
 <li><strong>lat</strong> – Initial latitude of particle</li>
 <li><strong>depth</strong> – Initial depth of particle</li>
-<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object to track this particle on</li>
+<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object to track this particle on</li>
 <li><strong>time</strong> – Current time of the particle</li>
 </ul>
 </td>
@@ -1159,7 +1169,7 @@ to be executed in SciPy mode</p>
 <dl class="class">
 <dt id="parcels.particle.JITParticle">
 <em class="property">class </em><code class="descclassname">parcels.particle.</code><code class="descname">JITParticle</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#JITParticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.JITParticle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-class docutils literal"><span class="pre">parcels.particle.ScipyParticle</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#parcels.particle.ScipyParticle" title="parcels.particle.ScipyParticle"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particle.ScipyParticle</span></code></a></p>
 <p>Particle class for JIT-based (Just-In-Time) Particle objects</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1168,7 +1178,7 @@ to be executed in SciPy mode</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>lon</strong> – Initial longitude of particle</li>
 <li><strong>lat</strong> – Initial latitude of particle</li>
-<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object to track this particle on</li>
+<li><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object to track this particle on</li>
 <li><strong>dt</strong> – Execution timestep for this particle</li>
 <li><strong>time</strong> – Current time of the particle</li>
 </ul>
@@ -1183,7 +1193,7 @@ to be executed in SciPy mode</p>
 <dl class="class">
 <dt id="parcels.particle.Variable">
 <em class="property">class </em><code class="descclassname">parcels.particle.</code><code class="descname">Variable</code><span class="sig-paren">(</span><em>name</em>, <em>dtype=&lt;type 'numpy.float32'&gt;</em>, <em>initial=0</em>, <em>to_write=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.Variable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Descriptor class that delegates data access to particle data</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1262,30 +1272,12 @@ and Spagnol et al. (2002, doi:10.3354/meps235299)</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-parcels.kernels.error">
-<span id="parcels-kernels-error-module"></span><h2>parcels.kernels.error module<a class="headerlink" href="#module-parcels.kernels.error" title="Permalink to this headline">¶</a></h2>
-<p>Collection of pre-built recovery kernels</p>
-<dl class="exception">
-<dt id="parcels.kernels.error.KernelError">
-<em class="property">exception </em><code class="descclassname">parcels.kernels.error.</code><code class="descname">KernelError</code><span class="sig-paren">(</span><em>particle</em>, <em>fieldset=None</em>, <em>msg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/error.html#KernelError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.error.KernelError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.RuntimeError</span></code></p>
-<p>General particle kernel error with optional custom message</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="parcels.kernels.error.OutOfBoundsError">
-<em class="property">exception </em><code class="descclassname">parcels.kernels.error.</code><code class="descname">OutOfBoundsError</code><span class="sig-paren">(</span><em>particle</em>, <em>fieldset=None</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/error.html#OutOfBoundsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.error.OutOfBoundsError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#parcels.kernels.error.KernelError" title="parcels.kernels.error.KernelError"><code class="xref py py-class docutils literal"><span class="pre">parcels.kernels.error.KernelError</span></code></a></p>
-<p>Particle kernel error for out-of-bounds field sampling</p>
-</dd></dl>
-
-</div>
 <div class="section" id="module-parcels.codegenerator">
 <span id="parcels-codegenerator-module"></span><h2>parcels.codegenerator module<a class="headerlink" href="#module-parcels.codegenerator" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="parcels.codegenerator.IntrinsicTransformer">
 <em class="property">class </em><code class="descclassname">parcels.codegenerator.</code><code class="descname">IntrinsicTransformer</code><span class="sig-paren">(</span><em>fieldset</em>, <em>ptype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/codegenerator.html#IntrinsicTransformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.IntrinsicTransformer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ast.NodeTransformer</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.NodeTransformer</span></code></p>
 <p>AST transformer that catches any mention of intrinsic variable
 names, such as ‘particle’ or ‘fieldset’, inserts placeholder objects
 and propagates attribute access.</p>
@@ -1306,7 +1298,7 @@ and propagates attribute access.</p>
 <dl class="class">
 <dt id="parcels.codegenerator.KernelGenerator">
 <em class="property">class </em><code class="descclassname">parcels.codegenerator.</code><code class="descname">KernelGenerator</code><span class="sig-paren">(</span><em>fieldset</em>, <em>ptype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/codegenerator.html#KernelGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.KernelGenerator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ast.NodeVisitor</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.NodeVisitor</span></code></p>
 <p>Code generator class that translates simple Python kernel
 functions into C functions by populating and accessing the <cite>ccode</cite>
 attriibute on nodes in the Python AST.</p>
@@ -1316,12 +1308,6 @@ attriibute on nodes in the Python AST.</p>
 <dd><p>Generate C code for simple C-style function calls. Please
 note that starred and keyword arguments are currently not
 supported.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="parcels.codegenerator.KernelGenerator.visit_FieldListNode">
-<code class="descname">visit_FieldListNode</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/codegenerator.html#KernelGenerator.visit_FieldListNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.KernelGenerator.visit_FieldListNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Record intrinsic fields used in kernel</p>
 </dd></dl>
 
 <dl class="method">
@@ -1338,8 +1324,14 @@ supported.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="parcels.codegenerator.KernelGenerator.visit_VectorFieldListNode">
-<code class="descname">visit_VectorFieldListNode</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/codegenerator.html#KernelGenerator.visit_VectorFieldListNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.KernelGenerator.visit_VectorFieldListNode" title="Permalink to this definition">¶</a></dt>
+<dt id="parcels.codegenerator.KernelGenerator.visit_SummedFieldNode">
+<code class="descname">visit_SummedFieldNode</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/codegenerator.html#KernelGenerator.visit_SummedFieldNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.KernelGenerator.visit_SummedFieldNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record intrinsic fields used in kernel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.codegenerator.KernelGenerator.visit_SummedVectorFieldNode">
+<code class="descname">visit_SummedVectorFieldNode</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/codegenerator.html#KernelGenerator.visit_SummedVectorFieldNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.KernelGenerator.visit_SummedVectorFieldNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Record intrinsic fields used in kernel</p>
 </dd></dl>
 
@@ -1354,7 +1346,7 @@ supported.</p>
 <dl class="class">
 <dt id="parcels.codegenerator.LoopGenerator">
 <em class="property">class </em><code class="descclassname">parcels.codegenerator.</code><code class="descname">LoopGenerator</code><span class="sig-paren">(</span><em>fieldset</em>, <em>ptype=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/codegenerator.html#LoopGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.LoopGenerator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Code generator class that adds type definitions and the outer
 loop around kernel functions to generate compilable C code.</p>
 </dd></dl>
@@ -1362,7 +1354,7 @@ loop around kernel functions to generate compilable C code.</p>
 <dl class="class">
 <dt id="parcels.codegenerator.TupleSplitter">
 <em class="property">class </em><code class="descclassname">parcels.codegenerator.</code><code class="descname">TupleSplitter</code><a class="reference internal" href="_modules/parcels/codegenerator.html#TupleSplitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.codegenerator.TupleSplitter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ast.NodeTransformer</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.NodeTransformer</span></code></p>
 <p>AST transformer that detects and splits Pythonic tuple
 assignments into multiple statements for conversion to C.</p>
 </dd></dl>
@@ -1373,14 +1365,14 @@ assignments into multiple statements for conversion to C.</p>
 <dl class="class">
 <dt id="parcels.compiler.Compiler">
 <em class="property">class </em><code class="descclassname">parcels.compiler.</code><code class="descname">Compiler</code><span class="sig-paren">(</span><em>cc=None</em>, <em>cppargs=None</em>, <em>ldargs=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/compiler.html#Compiler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.compiler.Compiler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A compiler object for creating and loading shared libraries.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cc</strong> – C compiler executable (uses environment variable <code class="docutils literal"><span class="pre">CC</span></code> if not provided).</li>
+<li><strong>cc</strong> – C compiler executable (uses environment variable <code class="docutils literal notranslate"><span class="pre">CC</span></code> if not provided).</li>
 <li><strong>cppargs</strong> – A list of arguments to the C compiler (optional).</li>
 <li><strong>ldargs</strong> – A list of arguments to the linker (optional).</li>
 </ul>
@@ -1393,7 +1385,7 @@ assignments into multiple statements for conversion to C.</p>
 <dl class="class">
 <dt id="parcels.compiler.GNUCompiler">
 <em class="property">class </em><code class="descclassname">parcels.compiler.</code><code class="descname">GNUCompiler</code><span class="sig-paren">(</span><em>cppargs=None</em>, <em>ldargs=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/compiler.html#GNUCompiler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.compiler.GNUCompiler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#parcels.compiler.Compiler" title="parcels.compiler.Compiler"><code class="xref py py-class docutils literal"><span class="pre">parcels.compiler.Compiler</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#parcels.compiler.Compiler" title="parcels.compiler.Compiler"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.compiler.Compiler</span></code></a></p>
 <p>A compiler object for the GNU Linux toolchain.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1416,7 +1408,7 @@ assignments into multiple statements for conversion to C.</p>
 <dl class="class">
 <dt id="parcels.kernel.Kernel">
 <em class="property">class </em><code class="descclassname">parcels.kernel.</code><code class="descname">Kernel</code><span class="sig-paren">(</span><em>fieldset</em>, <em>ptype</em>, <em>pyfunc=None</em>, <em>funcname=None</em>, <em>funccode=None</em>, <em>py_ast=None</em>, <em>funcvars=None</em>, <em>c_include=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernel.html#Kernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernel.Kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Kernel object that encapsulates auto-generated code.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1494,6 +1486,14 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 </tbody>
 </table>
 <dl class="method">
+<dt id="parcels.particlefile.ParticleFile.add_metadata">
+<code class="descname">add_metadata</code><span class="sig-paren">(</span><em>name</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.add_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.add_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add metadata to <a class="reference internal" href="#parcels.particleset.ParticleSet" title="parcels.particleset.ParticleSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particleset.ParticleSet</span></code></a>
+:param name: Name of the metadata variabale
+:param message: message to be written</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="parcels.particlefile.ParticleFile.open_dataset">
 <code class="descname">open_dataset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.open_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.open_dataset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1507,7 +1507,7 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 <dl class="method">
 <dt id="parcels.particlefile.ParticleFile.write">
 <code class="descname">write</code><span class="sig-paren">(</span><em>pset</em>, <em>time</em>, <em>sync=True</em>, <em>deleted_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write <a class="reference internal" href="#parcels.particleset.ParticleSet" title="parcels.particleset.ParticleSet"><code class="xref py py-class docutils literal"><span class="pre">parcels.particleset.ParticleSet</span></code></a> data to file</p>
+<dd><p>Write <a class="reference internal" href="#parcels.particleset.ParticleSet" title="parcels.particleset.ParticleSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particleset.ParticleSet</span></code></a> data to file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1565,8 +1565,87 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 </dd></dl>
 
 </div>
-<div class="section" id="module-parcels.loggers">
-<span id="parcels-loggers-module"></span><h2>parcels.loggers module<a class="headerlink" href="#module-parcels.loggers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-parcels.tools.error">
+<span id="parcels-tools-error-module"></span><h2>parcels.tools.error module<a class="headerlink" href="#module-parcels.tools.error" title="Permalink to this headline">¶</a></h2>
+<p>Collection of pre-built recovery kernels</p>
+<dl class="class">
+<dt id="parcels.tools.error.ErrorCode">
+<em class="property">class </em><code class="descclassname">parcels.tools.error.</code><code class="descname">ErrorCode</code><a class="reference internal" href="_modules/parcels/tools/error.html#ErrorCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.ErrorCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="parcels.tools.error.FieldSamplingError">
+<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">FieldSamplingError</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>field=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#FieldSamplingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.FieldSamplingError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.RuntimeError</span></code></p>
+<p>Utility error class to propagate erroneous field sampling in Scipy mode</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="parcels.tools.error.TimeExtrapolationError">
+<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">TimeExtrapolationError</code><span class="sig-paren">(</span><em>time</em>, <em>field=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#TimeExtrapolationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.TimeExtrapolationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.RuntimeError</span></code></p>
+<p>Utility error class to propagate erroneous time extrapolation sampling in Scipy mode</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="parcels.tools.error.KernelError">
+<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">KernelError</code><span class="sig-paren">(</span><em>particle</em>, <em>fieldset=None</em>, <em>msg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#KernelError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.KernelError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.RuntimeError</span></code></p>
+<p>General particle kernel error with optional custom message</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="parcels.tools.error.OutOfBoundsError">
+<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">OutOfBoundsError</code><span class="sig-paren">(</span><em>particle</em>, <em>fieldset=None</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#OutOfBoundsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.OutOfBoundsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.error.KernelError" title="parcels.tools.error.KernelError"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.error.KernelError</span></code></a></p>
+<p>Particle kernel error for out-of-bounds field sampling</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-parcels.tools.converters">
+<span id="parcels-tools-converters-module"></span><h2>parcels.tools.converters module<a class="headerlink" href="#module-parcels.tools.converters" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="parcels.tools.converters.UnitConverter">
+<em class="property">class </em><code class="descclassname">parcels.tools.converters.</code><code class="descname">UnitConverter</code><a class="reference internal" href="_modules/parcels/tools/converters.html#UnitConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.UnitConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Interface class for spatial unit conversion during field sampling
+that performs no conversion.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="parcels.tools.converters.Geographic">
+<em class="property">class </em><code class="descclassname">parcels.tools.converters.</code><code class="descname">Geographic</code><a class="reference internal" href="_modules/parcels/tools/converters.html#Geographic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.Geographic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
+<p>Unit converter from geometric to geographic coordinates (m to degree)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="parcels.tools.converters.GeographicPolar">
+<em class="property">class </em><code class="descclassname">parcels.tools.converters.</code><code class="descname">GeographicPolar</code><a class="reference internal" href="_modules/parcels/tools/converters.html#GeographicPolar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.GeographicPolar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
+<p>Unit converter from geometric to geographic coordinates (m to degree)
+with a correction to account for narrower grid cells closer to the poles.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="parcels.tools.converters.GeographicSquare">
+<em class="property">class </em><code class="descclassname">parcels.tools.converters.</code><code class="descname">GeographicSquare</code><a class="reference internal" href="_modules/parcels/tools/converters.html#GeographicSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.GeographicSquare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
+<p>Square distance converter from geometric to geographic coordinates (m2 to degree2)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="parcels.tools.converters.GeographicPolarSquare">
+<em class="property">class </em><code class="descclassname">parcels.tools.converters.</code><code class="descname">GeographicPolarSquare</code><a class="reference internal" href="_modules/parcels/tools/converters.html#GeographicPolarSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.GeographicPolarSquare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
+<p>Square distance converter from geometric to geographic coordinates (m2 to degree2)
+with a correction to account for narrower grid cells closer to the poles.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-parcels.tools.loggers">
+<span id="parcels-tools-loggers-module"></span><h2>parcels.tools.loggers module<a class="headerlink" href="#module-parcels.tools.loggers" title="Permalink to this headline">¶</a></h2>
 <p>Script to create a <cite>logger</cite> for Parcels</p>
 </div>
 <div class="section" id="module-parcels.plotting">
@@ -1737,7 +1816,7 @@ from the package directory or from the Parcels website.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>
 </html>

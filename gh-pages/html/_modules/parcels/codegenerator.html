@@ -4,20 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>parcels.codegenerator &#8212; Parcels  documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -38,8 +30,7 @@
   ga('send', 'pageview');
 </script>
 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -60,12 +51,14 @@
             </a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -77,9 +70,8 @@
           <div class="body" role="main">
             
   <h1>Source code for parcels.codegenerator</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span>
-<span class="kn">from</span> <span class="nn">parcels.fieldset</span> <span class="k">import</span> <span class="n">FieldList</span><span class="p">,</span> <span class="n">VectorFieldList</span>
-<span class="kn">from</span> <span class="nn">parcels.loggers</span> <span class="k">import</span> <span class="n">logger</span>
+<span></span><span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">,</span> <span class="n">SummedVectorField</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">import</span> <span class="nn">ast</span>
 <span class="kn">import</span> <span class="nn">cgen</span> <span class="k">as</span> <span class="nn">c</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
@@ -99,12 +91,12 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">Field</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">FieldNode</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
                              <span class="n">ccode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-&gt;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccode</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">VectorFieldList</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">VectorFieldListNode</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
-                                       <span class="n">ccode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-&gt;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccode</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">FieldList</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">FieldListNode</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
-                                 <span class="n">ccode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-&gt;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccode</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">SummedVectorField</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">SummedVectorFieldNode</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
+                                         <span class="n">ccode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-&gt;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccode</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">SummedField</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">SummedFieldNode</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
+                                   <span class="n">ccode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-&gt;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccode</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">VectorField</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">VectorFieldNode</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
                                    <span class="n">ccode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-&gt;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ccode</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span>
@@ -139,24 +131,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">var3</span> <span class="o">=</span> <span class="n">var3</span>  <span class="c1"># third variable for UVW interpolation</span>
 
 
-<span class="k">class</span> <span class="nc">FieldListNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SummedFieldNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">FieldListEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SummedFieldEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">FieldListEvalNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SummedFieldEvalNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fields</span> <span class="o">=</span> <span class="n">fields</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>  <span class="c1"># the variable in which the interpolated field is written</span>
 
 
-<span class="k">class</span> <span class="nc">VectorFieldListNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SummedVectorFieldNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">VectorFieldListEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SummedVectorFieldEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">VectorFieldListEvalNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SummedVectorFieldEvalNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">var2</span><span class="p">,</span> <span class="n">var3</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="n">field</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
@@ -289,18 +281,18 @@
 
         <span class="c1"># If we encounter field evaluation we replace it with a</span>
         <span class="c1"># temporary variable and put the evaluation call on the stack.</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">FieldListNode</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">SummedFieldNode</span><span class="p">):</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tmp</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">obj</span><span class="p">]</span>
             <span class="c1"># Insert placeholder node for field eval ...</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stmt_stack</span> <span class="o">+=</span> <span class="p">[</span><span class="n">FieldListEvalNode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">slice</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stmt_stack</span> <span class="o">+=</span> <span class="p">[</span><span class="n">SummedFieldEvalNode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">slice</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)]</span>
             <span class="c1"># .. and return the name of the temporary that will be populated</span>
             <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">VectorFieldListNode</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">SummedVectorFieldNode</span><span class="p">):</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tmp</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">U</span><span class="p">]</span>
             <span class="n">tmp2</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tmp</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">U</span><span class="p">]</span>
             <span class="n">tmp3</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tmp</span><span class="p">()</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">W</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">U</span><span class="p">]</span>
             <span class="c1"># Insert placeholder node for field eval ...</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stmt_stack</span> <span class="o">+=</span> <span class="p">[</span><span class="n">VectorFieldListEvalNode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">slice</span><span class="p">,</span> <span class="n">tmp</span><span class="p">,</span> <span class="n">tmp2</span><span class="p">,</span> <span class="n">tmp3</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stmt_stack</span> <span class="o">+=</span> <span class="p">[</span><span class="n">SummedVectorFieldEvalNode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">slice</span><span class="p">,</span> <span class="n">tmp</span><span class="p">,</span> <span class="n">tmp2</span><span class="p">,</span> <span class="n">tmp3</span><span class="p">)]</span>
             <span class="c1"># .. and return the name of the temporary that will be populated</span>
             <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">tmp3</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">Tuple</span><span class="p">([</span><span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">)),</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp2</span><span class="p">)),</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp3</span><span class="p">))],</span> <span class="n">ast</span><span class="o">.</span><span class="n">Load</span><span class="p">())</span>
@@ -700,7 +692,7 @@
         <span class="sd">&quot;&quot;&quot;Record intrinsic fields used in kernel&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">obj</span></div>
 
-<div class="viewcode-block" id="KernelGenerator.visit_FieldListNode"><a class="viewcode-back" href="../../index.html#parcels.codegenerator.KernelGenerator.visit_FieldListNode">[docs]</a>    <span class="k">def</span> <span class="nf">visit_FieldListNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<div class="viewcode-block" id="KernelGenerator.visit_SummedFieldNode"><a class="viewcode-back" href="../../index.html#parcels.codegenerator.KernelGenerator.visit_SummedFieldNode">[docs]</a>    <span class="k">def</span> <span class="nf">visit_SummedFieldNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Record intrinsic fields used in kernel&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">obj</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="n">fld</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fld</span></div>
@@ -709,7 +701,7 @@
         <span class="sd">&quot;&quot;&quot;Record intrinsic fields used in kernel&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vector_field_args</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">obj</span></div>
 
-<div class="viewcode-block" id="KernelGenerator.visit_VectorFieldListNode"><a class="viewcode-back" href="../../index.html#parcels.codegenerator.KernelGenerator.visit_VectorFieldListNode">[docs]</a>    <span class="k">def</span> <span class="nf">visit_VectorFieldListNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<div class="viewcode-block" id="KernelGenerator.visit_SummedVectorFieldNode"><a class="viewcode-back" href="../../index.html#parcels.codegenerator.KernelGenerator.visit_SummedVectorFieldNode">[docs]</a>    <span class="k">def</span> <span class="nf">visit_SummedVectorFieldNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Record intrinsic fields used in kernel&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">U</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="n">fld</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fld</span>
@@ -751,7 +743,7 @@
         <span class="n">node</span><span class="o">.</span><span class="n">ccode</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Block</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;err&quot;</span><span class="p">,</span> <span class="n">ccode_eval</span><span class="p">),</span>
                               <span class="n">conv_stat</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">Statement</span><span class="p">(</span><span class="s2">&quot;CHECKERROR(err)&quot;</span><span class="p">)])</span>
 
-    <span class="k">def</span> <span class="nf">visit_FieldListEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">visit_SummedFieldEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
         <span class="n">cstat</span> <span class="o">=</span> <span class="p">[]</span>
@@ -762,7 +754,7 @@
             <span class="n">cstat</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;err&quot;</span><span class="p">,</span> <span class="n">ccode_eval</span><span class="p">),</span> <span class="n">conv_stat</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">Statement</span><span class="p">(</span><span class="s2">&quot;CHECKERROR(err)&quot;</span><span class="p">)]</span>
         <span class="n">node</span><span class="o">.</span><span class="n">ccode</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">cstat</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">visit_VectorFieldListEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">visit_SummedVectorFieldEvalNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">field</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
         <span class="n">cstat</span> <span class="o">=</span> <span class="p">[]</span>
@@ -927,7 +919,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>
 </html>

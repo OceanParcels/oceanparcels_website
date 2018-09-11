@@ -4,20 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>parcels.gridset &#8212; Parcels  documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -38,8 +30,7 @@
   ga('send', 'pageview');
 </script>
 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -60,12 +51,14 @@
             </a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -119,10 +112,15 @@
 <span class="sd">           in a gridset. Useful for finding e.g. longitude range that</span>
 <span class="sd">           overlaps on all grids in a gridset&quot;&quot;&quot;</span>
 
-        <span class="n">maxleft</span><span class="p">,</span> <span class="n">minright</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">)</span>
+        <span class="n">maxleft</span><span class="p">,</span> <span class="n">minright</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
-            <span class="n">maxleft</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxleft</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">minright</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">minright</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># not including grids where only one entry</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">maxleft</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxleft</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">minright</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">minright</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">maxleft</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">maxleft</span> <span class="o">==</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">else</span> <span class="n">maxleft</span>  <span class="c1"># if all len(dim) == 1</span>
+        <span class="n">minright</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">minright</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">else</span> <span class="n">minright</span>  <span class="c1"># if all len(dim) == 1</span>
         <span class="k">return</span> <span class="n">maxleft</span><span class="p">,</span> <span class="n">minright</span></div>
 
     <span class="nd">@property</span>
@@ -150,7 +148,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>
 </html>
