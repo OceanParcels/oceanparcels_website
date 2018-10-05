@@ -71,9 +71,98 @@
             
   <h1>Source code for parcels.tools.converters</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cftime</span>
+<span class="kn">import</span> <span class="nn">netcdftime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span> <span class="k">as</span> <span class="n">delta</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UnitConverter&#39;</span><span class="p">,</span> <span class="s1">&#39;Geographic&#39;</span><span class="p">,</span> <span class="s1">&#39;GeographicPolar&#39;</span><span class="p">,</span> <span class="s1">&#39;GeographicSquare&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;GeographicPolarSquare&#39;</span><span class="p">,</span> <span class="s1">&#39;unitconverters_map&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;GeographicPolarSquare&#39;</span><span class="p">,</span> <span class="s1">&#39;unitconverters_map&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;TimeConverter&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="TimeConverter"><a class="viewcode-back" href="../../../index.html#parcels.tools.converters.TimeConverter">[docs]</a><span class="k">class</span> <span class="nc">TimeConverter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converter class for dates with different calendars in FieldSets</span>
+
+<span class="sd">    :param: time_origin: time origin of the class. Currently supported formats are</span>
+<span class="sd">            float, integer, numpy.datetime64, and netcdftime.DatetimeNoLeap</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_origin</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">time_origin</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">time_origin</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time_origin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="s2">&quot;standard&quot;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time_origin</span><span class="p">,</span> <span class="p">(</span><span class="n">cftime</span><span class="o">.</span><span class="n">_cftime</span><span class="o">.</span><span class="n">DatetimeNoLeap</span><span class="p">,</span>
+                                      <span class="n">netcdftime</span><span class="o">.</span><span class="n">_netcdftime</span><span class="o">.</span><span class="n">DatetimeNoLeap</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="s2">&quot;NOLEAP&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="TimeConverter.reltime"><a class="viewcode-back" href="../../../index.html#parcels.tools.converters.TimeConverter.reltime">[docs]</a>    <span class="k">def</span> <span class="nf">reltime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to compute the difference, in seconds, between a time and the time_origin</span>
+<span class="sd">        of the TimeConverter</span>
+
+<span class="sd">        :param: time: input time</span>
+<span class="sd">        :return: time - self.time_origin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">time</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;standard&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;NOLEAP&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">t</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Calendar </span><span class="si">%s</span><span class="s1"> not implemented in TimeConverter&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TimeConverter.fulltime"><a class="viewcode-back" href="../../../index.html#parcels.tools.converters.TimeConverter.fulltime">[docs]</a>    <span class="k">def</span> <span class="nf">fulltime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to convert a time difference in seconds to a date, based on the time_origin</span>
+
+<span class="sd">        :param: time: input time</span>
+<span class="sd">        :return: self.time_origin + time</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">time</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;standard&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;NOLEAP&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">delta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">time</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Calendar </span><span class="si">%s</span><span class="s1"> not implemented in TimeConverter&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">==</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">!=</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">&gt;</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">&lt;</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">&gt;=</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">&lt;=</span> <span class="n">other</span></div>
 
 
 <div class="viewcode-block" id="UnitConverter"><a class="viewcode-back" href="../../../index.html#parcels.tools.converters.UnitConverter">[docs]</a><span class="k">class</span> <span class="nc">UnitConverter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -173,8 +262,8 @@
 
 
 <span class="n">unitconverters_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span><span class="p">:</span> <span class="n">GeographicPolar</span><span class="p">(),</span> <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="n">Geographic</span><span class="p">(),</span>
-                       <span class="s1">&#39;Kh_zonal&#39;</span><span class="p">:</span> <span class="n">GeographicPolarSquare</span><span class="p">(),</span>
-                       <span class="s1">&#39;Kh_meridional&#39;</span><span class="p">:</span> <span class="n">GeographicSquare</span><span class="p">()}</span>
+                      <span class="s1">&#39;Kh_zonal&#39;</span><span class="p">:</span> <span class="n">GeographicPolarSquare</span><span class="p">(),</span>
+                      <span class="s1">&#39;Kh_meridional&#39;</span><span class="p">:</span> <span class="n">GeographicSquare</span><span class="p">()}</span>
 </pre></div>
 
           </div>

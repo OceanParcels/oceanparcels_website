@@ -162,7 +162,7 @@
         <span class="n">plottimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">movie_forward</span><span class="p">:</span>
             <span class="n">plottimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">plottimes</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">)):</span>
             <span class="n">plottimes</span> <span class="o">=</span> <span class="n">plottimes</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnat</span><span class="p">(</span><span class="n">plottimes</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">plottimes</span> <span class="o">=</span> <span class="n">plottimes</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">plottimes</span><span class="p">)]</span>
@@ -172,7 +172,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">scat</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
         <span class="n">ttl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Particles&#39;</span> <span class="o">+</span> <span class="n">titlestr</span> <span class="o">+</span> <span class="s1">&#39; at time &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="n">frames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">plottimes</span><span class="p">))</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">plottimes</span><span class="p">))</span>
 
         <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
             <span class="n">b</span> <span class="o">=</span> <span class="n">time</span> <span class="o">==</span> <span class="n">plottimes</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
@@ -193,8 +193,8 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">show_plt</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">plt</span>
-</div>
+        <span class="k">return</span> <span class="n">plt</span></div>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Quick and simple plotting of Parcels trajectories&quot;&quot;&quot;</span><span class="p">)</span>

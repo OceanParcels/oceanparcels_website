@@ -506,8 +506,7 @@ This flag overrides the allow_time_interpolation and sets it to False</li>
 <dl class="classmethod">
 <dt id="parcels.fieldset.FieldSet.from_nemo">
 <em class="property">classmethod </em><code class="descname">from_nemo</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>tracer_interp_method='linear'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_nemo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_nemo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialises FieldSet object from NetCDF files of Curvilinear NEMO fields.
-Note that this assumes there is a variable mesh_mask that is used for the dimensions</p>
+<dd><p>Initialises FieldSet object from NetCDF files of Curvilinear NEMO fields.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -515,15 +514,30 @@ Note that this assumes there is a variable mesh_mask that is used for the dimens
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>filenames</strong> – Dictionary mapping variables to file(s). The
 filepath may contain wildcards to indicate multiple files,
-or be a list of file. At least a ‘mesh_mask’ needs to be present</li>
+or be a list of file.
+filenames can be a list [files], a dictionary {var:[files]},
+a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),
+or a dictionary of dictionaries {var:{dim:[files]}}
+time values are in filenames[data]</li>
 <li><strong>variables</strong> – Dictionary mapping variables to variable
-names in the netCDF file(s). Must include a variable ‘mesh_mask’ that
-holds the dimensions</li>
-<li><strong>dimensions</strong> – Dictionary mapping data dimensions (lon,
+names in the netCDF file(s).</li>
+<li><strong>dimensions</strong> – <p>Dictionary mapping data dimensions (lon,
 lat, depth, time, data) to dimensions in the netCF file(s).
 Note that dimensions can also be a dictionary of dictionaries if
-dimension names are different for each variable
-(e.g. dimensions[‘U’], dimensions[‘V’], etc).</li>
+dimension names are different for each variable.
+Watch out: NEMO is discretised on a C-grid:
+U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).</p>
+<blockquote>
+<div>__V1__</div></blockquote>
+<div class="line-block">
+<div class="line"><a href="#id1"><span class="problematic" id="id2">|</span></a></div>
+</div>
+<p>U0     U1
+<a href="#id6"><span class="problematic" id="id7">|__V0__|</span></a>
+To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
+which are located on the corners of the cells.
+(for indexing details: <a class="reference external" href="https://www.nemo-ocean.eu/doc/img360.png">https://www.nemo-ocean.eu/doc/img360.png</a> )</p>
+</li>
 <li><strong>indices</strong> – Optional dictionary of indices for each dimension
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.</li>
@@ -560,7 +574,11 @@ Note that in the case of from_nemo(), the velocity fields are default to ‘cgri
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>filenames</strong> – Dictionary mapping variables to file(s). The
 filepath may contain wildcards to indicate multiple files,
-or be a list of file.</li>
+or be a list of file.
+filenames can be a list [files], a dictionary {var:[files]},
+a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),
+or a dictionary of dictionaries {var:{dim:[files]}}.
+time values are in filenames[data]</li>
 <li><strong>variables</strong> – Dictionary mapping variables to variable
 names in the netCDF file(s).</li>
 <li><strong>dimensions</strong> – Dictionary mapping data dimensions (lon,
@@ -588,6 +606,8 @@ This flag overrides the allow_time_interpolation and sets it to False</li>
 It is advised not to fully load the data, since in that case Parcels deals with
 a better memory management during particle set execution.
 full_load is however sometimes necessary for plotting the fields.</li>
+<li><strong>netcdf_engine</strong> – engine to use for netcdf reading in xarray. Default is ‘netcdf’,
+but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could help</li>
 </ul>
 </td>
 </tr>
@@ -684,7 +704,7 @@ mesh and time_origin information. Can be constructed from any of the Grid object
 <li><strong>transpose</strong> – Transpose data to required (lon, lat) layout</li>
 <li><strong>vmin</strong> – Minimum allowed value on the field. Data below this value are set to zero</li>
 <li><strong>vmax</strong> – Maximum allowed value on the field. Data above this value are set to zero</li>
-<li><strong>time_origin</strong> – Time origin (datetime or np.datetime64 object) of the time axis (only if grid is None)</li>
+<li><strong>time_origin</strong> – Time origin (TimeConverter object) of the time axis (only if grid is None)</li>
 <li><strong>interp_method</strong> – Method for interpolation. Either ‘linear’ or ‘nearest’</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation in time
 (i.e. beyond the last available time snapshot)</li>
@@ -755,7 +775,7 @@ scipy.interpolate to perform spatial interpolation.</p>
 
 <dl class="classmethod">
 <dt id="parcels.field.Field.from_netcdf">
-<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variable</em>, <em>dimensions</em>, <em>indices=None</em>, <em>grid=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>full_load=False</em>, <em>dimension_filename=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.from_netcdf" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variable</em>, <em>dimensions</em>, <em>indices=None</em>, <em>grid=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>full_load=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.from_netcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create field from netCDF file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -763,7 +783,10 @@ scipy.interpolate to perform spatial interpolation.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>filenames</strong> – list of filenames to read for the field.
-Note that wildcards (‘*’) are also allowed</li>
+Note that wildcards (‘*’) are also allowed
+filenames can be a list [files]
+or a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data)
+time values are in filenames[data]</li>
 <li><strong>variable</strong> – Name of the field to create. Note that this has to be a string</li>
 <li><strong>dimensions</strong> – Dictionary mapping variable names for the relevant dimensions in the NetCDF file</li>
 <li><strong>indices</strong> – dictionary mapping indices for each dimension to read from file.
@@ -785,6 +808,8 @@ This flag overrides the allow_time_interpolation and sets it to False</li>
 It is advised not to fully load the data, since in that case Parcels deals with
 a better memory management during particle set execution.
 full_load is however sometimes necessary for plotting the fields.</li>
+<li><strong>netcdf_engine</strong> – engine to use for netcdf reading in xarray. Default is ‘netcdf’,
+but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could help</li>
 </ul>
 </td>
 </tr>
@@ -922,7 +947,7 @@ This enables to interpolate them as one single vector field in the kernels.</p>
 <dd><blockquote>
 <div></div></blockquote>
 <div class="line-block">
-<div class="line"><a href="#id2"><span class="problematic" id="id3">|</span></a></div>
+<div class="line"><a href="#id4"><span class="problematic" id="id5">|</span></a></div>
 </div>
 <p>U0         U1
 | __ V0 __ |
@@ -1011,7 +1036,7 @@ overlaps on all grids in a gridset</p>
 <li><strong>depth</strong> – Vector containing the vertical coordinates of the grid, which are z-coordinates.
 The depth of the different layers is thus constant.</li>
 <li><strong>time</strong> – Vector containing the time coordinates of the grid</li>
-<li><strong>time_origin</strong> – Time origin (datetime or np.datetime64 object) of the time axis</li>
+<li><strong>time_origin</strong> – Time origin (TimeConverter object) of the time axis</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation:</p>
 <ol class="arabic">
@@ -1050,7 +1075,7 @@ The depth of each node depends then on the horizontal position (lon, lat),
 the number of the layer and the time is depth is a 4D array.
 depth array is either a 4D array[xdim][ydim][zdim][tdim] or a 3D array[xdim][ydim[zdim].</li>
 <li><strong>time</strong> – Vector containing the time coordinates of the grid</li>
-<li><strong>time_origin</strong> – Time origin (datetime or np.datetime64 object) of the time axis</li>
+<li><strong>time_origin</strong> – Time origin (TimeConverter object) of the time axis</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation:</p>
 <ol class="arabic">
@@ -1081,7 +1106,7 @@ correction for zonal velocity U near the poles.</li>
 <li><strong>depth</strong> – Vector containing the vertical coordinates of the grid, which are z-coordinates.
 The depth of the different layers is thus constant.</li>
 <li><strong>time</strong> – Vector containing the time coordinates of the grid</li>
-<li><strong>time_origin</strong> – Time origin (datetime or np.datetime64 object) of the time axis</li>
+<li><strong>time_origin</strong> – Time origin (TimeConverter object) of the time axis</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation:</p>
 <ol class="arabic">
@@ -1117,7 +1142,7 @@ The depth of each node depends then on the horizontal position (lon, lat),
 the number of the layer and the time is depth is a 4D array.
 depth array is either a 4D array[xdim][ydim][zdim][tdim] or a 3D array[xdim][ydim[zdim].</li>
 <li><strong>time</strong> – Vector containing the time coordinates of the grid</li>
-<li><strong>time_origin</strong> – Time origin (datetime or np.datetime64 object) of the time axis</li>
+<li><strong>time_origin</strong> – Time origin (TimeConverter object) of the time axis</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation:</p>
 <ol class="arabic">
@@ -1583,7 +1608,7 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 
 <dl class="exception">
 <dt id="parcels.tools.error.TimeExtrapolationError">
-<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">TimeExtrapolationError</code><span class="sig-paren">(</span><em>time</em>, <em>field=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#TimeExtrapolationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.TimeExtrapolationError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">TimeExtrapolationError</code><span class="sig-paren">(</span><em>time</em>, <em>field=None</em>, <em>msg='allow_time_extrapoltion'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#TimeExtrapolationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.TimeExtrapolationError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.RuntimeError</span></code></p>
 <p>Utility error class to propagate erroneous time extrapolation sampling in Scipy mode</p>
 </dd></dl>
@@ -1641,6 +1666,55 @@ with a correction to account for narrower grid cells closer to the poles.</p>
 <dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
 <p>Square distance converter from geometric to geographic coordinates (m2 to degree2)
 with a correction to account for narrower grid cells closer to the poles.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="parcels.tools.converters.TimeConverter">
+<em class="property">class </em><code class="descclassname">parcels.tools.converters.</code><code class="descname">TimeConverter</code><span class="sig-paren">(</span><em>time_origin=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/converters.html#TimeConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.TimeConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Converter class for dates with different calendars in FieldSets</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param:</th><td class="field-body">time_origin: time origin of the class. Currently supported formats are
+float, integer, numpy.datetime64, and netcdftime.DatetimeNoLeap</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="parcels.tools.converters.TimeConverter.fulltime">
+<code class="descname">fulltime</code><span class="sig-paren">(</span><em>time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/converters.html#TimeConverter.fulltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.TimeConverter.fulltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to convert a time difference in seconds to a date, based on the time_origin</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param:</th><td class="field-body">time: input time</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self.time_origin + time</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.tools.converters.TimeConverter.reltime">
+<code class="descname">reltime</code><span class="sig-paren">(</span><em>time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/converters.html#TimeConverter.reltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.TimeConverter.reltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to compute the difference, in seconds, between a time and the time_origin
+of the TimeConverter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param:</th><td class="field-body">time: input time</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">time - self.time_origin</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
