@@ -123,7 +123,7 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   <p></p>
   However, there are some key limitations to the Kernels that everyone who wants to write their own should be aware of:
   <ul>
-    <li>Every Kernel must be a function with the following (and only those) arguments: <code class="language-python">(particle, fieldset, time, dt)</code></li>
+    <li>Every Kernel must be a function with the following (and only those) arguments: <code class="language-python">(particle, fieldset, time)</code></li>
 
     <li>In order to run successfully in JIT mode, Kernel definitions can only contain the following types of commands:</li>
     <ul>
@@ -133,9 +133,9 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
 
       <li><code class="language-python">if</code> and <code class="language-python">while</code> loops, as well as <code class="language-python">break</code> statements. Note that <code class="language-python">for</code>-loops are not supported in JIT mode</li>
 
-      <li>Interpolation of a <code class="language-python">Field</code> from the <code class="language-python">FieldSet</code> at a <code class="language-python">(time, lon, lat, depth)</code> point, using using square brackets notation. For example, to interpolate the zonal velocity (U) field at the particle location, use the following statement:<br>
+      <li>Interpolation of a <code class="language-python">Field</code> from the <code class="language-python">FieldSet</code> at a <code class="language-python">(time, depth, lat, lon)</code> point, using using square brackets notation. <br><b>Note that from version 2.0, the syntax has changed from the old (time, lon, lat, depth) to the new (time, depth, lat, lon) order</b>.<br> For example, to interpolate the zonal velocity (U) field at the particle location, use the following statement:<br>
 
-        <pre><code class="language-python">value = fieldset.U[time, particle.lon, particle.lat, particle.depth]</code></pre></li>
+        <pre><code class="language-python">value = fieldset.U[time, particle.depth, particle.lat, particle.lon]</code></pre></li>
 
       <li>Functions from the <code class="language-python">maths</code> standard library and from the custom <code class="language-python">random</code> library at <code class="language-python">parcels.rng</code></li>
 
