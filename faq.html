@@ -123,7 +123,7 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   <p></p>
   However, there are some key limitations to the Kernels that everyone who wants to write their own should be aware of:
   <ul>
-    <li>Every Kernel must be a function with the following (and only those) arguments: <code class="language-python">(particle, fieldset, time)</code></li>
+    <li>Every Kernel must be a function with the following (and only those) arguments: <code class="language-python">(particle, fieldset, time)</code> <i>(note that before Parcels v2.0, Kernels also required a <code class="language-python">dt</code> argument)</i></li>
 
     <li>In order to run successfully in JIT mode, Kernel definitions can only contain the following types of commands:</li>
     <ul>
