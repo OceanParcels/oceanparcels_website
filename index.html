@@ -148,6 +148,7 @@
 activate root                              # Windows
 
 conda create -n py3_parcels -c conda-forge python=3 parcels jupyter cartopy ffmpeg</code></pre></li>
+    <i>*Note that Parcels has a problem with the latest release of the netCDF4 library, v1.4.2 (see also <a href="https://github.com/OceanParcels/parcels/issues/513">Issue #513 on github</a>). For the time being, we recommend downgrading to v1.4.1, using <code class="language-bash">conda install netcdf4=1.4.1</code></i>
     <p></p>
     <li>Activate the newly created Parcels environment.
       <pre><code class="language-bash">source $HOME/miniconda3/bin/activate py3_parcels  # Linux / macOS
