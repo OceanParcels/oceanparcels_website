@@ -71,9 +71,13 @@
             
   <h1>Source code for parcels.compiler</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">getenv</span><span class="p">,</span> <span class="n">makedirs</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">getenv</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="k">import</span> <span class="n">calcsize</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pathlib2</span> <span class="k">import</span> <span class="n">Path</span>  <span class="c1"># python 2 backport</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">getuid</span>
 <span class="k">except</span><span class="p">:</span>
@@ -88,8 +92,7 @@
 
 <span class="k">def</span> <span class="nf">get_cache_dir</span><span class="p">():</span>
     <span class="n">directory</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s2">&quot;parcels-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">getuid</span><span class="p">())</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
-        <span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">directory</span>
 
 
@@ -128,8 +131,8 @@
 <span class="s2">Log file: </span><span class="si">%s</span><span class="s2"></span>
 
 <span class="s2">Log output: </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cc</span><span class="p">),</span> <span class="n">src</span><span class="p">,</span> <span class="n">logfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">logfile2</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-</div>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="GNUCompiler"><a class="viewcode-back" href="../../index.html#parcels.compiler.GNUCompiler">[docs]</a><span class="k">class</span> <span class="nc">GNUCompiler</span><span class="p">(</span><span class="n">Compiler</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A compiler object for the GNU Linux toolchain.</span>
@@ -148,8 +151,8 @@
         <span class="n">cppargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-Wall&#39;</span><span class="p">,</span> <span class="s1">&#39;-fPIC&#39;</span><span class="p">,</span> <span class="s1">&#39;-I</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_package_dir</span><span class="p">(),</span> <span class="s1">&#39;include&#39;</span><span class="p">)]</span> <span class="o">+</span> <span class="n">opt_flags</span> <span class="o">+</span> <span class="n">cppargs</span>
         <span class="n">cppargs</span> <span class="o">+=</span> <span class="n">arch_flag</span>
         <span class="n">ldargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-shared&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ldargs</span> <span class="o">+</span> <span class="n">arch_flag</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">GNUCompiler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="n">cppargs</span><span class="p">,</span> <span class="n">ldargs</span><span class="o">=</span><span class="n">ldargs</span><span class="p">)</span>
-</pre></div></div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GNUCompiler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="n">cppargs</span><span class="p">,</span> <span class="n">ldargs</span><span class="o">=</span><span class="n">ldargs</span><span class="p">)</span></div>
+</pre></div>
 
           </div>
         </div>

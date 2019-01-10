@@ -157,6 +157,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">pyfunc</span> <span class="o">=</span> <span class="n">user_ctx</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">funcname</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pyfunc</span> <span class="o">=</span> <span class="n">pyfunc</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pyfunc</span><span class="p">)</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> \
+            <span class="s1">&#39;Since Parcels v2.0, kernels do only take 3 arguments: particle, fieldset, time !! AND !! Argument order in field interpolation is time, depth, lat, lon.&#39;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ptype</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcname</span><span class="p">)</span>
 
         <span class="c1"># Generate the kernel function and add the outer loop</span>
@@ -280,7 +283,8 @@
                 <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ptype</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
                     <span class="n">p_var_back</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyfunc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">sign_dt</span> <span class="o">*</span> <span class="n">dt_pos</span><span class="p">)</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">sign_dt</span> <span class="o">*</span> <span class="n">dt_pos</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyfunc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
                 <span class="k">except</span> <span class="n">FieldSamplingError</span> <span class="k">as</span> <span class="n">fse</span><span class="p">:</span>
                     <span class="n">res</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span>
                     <span class="n">p</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">fse</span>
@@ -346,7 +350,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">recovery_kernel</span> <span class="o">=</span> <span class="n">recovery_map</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">state</span><span class="p">]</span>
                     <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span>
-                    <span class="n">recovery_kernel</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+                    <span class="n">recovery_kernel</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
 
             <span class="c1"># Remove all particles that signalled deletion</span>
             <span class="n">remove_deleted</span><span class="p">(</span><span class="n">pset</span><span class="p">)</span>

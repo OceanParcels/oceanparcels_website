@@ -90,19 +90,19 @@
 
 <span class="n">example_data_files</span> <span class="o">=</span> <span class="p">(</span>
     <span class="p">[</span><span class="s2">&quot;MovingEddies_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="s2">&quot;moving_eddiesP.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_eddiesU.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_eddiesV.nc&quot;</span><span class="p">]]</span> <span class="o">+</span>
-    <span class="p">[</span><span class="s2">&quot;OFAM_example_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="s2">&quot;OFAM_simple_U.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;OFAM_simple_V.nc&quot;</span><span class="p">]]</span> <span class="o">+</span>
-    <span class="p">[</span><span class="s2">&quot;Peninsula_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="s2">&quot;peninsulaU.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;peninsulaV.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;peninsulaP.nc&quot;</span><span class="p">]]</span> <span class="o">+</span>
-    <span class="p">[</span><span class="s2">&quot;GlobCurrent_example_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="s2">&quot;moving_eddiesP.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_eddiesU.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_eddiesV.nc&quot;</span><span class="p">]]</span>
+    <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;OFAM_example_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="s2">&quot;OFAM_simple_U.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;OFAM_simple_V.nc&quot;</span><span class="p">]]</span>
+    <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Peninsula_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="s2">&quot;peninsulaU.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;peninsulaV.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;peninsulaP.nc&quot;</span><span class="p">]]</span>
+    <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;GlobCurrent_example_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
         <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">000000-GLOBCURRENT-L4-CUReul_hs-ALT_SUM-v02.0-fv01.0.nc&quot;</span> <span class="o">%</span> <span class="p">(</span>
             <span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2002</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
-                     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">365</span><span class="p">)]]]</span> <span class="o">+</span>
-    <span class="p">[</span><span class="s2">&quot;DecayingMovingEddy_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="s2">&quot;decaying_moving_eddyU.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;decaying_moving_eddyV.nc&quot;</span><span class="p">]]</span> <span class="o">+</span>
-    <span class="p">[</span><span class="s2">&quot;NemoCurvilinear_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
+                     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">365</span><span class="p">)]]]</span>
+    <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;DecayingMovingEddy_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="s2">&quot;decaying_moving_eddyU.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;decaying_moving_eddyV.nc&quot;</span><span class="p">]]</span>
+    <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;NemoCurvilinear_data/&quot;</span> <span class="o">+</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span>
         <span class="s2">&quot;U_purely_zonal-ORCA025_grid_U.nc4&quot;</span><span class="p">,</span> <span class="s2">&quot;V_purely_zonal-ORCA025_grid_V.nc4&quot;</span><span class="p">,</span>
         <span class="s2">&quot;mesh_mask.nc4&quot;</span><span class="p">]])</span>
 
@@ -130,8 +130,8 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">examples_in_package</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">pass</span>
-</div>
+        <span class="k">pass</span></div>
+
 
 <div class="viewcode-block" id="set_jupyter_kernel_to_python_version"><a class="viewcode-back" href="../../index.html#scripts.get_examples.set_jupyter_kernel_to_python_version">[docs]</a><span class="k">def</span> <span class="nf">set_jupyter_kernel_to_python_version</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">python_version</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set notebook kernelspec to desired python version.</span>
@@ -149,8 +149,8 @@
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">python_version</span><span class="p">)}}</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">notebook_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</div>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">notebook_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
 
 <span class="k">def</span> <span class="nf">_still_to_download</span><span class="p">(</span><span class="n">file_names</span><span class="p">,</span> <span class="n">target_path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Only return the files that are not yet present on disk.&quot;&quot;&quot;</span>
@@ -171,8 +171,8 @@
             <span class="n">download_url</span> <span class="o">=</span> <span class="n">source_url</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">filename</span>
             <span class="n">src</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">download_url</span><span class="p">)</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
-                <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-</div>
+                <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">())</span></div>
+
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#scripts.get_examples.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">target_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Get example scripts, example notebooks, and example data.</span>
@@ -205,8 +205,8 @@
     <span class="c1"># try downloading remaining files</span>
     <span class="n">remaining_example_data_files</span> <span class="o">=</span> <span class="n">_still_to_download</span><span class="p">(</span>
         <span class="n">example_data_files</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
-    <span class="n">download_files</span><span class="p">(</span><span class="n">example_data_url</span><span class="p">,</span> <span class="n">remaining_example_data_files</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
-</div>
+    <span class="n">download_files</span><span class="p">(</span><span class="n">example_data_url</span><span class="p">,</span> <span class="n">remaining_example_data_files</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span></div>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>

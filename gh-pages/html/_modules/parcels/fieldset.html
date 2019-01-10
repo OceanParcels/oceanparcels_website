@@ -70,9 +70,9 @@
           <div class="body" role="main">
             
   <h1>Source code for parcels.fieldset</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">,</span> <span class="n">SummedVectorField</span>
+<span></span><span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">,</span> <span class="n">SummedVectorField</span><span class="p">,</span> <span class="n">NestedField</span>
 <span class="kn">from</span> <span class="nn">parcels.gridset</span> <span class="k">import</span> <span class="n">GridSet</span>
-<span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="k">import</span> <span class="n">RectilinearZGrid</span>
+<span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="k">import</span> <span class="n">Grid</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.converters</span> <span class="k">import</span> <span class="n">TimeConverter</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -150,7 +150,7 @@
             <span class="n">lat</span> <span class="o">=</span> <span class="n">dims</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
             <span class="n">depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;depth&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span> <span class="k">else</span> <span class="n">dims</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span>
             <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span> <span class="k">else</span> <span class="n">dims</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
-            <span class="n">grid</span> <span class="o">=</span> <span class="n">RectilinearZGrid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">time_origin</span><span class="o">=</span><span class="n">TimeConverter</span><span class="p">(),</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">time_origin</span><span class="o">=</span><span class="n">TimeConverter</span><span class="p">(),</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span>
 
             <span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">datafld</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">transpose</span><span class="o">=</span><span class="n">transpose</span><span class="p">,</span>
                                  <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -170,6 +170,12 @@
             <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">field</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">fld</span><span class="p">)</span>
                 <span class="n">fld</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">field</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">fld</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">fld</span><span class="p">)</span>
+                <span class="n">fld</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;FieldLists have been replaced by SummedFields. Use the + operator instead of []&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -183,7 +189,11 @@
 <span class="sd">        :param vfield: :class:`parcels.field.VectorField` object to be added</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vfield</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">vfield</span><span class="p">)</span>
-        <span class="n">vfield</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span></div>
+        <span class="n">vfield</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vfield</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">vfield</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span></div>
 
     <span class="k">def</span> <span class="nf">check_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="s1">&#39;FieldSet does not have a Field named &quot;U&quot;&#39;</span>
@@ -204,11 +214,15 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UV&#39;</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedVectorField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UVW&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedVectorField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
 
@@ -246,6 +260,7 @@
 <span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
+<span class="sd">               Note that negative indices are not allowed.</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation:</span>
 
@@ -291,7 +306,7 @@
                         <span class="n">sameGrid</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="n">procvar</span><span class="p">])</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
                         <span class="n">sameGrid</span> <span class="o">=</span> <span class="kc">True</span>
-                        <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">]:</span>
+                        <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">]:</span>
                             <span class="k">if</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">:</span>
                                 <span class="n">sameGrid</span> <span class="o">*=</span> <span class="n">filenames</span><span class="p">[</span><span class="n">procvar</span><span class="p">][</span><span class="n">dim</span><span class="p">]</span> <span class="o">==</span> <span class="n">filenames</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="n">dim</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">sameGrid</span><span class="p">:</span>
@@ -308,7 +323,7 @@
 <div class="viewcode-block" id="FieldSet.from_nemo"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.from_nemo">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_nemo</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
                   <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                  <span class="n">tracer_interp_method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                  <span class="n">tracer_interp_method</span><span class="o">=</span><span class="s1">&#39;cgrid_tracer&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialises FieldSet object from NetCDF files of Curvilinear NEMO fields.</span>
 
 <span class="sd">        :param filenames: Dictionary mapping variables to file(s). The</span>
@@ -333,9 +348,11 @@
 <span class="sd">               To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,</span>
 <span class="sd">               which are located on the corners of the cells.</span>
 <span class="sd">               (for indexing details: https://www.nemo-ocean.eu/doc/img360.png )</span>
+<span class="sd">               In 3D, the depth is the one corresponding to W nodes</span>
 <span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
+<span class="sd">               Note that negative indices are not allowed.</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation:</span>
 
@@ -347,8 +364,8 @@
 <span class="sd">               Default is False if dimensions includes time, else True</span>
 <span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
-<span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. Either &#39;linear&#39; or &#39;nearest&#39;</span>
-<span class="sd">               Note that in the case of from_nemo(), the velocity fields are default to &#39;cgrid_linear&#39;</span>
+<span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. It is recommended to use &#39;cgrid_tracer&#39; (default)</span>
+<span class="sd">               Note that in the case of from_nemo(), the velocity fields are default to &#39;cgrid_velocity&#39;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -358,7 +375,7 @@
         <span class="n">interp_method</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">]:</span>
-                <span class="n">interp_method</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;cgrid_linear&#39;</span>
+                <span class="n">interp_method</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;cgrid_velocity&#39;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">interp_method</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">tracer_interp_method</span>
 
@@ -375,6 +392,7 @@
 <span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
+<span class="sd">               Note that negative indices are not allowed.</span>
 <span class="sd">        :param extra_fields: Extra fields to read beyond U and V</span>
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
@@ -402,6 +420,51 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_netcdf</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="n">extra_fields</span><span class="p">,</span>
                                <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span>
                                <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="n">full_load</span><span class="o">=</span><span class="n">full_load</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FieldSet.from_xarray_dataset"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.from_xarray_dataset">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_xarray_dataset</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span> <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">time_periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">full_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialises FieldSet data from xarray Datasets.</span>
+
+<span class="sd">        :param ds: xarray Dataset</span>
+<span class="sd">        :param dimensions: Dictionary mapping data dimensions (lon,</span>
+<span class="sd">               lat, depth, time, data) to dimensions in the xarray Dataset.</span>
+<span class="sd">               Note that dimensions can also be a dictionary of dictionaries if</span>
+<span class="sd">               dimension names are different for each variable</span>
+<span class="sd">               (e.g. dimensions[&#39;U&#39;], dimensions[&#39;V&#39;], etc).</span>
+<span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
+<span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
+<span class="sd">               Default is to read the full extent of each dimension.</span>
+<span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
+<span class="sd">               units used during velocity interpolation:</span>
+
+<span class="sd">               1. spherical (default): Lat and lon in degree, with a</span>
+<span class="sd">                  correction for zonal velocity U near the poles.</span>
+<span class="sd">               2. flat: No conversion, lat/lon are assumed to be in m.</span>
+<span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
+<span class="sd">               (i.e. beyond the last available time snapshot)</span>
+<span class="sd">               Default is False if dimensions includes time, else True</span>
+<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
+<span class="sd">        :param full_load: boolean whether to fully load the data or only pre-load them. (default: False)</span>
+<span class="sd">               It is advised not to fully load the data, since in that case Parcels deals with</span>
+<span class="sd">               a better memory management during particle set execution.</span>
+<span class="sd">               full_load is however sometimes necessary for plotting the fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+            <span class="c1"># Use dimensions[var] and indices[var] if either of them is a dict of dicts</span>
+            <span class="n">dims</span> <span class="o">=</span> <span class="n">dimensions</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="k">else</span> <span class="n">dimensions</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">and</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span> <span class="k">else</span> <span class="n">indices</span>
+
+            <span class="n">fields</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">from_netcdf</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">inds</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span>
+                                            <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="n">var</span><span class="p">,</span>
+                                            <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="n">full_load</span><span class="o">=</span><span class="n">full_load</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -442,18 +505,6 @@
         <span class="k">for</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Field</span><span class="p">):</span>
                 <span class="n">value</span><span class="o">.</span><span class="n">add_periodic_halo</span><span class="p">(</span><span class="n">zonal</span><span class="p">,</span> <span class="n">meridional</span><span class="p">,</span> <span class="n">halosize</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="FieldSet.eval"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Evaluate the zonal and meridional velocities (u,v) at a point (x,y)</span>
-
-<span class="sd">        :param x: zonal point to evaluate</span>
-<span class="sd">        :param y: meridional point to evaluate</span>
-
-<span class="sd">        :return u, v: zonal and meridional velocities at point&quot;&quot;&quot;</span>
-
-        <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span></div>
 
 <div class="viewcode-block" id="FieldSet.write"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Write FieldSet to NetCDF file using NEMO convention</span>
@@ -518,7 +569,7 @@
                 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">g</span><span class="o">.</span><span class="n">tdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">zdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ydim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">meridional_halo</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">xdim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">zonal_halo</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">tind</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">:</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tind</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tind</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">g</span><span class="o">.</span><span class="n">update_status</span> <span class="o">==</span> <span class="s1">&#39;updated&#39;</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">g</span><span class="o">.</span><span class="n">tdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">zdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ydim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">meridional_halo</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">xdim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">zonal_halo</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -528,7 +579,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[]</span>
