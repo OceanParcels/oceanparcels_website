@@ -110,8 +110,9 @@
       <p class="card-text">
         The Ocean<b>Parcels</b> project develops <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian <b>S</b>imulator), a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models. Parcels can be used to track passive and active particulates such as water, plankton, <a href="http://www.topios.org/">plastic</a> and <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
       </p><p>
-        The code from the Ocean<b>Parcels</b> project is licensed under an open source <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md">MIT license</a> and can be downloaded from <a href="https://github.com/OceanParcels/parcels">https://github.com/OceanParcels/parcels</a>.
-      The manuscript detailing this first release of Parcels, version 0.9, has been published in <a href="https://www.geosci-model-dev.net/10/4175/2017/gmd-10-4175-2017.html">Geoscientific Model Development</a> and can be cited as
+        The code from the Ocean<b>Parcels</b> project is licensed under an open source <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md">MIT license</a> and can be downloaded from <a href="https://github.com/OceanParcels/parcels">github.com/OceanParcels/parcels</a>.
+      </p><p>
+      The manuscript detailing this first release of Parcels, version 0.9, has been published in <a href="https://www.geosci-model-dev.net/10/4175/2017/gmd-10-4175-2017.html">Geoscientific Model Development</a> and can be cited as:
       </p><p>
 
       <div class="card">
@@ -126,6 +127,28 @@
         <div id="LangeVanSebille1" class="collapse" role="tabpanel">
           <div class="card-body">
             As ocean general circulation models (OGCMs) move into the petascale age, where the output of single simulations exceeds petabytes of storage space, tools to analyse the output of these models will need to scale up too. Lagrangian ocean analysis, where virtual particles are tracked through hydrodynamic fields, is an increasingly popular way to analyse OGCM output, by mapping pathways and connectivity of biotic and abiotic particulates. However, the current software stack of Lagrangian ocean analysis codes is not dynamic enough to cope with the increasing complexity, scale and need for customization of use-cases. Furthermore, most community codes are developed for stand-alone use, making it a nontrivial task to integrate virtual particles at runtime of the OGCM. Here, we introduce the new Parcels code, which was designed from the ground up to be sufficiently scalable to cope with petascale computing. We highlight its API design that combines flexibility and customization with the ability to optimize for HPC workflows, following the paradigm of domain-specific languages. Parcels is primarily written in Python, utilizing the wide range of tools available in the scientific Python ecosystem, while generating low-level C code and using just-in-time compilation for performance-critical computation. We show a worked-out example of its API, and validate the accuracy of the code against seven idealized test cases. This version 0.9 of Parcels is focused on laying out the API, with future work concentrating on support for curvilinear grids, optimization, efficiency and at-runtime coupling with OGCMs.
+          </div>
+        </div>
+      </div>
+      </p><p>
+
+      The manuscript detailing version 2.0 of Parcels is currently under discussion at <a href="https://www.geosci-model-dev-discuss.net/gmd-2018-339/">Geoscientific Model Development</a>:
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            The Parcels v2.0 Lagrangian framework: new field interpolation schemes
+          </h5>
+          Delandmeter, P and E van Sebille (2019), <i>Geoscientific Model Development</i>, <i>in review</i><br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#DelandmeterVanSebille1" aria-expanded="true">[ Expand abstract]</a>
+          <a class="card-link" href=" https://doi.org/10.5194/gmd-2018-339"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i> ]</a>
+        </div>
+        <div id="DelandmeterVanSebille1" class="collapse" role="tabpanel">
+          <div class="card-body">
+            With the increasing amount of data produced by numerical ocean models, so increases the need for efficient tools to analyse these data. One of these tools is Lagrangian ocean analysis, where a set of virtual particles are released and their dynamics is integrated in time based on fields defining the ocean state, including the hydrodynamics and biogeochemistry if available. This popular methodology needs to adapt to the large variety of models producing these fields at different formats.<br>
+
+            This is precisely the aim of Parcels, a Lagrangian ocean analysis framework designed to combine (1) a wide flexibility to model particles of different natures and (2) an efficient implementation in accordance with modern computing infrastructure. In the new Parcels v2.0, we implement a set of interpolation schemes to read various types of discretised fields, from rectilinear to curvilinear grids in the horizontal direction, from z- to s- levels in the vertical and different variable distributions such as the Arakawa's A-, B- and C- grids. In particular, we develop a new interpolation scheme for a three-dimensional curvilinear C-grid and analyse its properties.<br>
+
+            Parcels v2.0 capabilities, including a suite of meta-field objects, are then illustrated in a brief study of the distribution of floating microplastic in the North West European continental shelf and its sensitivity to different physical processes.
           </div>
         </div>
       </div>
