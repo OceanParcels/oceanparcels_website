@@ -72,7 +72,6 @@
   <h1>Source code for parcels.particle</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">parcels.tools.error</span> <span class="k">import</span> <span class="n">ErrorCode</span>
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span>
-<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">attrgetter</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_void_p</span>
@@ -94,6 +93,8 @@
 <span class="sd">    :param to_write: Boolean to control whether Variable is written to NetCDF file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Custom Variable name &#39;z&#39; is not allowed, as it is used for depth in ParticleFile&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initial</span> <span class="o">=</span> <span class="n">initial</span>
@@ -195,11 +196,10 @@
                 <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getInitialValue</span><span class="p">(</span><span class="n">ptype</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span>
                 <span class="n">depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getInitialValue</span><span class="p">(</span><span class="n">ptype</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;depth&#39;</span><span class="p">)</span>
                 <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getInitialValue</span><span class="p">(</span><span class="n">ptype</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-                <span class="n">v</span><span class="o">.</span><span class="n">initial</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Cannot initialise a Variable with a Field if no time provided. &#39;</span>
-                                 <span class="s1">&#39;Add a &quot;time=&quot; to ParticleSet construction&#39;</span><span class="p">)</span>
-                    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Cannot initialise a Variable with a Field if no time provided. &#39;</span>
+                                       <span class="s1">&#39;Add a &quot;time=&quot; to ParticleSet construction&#39;</span><span class="p">)</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">initial</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="n">initial</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">initial</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">initial</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">initial</span>
@@ -264,7 +264,13 @@
         <span class="k">return</span> <span class="nb">str</span> <span class="o">+</span> <span class="s2">&quot;time=</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">time_string</span>
 
     <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Delete</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Delete</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_lonlatdepth_dtype</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">depth</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span></div>
 
 
 <div class="viewcode-block" id="JITParticle"><a class="viewcode-back" href="../../index.html#parcels.particle.JITParticle">[docs]</a><span class="k">class</span> <span class="nc">JITParticle</span><span class="p">(</span><span class="n">ScipyParticle</span><span class="p">):</span>

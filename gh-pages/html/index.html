@@ -110,7 +110,7 @@
 <span id="parcels-particleset-module"></span><h2>parcels.particleset module<a class="headerlink" href="#module-parcels.particleset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="parcels.particleset.ParticleSet">
-<em class="property">class </em><code class="descclassname">parcels.particleset.</code><code class="descname">ParticleSet</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass=&lt;class 'parcels.particle.JITParticle'&gt;</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">parcels.particleset.</code><code class="descname">ParticleSet</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass=&lt;class 'parcels.particle.JITParticle'&gt;</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>lonlatdepth_dtype=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Container class for storing particle and executing kernel over them.</p>
 <p>Please note that this currently only supports fixed size particle sets.</p>
@@ -127,6 +127,9 @@
 <li><strong>depth</strong> – Optional list of initial depth values for particles. Default is 0m</li>
 <li><strong>time</strong> – Optional list of initial time values for particles. Default is fieldset.U.grid.time[0]</li>
 <li><strong>repeatdt</strong> – Optional interval (in seconds) on which to repeat the release of the ParticleSet</li>
+<li><strong>lonlatdepth_dtype</strong> – Floating precision for lon, lat, depth particle coordinates.
+It is either np.float32 or np.float64. Default is np.float32 if fieldset.U.interp_method is ‘linear’
+and np.float64 if the interpolation method is ‘cgrid_velocity’</li>
 </ul>
 </td>
 </tr>
@@ -303,7 +306,7 @@ object that defines custom particle</li>
 
 <dl class="method">
 <dt id="parcels.particleset.ParticleSet.show">
-<code class="descname">show</code><span class="sig-paren">(</span><em>with_particles=True</em>, <em>show_time=None</em>, <em>field=None</em>, <em>domain=None</em>, <em>projection=None</em>, <em>land=True</em>, <em>vmin=None</em>, <em>vmax=None</em>, <em>savefile=None</em>, <em>animation=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.show" title="Permalink to this definition">¶</a></dt>
+<code class="descname">show</code><span class="sig-paren">(</span><em>with_particles=True</em>, <em>show_time=None</em>, <em>field=None</em>, <em>domain=None</em>, <em>projection=None</em>, <em>land=True</em>, <em>vmin=None</em>, <em>vmax=None</em>, <em>savefile=None</em>, <em>animation=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to ‘show’ a Parcels ParticleSet</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -313,7 +316,7 @@ object that defines custom particle</li>
 <li><strong>with_particles</strong> – Boolean whether to show particles</li>
 <li><strong>show_time</strong> – Time at which to show the ParticleSet</li>
 <li><strong>field</strong> – Field to plot under particles (either None, a Field object, or ‘vector’)</li>
-<li><strong>domain</strong> – Four-vector (latN, latS, lonE, lonW) defining domain to show</li>
+<li><strong>domain</strong> – dictionary (with keys ‘N’, ‘S’, ‘E’, ‘W’) defining domain to show</li>
 <li><strong>projection</strong> – type of cartopy projection to use (default PlateCarree)</li>
 <li><strong>land</strong> – Boolean whether to show land. This is ignored for flat meshes</li>
 <li><strong>vmin</strong> – minimum colour scale (only in single-plot mode)</li>
@@ -433,8 +436,70 @@ of the field on one side of the domain to the other.</p>
 <dl class="attribute">
 <dt id="parcels.fieldset.FieldSet.fields">
 <code class="descname">fields</code><a class="headerlink" href="#parcels.fieldset.FieldSet.fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of all the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> objects
-associated with this FieldSet</p>
+<dd><p>Returns a list of all the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> and <a class="reference internal" href="#parcels.field.VectorField" title="parcels.field.VectorField"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.VectorField</span></code></a>
+objects associated with this FieldSet</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="parcels.fieldset.FieldSet.from_c_grid_dataset">
+<em class="property">classmethod </em><code class="descname">from_c_grid_dataset</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>tracer_interp_method='cgrid_tracer'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_c_grid_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_c_grid_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialises FieldSet object from NetCDF files of Curvilinear NEMO fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filenames</strong> – Dictionary mapping variables to file(s). The
+filepath may contain wildcards to indicate multiple files,
+or be a list of file.
+filenames can be a list [files], a dictionary {var:[files]},
+a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),
+or a dictionary of dictionaries {var:{dim:[files]}}
+time values are in filenames[data]</li>
+<li><strong>variables</strong> – Dictionary mapping variables to variable
+names in the netCDF file(s).</li>
+<li><strong>dimensions</strong> – <p>Dictionary mapping data dimensions (lon,
+lat, depth, time, data) to dimensions in the netCF file(s).
+Note that dimensions can also be a dictionary of dictionaries if
+dimension names are different for each variable.
+Watch out: NEMO is discretised on a C-grid:
+U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).</p>
+<blockquote>
+<div>__V1__</div></blockquote>
+<div class="line-block">
+<div class="line"><a href="#id1"><span class="problematic" id="id2">|</span></a></div>
+</div>
+<p>U0     U1
+<a href="#id8"><span class="problematic" id="id9">|__V0__|</span></a>
+To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
+which are located on the corners of the cells.
+(for indexing details: <a class="reference external" href="https://www.nemo-ocean.eu/doc/img360.png">https://www.nemo-ocean.eu/doc/img360.png</a> )
+In 3D, the depth is the one corresponding to W nodes</p>
+</li>
+<li><strong>indices</strong> – Optional dictionary of indices for each dimension
+to read from file(s), to allow for reading of subset of data.
+Default is to read the full extent of each dimension.
+Note that negative indices are not allowed.</li>
+<li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
+units used during velocity interpolation:</p>
+<ol class="arabic">
+<li>spherical (default): Lat and lon in degree, with a
+correction for zonal velocity U near the poles.</li>
+<li>flat: No conversion, lat/lon are assumed to be in m.</li>
+</ol>
+</li>
+<li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
+(i.e. beyond the last available time snapshot)
+Default is False if dimensions includes time, else True</li>
+<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+This flag overrides the allow_time_interpolation and sets it to False</li>
+<li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘cgrid_tracer’ (default)
+Note that in the case of from_nemo() and from_cgrid(), the velocity fields are default to ‘cgrid_velocity’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="classmethod">
@@ -447,7 +512,8 @@ associated with this FieldSet</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>data</strong> – <p>Dictionary mapping field names to numpy arrays.
-Note that at least a ‘U’ and ‘V’ numpy array need to be given</p>
+Note that at least a ‘U’ and ‘V’ numpy array need to be given, and that
+the built-in Advection kernels assume that U and V are in m/s</p>
 <ol class="arabic">
 <li>If data shape is [xdim, ydim], [xdim, ydim, zdim], [xdim, ydim, tdim] or [xdim, ydim, zdim, tdim],
 whichever is relevant for the dataset, use the flag transpose=True</li>
@@ -463,7 +529,7 @@ dimension names are different for each variable
 (e.g. dimensions[‘U’], dimensions[‘V’], etc).</li>
 <li><strong>transpose</strong> – Boolean whether to transpose data on read-in</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
-units used during velocity interpolation:</p>
+units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
 <li>spherical (default): Lat and lon in degree, with a
 correction for zonal velocity U near the poles.</li>
@@ -498,8 +564,8 @@ filenames can be a list [files], a dictionary {var:[files]},
 a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),
 or a dictionary of dictionaries {var:{dim:[files]}}
 time values are in filenames[data]</li>
-<li><strong>variables</strong> – Dictionary mapping variables to variable
-names in the netCDF file(s).</li>
+<li><strong>variables</strong> – Dictionary mapping variables to variable names in the netCDF file(s).
+Note that the built-in Advection kernels assume that U and V are in m/s</li>
 <li><strong>dimensions</strong> – <p>Dictionary mapping data dimensions (lon,
 lat, depth, time, data) to dimensions in the netCF file(s).
 Note that dimensions can also be a dictionary of dictionaries if
@@ -509,10 +575,10 @@ U and V velocities are not located on the same nodes (see <a class="reference ex
 <blockquote>
 <div>__V1__</div></blockquote>
 <div class="line-block">
-<div class="line"><a href="#id1"><span class="problematic" id="id2">|</span></a></div>
+<div class="line"><a href="#id3"><span class="problematic" id="id4">|</span></a></div>
 </div>
 <p>U0     U1
-<a href="#id6"><span class="problematic" id="id7">|__V0__|</span></a>
+<a href="#id10"><span class="problematic" id="id11">|__V0__|</span></a>
 To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
 which are located on the corners of the cells.
 (for indexing details: <a class="reference external" href="https://www.nemo-ocean.eu/doc/img360.png">https://www.nemo-ocean.eu/doc/img360.png</a> )
@@ -523,7 +589,7 @@ to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
-units used during velocity interpolation:</p>
+units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
 <li>spherical (default): Lat and lon in degree, with a
 correction for zonal velocity U near the poles.</li>
@@ -536,7 +602,7 @@ Default is False if dimensions includes time, else True</li>
 <li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘cgrid_tracer’ (default)
-Note that in the case of from_nemo(), the velocity fields are default to ‘cgrid_velocity’</li>
+Note that in the case of from_nemo() and from_cgrid(), the velocity fields are default to ‘cgrid_velocity’</li>
 </ul>
 </td>
 </tr>
@@ -546,7 +612,7 @@ Note that in the case of from_nemo(), the velocity fields are default to ‘cgri
 
 <dl class="classmethod">
 <dt id="parcels.fieldset.FieldSet.from_netcdf">
-<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>full_load=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_netcdf" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>timestamps=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_netcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialises FieldSet object from NetCDF files</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -554,14 +620,14 @@ Note that in the case of from_nemo(), the velocity fields are default to ‘cgri
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>filenames</strong> – Dictionary mapping variables to file(s). The
-filepath may contain wildcards to indicate multiple files,
+filepath may contain wildcards to indicate multiple files
 or be a list of file.
 filenames can be a list [files], a dictionary {var:[files]},
 a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),
 or a dictionary of dictionaries {var:{dim:[files]}}.
 time values are in filenames[data]</li>
-<li><strong>variables</strong> – Dictionary mapping variables to variable
-names in the netCDF file(s).</li>
+<li><strong>variables</strong> – Dictionary mapping variables to variable names in the netCDF file(s).
+Note that the built-in Advection kernels assume that U and V are in m/s</li>
 <li><strong>dimensions</strong> – Dictionary mapping data dimensions (lon,
 lat, depth, time, data) to dimensions in the netCF file(s).
 Note that dimensions can also be a dictionary of dictionaries if
@@ -572,22 +638,24 @@ to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
-units used during velocity interpolation:</p>
+units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
 <li>spherical (default): Lat and lon in degree, with a
 correction for zonal velocity U near the poles.</li>
 <li>flat: No conversion, lat/lon are assumed to be in m.</li>
 </ol>
 </li>
+<li><strong>timestamps</strong> – A numpy array containing the timestamps for each of the files in filenames.
+Default is None if dimensions includes time.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
 <li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
 This flag overrides the allow_time_interpolation and sets it to False</li>
-<li><strong>full_load</strong> – boolean whether to fully load the data or only pre-load them. (default: False)
-It is advised not to fully load the data, since in that case Parcels deals with
-a better memory management during particle set execution.
-full_load is however sometimes necessary for plotting the fields.</li>
+<li><strong>deferred_load</strong> – boolean whether to only pre-load data (in deferred mode) or
+fully load them (default: True). It is advised to deferred load the data, since in
+that case Parcels deals with a better memory management during particle set execution.
+deferred_load=False is however sometimes necessary for plotting the fields.</li>
 <li><strong>netcdf_engine</strong> – engine to use for netcdf reading in xarray. Default is ‘netcdf’,
 but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could help</li>
 </ul>
@@ -599,7 +667,7 @@ but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could 
 
 <dl class="classmethod">
 <dt id="parcels.fieldset.FieldSet.from_parcels">
-<em class="property">classmethod </em><code class="descname">from_parcels</code><span class="sig-paren">(</span><em>basename</em>, <em>uvar='vozocrtx'</em>, <em>vvar='vomecrty'</em>, <em>indices=None</em>, <em>extra_fields=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>full_load=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_parcels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_parcels" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_parcels</code><span class="sig-paren">(</span><em>basename</em>, <em>uvar='vozocrtx'</em>, <em>vvar='vomecrty'</em>, <em>indices=None</em>, <em>extra_fields=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_parcels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_parcels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialises FieldSet data from NetCDF files using the Parcels FieldSet.write() conventions.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -618,10 +686,10 @@ Note that negative indices are not allowed.</li>
 Default is False if dimensions includes time, else True</li>
 <li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
 This flag overrides the allow_time_interpolation and sets it to False</li>
-<li><strong>full_load</strong> – boolean whether to fully load the data or only pre-load them. (default: False)
-It is advised not to fully load the data, since in that case Parcels deals with
-a better memory management during particle set execution.
-full_load is however sometimes necessary for plotting the fields.</li>
+<li><strong>deferred_load</strong> – boolean whether to only pre-load data (in deferred mode) or
+fully load them (default: True). It is advised to deferred load the data, since in
+that case Parcels deals with a better memory management during particle set execution.
+deferred_load=False is however sometimes necessary for plotting the fields.</li>
 </ul>
 </td>
 </tr>
@@ -631,14 +699,15 @@ full_load is however sometimes necessary for plotting the fields.</li>
 
 <dl class="classmethod">
 <dt id="parcels.fieldset.FieldSet.from_xarray_dataset">
-<em class="property">classmethod </em><code class="descname">from_xarray_dataset</code><span class="sig-paren">(</span><em>ds</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>full_load=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_xarray_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_xarray_dataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_xarray_dataset</code><span class="sig-paren">(</span><em>ds</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_xarray_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_xarray_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialises FieldSet data from xarray Datasets.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>ds</strong> – xarray Dataset</li>
+<li><strong>ds</strong> – xarray Dataset.
+Note that the built-in Advection kernels assume that U and V are in m/s</li>
 <li><strong>dimensions</strong> – Dictionary mapping data dimensions (lon,
 lat, depth, time, data) to dimensions in the xarray Dataset.
 Note that dimensions can also be a dictionary of dictionaries if
@@ -648,7 +717,7 @@ dimension names are different for each variable
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
-units used during velocity interpolation:</p>
+units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
 <li>spherical (default): Lat and lon in degree, with a
 correction for zonal velocity U near the poles.</li>
@@ -660,10 +729,10 @@ correction for zonal velocity U near the poles.</li>
 Default is False if dimensions includes time, else True</li>
 <li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
 This flag overrides the allow_time_interpolation and sets it to False</li>
-<li><strong>full_load</strong> – boolean whether to fully load the data or only pre-load them. (default: False)
-It is advised not to fully load the data, since in that case Parcels deals with
-a better memory management during particle set execution.
-full_load is however sometimes necessary for plotting the fields.</li>
+<li><strong>deferred_load</strong> – boolean whether to only pre-load data (in deferred mode) or
+fully load them (default: True). It is advised to deferred load the data, since in
+that case Parcels deals with a better memory management during particle set execution.
+deferred_load=False is however sometimes necessary for plotting the fields.</li>
 </ul>
 </td>
 </tr>
@@ -692,7 +761,7 @@ full_load is however sometimes necessary for plotting the fields.</li>
 <span id="parcels-field-module"></span><h2>parcels.field module<a class="headerlink" href="#module-parcels.field" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="parcels.field.Field">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">Field</code><span class="sig-paren">(</span><em>name</em>, <em>data</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>grid=None</em>, <em>mesh='flat'</em>, <em>fieldtype=None</em>, <em>transpose=False</em>, <em>vmin=None</em>, <em>vmax=None</em>, <em>time_origin=None</em>, <em>interp_method='linear'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">Field</code><span class="sig-paren">(</span><em>name</em>, <em>data</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>grid=None</em>, <em>mesh='flat'</em>, <em>timestamps=None</em>, <em>fieldtype=None</em>, <em>transpose=False</em>, <em>vmin=None</em>, <em>vmax=None</em>, <em>time_origin=None</em>, <em>interp_method='linear'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that encapsulates access to field data.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -717,11 +786,13 @@ use the flag transpose=False</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation: (only if grid is None)</p>
 <ol class="arabic">
-<li>spherical (default): Lat and lon in degree, with a
+<li>spherical: Lat and lon in degree, with a
 correction for zonal velocity U near the poles.</li>
-<li>flat: No conversion, lat/lon are assumed to be in m.</li>
+<li>flat (default): No conversion, lat/lon are assumed to be in m.</li>
 </ol>
 </li>
+<li><strong>timestamps</strong> – A numpy array containing the timestamps for each of the files in filenames, for loading
+from netCDF files only. Default is None if the netCDF dimensions dictionary includes time.</li>
 <li><strong>grid</strong> – <a class="reference internal" href="#parcels.grid.Grid" title="parcels.grid.Grid"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.Grid</span></code></a> object containing all the lon, lat depth, time
 mesh and time_origin information. Can be constructed from any of the Grid objects</li>
 <li><strong>fieldtype</strong> – Type of Field to be used for UnitConverter when using SummedFields
@@ -800,7 +871,7 @@ scipy.interpolate to perform spatial interpolation.</p>
 
 <dl class="classmethod">
 <dt id="parcels.field.Field.from_netcdf">
-<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variable</em>, <em>dimensions</em>, <em>indices=None</em>, <em>grid=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>full_load=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.from_netcdf" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variable</em>, <em>dimensions</em>, <em>indices=None</em>, <em>grid=None</em>, <em>mesh='spherical'</em>, <em>timestamps=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.from_netcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create field from netCDF file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -812,7 +883,7 @@ Note that wildcards (‘*’) are also allowed
 filenames can be a list [files]
 or a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data)
 time values are in filenames[data]</li>
-<li><strong>variable</strong> – Name of the field to create. Note that this has to be a string</li>
+<li><strong>variable</strong> – Tuple mapping field name to variable name in the NetCDF file.</li>
 <li><strong>dimensions</strong> – Dictionary mapping variable names for the relevant dimensions in the NetCDF file</li>
 <li><strong>indices</strong> – dictionary mapping indices for each dimension to read from file.
 This can be used for reading in only a subregion of the NetCDF file.
@@ -825,15 +896,17 @@ correction for zonal velocity U near the poles.</li>
 <li>flat: No conversion, lat/lon are assumed to be in m.</li>
 </ol>
 </li>
+<li><strong>timestamps</strong> – A numpy array of datetime64 objects containing the timestamps for each of the files in filenames.
+Default is None if dimensions includes time.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation in time
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
 <li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
 This flag overrides the allow_time_interpolation and sets it to False</li>
-<li><strong>full_load</strong> – boolean whether to fully load the data or only pre-load them. (default: False)
-It is advised not to fully load the data, since in that case Parcels deals with
-a better memory management during particle set execution.
-full_load is however sometimes necessary for plotting the fields.</li>
+<li><strong>deferred_load</strong> – boolean whether to only pre-load data (in deferred mode) or
+fully load them (default: True). It is advised to deferred load the data, since in
+that case Parcels deals with a better memory management during particle set execution.
+deferred_load=False is however sometimes necessary for plotting the fields.</li>
 <li><strong>netcdf_engine</strong> – engine to use for netcdf reading in xarray. Default is ‘netcdf’,
 but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could help</li>
 </ul>
@@ -878,7 +951,7 @@ of the original Field</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>animation</strong> – Boolean whether result is a single plot, or an animation</li>
 <li><strong>show_time</strong> – Time at which to show the Field (only in single-plot mode)</li>
-<li><strong>domain</strong> – Four-vector (latN, latS, lonE, lonW) defining domain to show</li>
+<li><strong>domain</strong> – dictionary (with keys ‘N’, ‘S’, ‘E’, ‘W’) defining domain to show</li>
 <li><strong>depth_level</strong> – depth level to be plotted (default 0)</li>
 <li><strong>projection</strong> – type of cartopy projection to use (default PlateCarree)</li>
 <li><strong>land</strong> – Boolean whether to show land. This is ignored for flat meshes</li>
@@ -974,7 +1047,7 @@ This enables to interpolate them as one single vector field in the kernels.</p>
 <dd><blockquote>
 <div></div></blockquote>
 <div class="line-block">
-<div class="line"><a href="#id4"><span class="problematic" id="id5">|</span></a></div>
+<div class="line"><a href="#id6"><span class="problematic" id="id7">|</span></a></div>
 </div>
 <p>U0         U1
 | __ V0 __ |
@@ -1334,7 +1407,7 @@ which will then be sampled at the location of the particle</li>
 <dd><p>Advection of particles using adadptive Runge-Kutta 4/5 integration.</p>
 <p>Times-step dt is halved if error is larger than tolerance, and doubled
 if error is smaller than 1/10th of tolerance, with tolerance set to
-1e-9 * dt by default.</p>
+1e-5 * dt by default.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1833,7 +1906,7 @@ of the TimeConverter</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>show_time</strong> – Time at which to show the Field</li>
-<li><strong>domain</strong> – Four-vector (latN, latS, lonE, lonW) defining domain to show</li>
+<li><strong>domain</strong> – dictionary (with keys ‘N’, ‘S’, ‘E’, ‘W’) defining domain to show</li>
 <li><strong>depth_level</strong> – depth level to be plotted (default 0)</li>
 <li><strong>projection</strong> – type of cartopy projection to use (default PlateCarree)</li>
 <li><strong>land</strong> – Boolean whether to show land. This is ignored for flat meshes</li>
@@ -1850,7 +1923,7 @@ of the TimeConverter</p>
 
 <dl class="function">
 <dt id="parcels.plotting.plotparticles">
-<code class="descclassname">parcels.plotting.</code><code class="descname">plotparticles</code><span class="sig-paren">(</span><em>particles</em>, <em>with_particles=True</em>, <em>show_time=None</em>, <em>field=None</em>, <em>domain=None</em>, <em>projection=None</em>, <em>land=True</em>, <em>vmin=None</em>, <em>vmax=None</em>, <em>savefile=None</em>, <em>animation=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/plotting.html#plotparticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.plotting.plotparticles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">parcels.plotting.</code><code class="descname">plotparticles</code><span class="sig-paren">(</span><em>particles</em>, <em>with_particles=True</em>, <em>show_time=None</em>, <em>field=None</em>, <em>domain=None</em>, <em>projection=None</em>, <em>land=True</em>, <em>vmin=None</em>, <em>vmax=None</em>, <em>savefile=None</em>, <em>animation=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/plotting.html#plotparticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.plotting.plotparticles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to plot a Parcels ParticleSet</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1860,7 +1933,7 @@ of the TimeConverter</p>
 <li><strong>show_time</strong> – Time at which to show the ParticleSet</li>
 <li><strong>with_particles</strong> – Boolean whether particles are also plotted on Field</li>
 <li><strong>field</strong> – Field to plot under particles (either None, a Field object, or ‘vector’)</li>
-<li><strong>domain</strong> – Four-vector (latN, latS, lonE, lonW) defining domain to show</li>
+<li><strong>domain</strong> – dictionary (with keys ‘N’, ‘S’, ‘E’, ‘W’) defining domain to show</li>
 <li><strong>projection</strong> – type of cartopy projection to use (default PlateCarree)</li>
 <li><strong>land</strong> – Boolean whether to show land. This is ignored for flat meshes</li>
 <li><strong>vmin</strong> – minimum colour scale (only in single-plot mode)</li>
