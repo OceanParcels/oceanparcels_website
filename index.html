@@ -176,10 +176,13 @@ conda create -n py3_parcels -c conda-forge python=3 parcels jupyter cartopy ffmp
     <li>Activate the newly created Parcels environment.
       <pre><code class="language-bash">source $HOME/miniconda3/bin/activate py3_parcels  # Linux / macOS
 activate py3_parcels                              # Windows</code></pre></li>
-    <li>Get a copy of the Parcels tutorials and examples, and run the simplest of the examples to validate that you have a working Parcels setup:
-    <pre><code class="language-bash">parcels_get_examples parcels_examples
-cd parcels_examples
-
+    <li>Get a copy of the Parcels tutorials and examples, as well as the data required to run these:
+    <pre><code class="language-bash">parcels_get_examples parcels_examples</code></pre></li>
+    <i>*Note that if you are on Windows and you get a <code>Fatal error in launcher</code> error, you can instead download the data with</i>
+      <pre><code class="language-bash">curl https://raw.githubusercontent.com/OceanParcels/parcels/v2.0.0beta2/parcels/scripts/get_examples.py > parcels_get_examples.py
+python parcels_get_examples.py parcels_examples</code></pre></li>
+      <li>Run the simplest of the examples to validate that you have a working Parcels setup:
+        <pre><code class="language-bash">cd parcels_examples
 python example_peninsula.py --fieldset 100 100</code></pre></li>
     <i>*Note that if you are on macOS and get a compilation error, you may need to accept the Apple xcode license </i> (<code  class="language-bash">xcode-select --install</code>). <i>If this does not solve the compilation error, you may want to try running </i> <code  class="language-bash">export CC=gcc</code>.
     <p></p>
