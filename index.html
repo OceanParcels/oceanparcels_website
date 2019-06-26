@@ -132,23 +132,19 @@
       </div>
       </p><p>
 
-      The manuscript detailing version 2.0 of Parcels is currently under discussion at <a href="https://www.geosci-model-dev-discuss.net/gmd-2018-339/">Geoscientific Model Development</a>:
+      The manuscript detailing version 2.0 of Parcels is currently in press at <a href="https://doi.org/10.5194/gmd-2018-339">Geoscientific Model Development</a> and can be cited as:
       <div class="card">
         <div class="card-header" role="tab">
           <h5 class="mb-0">
             The Parcels v2.0 Lagrangian framework: new field interpolation schemes
           </h5>
-          Delandmeter, P and E van Sebille (2019), <i>Geoscientific Model Development</i>, <i>in review</i><br>
+          Delandmeter, PB and E van Sebille (2019), <i>Geoscientific Model Development</i>, <i>in press</i><br>
           <a class="collapsed card-link" data-toggle="collapse" href="#DelandmeterVanSebille1" aria-expanded="true">[ Expand abstract]</a>
-          <a class="card-link" href=" https://doi.org/10.5194/gmd-2018-339"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i> ]</a>
+          <a class="card-link" href="https://doi.org/10.5194/gmd-2018-339"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i> ]</a>
         </div>
         <div id="DelandmeterVanSebille1" class="collapse" role="tabpanel">
           <div class="card-body">
-            With the increasing amount of data produced by numerical ocean models, so increases the need for efficient tools to analyse these data. One of these tools is Lagrangian ocean analysis, where a set of virtual particles are released and their dynamics is integrated in time based on fields defining the ocean state, including the hydrodynamics and biogeochemistry if available. This popular methodology needs to adapt to the large variety of models producing these fields at different formats.<br>
-
-            This is precisely the aim of Parcels, a Lagrangian ocean analysis framework designed to combine (1) a wide flexibility to model particles of different natures and (2) an efficient implementation in accordance with modern computing infrastructure. In the new Parcels v2.0, we implement a set of interpolation schemes to read various types of discretised fields, from rectilinear to curvilinear grids in the horizontal direction, from z- to s- levels in the vertical and different variable distributions such as the Arakawa's A-, B- and C- grids. In particular, we develop a new interpolation scheme for a three-dimensional curvilinear C-grid and analyse its properties.<br>
-
-            Parcels v2.0 capabilities, including a suite of meta-field objects, are then illustrated in a brief study of the distribution of floating microplastic in the North West European continental shelf and its sensitivity to different physical processes.
+            With the increasing amount of data produced by numerical ocean models, so increases the need for efficient tools to analyse these data. One of these tools is Lagrangian ocean analysis, where a set of virtual particles are released and their dynamics is integrated in time based on fields defining the ocean state, including the hydrodynamics and biogeochemistry if available. This popular methodology needs to adapt to the large variety of models producing these fields at different formats. This is precisely the aim of Parcels, a Lagrangian ocean analysis framework designed to combine (1) a wide flexibility to model particles of different natures and (2) an efficient implementation in accordance with modern computing infrastructure. In the new Parcels v2.0, we implement a set of interpolation schemes to read various types of discretised fields, from rectilinear to curvilinear grids in the horizontal direction, from z- to s- levels in the vertical and different variable distributions such as the Arakawa's A-, B- and C- grids. In particular, we develop a new interpolation scheme for a three-dimensional curvilinear C-grid and analyse its properties. Parcels v2.0 capabilities, including a suite of meta-field objects, are then illustrated in a brief study of the distribution of floating microplastic in the North West European continental shelf and its sensitivity to different physical processes.
           </div>
         </div>
       </div>
@@ -171,7 +167,7 @@
 activate root                              # Windows
 
 conda create -n py3_parcels -c conda-forge python=3 parcels jupyter cartopy ffmpeg</code></pre></li>
-    <i>*Note that Parcels has a problem with the latest release of the netCDF4 library, v1.4.2 (see also <a href="https://github.com/OceanParcels/parcels/issues/513">Issue #513 on github</a>). For the time being, we recommend downgrading to v1.4.1, using <code class="language-bash">conda install netcdf4=1.4.1</code></i>
+    <!--<i>*Note that Parcels has a problem with the latest release of the netCDF4 library, v1.4.2 (see also <a href="https://github.com/OceanParcels/parcels/issues/513">Issue #513 on github</a>). For the time being, we recommend downgrading to v1.4.1, using <code class="language-bash">conda install netcdf4=1.4.1</code></i>-->
     <p></p>
     <li>Activate the newly created Parcels environment.
       <pre><code class="language-bash">source $HOME/miniconda3/bin/activate py3_parcels  # Linux / macOS
@@ -373,7 +369,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
   <hr>
 
   <h2 id="developmentstatus">Parcels development status</h2>
-  The current release of Parcels, version 2.0.0-beta, is a fully-functional, feature-complete code for offline Lagrangian ocean analysis. See below for a list of features, or keep an eye on the <a href="https://github.com/OceanParcels/parcels/projects/1">Github Development Timeline page</a>
+  The current release of Parcels, version 2.0, is a fully-functional, feature-complete code for offline Lagrangian ocean analysis. See below for a list of features, or keep an eye on the <a href="https://github.com/OceanParcels/parcels/projects/1">Github Development Timeline page</a>
   <p></p>
   <h4>Major features</h4>
   <div class="card-columns">
@@ -496,6 +492,24 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
 
   <div class="row">
     <div class="col">
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            The Parcels v2.0 Lagrangian framework: new field interpolation schemes
+          </h5>
+          Delandmeter, PB and E van Sebille (2019), <i>Geoscientific Model Development</i>, <i>in press</i><br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#Delandmeter_VanSebille2019" aria-expanded="true">[ Expand abstract]</a>
+          <a class="card-link" href="https://doi.org/10.5194/gmd-2018-339"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a> <a class="card-link" href="https://github.com/OceanParcels/Parcelsv2.0PaperNorthSeaScripts"><i class="fa fa-github fa-1x"></i> [ Link to code on GitHub ]</a>
+        </div>
+        <div id="Delandmeter_VanSebille2019" class="collapse" role="tabpanel">
+          <div class="card-body">
+            With the increasing amount of data produced by numerical ocean models, so increases the need for efficient tools to analyse these data. One of these tools is Lagrangian ocean analysis, where a set of virtual particles are released and their dynamics is integrated in time based on fields defining the ocean state, including the hydrodynamics and biogeochemistry if available. This popular methodology needs to adapt to the large variety of models producing these fields at different formats. This is precisely the aim of Parcels, a Lagrangian ocean analysis framework designed to combine (1) a wide flexibility to model particles of different natures and (2) an efficient implementation in accordance with modern computing infrastructure. In the new Parcels v2.0, we implement a set of interpolation schemes to read various types of discretised fields, from rectilinear to curvilinear grids in the horizontal direction, from z- to s- levels in the vertical and different variable distributions such as the Arakawa's A-, B- and C- grids. In particular, we develop a new interpolation scheme for a three-dimensional curvilinear C-grid and analyse its properties. Parcels v2.0 capabilities, including a suite of meta-field objects, are then illustrated in a brief study of the distribution of floating microplastic in the North West European continental shelf and its sensitivity to different physical processes.
+          </div>
+        </div>
+      </div>
+
+      <p></p>
 
       <div class="card">
         <div class="card-header" role="tab">
