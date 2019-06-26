@@ -74,7 +74,7 @@
 <span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">IntEnum</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldSamplingError&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeExtrapolationError&#39;</span><span class="p">,</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldSamplingError&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldOutOfBoundError&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeExtrapolationError&#39;</span><span class="p">,</span>
            <span class="s1">&#39;KernelError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfBoundsError&#39;</span><span class="p">,</span> <span class="s1">&#39;recovery_map&#39;</span><span class="p">]</span>
 
 
@@ -99,6 +99,20 @@
             <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">field</span> <span class="k">else</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span>
         <span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">FieldSamplingError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FieldOutOfBoundError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.FieldOutOfBoundError">[docs]</a><span class="k">class</span> <span class="nc">FieldOutOfBoundError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Utility error class to propagate out-of-bound field sampling in Scipy mode&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="n">field</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> sampled out-of-bound, at (</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">field</span> <span class="k">else</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span>
+        <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FieldOutOfBoundError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TimeExtrapolationError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.TimeExtrapolationError">[docs]</a><span class="k">class</span> <span class="nc">TimeExtrapolationError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
