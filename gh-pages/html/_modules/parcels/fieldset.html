@@ -70,7 +70,7 @@
           <div class="body" role="main">
             
   <h1>Source code for parcels.fieldset</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">,</span> <span class="n">SummedVectorField</span><span class="p">,</span> <span class="n">NestedField</span>
+<span></span><span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">,</span> <span class="n">NestedField</span>
 <span class="kn">from</span> <span class="nn">parcels.gridset</span> <span class="k">import</span> <span class="n">GridSet</span>
 <span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="k">import</span> <span class="n">Grid</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
@@ -158,7 +158,13 @@
             <span class="n">lat</span> <span class="o">=</span> <span class="n">dims</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
             <span class="n">depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;depth&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span> <span class="k">else</span> <span class="n">dims</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span>
             <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span> <span class="k">else</span> <span class="n">dims</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
-            <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="o">.</span><span class="n">create_grid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">time_origin</span><span class="o">=</span><span class="n">TimeConverter</span><span class="p">(),</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="n">time</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+                <span class="n">time_origin</span> <span class="o">=</span> <span class="n">TimeConverter</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">time_origin</span><span class="o">.</span><span class="n">reltime</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">time_origin</span> <span class="o">=</span> <span class="n">TimeConverter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="o">.</span><span class="n">create_grid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">time_origin</span><span class="o">=</span><span class="n">time_origin</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span>
             <span class="k">if</span> <span class="s1">&#39;creation_log&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;creation_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from_data&#39;</span>
 
@@ -175,15 +181,17 @@
 <span class="sd">        :param name: Name of the :class:`parcels.field.Field` object to be added</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>  <span class="c1"># check if Field with same name already exists when adding new Field</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;FieldSet already has a Field with name &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+            <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
             <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">field</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">fld</span><span class="p">)</span>
                 <span class="n">fld</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">field</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">fld</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">fld</span><span class="p">)</span>
                 <span class="n">fld</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -202,7 +210,6 @@
         <span class="n">vfield</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vfield</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">vfield</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span></div>
 
     <span class="k">def</span> <span class="nf">check_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -223,14 +230,14 @@
             <span class="n">g</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UV&#39;</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedVectorField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UVW&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedVectorField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
@@ -238,13 +245,13 @@
 
         <span class="n">ccode_fieldnames</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ccode_fieldnames</span><span class="p">:</span>
-                    <span class="n">fld</span><span class="o">.</span><span class="n">ccode_name</span> <span class="o">=</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">fld</span><span class="o">.</span><span class="n">ccode_name</span> <span class="o">=</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
-                    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">ccode_fieldnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fld</span><span class="o">.</span><span class="n">ccode_name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ccode_fieldnames</span><span class="p">:</span>
+                <span class="n">fld</span><span class="o">.</span><span class="n">ccode_name</span> <span class="o">=</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fld</span><span class="o">.</span><span class="n">ccode_name</span> <span class="o">=</span> <span class="n">fld</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">ccode_fieldnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fld</span><span class="o">.</span><span class="n">ccode_name</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse_wildcards</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
@@ -377,10 +384,13 @@
 <span class="sd">               dimension names are different for each variable.</span>
 <span class="sd">               Watch out: NEMO is discretised on a C-grid:</span>
 <span class="sd">               U and V velocities are not located on the same nodes (see https://www.nemo-ocean.eu/doc/node19.html ).</span>
-<span class="sd">                __V1__</span>
-<span class="sd">               |      |</span>
-<span class="sd">               U0     U1</span>
-<span class="sd">               |__V0__|</span>
+<span class="sd">                _________________V[k,j+1,i+1]________________</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               U[k,j+1,i]   W[k:k+2,j+1,i+1], T[k,j+1,i+1]   U[k,j+1,i+1]</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               |_________________V[k,j,i+1]__________________|</span>
 <span class="sd">               To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,</span>
 <span class="sd">               which are located on the corners of the cells.</span>
 <span class="sd">               (for indexing details: https://www.nemo-ocean.eu/doc/img360.png )</span>
@@ -434,10 +444,13 @@
 <span class="sd">               dimension names are different for each variable.</span>
 <span class="sd">               Watch out: NEMO is discretised on a C-grid:</span>
 <span class="sd">               U and V velocities are not located on the same nodes (see https://www.nemo-ocean.eu/doc/node19.html ).</span>
-<span class="sd">                __V1__</span>
-<span class="sd">               |      |</span>
-<span class="sd">               U0     U1</span>
-<span class="sd">               |__V0__|</span>
+<span class="sd">                _________________V[k,j+1,i+1]________________</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               U[k,j+1,i]   W[k:k+2,j+1,i+1], T[k,j+1,i+1]   U[k,j+1,i+1]</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               |                                             |</span>
+<span class="sd">               |_________________V[k,j,i+1]__________________|</span>
 <span class="sd">               To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,</span>
 <span class="sd">               which are located on the corners of the cells.</span>
 <span class="sd">               (for indexing details: https://www.nemo-ocean.eu/doc/img360.png )</span>
@@ -475,6 +488,143 @@
                 <span class="n">interp_method</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">tracer_interp_method</span>
         <span class="k">if</span> <span class="s1">&#39;creation_log&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;creation_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from_c_grid_dataset&#39;</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_netcdf</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span>
+                               <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span> <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FieldSet.from_pop"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.from_pop">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_pop</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+                 <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">tracer_interp_method</span><span class="o">=</span><span class="s1">&#39;bgrid_tracer&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialises FieldSet object from NetCDF files of POP fields.</span>
+<span class="sd">            It is assumed that the velocities in the POP fields is in cm/s.</span>
+
+<span class="sd">        :param filenames: Dictionary mapping variables to file(s). The</span>
+<span class="sd">               filepath may contain wildcards to indicate multiple files,</span>
+<span class="sd">               or be a list of file.</span>
+<span class="sd">               filenames can be a list [files], a dictionary {var:[files]},</span>
+<span class="sd">               a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),</span>
+<span class="sd">               or a dictionary of dictionaries {var:{dim:[files]}}</span>
+<span class="sd">               time values are in filenames[data]</span>
+<span class="sd">        :param variables: Dictionary mapping variables to variable names in the netCDF file(s).</span>
+<span class="sd">               Note that the built-in Advection kernels assume that U and V are in m/s</span>
+<span class="sd">        :param dimensions: Dictionary mapping data dimensions (lon,</span>
+<span class="sd">               lat, depth, time, data) to dimensions in the netCF file(s).</span>
+<span class="sd">               Note that dimensions can also be a dictionary of dictionaries if</span>
+<span class="sd">               dimension names are different for each variable.</span>
+<span class="sd">               Watch out: POP is discretised on a B-grid:</span>
+<span class="sd">               U and V velocity nodes are not located as W velocity and T tracer nodes (see http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf ).</span>
+<span class="sd">               U[k,j+1,i],V[k,j+1,i] ____________________U[k,j+1,i+1],V[k,j+1,i+1]</span>
+<span class="sd">               |                                         |</span>
+<span class="sd">               |      W[k:k+2,j+1,i+1],T[k,j+1,i+1]      |</span>
+<span class="sd">               |                                         |</span>
+<span class="sd">               U[k,j,i],V[k,j,i] ________________________U[k,j,i+1],V[k,j,i+1]</span>
+<span class="sd">               In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</span>
+<span class="sd">                      T node is at the cell centre and interpolated constant per cell as a C-grid.</span>
+<span class="sd">               In 3D: U and V nodes are at the midlle of the cell vertical edges,</span>
+<span class="sd">                      They are interpolated bilinearly (independently of z) in the cell.</span>
+<span class="sd">                      W nodes are at the centre of the horizontal interfaces.</span>
+<span class="sd">                      They are interpolated linearly (as a function of z) in the cell.</span>
+<span class="sd">                      T node is at the cell centre, and constant per cell.</span>
+<span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
+<span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
+<span class="sd">               Default is to read the full extent of each dimension.</span>
+<span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
+<span class="sd">               units used during velocity interpolation, see also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb:</span>
+
+<span class="sd">               1. spherical (default): Lat and lon in degree, with a</span>
+<span class="sd">                  correction for zonal velocity U near the poles.</span>
+<span class="sd">               2. flat: No conversion, lat/lon are assumed to be in m.</span>
+<span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
+<span class="sd">               (i.e. beyond the last available time snapshot)</span>
+<span class="sd">               Default is False if dimensions includes time, else True</span>
+<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
+<span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. It is recommended to use &#39;bgrid_tracer&#39; (default)</span>
+<span class="sd">               Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to &#39;bgrid_velocity&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;creation_log&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;creation_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from_pop&#39;</span>
+        <span class="n">fieldset</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_b_grid_dataset</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span>
+                                           <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span> <span class="n">tracer_interp_method</span><span class="o">=</span><span class="n">tracer_interp_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">):</span>
+            <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">set_scaling_factor</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># cm/s to m/s</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
+            <span class="n">fieldset</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">set_scaling_factor</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># cm/s to m/s</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">):</span>
+            <span class="n">fieldset</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">set_scaling_factor</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># cm/s to m/s and change the W direction</span>
+        <span class="k">return</span> <span class="n">fieldset</span></div>
+
+<div class="viewcode-block" id="FieldSet.from_b_grid_dataset"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.from_b_grid_dataset">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_b_grid_dataset</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+                            <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">tracer_interp_method</span><span class="o">=</span><span class="s1">&#39;bgrid_tracer&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialises FieldSet object from NetCDF files of Bgrid fields.</span>
+
+<span class="sd">        :param filenames: Dictionary mapping variables to file(s). The</span>
+<span class="sd">               filepath may contain wildcards to indicate multiple files,</span>
+<span class="sd">               or be a list of file.</span>
+<span class="sd">               filenames can be a list [files], a dictionary {var:[files]},</span>
+<span class="sd">               a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),</span>
+<span class="sd">               or a dictionary of dictionaries {var:{dim:[files]}}</span>
+<span class="sd">               time values are in filenames[data]</span>
+<span class="sd">        :param variables: Dictionary mapping variables to variable</span>
+<span class="sd">               names in the netCDF file(s).</span>
+<span class="sd">        :param dimensions: Dictionary mapping data dimensions (lon,</span>
+<span class="sd">               lat, depth, time, data) to dimensions in the netCF file(s).</span>
+<span class="sd">               Note that dimensions can also be a dictionary of dictionaries if</span>
+<span class="sd">               dimension names are different for each variable.</span>
+<span class="sd">               U and V velocity nodes are not located as W velocity and T tracer nodes (see http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf ).</span>
+<span class="sd">               U[k,j+1,i],V[k,j+1,i] ____________________U[k,j+1,i+1],V[k,j+1,i+1]</span>
+<span class="sd">               |                                         |</span>
+<span class="sd">               |      W[k:k+2,j+1,i+1],T[k,j+1,i+1]      |</span>
+<span class="sd">               |                                         |</span>
+<span class="sd">               U[k,j,i],V[k,j,i] ________________________U[k,j,i+1],V[k,j,i+1]</span>
+<span class="sd">               In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</span>
+<span class="sd">                      T node is at the cell centre and interpolated constant per cell as a C-grid.</span>
+<span class="sd">               In 3D: U and V nodes are at the midlle of the cell vertical edges,</span>
+<span class="sd">                      They are interpolated bilinearly (independently of z) in the cell.</span>
+<span class="sd">                      W nodes are at the centre of the horizontal interfaces.</span>
+<span class="sd">                      They are interpolated linearly (as a function of z) in the cell.</span>
+<span class="sd">                      T node is at the cell centre, and constant per cell.</span>
+<span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
+<span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
+<span class="sd">               Default is to read the full extent of each dimension.</span>
+<span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
+<span class="sd">               units used during velocity interpolation:</span>
+
+<span class="sd">               1. spherical (default): Lat and lon in degree, with a</span>
+<span class="sd">                  correction for zonal velocity U near the poles.</span>
+<span class="sd">               2. flat: No conversion, lat/lon are assumed to be in m.</span>
+<span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
+<span class="sd">               (i.e. beyond the last available time snapshot)</span>
+<span class="sd">               Default is False if dimensions includes time, else True</span>
+<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
+<span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. It is recommended to use &#39;bgrid_tracer&#39; (default)</span>
+<span class="sd">               Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to &#39;bgrid_velocity&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;U&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="s1">&#39;V&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;On a B-grid discretisation, U and V should have the same dimensions&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;U&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="s1">&#39;W&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;W&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;On a B-grid discretisation, U, V and W should have the same dimensions&quot;</span><span class="p">)</span>
+
+        <span class="n">interp_method</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">]:</span>
+                <span class="n">interp_method</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bgrid_velocity&#39;</span>
+            <span class="k">elif</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;W&#39;</span><span class="p">]:</span>
+                <span class="n">interp_method</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bgrid_w_velocity&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">interp_method</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">tracer_interp_method</span>
+        <span class="k">if</span> <span class="s1">&#39;creation_log&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;creation_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from_b_grid_dataset&#39;</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_netcdf</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span>
                                <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span> <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
@@ -527,6 +677,7 @@
 
 <span class="sd">        :param ds: xarray Dataset.</span>
 <span class="sd">               Note that the built-in Advection kernels assume that U and V are in m/s</span>
+<span class="sd">        :param variables: Dictionary mapping parcels variable names to data variables in the xarray Dataset.</span>
 <span class="sd">        :param dimensions: Dictionary mapping data dimensions (lon,</span>
 <span class="sd">               lat, depth, time, data) to dimensions in the xarray Dataset.</span>
 <span class="sd">               Note that dimensions can also be a dictionary of dictionaries if</span>
@@ -568,18 +719,21 @@
         <span class="n">v</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span></div>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FieldSet.get_fields"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a list of all the :class:`parcels.field.Field` and :class:`parcels.field.VectorField`</span>
 <span class="sd">        objects associated with this FieldSet&quot;&quot;&quot;</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">]:</span>
-                <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+                    <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+                    <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
-                    <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">fields</span>
+                    <span class="k">if</span> <span class="n">v2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+                        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fields</span></div>
 
 <div class="viewcode-block" id="FieldSet.add_constant"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.add_constant">[docs]</a>    <span class="k">def</span> <span class="nf">add_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add a constant to the FieldSet. Note that all constants are</span>
@@ -618,8 +772,8 @@
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s1">&#39;vomecrty&#39;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
                 <span class="n">v</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FieldSet.advancetime"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.advancetime">[docs]</a>    <span class="k">def</span> <span class="nf">advancetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset_new</span><span class="p">):</span>
@@ -634,7 +788,7 @@
         <span class="k">for</span> <span class="n">gnew</span> <span class="ow">in</span> <span class="n">fieldset_new</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
             <span class="n">gnew</span><span class="o">.</span><span class="n">advanced</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">for</span> <span class="n">fnew</span> <span class="ow">in</span> <span class="n">fieldset_new</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fnew</span> <span class="ow">in</span> <span class="n">fieldset_new</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fnew</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fnew</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -648,22 +802,29 @@
                 <span class="n">gnew</span><span class="o">.</span><span class="n">advanced</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">f</span><span class="o">.</span><span class="n">advancetime</span><span class="p">(</span><span class="n">fnew</span><span class="p">,</span> <span class="n">advance</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">computeTimeChunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+<div class="viewcode-block" id="FieldSet.computeTimeChunk"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.computeTimeChunk">[docs]</a>    <span class="k">def</span> <span class="nf">computeTimeChunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load a chunk of three data time steps into the FieldSet.</span>
+<span class="sd">        This is used when FieldSet uses data imported from netcdf,</span>
+<span class="sd">        with default option deferred_load. The loaded time steps are at or immediatly before time</span>
+<span class="sd">        and the two time steps immediately following time if dt is positive (and inversely for negative dt)</span>
+<span class="sd">        :param time: Time around which the FieldSet chunks are to be loaded. Time is provided as a double, relatively to Fieldset.time_origin</span>
+<span class="sd">        :param dt: time step of the integration scheme</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">signdt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
         <span class="n">nextTime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span> <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">infty</span>
 
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
             <span class="n">g</span><span class="o">.</span><span class="n">update_status</span> <span class="o">=</span> <span class="s1">&#39;not_updated&#39;</span>
-        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">defer_load</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">defer_load</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">update_status</span> <span class="o">==</span> <span class="s1">&#39;not_updated&#39;</span><span class="p">:</span>
                 <span class="n">nextTime_loc</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">signdt</span><span class="p">)</span>
             <span class="n">nextTime</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">nextTime</span><span class="p">,</span> <span class="n">nextTime_loc</span><span class="p">)</span> <span class="k">if</span> <span class="n">signdt</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">nextTime</span><span class="p">,</span> <span class="n">nextTime_loc</span><span class="p">)</span>
 
         <span class="c1"># load in new data</span>
-        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">defer_load</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">is_gradient</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">dataFiles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">defer_load</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">is_gradient</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">dataFiles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span>
             <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">update_status</span> <span class="o">==</span> <span class="s1">&#39;first_updated&#39;</span><span class="p">:</span>  <span class="c1"># First load of data</span>
@@ -708,7 +869,7 @@
             <span class="k">if</span> <span class="n">nSteps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">nextTime</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">time</span> <span class="o">+</span> <span class="n">nSteps</span> <span class="o">*</span> <span class="n">dt</span></div>
+                <span class="k">return</span> <span class="n">time</span> <span class="o">+</span> <span class="n">nSteps</span> <span class="o">*</span> <span class="n">dt</span></div></div>
 </pre></div>
 
           </div>

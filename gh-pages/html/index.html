@@ -223,7 +223,7 @@ kernel errors.</li>
 
 <dl class="classmethod">
 <dt id="parcels.particleset.ParticleSet.from_field">
-<em class="property">classmethod </em><code class="descname">from_field</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass</em>, <em>start_field</em>, <em>size</em>, <em>mode='monte_carlo'</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.from_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.from_field" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_field</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass</em>, <em>start_field</em>, <em>size</em>, <em>mode='monte_carlo'</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>lonlatdepth_dtype=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.from_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.from_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialise the ParticleSet randomly drawn according to distribution from a field</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -239,6 +239,9 @@ object that defines custom particle</li>
 <li><strong>depth</strong> – Optional list of initial depth values for particles. Default is 0m</li>
 <li><strong>time</strong> – Optional start time value for particles. Default is fieldset.U.time[0]</li>
 <li><strong>repeatdt</strong> – Optional interval (in seconds) on which to repeat the release of the ParticleSet</li>
+<li><strong>lonlatdepth_dtype</strong> – Floating precision for lon, lat, depth particle coordinates.
+It is either np.float32 or np.float64. Default is np.float32 if fieldset.U.interp_method is ‘linear’
+and np.float64 if the interpolation method is ‘cgrid_velocity’</li>
 </ul>
 </td>
 </tr>
@@ -248,7 +251,7 @@ object that defines custom particle</li>
 
 <dl class="classmethod">
 <dt id="parcels.particleset.ParticleSet.from_line">
-<em class="property">classmethod </em><code class="descname">from_line</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass</em>, <em>start</em>, <em>finish</em>, <em>size</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.from_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.from_line" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_line</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass</em>, <em>start</em>, <em>finish</em>, <em>size</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>lonlatdepth_dtype=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.from_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.from_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialise the ParticleSet from start/finish coordinates with equidistant spacing
 Note that this method uses simple numpy.linspace calls and does not take into account
 great circles, so may not be a exact on a globe</p>
@@ -266,6 +269,9 @@ object that defines custom particle</li>
 <li><strong>depth</strong> – Optional list of initial depth values for particles. Default is 0m</li>
 <li><strong>time</strong> – Optional start time value for particles. Default is fieldset.U.time[0]</li>
 <li><strong>repeatdt</strong> – Optional interval (in seconds) on which to repeat the release of the ParticleSet</li>
+<li><strong>lonlatdepth_dtype</strong> – Floating precision for lon, lat, depth particle coordinates.
+It is either np.float32 or np.float64. Default is np.float32 if fieldset.U.interp_method is ‘linear’
+and np.float64 if the interpolation method is ‘cgrid_velocity’</li>
 </ul>
 </td>
 </tr>
@@ -275,7 +281,7 @@ object that defines custom particle</li>
 
 <dl class="classmethod">
 <dt id="parcels.particleset.ParticleSet.from_list">
-<em class="property">classmethod </em><code class="descname">from_list</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass</em>, <em>lon</em>, <em>lat</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.from_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.from_list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_list</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass</em>, <em>lon</em>, <em>lat</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>lonlatdepth_dtype=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet.from_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet.from_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialise the ParticleSet from lists of lon and lat</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -290,6 +296,9 @@ object that defines custom particle</li>
 <li><strong>depth</strong> – Optional list of initial depth values for particles. Default is 0m</li>
 <li><strong>time</strong> – Optional list of start time values for particles. Default is fieldset.U.time[0]</li>
 <li><strong>repeatdt</strong> – Optional interval (in seconds) on which to repeat the release of the ParticleSet</li>
+<li><strong>lonlatdepth_dtype</strong> – Floating precision for lon, lat, depth particle coordinates.
+It is either np.float32 or np.float64. Default is np.float32 if fieldset.U.interp_method is ‘linear’
+and np.float64 if the interpolation method is ‘cgrid_velocity’</li>
 </ul>
 </td>
 </tr>
@@ -433,11 +442,80 @@ of the field on one side of the domain to the other.</p>
 :param fieldset_new: FieldSet snapshot with which the oldest time has to be replaced</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="parcels.fieldset.FieldSet.fields">
-<code class="descname">fields</code><a class="headerlink" href="#parcels.fieldset.FieldSet.fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of all the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> and <a class="reference internal" href="#parcels.field.VectorField" title="parcels.field.VectorField"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.VectorField</span></code></a>
-objects associated with this FieldSet</p>
+<dl class="method">
+<dt id="parcels.fieldset.FieldSet.computeTimeChunk">
+<code class="descname">computeTimeChunk</code><span class="sig-paren">(</span><em>time</em>, <em>dt</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.computeTimeChunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.computeTimeChunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a chunk of three data time steps into the FieldSet.
+This is used when FieldSet uses data imported from netcdf,
+with default option deferred_load. The loaded time steps are at or immediatly before time
+and the two time steps immediately following time if dt is positive (and inversely for negative dt)
+:param time: Time around which the FieldSet chunks are to be loaded. Time is provided as a double, relatively to Fieldset.time_origin
+:param dt: time step of the integration scheme</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="parcels.fieldset.FieldSet.from_b_grid_dataset">
+<em class="property">classmethod </em><code class="descname">from_b_grid_dataset</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>tracer_interp_method='bgrid_tracer'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_b_grid_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_b_grid_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialises FieldSet object from NetCDF files of Bgrid fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filenames</strong> – Dictionary mapping variables to file(s). The
+filepath may contain wildcards to indicate multiple files,
+or be a list of file.
+filenames can be a list [files], a dictionary {var:[files]},
+a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),
+or a dictionary of dictionaries {var:{dim:[files]}}
+time values are in filenames[data]</li>
+<li><strong>variables</strong> – Dictionary mapping variables to variable
+names in the netCDF file(s).</li>
+<li><strong>dimensions</strong> – <p>Dictionary mapping data dimensions (lon,
+lat, depth, time, data) to dimensions in the netCF file(s).
+Note that dimensions can also be a dictionary of dictionaries if
+dimension names are different for each variable.
+U and V velocity nodes are not located as W velocity and T tracer nodes (see <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf">http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf</a> ).
+U[k,j+1,i],V[k,j+1,i] ____________________U[k,j+1,i+1],V[k,j+1,i+1]
+|                                         |
+|      W[k:k+2,j+1,i+1],T[k,j+1,i+1]      |
+|                                         |
+U[k,j,i],V[k,j,i] ________________________U[k,j,i+1],V[k,j,i+1]
+In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</p>
+<blockquote>
+<div>T node is at the cell centre and interpolated constant per cell as a C-grid.</div></blockquote>
+<dl class="docutils">
+<dt>In 3D: U and V nodes are at the midlle of the cell vertical edges,</dt>
+<dd>They are interpolated bilinearly (independently of z) in the cell.
+W nodes are at the centre of the horizontal interfaces.
+They are interpolated linearly (as a function of z) in the cell.
+T node is at the cell centre, and constant per cell.</dd>
+</dl>
+</li>
+<li><strong>indices</strong> – Optional dictionary of indices for each dimension
+to read from file(s), to allow for reading of subset of data.
+Default is to read the full extent of each dimension.
+Note that negative indices are not allowed.</li>
+<li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
+units used during velocity interpolation:</p>
+<ol class="arabic">
+<li>spherical (default): Lat and lon in degree, with a
+correction for zonal velocity U near the poles.</li>
+<li>flat: No conversion, lat/lon are assumed to be in m.</li>
+</ol>
+</li>
+<li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
+(i.e. beyond the last available time snapshot)
+Default is False if dimensions includes time, else True</li>
+<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+This flag overrides the allow_time_interpolation and sets it to False</li>
+<li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘bgrid_tracer’ (default)
+Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to ‘bgrid_velocity’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="classmethod">
@@ -465,12 +543,15 @@ dimension names are different for each variable.
 Watch out: NEMO is discretised on a C-grid:
 U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).</p>
 <blockquote>
-<div>__V1__</div></blockquote>
+<div>_________________V[k,j+1,i+1]________________</div></blockquote>
 <div class="line-block">
 <div class="line"><a href="#id1"><span class="problematic" id="id2">|</span></a></div>
+<div class="line"><a href="#id3"><span class="problematic" id="id4">|</span></a></div>
 </div>
-<p>U0     U1
-<a href="#id8"><span class="problematic" id="id9">|__V0__|</span></a>
+<p>U[k,j+1,i]   W[k:k+2,j+1,i+1], T[k,j+1,i+1]   U[k,j+1,i+1]
+|                                             |
+|                                             |
+<a href="#id12"><span class="problematic" id="id13">|_________________V[k,j,i+1]__________________|</span></a>
 To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
 which are located on the corners of the cells.
 (for indexing details: <a class="reference external" href="https://www.nemo-ocean.eu/doc/img360.png">https://www.nemo-ocean.eu/doc/img360.png</a> )
@@ -573,12 +654,15 @@ dimension names are different for each variable.
 Watch out: NEMO is discretised on a C-grid:
 U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).</p>
 <blockquote>
-<div>__V1__</div></blockquote>
+<div>_________________V[k,j+1,i+1]________________</div></blockquote>
 <div class="line-block">
-<div class="line"><a href="#id3"><span class="problematic" id="id4">|</span></a></div>
+<div class="line"><a href="#id5"><span class="problematic" id="id6">|</span></a></div>
+<div class="line"><a href="#id7"><span class="problematic" id="id8">|</span></a></div>
 </div>
-<p>U0     U1
-<a href="#id10"><span class="problematic" id="id11">|__V0__|</span></a>
+<p>U[k,j+1,i]   W[k:k+2,j+1,i+1], T[k,j+1,i+1]   U[k,j+1,i+1]
+|                                             |
+|                                             |
+<a href="#id14"><span class="problematic" id="id15">|_________________V[k,j,i+1]__________________|</span></a>
 To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
 which are located on the corners of the cells.
 (for indexing details: <a class="reference external" href="https://www.nemo-ocean.eu/doc/img360.png">https://www.nemo-ocean.eu/doc/img360.png</a> )
@@ -698,6 +782,75 @@ deferred_load=False is however sometimes necessary for plotting the fields.</li>
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="parcels.fieldset.FieldSet.from_pop">
+<em class="property">classmethod </em><code class="descname">from_pop</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>tracer_interp_method='bgrid_tracer'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_pop" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Initialises FieldSet object from NetCDF files of POP fields.</dt>
+<dd>It is assumed that the velocities in the POP fields is in cm/s.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filenames</strong> – Dictionary mapping variables to file(s). The
+filepath may contain wildcards to indicate multiple files,
+or be a list of file.
+filenames can be a list [files], a dictionary {var:[files]},
+a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data),
+or a dictionary of dictionaries {var:{dim:[files]}}
+time values are in filenames[data]</li>
+<li><strong>variables</strong> – Dictionary mapping variables to variable names in the netCDF file(s).
+Note that the built-in Advection kernels assume that U and V are in m/s</li>
+<li><strong>dimensions</strong> – <p>Dictionary mapping data dimensions (lon,
+lat, depth, time, data) to dimensions in the netCF file(s).
+Note that dimensions can also be a dictionary of dictionaries if
+dimension names are different for each variable.
+Watch out: POP is discretised on a B-grid:
+U and V velocity nodes are not located as W velocity and T tracer nodes (see <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf">http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf</a> ).
+U[k,j+1,i],V[k,j+1,i] ____________________U[k,j+1,i+1],V[k,j+1,i+1]
+|                                         |
+|      W[k:k+2,j+1,i+1],T[k,j+1,i+1]      |
+|                                         |
+U[k,j,i],V[k,j,i] ________________________U[k,j,i+1],V[k,j,i+1]
+In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</p>
+<blockquote>
+<div>T node is at the cell centre and interpolated constant per cell as a C-grid.</div></blockquote>
+<dl class="docutils">
+<dt>In 3D: U and V nodes are at the midlle of the cell vertical edges,</dt>
+<dd>They are interpolated bilinearly (independently of z) in the cell.
+W nodes are at the centre of the horizontal interfaces.
+They are interpolated linearly (as a function of z) in the cell.
+T node is at the cell centre, and constant per cell.</dd>
+</dl>
+</li>
+<li><strong>indices</strong> – Optional dictionary of indices for each dimension
+to read from file(s), to allow for reading of subset of data.
+Default is to read the full extent of each dimension.
+Note that negative indices are not allowed.</li>
+<li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
+units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
+<ol class="arabic">
+<li>spherical (default): Lat and lon in degree, with a
+correction for zonal velocity U near the poles.</li>
+<li>flat: No conversion, lat/lon are assumed to be in m.</li>
+</ol>
+</li>
+<li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
+(i.e. beyond the last available time snapshot)
+Default is False if dimensions includes time, else True</li>
+<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+This flag overrides the allow_time_interpolation and sets it to False</li>
+<li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘bgrid_tracer’ (default)
+Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to ‘bgrid_velocity’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="parcels.fieldset.FieldSet.from_xarray_dataset">
 <em class="property">classmethod </em><code class="descname">from_xarray_dataset</code><span class="sig-paren">(</span><em>ds</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_xarray_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_xarray_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialises FieldSet data from xarray Datasets.</p>
@@ -708,6 +861,7 @@ deferred_load=False is however sometimes necessary for plotting the fields.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>ds</strong> – xarray Dataset.
 Note that the built-in Advection kernels assume that U and V are in m/s</li>
+<li><strong>variables</strong> – Dictionary mapping parcels variable names to data variables in the xarray Dataset.</li>
 <li><strong>dimensions</strong> – Dictionary mapping data dimensions (lon,
 lat, depth, time, data) to dimensions in the xarray Dataset.
 Note that dimensions can also be a dictionary of dictionaries if
@@ -738,6 +892,13 @@ deferred_load=False is however sometimes necessary for plotting the fields.</li>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.fieldset.FieldSet.get_fields">
+<code class="descname">get_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.get_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.get_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all the <a class="reference internal" href="#parcels.field.Field" title="parcels.field.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.Field</span></code></a> and <a class="reference internal" href="#parcels.field.VectorField" title="parcels.field.VectorField"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.field.VectorField</span></code></a>
+objects associated with this FieldSet</p>
 </dd></dl>
 
 <dl class="method">
@@ -796,7 +957,7 @@ from netCDF files only. Default is None if the netCDF dimensions dictionary incl
 <li><strong>grid</strong> – <a class="reference internal" href="#parcels.grid.Grid" title="parcels.grid.Grid"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.Grid</span></code></a> object containing all the lon, lat depth, time
 mesh and time_origin information. Can be constructed from any of the Grid objects</li>
 <li><strong>fieldtype</strong> – Type of Field to be used for UnitConverter when using SummedFields
-(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_Meridional’ or None)</li>
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>transpose</strong> – Transpose data to required (lon, lat) layout</li>
 <li><strong>vmin</strong> – Minimum allowed value on the field. Data below this value are set to zero</li>
 <li><strong>vmax</strong> – Maximum allowed value on the field. Data above this value are set to zero</li>
@@ -878,11 +1039,9 @@ scipy.interpolate to perform spatial interpolation.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>filenames</strong> – list of filenames to read for the field.
-Note that wildcards (‘*’) are also allowed
-filenames can be a list [files]
-or a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data)
-time values are in filenames[data]</li>
+<li><strong>filenames</strong> – list of filenames to read for the field. filenames can be a list [files] or
+a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data)
+In the latetr case, time values are in filenames[data]</li>
 <li><strong>variable</strong> – Tuple mapping field name to variable name in the NetCDF file.</li>
 <li><strong>dimensions</strong> – Dictionary mapping variable names for the relevant dimensions in the NetCDF file</li>
 <li><strong>indices</strong> – dictionary mapping indices for each dimension to read from file.
@@ -1047,7 +1206,7 @@ This enables to interpolate them as one single vector field in the kernels.</p>
 <dd><blockquote>
 <div></div></blockquote>
 <div class="line-block">
-<div class="line"><a href="#id6"><span class="problematic" id="id7">|</span></a></div>
+<div class="line"><a href="#id10"><span class="problematic" id="id11">|</span></a></div>
 </div>
 <p>U0         U1
 | __ V0 __ |
@@ -1061,31 +1220,24 @@ Curvilinear grids are treated properly, since the element is projected to a rect
 
 <dl class="class">
 <dt id="parcels.field.SummedField">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">SummedField</code><a class="reference internal" href="_modules/parcels/field.html#SummedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.SummedField" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">SummedField</code><span class="sig-paren">(</span><em>name</em>, <em>F</em>, <em>V=None</em>, <em>W=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#SummedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.SummedField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
 <p>Class SummedField is a list of Fields over which Field interpolation
 is summed. This can e.g. be used when combining multiple flow fields,
 where the total flow is the sum of all the individual flows.
 Note that the individual Fields can be on different Grids.
 Also note that, since SummedFields are lists, the individual Fields can
-still be queried through their list index (e.g. SummedField[1]).</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="parcels.field.SummedVectorField">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">SummedVectorField</code><span class="sig-paren">(</span><em>name</em>, <em>U</em>, <em>V</em>, <em>W=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#SummedVectorField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.SummedVectorField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
-<p>Class SummedVectorField stores 2 or 3 SummedFields which defines together a vector field.
-This enables to interpolate them as one single vector SummedField in the kernels.</p>
+still be queried through their list index (e.g. SummedField[1]).
+SummedField is composed of either Fields or VectorFields.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> – Name of the vector field</li>
-<li><strong>U</strong> – SummedField defining the zonal component</li>
-<li><strong>V</strong> – SummedField defining the meridional component</li>
-<li><strong>W</strong> – SummedField defining the vertical component (default: None)</li>
+<li><strong>name</strong> – Name of the SummedField</li>
+<li><strong>F</strong> – List of fields. F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</li>
+<li><strong>V</strong> – List of fields defining the meridional component of a VectorField, if F is the zonal component. (default: None)</li>
+<li><strong>W</strong> – List of fields defining the vertical component of a VectorField, if F and V are the zonal and meridional components (default: None)</li>
 </ul>
 </td>
 </tr>
@@ -1095,7 +1247,7 @@ This enables to interpolate them as one single vector SummedField in the kernels
 
 <dl class="class">
 <dt id="parcels.field.NestedField">
-<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">NestedField</code><span class="sig-paren">(</span><em>name</em>, <em>U</em>, <em>V=None</em>, <em>W=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#NestedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.NestedField" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">parcels.field.</code><code class="descname">NestedField</code><span class="sig-paren">(</span><em>name</em>, <em>F</em>, <em>V=None</em>, <em>W=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#NestedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.NestedField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
 <p>Class NestedField is a list of Fields from which the first one to be not declared out-of-boundaries
 at particle position is interpolated. This induces that the order of the fields in the list matters.
@@ -1108,10 +1260,10 @@ NestedField is composed of either Fields or VectorFields.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> – Name of the Nested field</li>
-<li><strong>U</strong> – List of fields (order matters). U can be a scalar Field, a VectorField, or the zonal component of the VectorField</li>
-<li><strong>V</strong> – List of fields defining the meridional component (default: None)</li>
-<li><strong>W</strong> – List of fields defining the vertical component (default: None)</li>
+<li><strong>name</strong> – Name of the NestedField</li>
+<li><strong>F</strong> – List of fields (order matters). F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</li>
+<li><strong>V</strong> – List of fields defining the meridional component of a VectorField, if F is the zonal component. (default: None)</li>
+<li><strong>W</strong> – List of fields defining the vertical component of a VectorField, if F and V are the zonal and meridional components (default: None)</li>
 </ul>
 </td>
 </tr>
@@ -1756,6 +1908,13 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 <em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">FieldSamplingError</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>field=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#FieldSamplingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.FieldSamplingError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.RuntimeError</span></code></p>
 <p>Utility error class to propagate erroneous field sampling in Scipy mode</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="parcels.tools.error.FieldOutOfBoundError">
+<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">FieldOutOfBoundError</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>field=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#FieldOutOfBoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.FieldOutOfBoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.RuntimeError</span></code></p>
+<p>Utility error class to propagate out-of-bound field sampling in Scipy mode</p>
 </dd></dl>
 
 <dl class="exception">
