@@ -70,26 +70,47 @@
           <div class="body" role="main">
             
   <h1>Source code for parcels.kernel</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">parcels.codegenerator</span> <span class="k">import</span> <span class="n">KernelGenerator</span><span class="p">,</span> <span class="n">LoopGenerator</span>
-<span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="k">import</span> <span class="n">get_cache_dir</span>
-<span class="kn">from</span> <span class="nn">parcels.tools.error</span> <span class="k">import</span> <span class="n">ErrorCode</span><span class="p">,</span> <span class="n">recovery_map</span> <span class="k">as</span> <span class="n">recovery_base_map</span>
-<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">FieldOutOfBoundError</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">,</span> <span class="n">NestedField</span>
-<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">parcels.kernels.advection</span> <span class="k">import</span> <span class="n">AdvectionRK4_3D</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">remove</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.ctypeslib</span> <span class="k">as</span> <span class="nn">npct</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_float</span><span class="p">,</span> <span class="n">c_double</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">byref</span>
-<span class="kn">import</span> <span class="nn">_ctypes</span>
-<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">platform</span><span class="p">,</span> <span class="n">version_info</span>
-<span class="kn">from</span> <span class="nn">ast</span> <span class="k">import</span> <span class="n">parse</span><span class="p">,</span> <span class="n">FunctionDef</span><span class="p">,</span> <span class="n">Module</span>
+<span></span><span class="kn">import</span> <span class="nn">_ctypes</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">hashlib</span> <span class="k">import</span> <span class="n">md5</span>
 <span class="kn">import</span> <span class="nn">math</span>  <span class="c1"># noqa</span>
 <span class="kn">import</span> <span class="nn">random</span>  <span class="c1"># noqa</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ast</span> <span class="k">import</span> <span class="n">FunctionDef</span>
+<span class="kn">from</span> <span class="nn">ast</span> <span class="k">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">ast</span> <span class="k">import</span> <span class="n">parse</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">byref</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_double</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_float</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_int</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_void_p</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="k">import</span> <span class="n">md5</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">remove</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">platform</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">version_info</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.ctypeslib</span> <span class="k">as</span> <span class="nn">npct</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="k">import</span> <span class="n">MPI</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">MPI</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="kn">from</span> <span class="nn">parcels.codegenerator</span> <span class="k">import</span> <span class="n">KernelGenerator</span>
+<span class="kn">from</span> <span class="nn">parcels.codegenerator</span> <span class="k">import</span> <span class="n">LoopGenerator</span>
+<span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="k">import</span> <span class="n">get_cache_dir</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">FieldOutOfBoundError</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">FieldOutOfBoundSurfaceError</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">NestedField</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">SummedField</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">VectorField</span>
+<span class="kn">from</span> <span class="nn">parcels.kernels.advection</span> <span class="k">import</span> <span class="n">AdvectionRK4_3D</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.error</span> <span class="k">import</span> <span class="n">ErrorCode</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.error</span> <span class="k">import</span> <span class="n">recovery_map</span> <span class="k">as</span> <span class="n">recovery_base_map</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Kernel&#39;</span><span class="p">]</span>
@@ -201,8 +222,15 @@
                 <span class="n">c_include_str</span> <span class="o">=</span> <span class="n">c_include</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ccode</span> <span class="o">=</span> <span class="n">loopgen</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">funcname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">const_args</span><span class="p">,</span>
                                           <span class="n">kernel_ccode</span><span class="p">,</span> <span class="n">c_include_str</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">MPI</span><span class="p">:</span>
+                <span class="n">mpi_comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+                <span class="n">mpi_rank</span> <span class="o">=</span> <span class="n">mpi_comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span><span class="p">)</span> <span class="k">if</span> <span class="n">mpi_rank</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">mpi_comm</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">basename</span> <span class="o">+</span> <span class="s2">&quot;_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mpi_rank</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_0&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span><span class="p">)</span>
 
-            <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">src_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.c&quot;</span> <span class="o">%</span> <span class="n">basename</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="s1">&#39;dll&#39;</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="s1">&#39;so&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.log&quot;</span> <span class="o">%</span> <span class="n">basename</span>
@@ -235,7 +263,15 @@
         <span class="c1"># Python&#39;s ctype does not deal in any sort of manner well with dynamic linked libraries on this OS.</span>
         <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">):</span>
             <span class="p">[</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">src_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">]]</span>
-            <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">MPI</span><span class="p">:</span>
+                <span class="n">mpi_comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+                <span class="n">mpi_rank</span> <span class="o">=</span> <span class="n">mpi_comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span><span class="p">)</span> <span class="k">if</span> <span class="n">mpi_rank</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">mpi_comm</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">basename</span> <span class="o">+</span> <span class="s2">&quot;_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mpi_rank</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_0&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">src_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.c&quot;</span> <span class="o">%</span> <span class="n">basename</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="s1">&#39;dll&#39;</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="s1">&#39;so&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.log&quot;</span> <span class="o">%</span> <span class="n">basename</span>
@@ -260,16 +296,27 @@
             <span class="n">g</span><span class="o">.</span><span class="n">cstruct</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># This force to point newly the grids from Python to C</span>
         <span class="c1"># Make a copy of the transposed array to enforce</span>
         <span class="c1"># C-contiguous memory layout for JIT mode.</span>
-        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">chunk_data</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">block_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">)):</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># not the case if a field in not called in the kernel</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
+                    <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">depth</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
                 <span class="n">g</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">depth</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
                 <span class="n">g</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
                 <span class="n">g</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
         <span class="n">fargs</span> <span class="o">=</span> <span class="p">[</span><span class="n">byref</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">ctypes_struct</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
         <span class="n">fargs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">const_args</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
         <span class="n">particle_data</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">_particle_data</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">c_void_p</span><span class="p">)</span>
@@ -282,6 +329,11 @@
 
         <span class="c1"># back up variables in case of ErrorCode.Repeat</span>
         <span class="n">p_var_back</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">particles</span><span class="p">:</span>
             <span class="n">ptype</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">getPType</span><span class="p">()</span>
@@ -296,11 +348,17 @@
                 <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ptype</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
                     <span class="n">p_var_back</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">p</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">sign_dt</span> <span class="o">*</span> <span class="n">dt_pos</span>
+                    <span class="n">pdt_prekernels</span> <span class="o">=</span> <span class="n">sign_dt</span> <span class="o">*</span> <span class="n">dt_pos</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">pdt_prekernels</span>
                     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyfunc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">res</span> <span class="o">==</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">dt</span><span class="p">,</span> <span class="n">pdt_prekernels</span><span class="p">):</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Repeat</span>
                 <span class="k">except</span> <span class="n">FieldOutOfBoundError</span> <span class="k">as</span> <span class="n">fse</span><span class="p">:</span>
                     <span class="n">res</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span>
                     <span class="n">p</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">fse</span>
+                <span class="k">except</span> <span class="n">FieldOutOfBoundSurfaceError</span> <span class="k">as</span> <span class="n">fse_z</span><span class="p">:</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorThroughSurface</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">fse_z</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="n">res</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Error</span>
                     <span class="n">p</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">e</span>
@@ -312,20 +370,19 @@
                 <span class="c1"># Handle particle time and time loop</span>
                 <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">res</span> <span class="o">==</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Success</span><span class="p">:</span>
                     <span class="c1"># Update time and repeat</span>
-                    <span class="n">p</span><span class="o">.</span><span class="n">time</span> <span class="o">+=</span> <span class="n">sign_dt</span> <span class="o">*</span> <span class="n">dt_pos</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">time</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">dt</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">update_next_dt</span><span class="p">()</span>
                     <span class="n">dt_pos</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">dt</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">))</span>
                     <span class="k">if</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="k">break</span>
                     <span class="k">continue</span>
-                <span class="k">elif</span> <span class="n">res</span> <span class="o">==</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">Repeat</span><span class="p">:</span>
+                <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># Try again without time update</span>
                     <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ptype</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">]:</span>
                             <span class="nb">setattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p_var_back</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
                     <span class="n">dt_pos</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">dt</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">))</span>
-                    <span class="k">break</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">break</span>  <span class="c1"># Failure - stop time loop</span></div>
+                    <span class="k">break</span></div>
 
 <div class="viewcode-block" id="Kernel.execute"><a class="viewcode-back" href="../../index.html#parcels.kernel.Kernel.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Execute this Kernel over a ParticleSet for several timesteps&quot;&quot;&quot;</span>
@@ -340,8 +397,14 @@
 
         <span class="k">if</span> <span class="n">recovery</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">recovery</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span> <span class="ow">in</span> <span class="n">recovery</span> <span class="ow">and</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorThroughSurface</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">recovery</span><span class="p">:</span>
+            <span class="n">recovery</span><span class="p">[</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorThroughSurface</span><span class="p">]</span> <span class="o">=</span> <span class="n">recovery</span><span class="p">[</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span><span class="p">]</span>
         <span class="n">recovery_map</span> <span class="o">=</span> <span class="n">recovery_base_map</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">recovery_map</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">recovery</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># not the case if a field in not called in the kernel</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span>
 
         <span class="c1"># Execute the kernel over the particle set</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>

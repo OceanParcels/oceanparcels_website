@@ -110,7 +110,7 @@
 <span id="parcels-particleset-module"></span><h2>parcels.particleset module<a class="headerlink" href="#module-parcels.particleset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="parcels.particleset.ParticleSet">
-<em class="property">class </em><code class="descclassname">parcels.particleset.</code><code class="descname">ParticleSet</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass=&lt;class 'parcels.particle.JITParticle'&gt;</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>lonlatdepth_dtype=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">parcels.particleset.</code><code class="descname">ParticleSet</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pclass=&lt;class 'parcels.particle.JITParticle'&gt;</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em>, <em>time=None</em>, <em>repeatdt=None</em>, <em>lonlatdepth_dtype=None</em>, <em>pid_orig=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset.html#ParticleSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particleset.ParticleSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Container class for storing particle and executing kernel over them.</p>
 <p>Please note that this currently only supports fixed size particle sets.</p>
@@ -130,6 +130,8 @@
 <li><strong>lonlatdepth_dtype</strong> – Floating precision for lon, lat, depth particle coordinates.
 It is either np.float32 or np.float64. Default is np.float32 if fieldset.U.interp_method is ‘linear’
 and np.float64 if the interpolation method is ‘cgrid_velocity’</li>
+<li><strong>partitions</strong> – List of cores on which to distribute the particles for MPI runs. Default: None, in which case particles
+are distributed automatically on the processors</li>
 </ul>
 </td>
 </tr>
@@ -496,6 +498,8 @@ T node is at the cell centre, and constant per cell.</dd>
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
+<li><strong>fieldtype</strong> – Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation:</p>
 <ol class="arabic">
@@ -507,7 +511,7 @@ correction for zonal velocity U near the poles.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘bgrid_tracer’ (default)
 Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to ‘bgrid_velocity’</li>
@@ -561,6 +565,8 @@ In 3D, the depth is the one corresponding to W nodes</p>
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
+<li><strong>fieldtype</strong> – Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation:</p>
 <ol class="arabic">
@@ -572,7 +578,7 @@ correction for zonal velocity U near the poles.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘cgrid_tracer’ (default)
 Note that in the case of from_nemo() and from_cgrid(), the velocity fields are default to ‘cgrid_velocity’</li>
@@ -620,7 +626,7 @@ correction for zonal velocity U near the poles.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 </ul>
 </td>
@@ -672,6 +678,8 @@ In 3D, the depth is the one corresponding to W nodes</p>
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
+<li><strong>fieldtype</strong> – Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
@@ -683,7 +691,7 @@ correction for zonal velocity U near the poles.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘cgrid_tracer’ (default)
 Note that in the case of from_nemo() and from_cgrid(), the velocity fields are default to ‘cgrid_velocity’</li>
@@ -696,7 +704,7 @@ Note that in the case of from_nemo() and from_cgrid(), the velocity fields are d
 
 <dl class="classmethod">
 <dt id="parcels.fieldset.FieldSet.from_netcdf">
-<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>mesh='spherical'</em>, <em>timestamps=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_netcdf" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variables</em>, <em>dimensions</em>, <em>indices=None</em>, <em>fieldtype=None</em>, <em>mesh='spherical'</em>, <em>timestamps=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_netcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialises FieldSet object from NetCDF files</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -721,6 +729,8 @@ dimension names are different for each variable
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
+<li><strong>fieldtype</strong> – Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
@@ -729,17 +739,20 @@ correction for zonal velocity U near the poles.</li>
 <li>flat: No conversion, lat/lon are assumed to be in m.</li>
 </ol>
 </li>
-<li><strong>timestamps</strong> – A numpy array containing the timestamps for each of the files in filenames.
+<li><strong>timestamps</strong> – list of lists or array of arrays containing the timestamps for
+each of the files in filenames. Outer list/array corresponds to files, inner
+array corresponds to indices within files.
 Default is None if dimensions includes time.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>deferred_load</strong> – boolean whether to only pre-load data (in deferred mode) or
 fully load them (default: True). It is advised to deferred load the data, since in
 that case Parcels deals with a better memory management during particle set execution.
 deferred_load=False is however sometimes necessary for plotting the fields.</li>
+<li><strong>field_chunksize</strong> – size of the chunks in dask loading</li>
 <li><strong>netcdf_engine</strong> – engine to use for netcdf reading in xarray. Default is ‘netcdf’,
 but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could help</li>
 </ul>
@@ -764,11 +777,13 @@ wildcards to indicate multiple files.</li>
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
+<li><strong>fieldtype</strong> – Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>extra_fields</strong> – Extra fields to read beyond U and V</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>deferred_load</strong> – boolean whether to only pre-load data (in deferred mode) or
 fully load them (default: True). It is advised to deferred load the data, since in
@@ -828,6 +843,8 @@ T node is at the cell centre, and constant per cell.</dd>
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
 Note that negative indices are not allowed.</li>
+<li><strong>fieldtype</strong> – Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
@@ -839,7 +856,7 @@ correction for zonal velocity U near the poles.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>tracer_interp_method</strong> – Method for interpolation of tracer fields. It is recommended to use ‘bgrid_tracer’ (default)
 Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to ‘bgrid_velocity’</li>
@@ -870,6 +887,8 @@ dimension names are different for each variable
 <li><strong>indices</strong> – Optional dictionary of indices for each dimension
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.</li>
+<li><strong>fieldtype</strong> – Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.
+(either ‘U’, ‘V’, ‘Kh_zonal’, ‘Kh_meridional’ or None)</li>
 <li><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
 units used during velocity interpolation, see also <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb</a>:</p>
 <ol class="arabic">
@@ -881,7 +900,7 @@ correction for zonal velocity U near the poles.</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation
 (i.e. beyond the last available time snapshot)
 Default is False if dimensions includes time, else True</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the FieldSet
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 <li><strong>deferred_load</strong> – boolean whether to only pre-load data (in deferred mode) or
 fully load them (default: True). It is advised to deferred load the data, since in
@@ -965,7 +984,8 @@ mesh and time_origin information. Can be constructed from any of the Grid object
 <li><strong>interp_method</strong> – Method for interpolation. Either ‘linear’ or ‘nearest’</li>
 <li><strong>allow_time_extrapolation</strong> – boolean whether to allow for extrapolation in time
 (i.e. beyond the last available time snapshot)</li>
-<li><strong>time_periodic</strong> – boolean whether to loop periodically over the time component of the Field
+<li><strong>time_periodic</strong> – To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object).
+The last value of the time series can be provided (which is the same as the initial one) or not (Default: False)
 This flag overrides the allow_time_interpolation and sets it to False</li>
 </ul>
 </td>
@@ -1032,7 +1052,7 @@ scipy.interpolate to perform spatial interpolation.</p>
 
 <dl class="classmethod">
 <dt id="parcels.field.Field.from_netcdf">
-<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variable</em>, <em>dimensions</em>, <em>indices=None</em>, <em>grid=None</em>, <em>mesh='spherical'</em>, <em>timestamps=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.from_netcdf" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">from_netcdf</code><span class="sig-paren">(</span><em>filenames</em>, <em>variable</em>, <em>dimensions</em>, <em>indices=None</em>, <em>grid=None</em>, <em>mesh='spherical'</em>, <em>timestamps=None</em>, <em>allow_time_extrapolation=None</em>, <em>time_periodic=False</em>, <em>deferred_load=True</em>, <em>field_chunksize='auto'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.from_netcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.from_netcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create field from netCDF file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1066,6 +1086,7 @@ This flag overrides the allow_time_interpolation and sets it to False</li>
 fully load them (default: True). It is advised to deferred load the data, since in
 that case Parcels deals with a better memory management during particle set execution.
 deferred_load=False is however sometimes necessary for plotting the fields.</li>
+<li><strong>field_chunksize</strong> – size of the chunks in dask loading</li>
 <li><strong>netcdf_engine</strong> – engine to use for netcdf reading in xarray. Default is ‘netcdf’,
 but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could help</li>
 </ul>
@@ -1073,16 +1094,6 @@ but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could 
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="parcels.field.Field.gradient">
-<code class="descname">gradient</code><span class="sig-paren">(</span><em>update=False</em>, <em>tindex=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.gradient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.gradient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to calculate horizontal gradients of Field.
-Returns two Fields: the zonal and meridional gradients,
-on the same Grid as the original Field, using numpy.gradient() method
-Names of these grids are dNAME_dx and dNAME_dy, where NAME is the name
-of the original Field</p>
 </dd></dl>
 
 <dl class="method">
@@ -1461,7 +1472,7 @@ pointers and sizes for this grid.</p>
 <span id="parcels-particle-module"></span><h2>parcels.particle module<a class="headerlink" href="#module-parcels.particle" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="parcels.particle.ScipyParticle">
-<em class="property">class </em><code class="descclassname">parcels.particle.</code><code class="descname">ScipyParticle</code><span class="sig-paren">(</span><em>lon</em>, <em>lat</em>, <em>fieldset</em>, <em>depth=0.0</em>, <em>time=0.0</em>, <em>cptr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#ScipyParticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.ScipyParticle" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">parcels.particle.</code><code class="descname">ScipyParticle</code><span class="sig-paren">(</span><em>lon</em>, <em>lat</em>, <em>pid</em>, <em>fieldset</em>, <em>depth=0.0</em>, <em>time=0.0</em>, <em>cptr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#ScipyParticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.ScipyParticle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particle._Particle</span></code></p>
 <p>Class encapsulating the basic attributes of a particle,
 to be executed in SciPy mode</p>
@@ -1787,28 +1798,26 @@ concatenation, the merged AST plus the new header definition is required.</p>
 <p>Module controlling the writing of ParticleSets to NetCDF file</p>
 <dl class="class">
 <dt id="parcels.particlefile.ParticleFile">
-<em class="property">class </em><code class="descclassname">parcels.particlefile.</code><code class="descname">ParticleFile</code><span class="sig-paren">(</span><em>name</em>, <em>particleset</em>, <em>outputdt=inf</em>, <em>write_ondelete=False</em>, <em>chunksizes=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialise netCDF4.Dataset for trajectory output.</p>
-<p>The output follows the format outlined in the Discrete Sampling Geometries
-section of the CF-conventions:
-<a class="reference external" href="http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#discrete-sampling-geometries">http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#discrete-sampling-geometries</a></p>
-<p>The current implementation is based on the NCEI template:
-<a class="reference external" href="http://www.nodc.noaa.gov/data/formats/netcdf/v2.0/trajectoryIncomplete.cdl">http://www.nodc.noaa.gov/data/formats/netcdf/v2.0/trajectoryIncomplete.cdl</a></p>
-<p>Developer note: We cannot use xray.Dataset here, since it does not yet allow
-incremental writes to disk: <a class="reference external" href="https://github.com/pydata/xarray/issues/199">https://github.com/pydata/xarray/issues/199</a></p>
+<em class="property">class </em><code class="descclassname">parcels.particlefile.</code><code class="descname">ParticleFile</code><span class="sig-paren">(</span><em>name</em>, <em>particleset</em>, <em>outputdt=inf</em>, <em>write_ondelete=False</em>, <em>convert_at_end=True</em>, <em>tempwritedir=None</em>, <em>pset_info=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise trajectory output.
+:param name: Basename of the output file
+:param particleset: ParticleSet to output
+:param outputdt: Interval which dictates the update frequency of file output</p>
+<blockquote>
+<div>while ParticleFile is given as an argument of ParticleSet.execute()
+It is either a timedelta object or a positive double.</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> – Basename of the output file</li>
-<li><strong>particleset</strong> – ParticleSet to output</li>
-<li><strong>outputdt</strong> – Interval which dictates the update frequency of file output
-while ParticleFile is given as an argument of ParticleSet.execute()
-It is either a timedelta object or a positive double.</li>
 <li><strong>write_ondelete</strong> – Boolean to write particle data only when they are deleted. Default is False</li>
-<li><strong>chunksizes</strong> – 2d vector of sizes for NetCDF chunking. Lower values means smaller files, but also slower IO.
-See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/developer/entry/chunking_data_choosing_shapes">https://www.unidata.ucar.edu/blogs/developer/entry/chunking_data_choosing_shapes</a></li>
+<li><strong>convert_at_end</strong> – Boolean to convert npy files to netcdf at end of run. Default is True</li>
+<li><strong>tempwritedir</strong> – directories to write temporary files to during executing.
+Default is out-XXXXXX where Xs are random capitals. Files for individual
+processors are written to subdirectories 0, 1, 2 etc under tempwritedir</li>
+<li><strong>pset_info</strong> – dictionary of info on the ParticleSet, stored in tempwritedir/XX/pset_info.npy,
+used to create NetCDF file from npy-files.</li>
 </ul>
 </td>
 </tr>
@@ -1823,33 +1832,77 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 </dd></dl>
 
 <dl class="method">
-<dt id="parcels.particlefile.ParticleFile.open_dataset">
-<code class="descname">open_dataset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.open_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.open_dataset" title="Permalink to this definition">¶</a></dt>
+<dt id="parcels.particlefile.ParticleFile.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>delete_tempfiles=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the ParticleFile object by exporting and then deleting
+the temporary npy files</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.particlefile.ParticleFile.convert_pset_to_dict">
+<code class="descname">convert_pset_to_dict</code><span class="sig-paren">(</span><em>pset</em>, <em>time</em>, <em>deleted_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.convert_pset_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.convert_pset_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert all Particle data from one time step to a python dictionary.
+:param pset: ParticleSet object to write
+:param time: Time at which to write ParticleSet
+:param deleted_only: Flag to write only the deleted Particles
+returns two dictionaries: one for all variables to be written each outputdt,</p>
+<blockquote>
+<div>and one for all variables to be written once</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.particlefile.ParticleFile.delete_tempwritedir">
+<code class="descname">delete_tempwritedir</code><span class="sig-paren">(</span><em>tempwritedir=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.delete_tempwritedir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.delete_tempwritedir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deleted all temporary npy files
+:param tempwritedir Optional path of the directory to delete</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.particlefile.ParticleFile.dump_dict_to_npy">
+<code class="descname">dump_dict_to_npy</code><span class="sig-paren">(</span><em>data_dict</em>, <em>data_dict_once</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.dump_dict_to_npy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.dump_dict_to_npy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffer data to set of temporary numpy files, using np.save</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.particlefile.ParticleFile.dump_psetinfo_to_npy">
+<code class="descname">dump_psetinfo_to_npy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.dump_psetinfo_to_npy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.dump_psetinfo_to_npy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="parcels.particlefile.ParticleFile.sync">
-<code class="descname">sync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.sync" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write all buffered data to disk</p>
+<dt id="parcels.particlefile.ParticleFile.export">
+<code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.export" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports outputs in temporary NPY-files to NetCDF file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.particlefile.ParticleFile.open_netcdf_file">
+<code class="descname">open_netcdf_file</code><span class="sig-paren">(</span><em>data_shape</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.open_netcdf_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.open_netcdf_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise NetCDF4.Dataset for trajectory output.
+The output follows the format outlined in the Discrete Sampling Geometries
+section of the CF-conventions:
+<a class="reference external" href="http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#discrete-sampling-geometries">http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#discrete-sampling-geometries</a>
+The current implementation is based on the NCEI template:
+<a class="reference external" href="http://www.nodc.noaa.gov/data/formats/netcdf/v2.0/trajectoryIncomplete.cdl">http://www.nodc.noaa.gov/data/formats/netcdf/v2.0/trajectoryIncomplete.cdl</a>
+:param data_shape: shape of the variables in the NetCDF4 file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parcels.particlefile.ParticleFile.read_from_npy">
+<code class="descname">read_from_npy</code><span class="sig-paren">(</span><em>file_list</em>, <em>time_steps</em>, <em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.read_from_npy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.read_from_npy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read NPY-files for one variable using a loop over all files.
+:param file_list: List that  contains all file names in the output directory
+:param time_steps: Number of time steps that were written in out directory
+:param var: name of the variable to read</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="parcels.particlefile.ParticleFile.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>pset</em>, <em>time</em>, <em>sync=True</em>, <em>deleted_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write <a class="reference internal" href="#parcels.particleset.ParticleSet" title="parcels.particleset.ParticleSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particleset.ParticleSet</span></code></a> data to file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pset</strong> – ParticleSet object to write</li>
-<li><strong>time</strong> – Time at which to write ParticleSet</li>
-<li><strong>sync</strong> – Optional argument whether to write data to disk immediately. Default is True</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<code class="descname">write</code><span class="sig-paren">(</span><em>pset</em>, <em>time</em>, <em>deleted_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile.html#ParticleFile.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particlefile.ParticleFile.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write all data from one time step to a temporary npy-file
+using a python dictionary. The data is saved in the folder ‘out’.
+:param pset: ParticleSet object to write
+:param time: Time at which to write ParticleSet
+:param deleted_only: Flag to write only the deleted Particles</p>
 </dd></dl>
 
 </dd></dl>
@@ -1897,12 +1950,6 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 <div class="section" id="module-parcels.tools.error">
 <span id="parcels-tools-error-module"></span><h2>parcels.tools.error module<a class="headerlink" href="#module-parcels.tools.error" title="Permalink to this headline">¶</a></h2>
 <p>Collection of pre-built recovery kernels</p>
-<dl class="class">
-<dt id="parcels.tools.error.ErrorCode">
-<em class="property">class </em><code class="descclassname">parcels.tools.error.</code><code class="descname">ErrorCode</code><a class="reference internal" href="_modules/parcels/tools/error.html#ErrorCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.ErrorCode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
-</dd></dl>
-
 <dl class="exception">
 <dt id="parcels.tools.error.FieldSamplingError">
 <em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">FieldSamplingError</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>field=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#FieldSamplingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.FieldSamplingError" title="Permalink to this definition">¶</a></dt>
@@ -1936,6 +1983,13 @@ See e.g. <a class="reference external" href="https://www.unidata.ucar.edu/blogs/
 <em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">OutOfBoundsError</code><span class="sig-paren">(</span><em>particle</em>, <em>fieldset=None</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#OutOfBoundsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.OutOfBoundsError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#parcels.tools.error.KernelError" title="parcels.tools.error.KernelError"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.error.KernelError</span></code></a></p>
 <p>Particle kernel error for out-of-bounds field sampling</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="parcels.tools.error.ThroughSurfaceError">
+<em class="property">exception </em><code class="descclassname">parcels.tools.error.</code><code class="descname">ThroughSurfaceError</code><span class="sig-paren">(</span><em>particle</em>, <em>fieldset=None</em>, <em>lon=None</em>, <em>lat=None</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#ThroughSurfaceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.ThroughSurfaceError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.error.KernelError" title="parcels.tools.error.KernelError"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.error.KernelError</span></code></a></p>
+<p>Particle kernel error for field sampling at surface</p>
 </dd></dl>
 
 </div>
