@@ -70,11 +70,13 @@
           <div class="body" role="main">
             
   <h1>Source code for parcels.tools.converters</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">cftime</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
+<span></span><span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span> <span class="k">as</span> <span class="n">delta</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">cos</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+
+<span class="kn">import</span> <span class="nn">cftime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UnitConverter&#39;</span><span class="p">,</span> <span class="s1">&#39;Geographic&#39;</span><span class="p">,</span> <span class="s1">&#39;GeographicPolar&#39;</span><span class="p">,</span> <span class="s1">&#39;GeographicSquare&#39;</span><span class="p">,</span>
            <span class="s1">&#39;GeographicPolarSquare&#39;</span><span class="p">,</span> <span class="s1">&#39;unitconverters_map&#39;</span><span class="p">,</span>

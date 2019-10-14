@@ -71,20 +71,21 @@
             
   <h1>Source code for parcels.tools.error</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Collection of pre-built recovery kernels&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">IntEnum</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldSamplingError&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldOutOfBoundError&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeExtrapolationError&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;KernelError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfBoundsError&#39;</span><span class="p">,</span> <span class="s1">&#39;recovery_map&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;KernelError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfBoundsError&#39;</span><span class="p">,</span> <span class="s1">&#39;ThroughSurfaceError&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;recovery_map&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="ErrorCode"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.ErrorCode">[docs]</a><span class="k">class</span> <span class="nc">ErrorCode</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ErrorCode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">Success</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">Repeat</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">Delete</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">Error</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">ErrorOutOfBounds</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">ErrorTimeExtrapolation</span> <span class="o">=</span> <span class="mi">5</span></div>
+    <span class="n">ErrorThroughSurface</span> <span class="o">=</span> <span class="mi">41</span>
+    <span class="n">ErrorTimeExtrapolation</span> <span class="o">=</span> <span class="mi">5</span>
 
 
 <div class="viewcode-block" id="FieldSamplingError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.FieldSamplingError">[docs]</a><span class="k">class</span> <span class="nc">FieldSamplingError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
@@ -115,6 +116,21 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">FieldOutOfBoundError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
+<span class="k">class</span> <span class="nc">FieldOutOfBoundSurfaceError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Utility error class to propagate out-of-bound field sampling at the surface in Scipy mode.</span>
+<span class="sd">       Note that if ErrorThroughSurface is not part of the recovery kernel, Parcels will use ErrorOutOfBounds.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="n">field</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> sampled out-of-bound at the surface, at (</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">field</span> <span class="k">else</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span>
+        <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FieldOutOfBoundSurfaceError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="TimeExtrapolationError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.TimeExtrapolationError">[docs]</a><span class="k">class</span> <span class="nc">TimeExtrapolationError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Utility error class to propagate erroneous time extrapolation sampling in Scipy mode&quot;&quot;&quot;</span>
 
@@ -127,6 +143,8 @@
             <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; Try setting allow_time_extrapolation to True&quot;</span>
         <span class="k">elif</span> <span class="n">msg</span> <span class="o">==</span> <span class="s1">&#39;show_time&#39;</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; Try explicitly providing a &#39;show_time&#39;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="n">msg</span> <span class="o">+</span> <span class="s2">&quot; Try setting allow_time_extrapolation to True&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">TimeExtrapolationError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
@@ -170,6 +188,21 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">OutOfBoundsError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="ThroughSurfaceError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.ThroughSurfaceError">[docs]</a><span class="k">class</span> <span class="nc">ThroughSurfaceError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Particle kernel error for field sampling at surface&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">lon</span> <span class="ow">and</span> <span class="n">lat</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Field sampled at (</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Through-surface sampling by particle at (</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span>
+            <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ThroughSurfaceError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
+
+
 <span class="k">class</span> <span class="nc">OutOfTimeError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Particle kernel error for time extrapolation field sampling&quot;&quot;&quot;</span>
 
@@ -192,6 +225,17 @@
         <span class="k">raise</span> <span class="n">OutOfBoundsError</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">recovery_kernel_through_surface</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Default sampling error kernel that throws OutOfBoundsError&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># TODO: JIT does not yet provide the context that created</span>
+        <span class="c1"># the exception. We need to pass that info back from C.</span>
+        <span class="k">raise</span> <span class="n">ThroughSurfaceError</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">exception</span>
+        <span class="k">raise</span> <span class="n">ThroughSurfaceError</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">recovery_kernel_time_extrapolation</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Default sampling error kernel that throws OutOfTimeError&quot;&quot;&quot;</span>
     <span class="k">raise</span> <span class="n">OutOfTimeError</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">)</span>
@@ -201,7 +245,8 @@
 <span class="c1"># to recovery kernels.</span>
 <span class="n">recovery_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span> <span class="n">recovery_kernel_error</span><span class="p">,</span>
                 <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span><span class="p">:</span> <span class="n">recovery_kernel_out_of_bounds</span><span class="p">,</span>
-                <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorTimeExtrapolation</span><span class="p">:</span> <span class="n">recovery_kernel_time_extrapolation</span><span class="p">}</span>
+                <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorTimeExtrapolation</span><span class="p">:</span> <span class="n">recovery_kernel_time_extrapolation</span><span class="p">,</span>
+                <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorThroughSurface</span><span class="p">:</span> <span class="n">recovery_kernel_through_surface</span><span class="p">}</span>
 </pre></div>
 
           </div>

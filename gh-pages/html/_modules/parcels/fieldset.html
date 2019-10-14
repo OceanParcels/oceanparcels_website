@@ -70,15 +70,26 @@
           <div class="body" role="main">
             
   <h1>Source code for parcels.fieldset</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">VectorField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">,</span> <span class="n">NestedField</span>
-<span class="kn">from</span> <span class="nn">parcels.gridset</span> <span class="k">import</span> <span class="n">GridSet</span>
-<span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="k">import</span> <span class="n">Grid</span>
-<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">parcels.tools.converters</span> <span class="k">import</span> <span class="n">TimeConverter</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
+
+<span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">NestedField</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">SummedField</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="k">import</span> <span class="n">VectorField</span>
+<span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="k">import</span> <span class="n">Grid</span>
+<span class="kn">from</span> <span class="nn">parcels.gridset</span> <span class="k">import</span> <span class="n">GridSet</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.converters</span> <span class="k">import</span> <span class="n">TimeConverter</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.error</span> <span class="k">import</span> <span class="n">TimeExtrapolationError</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="k">import</span> <span class="n">MPI</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">MPI</span> <span class="o">=</span> <span class="kc">None</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FieldSet&#39;</span><span class="p">]</span>
@@ -141,7 +152,7 @@
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -223,7 +234,7 @@
             <span class="n">g</span><span class="o">.</span><span class="n">check_zonal_periodic</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">time</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">time_origin</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)),</span> <span class="s1">&#39;time origins of different grids must be have the same type&#39;</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">time_origin</span><span class="o">.</span><span class="n">time_origin</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)),</span> <span class="s1">&#39;time origins of different grids must be have the same type&#39;</span>
             <span class="n">g</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">time</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="o">.</span><span class="n">reltime</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">defer_load</span><span class="p">:</span>
                 <span class="n">g</span><span class="o">.</span><span class="n">time_full</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">time_full</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="o">.</span><span class="n">reltime</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span>
@@ -266,7 +277,7 @@
         <span class="k">return</span> <span class="n">paths</span>
 
 <div class="viewcode-block" id="FieldSet.from_netcdf"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.from_netcdf">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_netcdf</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">from_netcdf</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fieldtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">deferred_load</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialises FieldSet object from NetCDF files</span>
 
@@ -288,23 +299,28 @@
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
 <span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
+<span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation, see also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb:</span>
 
 <span class="sd">               1. spherical (default): Lat and lon in degree, with a</span>
 <span class="sd">                  correction for zonal velocity U near the poles.</span>
 <span class="sd">               2. flat: No conversion, lat/lon are assumed to be in m.</span>
-<span class="sd">        :param timestamps: A numpy array containing the timestamps for each of the files in filenames.</span>
+<span class="sd">        :param timestamps: list of lists or array of arrays containing the timestamps for</span>
+<span class="sd">               each of the files in filenames. Outer list/array corresponds to files, inner</span>
+<span class="sd">               array corresponds to indices within files.</span>
 <span class="sd">               Default is None if dimensions includes time.</span>
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        :param deferred_load: boolean whether to only pre-load data (in deferred mode) or</span>
 <span class="sd">               fully load them (default: True). It is advised to deferred load the data, since in</span>
 <span class="sd">               that case Parcels deals with a better memory management during particle set execution.</span>
 <span class="sd">               deferred_load=False is however sometimes necessary for plotting the fields.</span>
+<span class="sd">        :param field_chunksize: size of the chunks in dask loading</span>
 <span class="sd">        :param netcdf_engine: engine to use for netcdf reading in xarray. Default is &#39;netcdf&#39;,</span>
 <span class="sd">               but in cases where this doesn&#39;t work, setting netcdf_engine=&#39;scipy&#39; could help</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -313,12 +329,14 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">warning_once</span><span class="p">(</span><span class="s2">&quot;Time already provided, defaulting to dimensions[&#39;time&#39;] over timestamps.&quot;</span><span class="p">)</span>
             <span class="n">timestamps</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># Typecast timestamps to numpy array &amp; correct shape.</span>
+        <span class="c1"># Typecast timestamps to (nested) numpy array.</span>
         <span class="k">if</span> <span class="n">timestamps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                 <span class="n">timestamps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>
-            <span class="n">timestamps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="p">[</span><span class="n">timestamps</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">):</span>
+                    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span> <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">])</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">),</span> <span class="s2">&quot;Timestamps must be nested list or array&quot;</span>
+            <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">),</span> <span class="s2">&quot;Timestamps must be nested list or array&quot;</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="s1">&#39;creation_log&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;creation_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from_netcdf&#39;</span>
@@ -335,6 +353,7 @@
             <span class="n">dims</span> <span class="o">=</span> <span class="n">dimensions</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="k">else</span> <span class="n">dimensions</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">checkvaliddimensionsdict</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
             <span class="n">inds</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">and</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span> <span class="k">else</span> <span class="n">indices</span>
+            <span class="n">fieldtype</span> <span class="o">=</span> <span class="n">fieldtype</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">fieldtype</span> <span class="ow">and</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">fieldtype</span><span class="p">)</span> <span class="k">else</span> <span class="n">fieldtype</span>
 
             <span class="n">grid</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="c1"># check if grid has already been processed (i.e. if other fields have same filenames, dimensions and indices)</span>
@@ -358,7 +377,8 @@
                         <span class="k">break</span>
             <span class="n">fields</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">from_netcdf</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">dims</span><span class="p">,</span> <span class="n">inds</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps</span><span class="p">,</span>
                                             <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span>
-                                            <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="n">deferred_load</span><span class="o">=</span><span class="n">deferred_load</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                                            <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="n">deferred_load</span><span class="o">=</span><span class="n">deferred_load</span><span class="p">,</span>
+                                            <span class="n">fieldtype</span><span class="o">=</span><span class="n">fieldtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span></div>
@@ -399,6 +419,8 @@
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
 <span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
+<span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation, see also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb:</span>
 
@@ -408,7 +430,7 @@
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. It is recommended to use &#39;cgrid_tracer&#39; (default)</span>
 <span class="sd">               Note that in the case of from_nemo() and from_cgrid(), the velocity fields are default to &#39;cgrid_velocity&#39;</span>
@@ -459,6 +481,8 @@
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
 <span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
+<span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation:</span>
 
@@ -468,7 +492,7 @@
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. It is recommended to use &#39;cgrid_tracer&#39; (default)</span>
 <span class="sd">               Note that in the case of from_nemo() and from_cgrid(), the velocity fields are default to &#39;cgrid_velocity&#39;</span>
@@ -530,6 +554,8 @@
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
 <span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
+<span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation, see also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb:</span>
 
@@ -539,7 +565,7 @@
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. It is recommended to use &#39;bgrid_tracer&#39; (default)</span>
 <span class="sd">               Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to &#39;bgrid_velocity&#39;</span>
@@ -594,6 +620,8 @@
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
 <span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
+<span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation:</span>
 
@@ -603,7 +631,7 @@
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        :param tracer_interp_method: Method for interpolation of tracer fields. It is recommended to use &#39;bgrid_tracer&#39; (default)</span>
 <span class="sd">               Note that in the case of from_pop() and from_bgrid(), the velocity fields are default to &#39;bgrid_velocity&#39;</span>
@@ -640,11 +668,13 @@
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
 <span class="sd">               Note that negative indices are not allowed.</span>
+<span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
+<span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param extra_fields: Extra fields to read beyond U and V</span>
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        :param deferred_load: boolean whether to only pre-load data (in deferred mode) or</span>
 <span class="sd">               fully load them (default: True). It is advised to deferred load the data, since in</span>
@@ -686,6 +716,8 @@
 <span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
 <span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
 <span class="sd">               Default is to read the full extent of each dimension.</span>
+<span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
+<span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
 <span class="sd">               units used during velocity interpolation, see also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb:</span>
 
@@ -695,7 +727,7 @@
 <span class="sd">        :param allow_time_extrapolation: boolean whether to allow for extrapolation</span>
 <span class="sd">               (i.e. beyond the last available time snapshot)</span>
 <span class="sd">               Default is False if dimensions includes time, else True</span>
-<span class="sd">        :param time_periodic: boolean whether to loop periodically over the time component of the FieldSet</span>
+<span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
 <span class="sd">        :param deferred_load: boolean whether to only pre-load data (in deferred mode) or</span>
 <span class="sd">               fully load them (default: True). It is advised to deferred load the data, since in</span>
@@ -765,16 +797,18 @@
         <span class="sd">&quot;&quot;&quot;Write FieldSet to NetCDF file using NEMO convention</span>
 
 <span class="sd">        :param filename: Basename of the output fileset&quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating NEMO FieldSet output with basename: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s1">&#39;vozocrtx&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s1">&#39;vomecrty&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">MPI</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating FieldSet output with basename: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
-                <span class="n">v</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s1">&#39;vozocrtx&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s1">&#39;vomecrty&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
+                    <span class="n">v</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FieldSet.advancetime"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.advancetime">[docs]</a>    <span class="k">def</span> <span class="nf">advancetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset_new</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Replace oldest time on FieldSet with new FieldSet</span>
@@ -820,44 +854,80 @@
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">update_status</span> <span class="o">==</span> <span class="s1">&#39;not_updated&#39;</span><span class="p">:</span>
                 <span class="n">nextTime_loc</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">signdt</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">time</span> <span class="o">==</span> <span class="n">nextTime_loc</span> <span class="ow">and</span> <span class="n">signdt</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">TimeExtrapolationError</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;In fset.computeTimeChunk&#39;</span><span class="p">)</span>
             <span class="n">nextTime</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">nextTime</span><span class="p">,</span> <span class="n">nextTime_loc</span><span class="p">)</span> <span class="k">if</span> <span class="n">signdt</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">nextTime</span><span class="p">,</span> <span class="n">nextTime_loc</span><span class="p">)</span>
 
-        <span class="c1"># load in new data</span>
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">defer_load</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">is_gradient</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">dataFiles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">defer_load</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">dataFiles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span>
             <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">update_status</span> <span class="o">==</span> <span class="s1">&#39;first_updated&#39;</span><span class="p">:</span>  <span class="c1"># First load of data</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">g</span><span class="o">.</span><span class="n">tdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">zdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ydim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">meridional_halo</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">xdim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">zonal_halo</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">g</span><span class="o">.</span><span class="n">tdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">zdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ydim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">meridional_halo</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">xdim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">zonal_halo</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">tind</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tind</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">fb</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">fb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">fb</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tind</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">rescale_and_set_minmax</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">chunk_set</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">chunk_setup</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span>
+                    <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">g</span><span class="o">.</span><span class="n">update_status</span> <span class="o">==</span> <span class="s1">&#39;updated&#39;</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">g</span><span class="o">.</span><span class="n">tdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">zdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ydim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">meridional_halo</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">xdim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">zonal_halo</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="n">lib</span> <span class="o">=</span> <span class="n">np</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="n">da</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">g</span><span class="o">.</span><span class="n">tdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">zdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ydim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">meridional_halo</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">xdim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">zonal_halo</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">signdt</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[]</span>
-
-            <span class="c1"># do built-in computations on data</span>
-            <span class="k">for</span> <span class="n">tind</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">_scaling_factor</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*=</span> <span class="n">f</span><span class="o">.</span><span class="n">_scaling_factor</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:]),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:])</span>
-                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">vmin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&lt;</span> <span class="n">f</span><span class="o">.</span><span class="n">vmin</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:])</span>
-                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">vmax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">vmax</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">tind</span><span class="p">,</span> <span class="p">:])</span>
-                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">gradientx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tindex</span><span class="o">=</span><span class="n">tind</span><span class="p">)</span>
-
+                    <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">rescale_and_set_minmax</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">signdt</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">2</span><span class="p">:,</span> <span class="p">:]</span>
+                    <span class="k">if</span> <span class="n">lib</span> <span class="ow">is</span> <span class="n">da</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+                    <span class="k">if</span> <span class="n">lib</span> <span class="ow">is</span> <span class="n">da</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">da</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">signdt</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">block_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)):</span>
+                            <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">[</span><span class="n">block_id</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                                    <span class="c1"># file chunks were never loaded.</span>
+                                    <span class="c1"># happens when field not called by kernel, but shares a grid with another field called by kernel</span>
+                                    <span class="k">break</span>
+                                <span class="n">block</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_block</span><span class="p">(</span><span class="n">block_id</span><span class="p">)</span>
+                                <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+                                <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span><span class="o">+</span><span class="n">block</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">block_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)):</span>
+                            <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">[</span><span class="n">block_id</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                                    <span class="c1"># file chunks were never loaded.</span>
+                                    <span class="c1"># happens when field not called by kernel, but shares a grid with another field called by kernel</span>
+                                    <span class="k">break</span>
+                                <span class="n">block</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_block</span><span class="p">(</span><span class="n">block_id</span><span class="p">)</span>
+                                <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
+                                <span class="n">f</span><span class="o">.</span><span class="n">data_chunks</span><span class="p">[</span><span class="n">block_id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span><span class="o">+</span><span class="n">block</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="c1"># do user-defined computations on fieldset data</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_on_defer</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compute_on_defer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>

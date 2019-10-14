@@ -228,6 +228,28 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
     <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_win.yml">environment_py3_win.yml</a> for Windows), before running <code class="language-bash">python setup.py install</code>.
 
   <p></p>
+  <h4 id="parallel_install">Installation of Parallel Parcels with MPI</h4>
+  Parcels uses MPI for parallel execution, but this only works on linux and macOS. Note that Parallel Parcels is still experimental and not as optimised as it could be; we are <a href="https://github.com/OceanParcels/parcels/issues/553">actively developing this feature</a>. However, if you want to give it a test run, follow the steps below
+  <p></p>
+  <ol>
+    <li>We strongly encourage to create a new environment for Parallel Parcels:
+      <pre><code class="language-bash">conda create -n py3_parcels_mpi -c conda-forge python=3 parcels mpi4py mpich scikit-learn jupyter cartopy ffmpeg
+conda activate py3_parcels_mpi</code></pre></li>
+    <p></p>
+    <li>If you are on a Mac, you may need to issue
+      <pre><code class="language-bash">export CONDA_BUILD_SYSROOT=/
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/
+</code></pre>
+    Where possibly you may need to change the <code class="language-bash">MacOSX10.14.sdk</code> into the macOS version you have.</li>
+    <p></p>
+    <li>Now, you can run in Parallel with e.g.
+      <pre><code class="language-bash">mpirun -np 2 python parcels/examples/example_stommel.py -p 10
+</code></pre>
+      Let us know <a href="https://github.com/OceanParcels/parcels/issues/553">your feedback</a>!</li>
+
+  </ol>
+
+  <p></p>
   <h4>Contributing to Parcels development</h4>
 
   Ocean<b>Parcels</b> is fully open-source community and strongly encourages contributions from users, as also stated in our <a href="https://github.com/OceanParcels/parcels/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. If you want to help make Ocean<b>Parcels</b> even better, then please consider contributing to its development. To get started, see <a href="https://www.asmeurer.com/git-workflow/">this excellent tutorial on the Git workflow</a> and <a href="https://opensource.guide/how-to-contribute/">this great general overview of contributing to open source software</a>.
@@ -371,7 +393,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
           </p>
         </div>
         <div class="card-footer">
-          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb"><img src="https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.png" width="109" height="20"></a>
+          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb"><img src="https://raw.githubusercontent.com/jupyter/dsign/master/logos/Badges/nbviewer_badge.png" width="109" height="20"></a>
         </div>
       </div>
     </div>
@@ -391,12 +413,27 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
       </div>
     </div>
 
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">Parallel documentation</h4>
+        <div class="card-body">
+          <img class="card-img-top team-photo" src="images/parcelsParallel_before.png" alt="">
+          <p class="card-text">
+            A notebook with background on the parallelisation approach
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_MPI.ipynb"><img src="https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.png" width="109" height="20"></a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <hr>
 
   <h2 id="developmentstatus">Parcels development status</h2>
-  The current release of Parcels, version 2.0, is a fully-functional, feature-complete code for offline Lagrangian ocean analysis. See below for a list of features, or keep an eye on the <a href="https://github.com/OceanParcels/parcels/projects/1">Github Development Timeline page</a>
+  The current release of Parcels, version 2.1, is a fully-functional, feature-complete code for offline Lagrangian ocean analysis. See below for a list of features, or keep an eye on the <a href="https://github.com/OceanParcels/parcels/projects/1">Github Development Timeline page</a>
   <p></p>
   <h4>Major features</h4>
   <div class="card-columns">
@@ -471,6 +508,12 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
   <div class="card-columns">
     <div class="card">
       <div class="card-header" role="tab">
+        <h5>Parallel execution</h5>
+        <small class="text-muted">Implementing advanced load balancing techniques. See <a href="#parallel_install">here for installation instructions</a></small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab">
         <h5>Compute particles in any vertical coordinate model</h5>
         <small class="text-muted">z-level, sigma-level (terrain-following), or rho-level (density-following)</small>
       </div>
@@ -491,12 +534,6 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
       <div class="card-header" role="tab">
         <h5>Support for unstructured grids</h5>
         <small class="text-muted">Supporting data from hydrodynamic models with fully unstructured grids</small>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header" role="tab">
-        <h5>Parallel execution</h5>
-        <small class="text-muted">Implementing advanced load balancing techniques</small>
       </div>
     </div>
     <div class="card">

@@ -71,19 +71,25 @@
             
   <h1>Source code for parcels.compiler</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">getenv</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">getenv</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="k">import</span> <span class="n">calcsize</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pathlib2</span> <span class="k">import</span> <span class="n">Path</span>  <span class="c1"># python 2 backport</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
+
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">getuid</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="c1"># Windows does not have getuid(), so define to simply return &#39;tmp&#39;</span>
     <span class="k">def</span> <span class="nf">getuid</span><span class="p">():</span>
         <span class="k">return</span> <span class="s1">&#39;tmp&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="k">import</span> <span class="n">MPI</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">MPI</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pathlib2</span> <span class="k">import</span> <span class="n">Path</span>  <span class="c1"># python 2 backport</span>
 
 
 <span class="k">def</span> <span class="nf">get_package_dir</span><span class="p">():</span>
@@ -151,7 +157,8 @@
         <span class="n">cppargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-Wall&#39;</span><span class="p">,</span> <span class="s1">&#39;-fPIC&#39;</span><span class="p">,</span> <span class="s1">&#39;-I</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_package_dir</span><span class="p">(),</span> <span class="s1">&#39;include&#39;</span><span class="p">)]</span> <span class="o">+</span> <span class="n">opt_flags</span> <span class="o">+</span> <span class="n">cppargs</span>
         <span class="n">cppargs</span> <span class="o">+=</span> <span class="n">arch_flag</span>
         <span class="n">ldargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-shared&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ldargs</span> <span class="o">+</span> <span class="n">arch_flag</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">GNUCompiler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="n">cppargs</span><span class="p">,</span> <span class="n">ldargs</span><span class="o">=</span><span class="n">ldargs</span><span class="p">)</span></div>
+        <span class="n">compiler</span> <span class="o">=</span> <span class="s2">&quot;mpicc&quot;</span> <span class="k">if</span> <span class="n">MPI</span> <span class="k">else</span> <span class="s2">&quot;gcc&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GNUCompiler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">compiler</span><span class="p">,</span> <span class="n">cppargs</span><span class="o">=</span><span class="n">cppargs</span><span class="p">,</span> <span class="n">ldargs</span><span class="o">=</span><span class="n">ldargs</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
