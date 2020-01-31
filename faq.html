@@ -161,6 +161,53 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   Each row in these arrays corresponds to a particle, and each column is an 'observation'. Note that, when particles are added during runtime, their first position is still stored in the first column, so that not all particles in the same column necessarily share the same <code class="language-python">time</code>. The time of each observation is stored in the <code class="language-python">time</code> array.
 
   <hr>
+  <h2 id="performance">Memory Behaviour and Performance</h2>
+
+  Parcels, with its Lagrangian simulation approach and the commonly large amount of particles being simulated, is a computationally-demanding application. Supported models, such as CMEMS and NEMO, add to the complexity as they require large blocks of memory to be available. Despite the continuous improvements in performance and efficiency, it is thus possible to encounter performance- and memory-related problems. The following paragraphs are meant as a guideline to resolve those related issues.
+  <p></p>
+  The first step in tracking memory-related issues is a reasonability analysis: can issues that you are possibly experiencing actual stem from memory exhaustion ? Get an overview of the models and fields that you are using, consider if you're running the application with- or without depth information, and keep in mind that at each time in the simulation you max. need space for 3 timestamps of all fields in addition to the actual particles. Does this really exhaust the memory ? As a safeguard check, you can run a subset of your simulation (e.g the first day or week) locally while tracking the memory consumption with tools such as the <b>Task Manager</b> (Windows), the <b>Activity Monitor</b> (MacOS) or the <b>System Monitor</b> (Linux).
+  <p></p>
+  Suppose that you have determined that reason for your simulation not finishing <i>can be</i> or <i>is</i> memory exhaustion. Then, the next step is to determine if the cause of memory exhaustion is due to <b>Particle[Sets]</b> or <b>Field[Sets]</b>. Fortunately, this is easy to assess:
+  <ul>
+    <li>Initialize your ParcileSet with only few particles, e.g. <code class="language-python">pset = ParticleSet(fieldset=fieldset, pclass=JITParticle, lon=np.random.rand(16,1), lat=np.random.rand(16,1))</code></li>
+    <li>Do not re-add particles periodically via <code class="language-python">repeatdt</code>, e.g. change <code class="language-python">pset = ParticleSet(..., lat=np.random.rand(16,1), repeatdt=timedelta(hours=1))</code> to <code class="language-python">pset = ParticleSet(..., lat=np.random.rand(16,1))</code></li>
+  </ul>
+  Run your simulation again and observe the memory with the tools mentioned above. If your simulation runs through without problems, it is almost certain your real simulation requires too many particles. There is no generic solution at this point for it, so: Get in touch with us at <a href="https://github.com/OceanParcels/parcels/issues">the OceanParcels GitHub page</a> via the issue tracker to find an individual solution.
+  <p></p>
+  If the reduction of particles indeed does not solve your issue and your simulation still crashes, then this is likely due to the Fields consuming more memory than available. Luckily, there are some solutions to this problem.
+  <p></p>
+
+  <h4>Simulations crash on HPC clusters (via job submission systems such as SGE or SLURM), but locally finishes without problems</h4>
+  <p></p>
+  The behaviour of simulations crashing on cluster systems whereas running as-expected on local machines can occur because
+  <ul>
+    <li>Python itself does not return memory to the operation system</li>
+    <li>your (field) data are too large for the memory, but fit comfortably in <i>virtual memory</i> (e.g. swap drive, swap files, page files) =-> job submission systems do not provide access to the <i>swap</i> memory</li>
+    <li>your (field) data exceed the default memory capacity granted to users of your cluster -> consult tutorials on <b>SGE qsub</b> (e.g. from <a href="http://star.mit.edu/cluster/docs/0.92rc2/guides/sge.html">MIT</a> and <a href="https://wikis.utexas.edu/display/CCBB/sge-tutorial">University of Austin / Texas</a>) or <b>SLURM</b> (e.g. from <a href="https://researchcomputing.princeton.edu/education/online-tutorials/getting-started/introducing-slurm">Princeton University</a> or <a href="https://ubccr.freshdesk.com/support/solutions/articles/5000688140-submitting-a-slurm-job-script">University of Buffalo</a>) to raise the granted memory to your simulation job. In particular, consider submission option parameters such as <i>-l h_vmem=<b>size</b></i> (SGE qsub) and <i>
+      --mem=<b>size</b></i> (SLURM).</li>
+  </ul>
+
+  <p></p>
+  <h4>Introduce field chunking (i.e. <i>dynamic loading</i> of fields)</h4>
+  <p></p>
+  So, your situation is as follows: you found out that your Parcels simulation consumes more field data than can fit in memory. This also occurs irrespective on the platform you run the simulations - they fail on your workstation, your laptop, and your cluster (via job submission or otherwise). Then, it may be that you are not using field chunking.
+  <p></p>
+  Field chunking is introduced in Parcels > 2.0.0. It manages the access and data transfer between your data / model (i.e. your NetCDF files), the memory, and the kernels, in a way so that only the parts of the data ends up in memory which are directly needed by some particles. This technique is commonly referred to as <i>dynamic loading</i>. In Python, with its numeric backend of Numpy and SciPy, the <a href="https://dask.org/">Dask</a> module implements this data access technique, which is called <i>chunking</i> within Dask. Chunking for field data is activated by <i>default</i> in Parcels > 2.0.0.
+  <p></p>
+  As an example, let us assume we load a field set as such:
+  <p></p>
+  <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions)</code>
+  <p></p>
+  then, this is equivalent to
+  <p></p>
+  <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, deferred_load=True, field_chunksize='auto')</code>
+  <p></p>
+  Hence, if you are using an older version of Parcels (<= 2.0.0), or you have accidentally switched of chunking  via <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, field_chunksize=False)</code>, then you may exceed your available memory. Try out a newer version of Parcels (>= 2.1.3) and <i>activate</i> field chunking.
+  <p></p>
+  <h4>Advanced control over chunking and memory - configure Dask</h4>
+  <p></p>
+  <hr>
+
 
 </div>
 <!-- /.container -->
