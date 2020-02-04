@@ -59,6 +59,9 @@
           <a class="nav-link" href="#outputformat">Output files</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#performance">Memory and performance</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="gh-pages/html">Documentation</a>
         </li>
       </ul>
@@ -163,21 +166,21 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   <hr>
   <h2 id="performance">Memory Behaviour and Performance</h2>
 
-  Parcels, with its Lagrangian simulation approach and the commonly large amount of particles being simulated, is a computationally-demanding application. Supported models, such as CMEMS and NEMO, add to the complexity as they require large blocks of memory to be available. Despite the continuous improvements in performance and efficiency, it is thus possible to encounter performance- and memory-related problems. The following paragraphs are meant as a guideline to resolve those related issues.
+  Parcels, with its Lagrangian simulation approach and the commonly large amount of particles being simulated, is a computationally-demanding application. Global scale, fine-resolution hydronamic input data, such as from CMEMS and NEMO, add to this computational demand as they require large blocks of memory to be available. Despite the continuous improvements in performance and efficiency, it is thus possible to encounter performance- and memory-related problems. The following paragraphs are meant as a guideline to resolve those related issues.
   <p></p>
-  The first step in tracking memory-related issues is a reasonability analysis: can issues that you are possibly experiencing actual stem from memory exhaustion ? Get an overview of the models and fields that you are using, consider if you're running the application with- or without depth information, and keep in mind that at each time in the simulation you max. need space for 3 timestamps of all fields in addition to the actual particles. Does this really exhaust the memory ? As a safeguard check, you can run a subset of your simulation (e.g the first day or week) locally while tracking the memory consumption with tools such as the <b>Task Manager</b> (Windows), the <b>Activity Monitor</b> (MacOS) or the <b>System Monitor</b> (Linux).
+  The first step in tracking memory-related issues is a reasonability analysis: can issues that you are possibly experiencing actual stem from memory exhaustion? Get an overview of the models and fields that you are using, consider if you're running the application with- or without depth information, and keep in mind that at each time in the simulation you max. need space for 3 timestamps of all fields in addition to the actual particles. Does this really exhaust the memory? As a safeguard check, you can run a subset of your simulation (e.g the first day or week) locally while tracking the memory consumption with tools such as the <b>Task Manager</b> (Windows), the <b>Activity Monitor</b> (MacOS) or the <b>System Monitor</b> (Linux).
   <p></p>
-  Suppose that you have determined that reason for your simulation not finishing <i>can be</i> or <i>is</i> memory exhaustion. Then, the next step is to determine if the cause of memory exhaustion is due to <b>Particle[Sets]</b> or <b>Field[Sets]</b>. Fortunately, this is easy to assess:
+  Suppose that you have determined that reason for your simulation not finishing <i>can be</i> or <i>is</i> memory exhaustion. Then, the next step is to determine if the cause of memory exhaustion is due to the particles or due to the fields. Fortunately, this is easy to assess:
   <ul>
     <li>Initialize your ParcileSet with only few particles, e.g. <code class="language-python">pset = ParticleSet(fieldset=fieldset, pclass=JITParticle, lon=np.random.rand(16,1), lat=np.random.rand(16,1))</code></li>
     <li>Do not re-add particles periodically via <code class="language-python">repeatdt</code>, e.g. change <code class="language-python">pset = ParticleSet(..., lat=np.random.rand(16,1), repeatdt=timedelta(hours=1))</code> to <code class="language-python">pset = ParticleSet(..., lat=np.random.rand(16,1))</code></li>
   </ul>
   Run your simulation again and observe the memory with the tools mentioned above. If your simulation runs through without problems, it is almost certain your real simulation requires too many particles. There is no generic solution at this point for it, so: Get in touch with us at <a href="https://github.com/OceanParcels/parcels/issues">the OceanParcels GitHub page</a> via the issue tracker to find an individual solution.
   <p></p>
-  If the reduction of particles indeed does not solve your issue and your simulation still crashes, then this is likely due to the Fields consuming more memory than available. Luckily, there are some solutions to this problem.
+  If the reduction of particles indeed does not solve your issue and your simulation still crashes, then this is likely due to the fields consuming more memory than available. Luckily, there are some solutions to this problem.
   <p></p>
 
-  <h4>Simulations crash on HPC clusters (via job submission systems such as SGE or SLURM), but locally finishes without problems</h4>
+  <h4>Simulation crashes on HPC clusters (via job submission systems such as SGE or SLURM), but locally finishes without problems</h4>
   <p></p>
   The behaviour of simulations crashing on cluster systems whereas running as-expected on local machines can occur because
   <ul>
@@ -188,36 +191,40 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   </ul>
 
   <p></p>
-  <h4>Introduce field chunking (i.e. <i>dynamic loading</i> of fields)</h4>
+  <h4 id="field_chunking">Introduce field chunking (i.e. <i>dynamic loading</i> of fields)</h4>
   <p></p>
   So, your situation is as follows: you found out that your Parcels simulation consumes more field data than can fit in memory. This also occurs irrespective of the platform (ie. operation system; system configuration) you run the simulations on - they fail on your workstation, your laptop, and your cluster (via job submission or otherwise). Then, it may be that you are not using field chunking.
   <p></p>
-  Field chunking is introduced in Parcels > 2.0.0. It manages the access and data transfer between your data / model (i.e. your NetCDF files), the memory, and the kernels, in a way so that only the parts of the data ends up in memory which are directly needed by some particles. This technique is commonly referred to as <i>dynamic loading</i>. In Python, with its numeric backend of Numpy and SciPy, the <a href="https://dask.org/">Dask</a> module implements this data access technique, which is called <i>chunking</i> or <i>lazy loading</i> within Dask. Chunking for field data is activated by <i>default</i> in Parcels > 2.0.0.
+  Field chunking is introduced in Parcels > 2.1.0. It manages the access and data transfer between your hydrodynamic data (i.e. your NetCDF files), the computer memory, and the kernels, in a way so that only the parts of the data ends up in memory which are directly needed by some particles. This technique is commonly referred to as <i>dynamic loading</i>. In Python, with its numeric backend of Numpy and SciPy, the <a href="https://dask.org/">Dask</a> module implements this data access technique, which is called <i>chunking</i> or <i>lazy loading</i> within Dask. Chunking for field data is activated by <i>default</i> in Parcels > 2.1.0.
   <p></p>
   As an example, let us assume we load a field set as such:
-  <p></p>
+  <br>
   <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions)</code>
-  <p></p>
+  <br>
   then, this is equivalent to
-  <p></p>
+  <br>
   <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, deferred_load=True, field_chunksize='auto')</code>
   <p></p>
-  Hence, if you are using an older version of Parcels (<= 2.0.0), or you have accidentally switched of chunking  via <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, field_chunksize=False)</code>, then you may exceed your available memory. Try out a newer version of Parcels (>= 2.1.3) and <i>activate</i> field chunking.
+  Hence, if you are using an older version of Parcels (<= 2.1.0), or you have accidentally switched of chunking  via <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, field_chunksize=False)</code>, then you may exceed your available memory. Try out the latest version of Parcels and <i>activate</i> field chunking.
 
   <p></p>
-  <h4>Advanced control over chunking and memory - configure Dask</h4>
+  <h4 id=""field_chunking_config>Advanced control over chunking and memory - configure Dask</h4>
   <p></p>
-  In the case that you have field chunking running, your job submission files are all set correctly, but your fields are still too big, then your fields must be either many (in terms of <i>individual</i> fields), or they are complex (i.e. many diverse, hydrological properties), or they are in dense (i.e. <i>high-resolution</i>) 4D grids (i.e. using time, depth, latitude and longitude).
+  In the case that you have field chunking running, your job submission files are all set correctly, but your fields are still too big, then your fields must be either many (in terms of <i>individual</i> fields), or they are complex (i.e. many diverse, hydrological properties), or they are in dense (i.e. <i>fine-resolution</i>) 4D grids (i.e. using time, depth, latitude and longitude).
   In this case, you may need to tune your environment a bit more directly to your application or scenario.
   <ol>
-    <li> <b>Attune your chunk size configuration manually</b>: Instead of leaving the chunking up to the black-box that is Dask, you can define your chunks yourself. Say you have simulation data of 30 timesteps on a grid with depth=150, lat=2100, long=1800 (just an example), then you may wanna define the chunks yourself.
+    <p></p>
+    <li> <b>Tune your chunk size configuration manually</b>: Instead of leaving the chunking up to the black-box that is Dask, you can define your chunks yourself. Say you have simulation data of 30 timesteps on a grid with depth=150, lat=2100, lon=1800 (just an example), then you may wanna define the chunks yourself.
       <ul>
         <li>use the parameter <i>field_chunksize</i> of the FieldSet class as a tuple: here, the order is <code class="language-python">(time steps, depth size, latitude size, longitude size)</code>, so e.g. <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, field_chunksize=(1,8,128,128))</code></li>
         <li>use the parameter <i>field_chunksize</i> of the FieldSet class as a dictionary: here, you define the chunks by name, such that <code class="language-python">{'time_counter'=time steps, 'depth'=depth size, 'nav_lat'=latitude size, 'nav_lon'=longitude size}</code>, so e.g. <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, field_chunksize={'time_counter'=1,'depth'=8,'nav_lat'=128,'nav_lon'=128})</code></li>
       </ul>
     </li>
-    <li> <b>Guide Dask's chunking procedure</b>: Dask's auto-chunking feature attempts to minimize read-access from the file, hence it will chunk the data so that an individual chunk fits into memory. If you are working with multiple fields (or: multiple cores via MPI), then this assumption doesn't apply to you and, thus, the parameter setting  <code class="language-python">field_chunksize='auto'</code> may not provided you with the expected result. If you want to adapt this behaviour without manually tuning every application and scenario script, then you can configure the auto-chunking function itself.
+    <p></p>
+    <li> <b>Override Dask's chunking procedure</b>: Dask's auto-chunking feature attempts to minimize read-access from the file, hence it will chunk the data so that an individual chunk fits into memory. If you are working with multiple fields (or: multiple cores via MPI), then this assumption doesn't apply to you and, thus, the parameter setting  <code class="language-python">field_chunksize='auto'</code> may not provided you with the expected result. If you want to adapt this behaviour without manually tuning every application and scenario script, then you can configure the auto-chunking function itself.
+      <p></p>
       Information on how to adapt the auto-chunking can be found in the <a href="https://docs.dask.org/en/latest/array-chunks.html#automatic-chunking">Dask documentation</a>. Dask itself can use a term in the Dask configuration file, which defines a new <i>upper limit</i> for a chunked array. Detailed information and guidance on the configuration file can be found in the <a href="https://docs.dask.org/en/latest/configuration.html">Dask guidelines</a>.
+      <p></p>
       As a short summary: when having installed Dask, there is a (hidden) user-defined folder in your home directory <code>${HOME}/.config/dask</code> that has two files: <code>dask.yaml</code> and <code>distributed.yaml</code>. The second one is of less interest for you unless you have distributed file management (if unsure, contact your system administrator). Under normal conditions, Dask will read configuration parameters from <code>dask.yaml</code>. That file could look like this (<i>default</i> after installation):
       <p></p>
       <pre class="language-yaml">
@@ -225,8 +232,7 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
 
   # array:
   #   svg:
-  #     size: 120  # pixels
-      </pre>
+  #     size: 120  # pixels</pre>
       You can adapt this so the chunks, for example, are smaller, which improves loading and allows multiple simultaneous fields being accessed without exceeding memory.
       <pre class="language-yaml">
   temporary-directory: /tmp
@@ -234,8 +240,7 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   array:
     svg:
       size: 120  # pixels
-    chunk-size: 128 MiB
-      </pre>
+    chunk-size: 128 MiB</pre>
       Another very important change is that we removed the <code class="language-yaml">#</code> from the start of the lines, which transforms them from being <i>comments</i> into actual <i>information</i>. Of course, if you have e.g. 4 fields, then you may want to change <b>128 MiB</b> into <b>32 MiB</b>. Power-of-two sizes here are also advantageous, although not strictly necessary.
       <p></p>
     </li>
