@@ -196,16 +196,16 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
   <br>
   <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, deferred_load=True, field_chunksize='auto')</code>
   <p></p>
-  Hence, if you are using an older version of Parcels (<= 2.1.0), or you have accidentally switched of chunking  via <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, field_chunksize=False)</code>, then you may exceed your available memory. Try out the latest version of Parcels and <i>activate</i> field chunking.
+  Hence, if you are using an older version of Parcels (<= 2.1.0), or you have accidentally switched of chunking  via <code class="language-python">fieldset = FieldSet.from_netcdf(..., field_chunksize=False)</code>, then you may exceed your available memory. Try out the latest version of Parcels and <i>activate</i> field chunking.
   <p></p>
 
-  <h4 id="HPC">Simulations crash on HPC clusters (via job submission systems such as SGE or SLURM), but locally finishes without problems</h4>
+  <h4 id="HPC">Simulations crash on HPC clusters (via job submission systems such as SGE or SLURM), but locally finish without problems</h4>
   <p></p>
   The behaviour of simulations crashing on cluster systems whereas running as-expected on local machines can occur because
   <ul>
     <li>Python itself does not return memory to the operation system</li>
-    <li>your (field) data are too large for the memory, but fit comfortably in <i>virtual memory</i> (e.g. swap drive, swap files, page files) =-> job submission systems do not provide access to the <i>swap</i> memory</li>
-    <li>your (field) data exceed the default memory capacity granted to users of your cluster -> consult tutorials on <b>SGE qsub</b> (e.g. from <a href="http://star.mit.edu/cluster/docs/0.92rc2/guides/sge.html">MIT</a> and <a href="https://wikis.utexas.edu/display/CCBB/sge-tutorial">University of Austin / Texas</a>) or <b>SLURM</b> (e.g. from <a href="https://researchcomputing.princeton.edu/education/online-tutorials/getting-started/introducing-slurm">Princeton University</a> or <a href="https://ubccr.freshdesk.com/support/solutions/articles/5000688140-submitting-a-slurm-job-script">University of Buffalo</a>) to raise the granted memory to your simulation job. In particular, consider submission option parameters such as <i>-l h_vmem=<b>size</b></i> (SGE qsub) and <i>
+    <li>Your (field) data are too large for the memory, but fit comfortably in <i>virtual memory</i> (e.g. swap drive, swap files, page files) =-> job submission systems do not provide access to the <i>swap</i> memory</li>
+    <li>Your (field) data exceed the default memory capacity granted to users of your cluster -> consult tutorials on <b>SGE qsub</b> (e.g. from <a href="http://star.mit.edu/cluster/docs/0.92rc2/guides/sge.html">MIT</a> and <a href="https://wikis.utexas.edu/display/CCBB/sge-tutorial">University of Austin / Texas</a>) or <b>SLURM</b> (e.g. from <a href="https://researchcomputing.princeton.edu/education/online-tutorials/getting-started/introducing-slurm">Princeton University</a> or <a href="https://ubccr.freshdesk.com/support/solutions/articles/5000688140-submitting-a-slurm-job-script">University of Buffalo</a>) to raise the granted memory to your simulation job. In particular, consider submission option parameters such as <i>-l h_vmem=<b>size</b></i> (SGE qsub) and <i>
       --mem=<b>size</b></i> (SLURM).</li>
   </ul>
   <p></p>
