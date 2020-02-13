@@ -4,22 +4,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>parcels.rng &#8212; Parcels  documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
 <script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -50,17 +51,15 @@
               <img class="logo" src="../../_static/parcelslogo.png" alt="Logo"/>
             </a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -71,18 +70,18 @@
             
   <h1>Source code for parcels.rng</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">uuid</span>
-<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_float</span>
-<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_int</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_float</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_int</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 
 <span class="kn">import</span> <span class="nn">numpy.ctypeslib</span> <span class="k">as</span> <span class="nn">npct</span>
 
-<span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="k">import</span> <span class="n">get_cache_dir</span>
-<span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="k">import</span> <span class="n">GNUCompiler</span>
-<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="kn">import</span> <span class="n">get_cache_dir</span>
+<span class="kn">from</span> <span class="nn">parcels.compiler</span> <span class="kn">import</span> <span class="n">GNUCompiler</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="kn">import</span> <span class="n">logger</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;randint&#39;</span><span class="p">,</span> <span class="s1">&#39;normalvariate&#39;</span><span class="p">,</span> <span class="s1">&#39;expovariate&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;randint&#39;</span><span class="p">,</span> <span class="s1">&#39;normalvariate&#39;</span><span class="p">,</span> <span class="s1">&#39;expovariate&#39;</span><span class="p">,</span> <span class="s1">&#39;vonmisesvariate&#39;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">Random</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -117,14 +116,19 @@
 <span class="s2">  return parcels_expovariate(lamb);</span>
 <span class="s2">}</span>
 <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_vonmisesvariate</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern float pcls_vonmisesvariate(float mu, float kappa){</span>
+<span class="s2">  return parcels_vonmisesvariate(mu, kappa);</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
     <span class="n">ccode</span> <span class="o">=</span> <span class="n">stmt_import</span> <span class="o">+</span> <span class="n">fnct_seed</span>
-    <span class="n">ccode</span> <span class="o">+=</span> <span class="n">fnct_random</span> <span class="o">+</span> <span class="n">fnct_uniform</span> <span class="o">+</span> <span class="n">fnct_randint</span> <span class="o">+</span> <span class="n">fnct_normalvariate</span> <span class="o">+</span> <span class="n">fnct_expovariate</span>
+    <span class="n">ccode</span> <span class="o">+=</span> <span class="n">fnct_random</span> <span class="o">+</span> <span class="n">fnct_uniform</span> <span class="o">+</span> <span class="n">fnct_randint</span> <span class="o">+</span> <span class="n">fnct_normalvariate</span> <span class="o">+</span> <span class="n">fnct_expovariate</span> <span class="o">+</span> <span class="n">fnct_vonmisesvariate</span>
     <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="s1">&#39;parcels_random_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
     <span class="n">src_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.c&quot;</span> <span class="o">%</span> <span class="n">basename</span>
     <span class="n">lib_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.so&quot;</span> <span class="o">%</span> <span class="n">basename</span>
     <span class="n">log_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.log&quot;</span> <span class="o">%</span> <span class="n">basename</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
@@ -184,6 +188,15 @@
     <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="n">c_float</span>
     <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
     <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">lamb</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="vonmisesvariate"><a class="viewcode-back" href="../../index.html#parcels.rng.vonmisesvariate">[docs]</a><span class="k">def</span> <span class="nf">vonmisesvariate</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">kappa</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a randome float of a Von Mises distribution</span>
+<span class="sd">    with mean angle mu and concentration parameter kappa&quot;&quot;&quot;</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_vonmisesvariate</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">]</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
+    <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">kappa</span><span class="p">))</span></div>
 </pre></div>
 
           </div>
@@ -206,7 +219,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
     </div>
   </body>
 </html>
