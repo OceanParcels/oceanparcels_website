@@ -171,14 +171,14 @@
     <p></p>
     <li>Start a terminal (Linux / macOS) or the Anaconda prompt (Windows). Activate the root (or base) environment of your Miniconda and create an environment containing Parcels, all its essential dependencies, and the nice-to-have Jupyter, cartopy, and ffmpeg packages:
     <pre><code class="language-bash">conda activate root  # Linux / macOS
-activate root                              # Windows
+activate root        # Windows
 
 conda create -n py3_parcels -c conda-forge python=3.6 parcels jupyter cartopy ffmpeg</code></pre></li>
     <!--<i>*Note that Parcels has a problem with the latest release of the netCDF4 library, v1.4.2 (see also <a href="https://github.com/OceanParcels/parcels/issues/513">Issue #513 on github</a>). For the time being, we recommend downgrading to v1.4.1, using <code class="language-bash">conda install netcdf4=1.4.1</code></i>-->
     <p></p>
     <li>Activate the newly created Parcels environment.
       <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
-activate py3_parcels                              # Windows</code></pre></li>
+activate py3_parcels        # Windows</code></pre></li>
     <li>Get a copy of the Parcels tutorials and examples, as well as the data required to run these:
     <pre><code class="language-bash">parcels_get_examples parcels_examples</code></pre></li>
     <i>*Note that if you are on Windows and you get a <code>Fatal error in launcher</code> error, you can instead download the data with</i>
@@ -194,7 +194,7 @@ python example_peninsula.py --fieldset 100 100</code></pre></li>
     <p></p>
     <li>The next time you start a terminal and want to work with Parcels, activate the environment with:
     <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
-activate py3_parcels                              # Windows</code></pre></li>
+activate py3_parcels        # Windows</code></pre></li>
   </ol>
 
   <p></p>
@@ -203,8 +203,8 @@ activate py3_parcels                              # Windows</code></pre></li>
     There might be cases where you want to install a version of Parcels that has not been released yet.  (Perhaps, if you want to use a bleeding-edge feature which already is included on Github, but not in the conda-forge package.)
 
   Then, just after step 2 of <a href="#installing">Installing Parcels</a> above, use the following commands to remove the conda-forge package again, and use <code>pip</code> to install Parcels from Github:
-    <pre><code class="language-bash">conda py3_parcels  # Linux / macOS
-activate py3_parcels                              # Windows
+    <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
+activate py3_parcels        # Windows</code></pre></li>
 
 conda remove --force parcels
 pip install git+https://github.com/OceanParcels/parcels.git@master
