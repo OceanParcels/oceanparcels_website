@@ -219,7 +219,7 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
     <li> <b>Tune your chunk size configuration manually</b>: Instead of leaving the chunking up to the black-box that is Dask, you can define your chunks yourself. Say you have simulation data of 30 timesteps on a grid with depth=150, lat=2100, lon=1800 (just an example), then you may wanna define the chunks yourself.
       <ul>
         <li>use the parameter <i>field_chunksize</i> of the FieldSet class as a tuple: here, the order is <code class="language-python">(time steps, depth size, latitude size, longitude size)</code>, so e.g. <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, field_chunksize=(1,8,128,128))</code></li>
-        <li>use the parameter <i>field_chunksize</i> of the FieldSet class as a dictionary: here, you define the chunks by name, such that <code class="language-python">{'time_counter'=time steps, 'depth'=depth size, 'nav_lat'=latitude size, 'nav_lon'=longitude size}</code>, so e.g. <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, field_chunksize={'time_counter': 1, 'depth': 8, 'nav_lat': 128, 'nav_lon': 128})</code></li>
+        <li>use the parameter <i>field_chunksize</i> of the FieldSet class as a dictionary: here, you define the chunks by name, such that e.g. <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, field_chunksize={'time_counter': 1, 'depth': 8, 'nav_lat': 128, 'nav_lon': 128})</code></li>
       </ul>
     </li>
     <p></p>
