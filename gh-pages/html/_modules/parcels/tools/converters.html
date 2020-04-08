@@ -73,13 +73,14 @@
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span> <span class="k">as</span> <span class="n">delta</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 <span class="kn">import</span> <span class="nn">cftime</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UnitConverter&#39;</span><span class="p">,</span> <span class="s1">&#39;Geographic&#39;</span><span class="p">,</span> <span class="s1">&#39;GeographicPolar&#39;</span><span class="p">,</span> <span class="s1">&#39;GeographicSquare&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;GeographicPolarSquare&#39;</span><span class="p">,</span> <span class="s1">&#39;unitconverters_map&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;TimeConverter&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;GeographicPolarSquare&#39;</span><span class="p">,</span> <span class="s1">&#39;unitconverters_map&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeConverter&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;convert_xarray_time_units&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_get_cftime_datetimes</span><span class="p">():</span>
@@ -104,6 +105,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">time_origin</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">time_origin</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time_origin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="s2">&quot;np_datetime64&quot;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time_origin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="s2">&quot;np_timedelta64&quot;</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time_origin</span><span class="p">,</span> <span class="n">cftime</span><span class="o">.</span><span class="n">_cftime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="n">time_origin</span><span class="o">.</span><span class="n">calendar</span>
         <span class="k">else</span><span class="p">:</span>
@@ -117,7 +120,7 @@
 <span class="sd">        :return: time - self.time_origin</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">time</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;np_datetime64&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;np_datetime64&#39;</span><span class="p">,</span> <span class="s1">&#39;np_timedelta64&#39;</span><span class="p">]:</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="ow">in</span> <span class="n">_get_cftime_calendars</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
@@ -136,7 +139,7 @@
 <span class="sd">        :return: self.time_origin + time</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time_origin</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">TimeConverter</span><span class="p">)</span> <span class="k">else</span> <span class="n">time</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;np_datetime64&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;np_datetime64&#39;</span><span class="p">,</span> <span class="s1">&#39;np_timedelta64&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
                 <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
@@ -275,6 +278,23 @@
 <span class="n">unitconverters_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span><span class="p">:</span> <span class="n">GeographicPolar</span><span class="p">(),</span> <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="n">Geographic</span><span class="p">(),</span>
                       <span class="s1">&#39;Kh_zonal&#39;</span><span class="p">:</span> <span class="n">GeographicPolarSquare</span><span class="p">(),</span>
                       <span class="s1">&#39;Kh_meridional&#39;</span><span class="p">:</span> <span class="n">GeographicSquare</span><span class="p">()}</span>
+
+
+<div class="viewcode-block" id="convert_xarray_time_units"><a class="viewcode-back" href="../../../index.html#parcels.tools.converters.convert_xarray_time_units">[docs]</a><span class="k">def</span> <span class="nf">convert_xarray_time_units</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Fixes DataArrays that have time.Unit instead of expected time.units</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">time</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="k">else</span> <span class="n">ds</span>
+    <span class="k">if</span> <span class="s1">&#39;units&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">and</span> <span class="s1">&#39;Unit&#39;</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+        <span class="n">da</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;Unit&#39;</span><span class="p">]</span>
+    <span class="n">da2</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">({</span><span class="n">time</span><span class="p">:</span> <span class="n">da</span><span class="p">})</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">da2</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">decode_cf</span><span class="p">(</span><span class="n">da2</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Xarray could not convert the calendar. If you&#39;&#39;re using from_netcdf, &#39;</span>
+                           <span class="s1">&#39;try using the timestamps keyword in the construction of your Field. &#39;</span>
+                           <span class="s1">&#39;See also the tutorial at https://nbviewer.jupyter.org/github/OceanParcels/&#39;</span>
+                           <span class="s1">&#39;parcels/blob/master/parcels/examples/tutorial_timestamps.ipynb&#39;</span><span class="p">)</span>
+    <span class="n">ds</span><span class="p">[</span><span class="n">time</span><span class="p">]</span> <span class="o">=</span> <span class="n">da2</span><span class="p">[</span><span class="n">time</span><span class="p">]</span></div>
 </pre></div>
 
           </div>
@@ -297,7 +317,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
     </div>
   </body>
 </html>

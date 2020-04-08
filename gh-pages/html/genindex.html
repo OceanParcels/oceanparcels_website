@@ -154,13 +154,15 @@
 </li>
       <li><a href="index.html#parcels.kernel.Kernel.compile">compile() (parcels.kernel.Kernel method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.compiler.Compiler">Compiler (class in parcels.compiler)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.fieldset.FieldSet.computeTimeChunk">computeTimeChunk() (parcels.fieldset.FieldSet method)</a>
 </li>
       <li><a href="index.html#parcels.particlefile.ParticleFile.convert_pset_to_dict">convert_pset_to_dict() (parcels.particlefile.ParticleFile method)</a>
+</li>
+      <li><a href="index.html#parcels.tools.converters.convert_xarray_time_units">convert_xarray_time_units() (in module parcels.tools.converters)</a>
 </li>
       <li><a href="index.html#scripts.get_examples.copy_data_and_examples_from_package_to">copy_data_and_examples_from_package_to() (in module scripts.get_examples)</a>
 </li>
@@ -240,10 +242,10 @@
 </li>
       <li><a href="index.html#parcels.particleset.ParticleSet.from_field">from_field() (parcels.particleset.ParticleSet class method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.particleset.ParticleSet.from_line">from_line() (parcels.particleset.ParticleSet class method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.particleset.ParticleSet.from_list">from_list() (parcels.particleset.ParticleSet class method)</a>
 </li>
       <li><a href="index.html#parcels.fieldset.FieldSet.from_nemo">from_nemo() (parcels.fieldset.FieldSet class method)</a>
@@ -256,7 +258,11 @@
       </ul></li>
       <li><a href="index.html#parcels.fieldset.FieldSet.from_parcels">from_parcels() (parcels.fieldset.FieldSet class method)</a>
 </li>
+      <li><a href="index.html#parcels.particleset.ParticleSet.from_particlefile">from_particlefile() (parcels.particleset.ParticleSet class method)</a>
+</li>
       <li><a href="index.html#parcels.fieldset.FieldSet.from_pop">from_pop() (parcels.fieldset.FieldSet class method)</a>
+</li>
+      <li><a href="index.html#parcels.field.Field.from_xarray">from_xarray() (parcels.field.Field class method)</a>
 </li>
       <li><a href="index.html#parcels.fieldset.FieldSet.from_xarray_dataset">from_xarray_dataset() (parcels.fieldset.FieldSet class method)</a>
 </li>
@@ -342,49 +348,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#scripts.get_examples.main">main() (in module scripts.get_examples)</a>
 </li>
-      <li>
-    module
-
-      <ul>
-        <li><a href="index.html#module-parcels.codegenerator">parcels.codegenerator</a>
-</li>
-        <li><a href="index.html#module-parcels.compiler">parcels.compiler</a>
-</li>
-        <li><a href="index.html#module-parcels.field">parcels.field</a>
-</li>
-        <li><a href="index.html#module-parcels.fieldset">parcels.fieldset</a>
-</li>
-        <li><a href="index.html#module-parcels.grid">parcels.grid</a>
-</li>
-        <li><a href="index.html#module-parcels.gridset">parcels.gridset</a>
-</li>
-        <li><a href="index.html#module-parcels.kernel">parcels.kernel</a>
-</li>
-        <li><a href="index.html#module-parcels.kernels.advection">parcels.kernels.advection</a>
-</li>
-        <li><a href="index.html#module-parcels.kernels.diffusion">parcels.kernels.diffusion</a>
-</li>
-        <li><a href="index.html#module-parcels.particle">parcels.particle</a>
-</li>
-        <li><a href="index.html#module-parcels.particlefile">parcels.particlefile</a>
-</li>
-        <li><a href="index.html#module-parcels.particleset">parcels.particleset</a>
-</li>
-        <li><a href="index.html#module-parcels.plotting">parcels.plotting</a>
-</li>
-        <li><a href="index.html#module-parcels.rng">parcels.rng</a>
-</li>
-        <li><a href="index.html#module-parcels.tools.converters">parcels.tools.converters</a>
-</li>
-        <li><a href="index.html#module-parcels.tools.error">parcels.tools.error</a>
-</li>
-        <li><a href="index.html#module-parcels.tools.loggers">parcels.tools.loggers</a>
-</li>
-        <li><a href="index.html#module-scripts.get_examples">scripts.get_examples</a>
-</li>
-        <li><a href="index.html#module-scripts.plottrajectoriesfile">scripts.plottrajectoriesfile</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -409,133 +372,50 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.tools.error.OutOfBoundsError">OutOfBoundsError</a>
 </li>
+      <li><a href="index.html#parcels.tools.error.OutOfTimeError">OutOfTimeError</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    parcels.codegenerator
-
-      <ul>
-        <li><a href="index.html#module-parcels.codegenerator">module</a>
+      <li><a href="index.html#module-parcels.codegenerator">parcels.codegenerator (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.compiler
-
-      <ul>
-        <li><a href="index.html#module-parcels.compiler">module</a>
+      <li><a href="index.html#module-parcels.compiler">parcels.compiler (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.field
-
-      <ul>
-        <li><a href="index.html#module-parcels.field">module</a>
+      <li><a href="index.html#module-parcels.field">parcels.field (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.fieldset
-
-      <ul>
-        <li><a href="index.html#module-parcels.fieldset">module</a>
+      <li><a href="index.html#module-parcels.fieldset">parcels.fieldset (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.grid
-
-      <ul>
-        <li><a href="index.html#module-parcels.grid">module</a>
+      <li><a href="index.html#module-parcels.grid">parcels.grid (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.gridset
-
-      <ul>
-        <li><a href="index.html#module-parcels.gridset">module</a>
+      <li><a href="index.html#module-parcels.gridset">parcels.gridset (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.kernel
-
-      <ul>
-        <li><a href="index.html#module-parcels.kernel">module</a>
+      <li><a href="index.html#module-parcels.kernel">parcels.kernel (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.kernels.advection
-
-      <ul>
-        <li><a href="index.html#module-parcels.kernels.advection">module</a>
+      <li><a href="index.html#module-parcels.kernels.advection">parcels.kernels.advection (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.kernels.diffusion
-
-      <ul>
-        <li><a href="index.html#module-parcels.kernels.diffusion">module</a>
+      <li><a href="index.html#module-parcels.kernels.diffusion">parcels.kernels.diffusion (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.particle
-
-      <ul>
-        <li><a href="index.html#module-parcels.particle">module</a>
+      <li><a href="index.html#module-parcels.particle">parcels.particle (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.particlefile
-
-      <ul>
-        <li><a href="index.html#module-parcels.particlefile">module</a>
+      <li><a href="index.html#module-parcels.particlefile">parcels.particlefile (module)</a>
 </li>
-      </ul></li>
+      <li><a href="index.html#module-parcels.particleset">parcels.particleset (module)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    parcels.particleset
-
-      <ul>
-        <li><a href="index.html#module-parcels.particleset">module</a>
+      <li><a href="index.html#module-parcels.plotting">parcels.plotting (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.plotting
-
-      <ul>
-        <li><a href="index.html#module-parcels.plotting">module</a>
+      <li><a href="index.html#module-parcels.rng">parcels.rng (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.rng
-
-      <ul>
-        <li><a href="index.html#module-parcels.rng">module</a>
+      <li><a href="index.html#module-parcels.tools.converters">parcels.tools.converters (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.tools.converters
-
-      <ul>
-        <li><a href="index.html#module-parcels.tools.converters">module</a>
+      <li><a href="index.html#module-parcels.tools.error">parcels.tools.error (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.tools.error
-
-      <ul>
-        <li><a href="index.html#module-parcels.tools.error">module</a>
+      <li><a href="index.html#module-parcels.tools.loggers">parcels.tools.loggers (module)</a>
 </li>
-      </ul></li>
-      <li>
-    parcels.tools.loggers
-
-      <ul>
-        <li><a href="index.html#module-parcels.tools.loggers">module</a>
-</li>
-      </ul></li>
       <li><a href="index.html#parcels.plotting.parsedomain">parsedomain() (in module parcels.plotting)</a>
 </li>
       <li><a href="index.html#parcels.plotting.parsetimestr">parsetimestr() (in module parcels.plotting)</a>
@@ -564,15 +444,17 @@
 </li>
       <li><a href="index.html#parcels.particlefile.ParticleFile.read_from_npy">read_from_npy() (parcels.particlefile.ParticleFile method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.grid.RectilinearSGrid">RectilinearSGrid (class in parcels.grid)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.grid.RectilinearZGrid">RectilinearZGrid (class in parcels.grid)</a>
 </li>
       <li><a href="index.html#parcels.tools.converters.TimeConverter.reltime">reltime() (parcels.tools.converters.TimeConverter method)</a>
 </li>
-      <li><a href="index.html#parcels.particleset.ParticleSet.remove">remove() (parcels.particleset.ParticleSet method)</a>
+      <li><a href="index.html#parcels.particleset.ParticleSet.remove_booleanvector">remove_booleanvector() (parcels.particleset.ParticleSet method)</a>
+</li>
+      <li><a href="index.html#parcels.particleset.ParticleSet.remove_indices">remove_indices() (parcels.particleset.ParticleSet method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -582,28 +464,18 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.particle.ScipyParticle">ScipyParticle (class in parcels.particle)</a>
 </li>
-      <li>
-    scripts.get_examples
-
-      <ul>
-        <li><a href="index.html#module-scripts.get_examples">module</a>
+      <li><a href="index.html#module-scripts.get_examples">scripts.get_examples (module)</a>
 </li>
-      </ul></li>
-      <li>
-    scripts.plottrajectoriesfile
-
-      <ul>
-        <li><a href="index.html#module-scripts.plottrajectoriesfile">module</a>
+      <li><a href="index.html#module-scripts.plottrajectoriesfile">scripts.plottrajectoriesfile (module)</a>
 </li>
-      </ul></li>
       <li><a href="index.html#parcels.rng.seed">seed() (in module parcels.rng)</a>
 </li>
       <li><a href="index.html#scripts.get_examples.set_jupyter_kernel_to_python_version">set_jupyter_kernel_to_python_version() (in module scripts.get_examples)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.field.Field.set_scaling_factor">set_scaling_factor() (parcels.field.Field method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#parcels.field.Field.show">show() (parcels.field.Field method)</a>
 
       <ul>
@@ -682,6 +554,8 @@
 </li>
       <li><a href="index.html#parcels.codegenerator.KernelGenerator.visit_VectorFieldNode">visit_VectorFieldNode() (parcels.codegenerator.KernelGenerator method)</a>
 </li>
+      <li><a href="index.html#parcels.rng.vonmisesvariate">vonmisesvariate() (in module parcels.rng)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -720,7 +594,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
     </div>
   </body>
 </html>

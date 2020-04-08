@@ -81,7 +81,7 @@
 <span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="kn">import</span> <span class="n">logger</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;randint&#39;</span><span class="p">,</span> <span class="s1">&#39;normalvariate&#39;</span><span class="p">,</span> <span class="s1">&#39;expovariate&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;randint&#39;</span><span class="p">,</span> <span class="s1">&#39;normalvariate&#39;</span><span class="p">,</span> <span class="s1">&#39;expovariate&#39;</span><span class="p">,</span> <span class="s1">&#39;vonmisesvariate&#39;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">Random</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -116,8 +116,13 @@
 <span class="s2">  return parcels_expovariate(lamb);</span>
 <span class="s2">}</span>
 <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">fnct_vonmisesvariate</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">extern float pcls_vonmisesvariate(float mu, float kappa){</span>
+<span class="s2">  return parcels_vonmisesvariate(mu, kappa);</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
     <span class="n">ccode</span> <span class="o">=</span> <span class="n">stmt_import</span> <span class="o">+</span> <span class="n">fnct_seed</span>
-    <span class="n">ccode</span> <span class="o">+=</span> <span class="n">fnct_random</span> <span class="o">+</span> <span class="n">fnct_uniform</span> <span class="o">+</span> <span class="n">fnct_randint</span> <span class="o">+</span> <span class="n">fnct_normalvariate</span> <span class="o">+</span> <span class="n">fnct_expovariate</span>
+    <span class="n">ccode</span> <span class="o">+=</span> <span class="n">fnct_random</span> <span class="o">+</span> <span class="n">fnct_uniform</span> <span class="o">+</span> <span class="n">fnct_randint</span> <span class="o">+</span> <span class="n">fnct_normalvariate</span> <span class="o">+</span> <span class="n">fnct_expovariate</span> <span class="o">+</span> <span class="n">fnct_vonmisesvariate</span>
     <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cache_dir</span><span class="p">(),</span> <span class="s1">&#39;parcels_random_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
     <span class="n">src_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.c&quot;</span> <span class="o">%</span> <span class="n">basename</span>
     <span class="n">lib_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.so&quot;</span> <span class="o">%</span> <span class="n">basename</span>
@@ -183,6 +188,15 @@
     <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="n">c_float</span>
     <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
     <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">lamb</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="vonmisesvariate"><a class="viewcode-back" href="../../index.html#parcels.rng.vonmisesvariate">[docs]</a><span class="k">def</span> <span class="nf">vonmisesvariate</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">kappa</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a randome float of a Von Mises distribution</span>
+<span class="sd">    with mean angle mu and concentration parameter kappa&quot;&quot;&quot;</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">parcels_random</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">pcls_vonmisesvariate</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">argtype</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">]</span>
+    <span class="n">rnd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_float</span>
+    <span class="k">return</span> <span class="n">rnd</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">kappa</span><span class="p">))</span></div>
 </pre></div>
 
           </div>
@@ -205,7 +219,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
     </div>
   </body>
 </html>
