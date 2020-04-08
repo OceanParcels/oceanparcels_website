@@ -76,13 +76,13 @@
 <span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">DeferredArray</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">Field</span>
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">NestedField</span>
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">SummedField</span>
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">VectorField</span>
 <span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span> <span class="nn">parcels.gridset</span> <span class="kn">import</span> <span class="n">GridSet</span>
-<span class="kn">from</span> <span class="nn">parcels.tools.converters</span> <span class="kn">import</span> <span class="n">TimeConverter</span><span class="p">,</span> <span class="n">convert_xarray_time_units</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.converters</span> <span class="kn">import</span> <span class="n">TimeConverter</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.error</span> <span class="kn">import</span> <span class="n">TimeExtrapolationError</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="k">try</span><span class="p">:</span>
@@ -692,8 +692,8 @@
                                <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="n">deferred_load</span><span class="o">=</span><span class="n">deferred_load</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FieldSet.from_xarray_dataset"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.from_xarray_dataset">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_xarray_dataset</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span> <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                            <span class="n">time_periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_xarray_dataset</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span> <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">time_periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">deferred_load</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialises FieldSet data from xarray Datasets.</span>
 
 <span class="sd">        :param ds: xarray Dataset.</span>
@@ -704,6 +704,9 @@
 <span class="sd">               Note that dimensions can also be a dictionary of dictionaries if</span>
 <span class="sd">               dimension names are different for each variable</span>
 <span class="sd">               (e.g. dimensions[&#39;U&#39;], dimensions[&#39;V&#39;], etc).</span>
+<span class="sd">        :param indices: Optional dictionary of indices for each dimension</span>
+<span class="sd">               to read from file(s), to allow for reading of subset of data.</span>
+<span class="sd">               Default is to read the full extent of each dimension.</span>
 <span class="sd">        :param fieldtype: Optional dictionary mapping fields to fieldtypes to be used for UnitConverter.</span>
 <span class="sd">               (either &#39;U&#39;, &#39;V&#39;, &#39;Kh_zonal&#39;, &#39;Kh_meridional&#39; or None)</span>
 <span class="sd">        :param mesh: String indicating the type of mesh coordinates and</span>
@@ -717,22 +720,24 @@
 <span class="sd">               Default is False if dimensions includes time, else True</span>
 <span class="sd">        :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object). (Default: False)</span>
 <span class="sd">               This flag overrides the allow_time_interpolation and sets it to False</span>
+<span class="sd">        :param deferred_load: boolean whether to only pre-load data (in deferred mode) or</span>
+<span class="sd">               fully load them (default: True). It is advised to deferred load the data, since in</span>
+<span class="sd">               that case Parcels deals with a better memory management during particle set execution.</span>
+<span class="sd">               deferred_load=False is however sometimes necessary for plotting the fields.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">fields</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="s1">&#39;creation_log&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;creation_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from_xarray_dataset&#39;</span>
-        <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s1">&#39;units&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">[</span><span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">and</span> <span class="s1">&#39;Unit&#39;</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">[</span><span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
-                <span class="c1"># Fix DataArrays that have time.Unit instead of expected time.units</span>
-                <span class="n">convert_xarray_time_units</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
-
         <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">dims</span> <span class="o">=</span> <span class="n">dimensions</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="k">else</span> <span class="n">dimensions</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">checkvaliddimensionsdict</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
 
-            <span class="n">fields</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">from_xarray</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">var</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span>
-                                            <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="c1"># Use dimensions[var] and indices[var] if either of them is a dict of dicts</span>
+            <span class="n">dims</span> <span class="o">=</span> <span class="n">dimensions</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="k">else</span> <span class="n">dimensions</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">and</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span> <span class="k">else</span> <span class="n">indices</span>
+
+            <span class="n">fields</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="o">.</span><span class="n">from_netcdf</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">inds</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span>
+                                            <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="n">var</span><span class="p">,</span>
+                                            <span class="n">time_periodic</span><span class="o">=</span><span class="n">time_periodic</span><span class="p">,</span> <span class="n">deferred_load</span><span class="o">=</span><span class="n">deferred_load</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span></div>
@@ -854,13 +859,10 @@
                 <span class="k">for</span> <span class="n">tind</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">fb</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">fb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">fb</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                        <span class="n">fb</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="n">fb</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
                     <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tind</span><span class="p">)</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">rescale_and_set_minmax</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-                <span class="k">if</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">DeferredArray</span><span class="p">)):</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">DeferredArray</span><span class="p">()</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">chunk_set</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">chunk_setup</span><span class="p">()</span>
@@ -872,16 +874,12 @@
                 <span class="n">data</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">g</span><span class="o">.</span><span class="n">tdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">zdim</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ydim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">meridional_halo</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">xdim</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">zonal_halo</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">signdt</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">filebuffers</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">rescale_and_set_minmax</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -890,7 +888,6 @@
                     <span class="k">if</span> <span class="n">lib</span> <span class="ow">is</span> <span class="n">da</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -898,7 +895,6 @@
                     <span class="k">if</span> <span class="n">lib</span> <span class="ow">is</span> <span class="n">da</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span>
                 <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span>
@@ -957,7 +953,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>

@@ -220,7 +220,6 @@
                   <span class="s1">&#39;randint&#39;</span><span class="p">:</span> <span class="s1">&#39;parcels_randint&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;normalvariate&#39;</span><span class="p">:</span> <span class="s1">&#39;parcels_normalvariate&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;expovariate&#39;</span><span class="p">:</span> <span class="s1">&#39;parcels_expovariate&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;vonmisesvariate&#39;</span><span class="p">:</span> <span class="s1">&#39;parcels_vonmisesvariate&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;seed&#39;</span><span class="p">:</span> <span class="s1">&#39;parcels_seed&#39;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
@@ -235,8 +234,7 @@
 
 <span class="k">class</span> <span class="nc">ErrorCodeNode</span><span class="p">(</span><span class="n">IntrinsicNode</span><span class="p">):</span>
     <span class="n">symbol_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Success&#39;</span><span class="p">:</span> <span class="s1">&#39;SUCCESS&#39;</span><span class="p">,</span> <span class="s1">&#39;Repeat&#39;</span><span class="p">:</span> <span class="s1">&#39;REPEAT&#39;</span><span class="p">,</span> <span class="s1">&#39;Delete&#39;</span><span class="p">:</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span> <span class="s1">&#39;ErrorInterpolation&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR_INTERPOLATION&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;ErrorOutOfBounds&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR_OUT_OF_BOUNDS&#39;</span><span class="p">,</span> <span class="s1">&#39;ErrorThroughSurface&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR_THROUGH_SURFACE&#39;</span><span class="p">}</span>
+                  <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span> <span class="s1">&#39;ErrorOutOfBounds&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR_OUT_OF_BOUNDS&#39;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol_map</span><span class="p">:</span>
@@ -765,9 +763,6 @@
     <span class="k">def</span> <span class="nf">visit_Break</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="n">node</span><span class="o">.</span><span class="n">ccode</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Statement</span><span class="p">(</span><span class="s2">&quot;break&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">visit_Pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">ccode</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Statement</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-
 <div class="viewcode-block" id="KernelGenerator.visit_FieldNode"><a class="viewcode-back" href="../../index.html#parcels.codegenerator.KernelGenerator.visit_FieldNode">[docs]</a>    <span class="k">def</span> <span class="nf">visit_FieldNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Record intrinsic fields used in kernel&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">ccode_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">obj</span></div>
@@ -982,13 +977,12 @@
 
         <span class="n">update_next_dt_decl</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">FunctionDeclaration</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">Static</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">DeclSpecifier</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;void&quot;</span><span class="p">,</span> <span class="s2">&quot;update_next_dt&quot;</span><span class="p">),</span>
                                                              <span class="n">spec</span><span class="o">=</span><span class="s1">&#39;inline&#39;</span><span class="p">)),</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s1">&#39;double&#39;</span><span class="p">,</span> <span class="s1">&#39;dt&#39;</span><span class="p">)])</span>
-        <span class="k">if</span> <span class="s1">&#39;update_next_dt&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">kernel_ast</span><span class="p">):</span>
-            <span class="n">body</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;_next_dt&quot;</span><span class="p">,</span> <span class="s2">&quot;dt&quot;</span><span class="p">)]</span>
-            <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;_next_dt_set&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)]</span>
-            <span class="n">update_next_dt_body</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
-            <span class="n">update_next_dt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">FunctionBody</span><span class="p">(</span><span class="n">update_next_dt_decl</span><span class="p">,</span> <span class="n">update_next_dt_body</span><span class="p">))</span>
-            <span class="n">ccode</span> <span class="o">+=</span> <span class="p">[</span><span class="n">update_next_dt</span><span class="p">]</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;_next_dt&quot;</span><span class="p">,</span> <span class="s2">&quot;dt&quot;</span><span class="p">)]</span>
+        <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;_next_dt_set&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)]</span>
+        <span class="n">update_next_dt_body</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+        <span class="n">update_next_dt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">FunctionBody</span><span class="p">(</span><span class="n">update_next_dt_decl</span><span class="p">,</span> <span class="n">update_next_dt_body</span><span class="p">))</span>
+        <span class="n">ccode</span> <span class="o">+=</span> <span class="p">[</span><span class="n">update_next_dt</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">c_include</span><span class="p">:</span>
             <span class="n">ccode</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c_include</span><span class="p">]</span>
@@ -1020,7 +1014,7 @@
         <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">pdt_eq_dt_pos</span><span class="p">]</span>
         <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">partdt</span><span class="p">]</span>
         <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;res&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(&amp;(particles[p]), </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">fargs_str</span><span class="p">))]</span>
-        <span class="n">check_pdt</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="s2">&quot;(res == SUCCESS) &amp; (__pdt_prekernels != particles[p].dt)&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;res&quot;</span><span class="p">,</span> <span class="s2">&quot;REPEAT&quot;</span><span class="p">))</span>
+        <span class="n">check_pdt</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="s2">&quot;res == SUCCESS &amp; __pdt_prekernels != particles[p].dt&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;res&quot;</span><span class="p">,</span> <span class="s2">&quot;REPEAT&quot;</span><span class="p">))</span>
         <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">check_pdt</span><span class="p">]</span>
         <span class="n">body</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;particles[p].state&quot;</span><span class="p">,</span> <span class="s2">&quot;res&quot;</span><span class="p">)]</span>  <span class="c1"># Store return code on particle</span>
         <span class="n">update_pdt</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="s2">&quot;_next_dt_set == 1&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">Block</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;_next_dt_set&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">),</span> <span class="n">c</span><span class="o">.</span><span class="n">Assign</span><span class="p">(</span><span class="s2">&quot;particles[p].dt&quot;</span><span class="p">,</span> <span class="s2">&quot;_next_dt&quot;</span><span class="p">)]))</span>
@@ -1061,7 +1055,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>

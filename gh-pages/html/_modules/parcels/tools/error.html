@@ -73,7 +73,7 @@
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldSamplingError&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldOutOfBoundError&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeExtrapolationError&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;KernelError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfBoundsError&#39;</span><span class="p">,</span> <span class="s1">&#39;ThroughSurfaceError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfTimeError&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;KernelError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfBoundsError&#39;</span><span class="p">,</span> <span class="s1">&#39;ThroughSurfaceError&#39;</span><span class="p">,</span>
            <span class="s1">&#39;recovery_map&#39;</span><span class="p">]</span>
 
 
@@ -82,7 +82,6 @@
     <span class="n">Repeat</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">Delete</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">Error</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="n">ErrorInterpolation</span> <span class="o">=</span> <span class="mi">31</span>
     <span class="n">ErrorOutOfBounds</span> <span class="o">=</span> <span class="mi">4</span>
     <span class="n">ErrorThroughSurface</span> <span class="o">=</span> <span class="mi">41</span>
     <span class="n">ErrorTimeExtrapolation</span> <span class="o">=</span> <span class="mi">5</span>
@@ -173,21 +172,6 @@
     <span class="k">raise</span> <span class="n">KernelError</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">InterpolationError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Particle kernel error for interpolation error&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">lon</span> <span class="ow">and</span> <span class="n">lat</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Field interpolation error at (</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
-                <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Field interpolation error for particle at (</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
-                <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span>
-            <span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">InterpolationError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
-
-
 <div class="viewcode-block" id="OutOfBoundsError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.OutOfBoundsError">[docs]</a><span class="k">class</span> <span class="nc">OutOfBoundsError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Particle kernel error for out-of-bounds field sampling&quot;&quot;&quot;</span>
 
@@ -218,7 +202,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">ThroughSurfaceError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="OutOfTimeError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.OutOfTimeError">[docs]</a><span class="k">class</span> <span class="nc">OutOfTimeError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">OutOfTimeError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Particle kernel error for time extrapolation field sampling&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">):</span>
@@ -226,18 +210,7 @@
             <span class="n">parse_particletime</span><span class="p">(</span><span class="n">particle</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; Try setting allow_time_extrapolation to True&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">OutOfTimeError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
-
-
-<span class="k">def</span> <span class="nf">recovery_kernel_interpolation</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Default sampling error kernel that throws InterpolationError&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># TODO: JIT does not yet provide the context that created</span>
-        <span class="c1"># the exception. We need to pass that info back from C.</span>
-        <span class="k">raise</span> <span class="n">InterpolationError</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">error</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">exception</span>
-        <span class="k">raise</span> <span class="n">InterpolationError</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OutOfTimeError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">recovery_kernel_out_of_bounds</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
@@ -270,7 +243,6 @@
 <span class="c1"># Default mapping of failure types (KernelOp)</span>
 <span class="c1"># to recovery kernels.</span>
 <span class="n">recovery_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span> <span class="n">recovery_kernel_error</span><span class="p">,</span>
-                <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorInterpolation</span><span class="p">:</span> <span class="n">recovery_kernel_interpolation</span><span class="p">,</span>
                 <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span><span class="p">:</span> <span class="n">recovery_kernel_out_of_bounds</span><span class="p">,</span>
                 <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorTimeExtrapolation</span><span class="p">:</span> <span class="n">recovery_kernel_time_extrapolation</span><span class="p">,</span>
                 <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorThroughSurface</span><span class="p">:</span> <span class="n">recovery_kernel_through_surface</span><span class="p">}</span>
@@ -296,7 +268,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>

@@ -132,7 +132,6 @@
 
 <span class="sd">    :arg fieldset: FieldSet object providing the field information</span>
 <span class="sd">    :arg ptype: PType object for the kernel particle</span>
-<span class="sd">    :param delete_cfiles: Boolean whether to delete the C-files after compilation in JIT mode (default is True)</span>
 
 <span class="sd">    Note: A Kernel is either created from a compiled &lt;function ...&gt; object</span>
 <span class="sd">    or the necessary information (funcname, funccode, funcvars) is provided.</span>
@@ -141,11 +140,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">funcname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">funccode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">py_ast</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">funcvars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">delete_cfiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                 <span class="n">funccode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">py_ast</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">funcvars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="n">fieldset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span> <span class="o">=</span> <span class="n">ptype</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">delete_cfiles</span> <span class="o">=</span> <span class="n">delete_cfiles</span>
 
         <span class="c1"># Derive meta information from pyfunc, if not given</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">funcname</span> <span class="o">=</span> <span class="n">funcname</span> <span class="ow">or</span> <span class="n">pyfunc</span><span class="o">.</span><span class="vm">__name__</span>
@@ -244,7 +242,7 @@
             <span class="n">_ctypes</span><span class="o">.</span><span class="n">FreeLibrary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">_handle</span><span class="p">)</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="n">_ctypes</span><span class="o">.</span><span class="n">dlclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">_handle</span><span class="p">)</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_cfiles</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">):</span>
                 <span class="p">[</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">src_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">]]</span>
 
     <span class="nd">@property</span>
@@ -446,11 +444,9 @@
         <span class="n">func_ast</span> <span class="o">=</span> <span class="n">FunctionDef</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">funcname</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">py_ast</span><span class="o">.</span><span class="n">args</span><span class="p">,</span>
                                <span class="n">body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">py_ast</span><span class="o">.</span><span class="n">body</span> <span class="o">+</span> <span class="n">kernel</span><span class="o">.</span><span class="n">py_ast</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
                                <span class="n">decorator_list</span><span class="o">=</span><span class="p">[],</span> <span class="n">lineno</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">delete_cfiles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_cfiles</span> <span class="ow">and</span> <span class="n">kernel</span><span class="o">.</span><span class="n">delete_cfiles</span>
         <span class="k">return</span> <span class="n">Kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">funcname</span><span class="o">=</span><span class="n">funcname</span><span class="p">,</span> <span class="n">funccode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">funccode</span> <span class="o">+</span> <span class="n">kernel</span><span class="o">.</span><span class="n">funccode</span><span class="p">,</span>
-                      <span class="n">py_ast</span><span class="o">=</span><span class="n">func_ast</span><span class="p">,</span> <span class="n">funcvars</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">funcvars</span> <span class="o">+</span> <span class="n">kernel</span><span class="o">.</span><span class="n">funcvars</span><span class="p">,</span>
-                      <span class="n">delete_cfiles</span><span class="o">=</span><span class="n">delete_cfiles</span><span class="p">)</span>
+                      <span class="n">py_ast</span><span class="o">=</span><span class="n">func_ast</span><span class="p">,</span> <span class="n">funcvars</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">funcvars</span> <span class="o">+</span> <span class="n">kernel</span><span class="o">.</span><span class="n">funcvars</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">Kernel</span><span class="p">):</span>
@@ -483,7 +479,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>
