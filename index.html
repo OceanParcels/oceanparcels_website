@@ -436,7 +436,7 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
       <div class="card h-100">
         <h4 class="card-header">Diffusion tutorial</h4>
         <div class="card-body">
-          <img class="card-img-top team-photo" src="images/parcelsParallel_before.png" alt="">
+          <img class="card-img-top team-photo" src="images/tutorial_diffusion.png" alt="">
           <p class="card-text">
             A tutorial about how to use the advection-diffusion kernels, with a short explanation of how diffusion is implemented in a Lagrangian setting. 
           </p>
@@ -466,8 +466,8 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
 
     <div class="card">
       <div class="card-header" role="tab">
-        <h5>Simple horizontal diffusion of particles</h5>
-        <small class="text-muted">Using inbuilt kernels for <code class="language-python">Brownian Motion</code></small>
+        <h5>Horizontal diffusion of particles</h5>
+        <small class="text-muted">Using inbuilt advection-diffusion kernels using the <code class="language-python">Milsteint</code> and <code class="language-python">Euler-Maruyama</code> schemes. See the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Sampling-a-Field-with-Particles">diffusion tutorial</a>.</small>
       </div>
     </div>
 
@@ -552,7 +552,8 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
   <div class="card-columns">
     <div class="card">
       <div class="card-header" role="tab">
-        <h5>More types of particle diffusion</h5>
+        <h5>Three-dimensional particle diffusion</h5>
+        <small class="text-muted">Supporting data from hydrodynamic models with fully unstructured grids</small>
         <small class="text-muted"></small>
       </div>
     </div>
