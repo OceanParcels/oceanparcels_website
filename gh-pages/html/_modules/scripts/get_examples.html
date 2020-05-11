@@ -71,13 +71,10 @@
   <h1>Source code for scripts.get_examples</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Get example scripts, notebooks, and data files.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
 <span class="kn">from</span> <span class="nn">progressbar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
@@ -146,25 +143,6 @@
         <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="set_jupyter_kernel_to_python_version"><a class="viewcode-back" href="../../index.html#scripts.get_examples.set_jupyter_kernel_to_python_version">[docs]</a><span class="k">def</span> <span class="nf">set_jupyter_kernel_to_python_version</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">python_version</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set notebook kernelspec to desired python version.</span>
-
-<span class="sd">    This also drops all other meta data from the notebook.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;*.ipynb&quot;</span><span class="p">)):</span>
-
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">notebook_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-        <span class="n">notebook_data</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;kernelspec&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;display_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Python </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">python_version</span><span class="p">),</span>
-            <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">python_version</span><span class="p">)}}</span>
-
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">notebook_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
-
-
 <span class="k">def</span> <span class="nf">_still_to_download</span><span class="p">(</span><span class="n">file_names</span><span class="p">,</span> <span class="n">target_path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Only return the files that are not yet present on disk.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">file_names</span><span class="p">):</span>
@@ -210,11 +188,6 @@
     <span class="c1"># copy data and examples</span>
     <span class="n">copy_data_and_examples_from_package_to</span><span class="p">(</span><span class="n">target_path</span><span class="p">)</span>
 
-    <span class="c1"># make sure the notebooks use the correct python version</span>
-    <span class="n">set_jupyter_kernel_to_python_version</span><span class="p">(</span>
-        <span class="n">target_path</span><span class="p">,</span>
-        <span class="n">python_version</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
     <span class="c1"># try downloading remaining files</span>
     <span class="n">remaining_example_data_files</span> <span class="o">=</span> <span class="n">_still_to_download</span><span class="p">(</span>
         <span class="n">example_data_files</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
@@ -245,7 +218,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>

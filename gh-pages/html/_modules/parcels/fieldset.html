@@ -288,6 +288,24 @@
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Field</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">attr</span><span class="p">,</span> <span class="s1">&#39;Field </span><span class="si">%s</span><span class="s1">.name (</span><span class="si">%s</span><span class="s1">) is not consistent&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">check_velocityfields</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">interp_method</span> <span class="o">==</span> <span class="s1">&#39;cgrid_velocity&#39;</span> <span class="ow">and</span> <span class="n">V</span><span class="o">.</span><span class="n">interp_method</span> <span class="o">!=</span> <span class="s1">&#39;cgrid_velocity&#39;</span><span class="p">)</span> <span class="ow">or</span> \
+                    <span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">interp_method</span> <span class="o">!=</span> <span class="s1">&#39;cgrid_velocity&#39;</span> <span class="ow">and</span> <span class="n">V</span><span class="o">.</span><span class="n">interp_method</span> <span class="o">==</span> <span class="s1">&#39;cgrid_velocity&#39;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If one of U,V.interp_method=&#39;cgrid_velocity&#39;, the other should be too&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s1">&#39;linear_invdist_land_tracer&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">U</span><span class="o">.</span><span class="n">interp_method</span><span class="p">,</span> <span class="n">V</span><span class="o">.</span><span class="n">interp_method</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;interp_method=&#39;linear_invdist_land_tracer&#39; is not implemented for U and V Fields&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">U</span><span class="o">.</span><span class="n">interp_method</span> <span class="o">==</span> <span class="s1">&#39;cgrid_velocity&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">xdim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">ydim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">V</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">xdim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">V</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">ydim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;C-grid velocities require longitude and latitude dimensions at least length 2&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="p">(</span><span class="n">SummedField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">):</span>
+                <span class="n">check_velocityfields</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">check_velocityfields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
             <span class="n">g</span><span class="o">.</span><span class="n">check_zonal_periodic</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">time</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -389,6 +407,8 @@
 <span class="sd">               fully load them (default: True). It is advised to deferred load the data, since in</span>
 <span class="sd">               that case Parcels deals with a better memory management during particle set execution.</span>
 <span class="sd">               deferred_load=False is however sometimes necessary for plotting the fields.</span>
+<span class="sd">        :param interp_method: Method for interpolation. Options are &#39;linear&#39; (default), &#39;nearest&#39;,</span>
+<span class="sd">               &#39;linear_invdist_land_tracer&#39;, &#39;cgrid_velocity&#39;, &#39;cgrid_tracer&#39; and &#39;bgrid_velocity&#39;</span>
 <span class="sd">        :param field_chunksize: size of the chunks in dask loading</span>
 <span class="sd">        :param netcdf_engine: engine to use for netcdf reading in xarray. Default is &#39;netcdf&#39;,</span>
 <span class="sd">               but in cases where this doesn&#39;t work, setting netcdf_engine=&#39;scipy&#39; could help</span>
@@ -583,9 +603,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="s1">&#39;U&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="s1">&#39;V&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;On a c-grid discretisation like NEMO, U and V should have the same dimensions&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;On a C-grid, the dimensions of velocities should be the corners (f-points) of the cells, so the same for U and V. &quot;</span>
+                             <span class="s2">&quot;See also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="s1">&#39;U&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="s1">&#39;W&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;W&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;On a c-grid discretisation like NEMO, U, V and W should have the same dimensions&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;On a C-grid, the dimensions of velocities should be the corners (f-points) of the cells, so the same for U, V and W. &quot;</span>
+                             <span class="s2">&quot;See also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb&quot;</span><span class="p">)</span>
 
         <span class="n">interp_method</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
@@ -726,9 +748,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="s1">&#39;U&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="s1">&#39;V&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;On a B-grid discretisation, U and V should have the same dimensions&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;On a B-grid, the dimensions of velocities should be the (top) corners of the grid cells, so the same for U and V. &quot;</span>
+                             <span class="s2">&quot;See also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="s1">&#39;U&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="s1">&#39;W&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span> <span class="ow">and</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;W&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;On a B-grid discretisation, U, V and W should have the same dimensions&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;On a B-grid, the dimensions of velocities should be the (top) corners of the grid cells, so the same for U, V and W. &quot;</span>
+                             <span class="s2">&quot;See also https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb&quot;</span><span class="p">)</span>
 
         <span class="n">interp_method</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
@@ -1084,7 +1108,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>

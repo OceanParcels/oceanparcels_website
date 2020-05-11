@@ -69,9 +69,7 @@
           <div class="body" role="main">
             
   <h1>Source code for scripts.plottrajectoriesfile</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span></span><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -82,9 +80,6 @@
 <span class="kn">from</span> <span class="nn">parcels.plotting</span> <span class="kn">import</span> <span class="n">create_parcelsfig_axis</span>
 <span class="kn">from</span> <span class="nn">parcels.plotting</span> <span class="kn">import</span> <span class="n">plotfield</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">matplotlib</span>
-        <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;Agg&quot;</span><span class="p">)</span>
     <span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
     <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
 <span class="k">except</span><span class="p">:</span>
@@ -123,7 +118,7 @@
     <span class="n">mesh</span> <span class="o">=</span> <span class="n">pfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;parcels_mesh&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;parcels_mesh&#39;</span> <span class="ow">in</span> <span class="n">pfile</span><span class="o">.</span><span class="n">attrs</span> <span class="k">else</span> <span class="s1">&#39;spherical&#39;</span>
 
     <span class="k">if</span><span class="p">(</span><span class="n">recordedvar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="n">record</span> <span class="o">=</span> <span class="n">pfile</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">recordedvar</span><span class="p">]</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">pfile</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">recordedvar</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
     <span class="n">pfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">tracerfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">mode</span> <span class="o">!=</span> <span class="s1">&#39;hist2d&#39;</span><span class="p">:</span>
@@ -177,17 +172,27 @@
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">time</span> <span class="o">==</span> <span class="n">plottimes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">timestr</span><span class="p">(</span><span class="n">plottimes</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">plottimes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[h]&#39;</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">plottimes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[s]&#39;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+
         <span class="k">if</span> <span class="n">cartopy</span><span class="p">:</span>
             <span class="n">scat</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">cartopy</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">Geodetic</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">scat</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-        <span class="n">ttl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Particles&#39;</span> <span class="o">+</span> <span class="n">titlestr</span> <span class="o">+</span> <span class="s1">&#39; at time &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">ttl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Particles&#39;</span> <span class="o">+</span> <span class="n">titlestr</span> <span class="o">+</span> <span class="s1">&#39; at time &#39;</span> <span class="o">+</span> <span class="n">timestr</span><span class="p">(</span><span class="n">plottimes</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="n">frames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">plottimes</span><span class="p">))</span>
 
         <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
             <span class="n">b</span> <span class="o">=</span> <span class="n">time</span> <span class="o">==</span> <span class="n">plottimes</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
             <span class="n">scat</span><span class="o">.</span><span class="n">set_offsets</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">lon</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="n">b</span><span class="p">]))</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
-            <span class="n">ttl</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s1">&#39;Particle&#39;</span> <span class="o">+</span> <span class="n">titlestr</span> <span class="o">+</span> <span class="s1">&#39; at time &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">plottimes</span><span class="p">[</span><span class="n">t</span><span class="p">]))</span>
+            <span class="n">ttl</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s1">&#39;Particle&#39;</span> <span class="o">+</span> <span class="n">titlestr</span> <span class="o">+</span> <span class="s1">&#39; at time &#39;</span> <span class="o">+</span> <span class="n">timestr</span><span class="p">(</span><span class="n">plottimes</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">recordedvar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">scat</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">b</span><span class="p">])</span>
             <span class="k">return</span> <span class="n">scat</span><span class="p">,</span>
@@ -252,7 +257,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>

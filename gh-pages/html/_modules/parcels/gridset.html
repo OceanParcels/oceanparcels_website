@@ -138,7 +138,7 @@
 
         <span class="n">maxleft</span><span class="p">,</span> <span class="n">minright</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">continue</span>  <span class="c1"># not including grids where only one entry</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="s1">&#39;depth&#39;</span><span class="p">:</span>
@@ -176,7 +176,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
     </div>
   </body>
 </html>
