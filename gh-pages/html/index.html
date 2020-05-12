@@ -59,7 +59,7 @@
 <li><a class="reference internal" href="#module-parcels.grid">parcels.grid module</a></li>
 <li><a class="reference internal" href="#module-parcels.particle">parcels.particle module</a></li>
 <li><a class="reference internal" href="#module-parcels.kernels.advection">parcels.kernels.advection module</a></li>
-<li><a class="reference internal" href="#module-parcels.kernels.diffusion">parcels.kernels.diffusion module</a></li>
+<li><a class="reference internal" href="#parcels-kernels-advectiondiffusion-module">parcels.kernels.advectiondiffusion module</a></li>
 <li><a class="reference internal" href="#module-parcels.codegenerator">parcels.codegenerator module</a></li>
 <li><a class="reference internal" href="#module-parcels.compiler">parcels.compiler module</a></li>
 <li><a class="reference internal" href="#module-parcels.kernel">parcels.kernel module</a></li>
@@ -1505,22 +1505,115 @@ Note that the time-dependent scheme is currently implemented with ‘intermediat
 </dd></dl>
 
 </div>
-<div class="section" id="module-parcels.kernels.diffusion">
-<span id="parcels-kernels-diffusion-module"></span><h2>parcels.kernels.diffusion module<a class="headerlink" href="#module-parcels.kernels.diffusion" title="Permalink to this headline">¶</a></h2>
-<p>Collection of pre-built diffusion kernels</p>
+<div class="section" id="parcels-kernels-advectiondiffusion-module">
+<h2>parcels.kernels.advectiondiffusion module<a class="headerlink" href="#parcels-kernels-advectiondiffusion-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-parcels.kernels.advectiondiffusion"></span><p>Collection of pre-built advection-diffusion kernels</p>
 <dl class="py function">
-<dt id="parcels.kernels.diffusion.BrownianMotion2D">
-<code class="sig-prename descclassname">parcels.kernels.diffusion.</code><code class="sig-name descname">BrownianMotion2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/diffusion.html#BrownianMotion2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.diffusion.BrownianMotion2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel for simple Brownian particle diffusion in zonal and meridional direction.
-Assumes that fieldset has fields Kh_zonal and Kh_meridional</p>
+<dt id="parcels.kernels.advectiondiffusion.DiffusionUniformKh">
+<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">DiffusionUniformKh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#DiffusionUniformKh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.DiffusionUniformKh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel for simple 2D diffusion where diffusivity (Kh) is assumed uniform.
+Assumes that fieldset has fields Kh_zonal and Kh_meridional.</p>
+<p>This kernel neglects gradients in the diffusivity field and is
+therefore more efficient in cases with uniform diffusivity.
+Since the perturbation due to diffusion is in this case spatially
+independent, this kernel contains no advection and can be used in
+combination with a seperate advection kernel.</p>
+<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
+mean and a standard deviation of sqrt(dt). Instead, here a uniform
+distribution with the same mean and std is used for efficiency and
+to keep random increments bounded. This substitution is valid for
+the convergence of particle distributions. If convergence of
+individual particle paths is required, use normally distributed
+random increments instead. See Gräwe et al (2012)
+doi.org/10.1007/s10236-012-0523-y for more information.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="parcels.kernels.diffusion.SpatiallyVaryingBrownianMotion2D">
-<code class="sig-prename descclassname">parcels.kernels.diffusion.</code><code class="sig-name descname">SpatiallyVaryingBrownianMotion2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/diffusion.html#SpatiallyVaryingBrownianMotion2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.diffusion.SpatiallyVaryingBrownianMotion2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Diffusion equations for particles in non-uniform diffusivity fields
-from Ross &amp; Sharples (2004, doi:10.4319/lom.2004.2.289)
-and Spagnol et al. (2002, doi:10.3354/meps235299)</p>
+<dt id="parcels.kernels.advectiondiffusion.AdvectionDiffusionM1">
+<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionDiffusionM1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionDiffusionM1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionDiffusionM1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel for 2D advection-diffusion, solved using the Milstein scheme
+at first order (M1).</p>
+<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
+and variable <cite>fieldset.dres</cite>, setting the resolution for the central difference
+gradient approximation. This should be at least an order of magnitude
+less than the typical grid resolution.</p>
+<p>The Milstein scheme is superior to the Euler-Maruyama scheme, experiencing
+less spurious background diffusivity by including extra correction
+terms that are computationally cheap.</p>
+<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
+mean and a standard deviation of sqrt(dt). Instead, here a uniform
+distribution with the same mean and std is used for efficiency and
+to keep random increments bounded. This substitution is valid for
+the convergence of particle distributions. If convergence of
+individual particle paths is required, use normally distributed
+random increments instead. See Gräwe et al (2012)
+doi.org/10.1007/s10236-012-0523-y for more information.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionM1">
+<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionRK4DiffusionM1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionRK4DiffusionM1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionM1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel for 2D advection-diffusion, with advection solved
+using fourth order Runge-Kutta (RK4) and diffusion using the Milstein
+scheme at first order (M1). Using the RK4 scheme for diffusion is only
+advantageous in areas where the contribution from diffusion is
+negligible.</p>
+<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
+and variable <cite>fieldset.dres</cite>, setting the resolution for the central difference
+gradient approximation. This should be at least an order of magnitude
+less than the typical grid resolution.</p>
+<p>The Milstein scheme is superior to the Euler-Maruyama scheme, experiencing
+less spurious background diffusivity by including extra correction
+terms that are computationally cheap.</p>
+<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
+mean and a standard deviation of sqrt(dt). Instead, here a uniform
+distribution with the same mean and std is used for efficiency and
+to keep random increments bounded. This substitution is valid for
+the convergence of particle distributions. If convergence of
+individual particle paths is required, use normally distributed
+random increments instead. See Gräwe et al (2012)
+doi.org/10.1007/s10236-012-0523-y for more information.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="parcels.kernels.advectiondiffusion.AdvectionDiffusionEM">
+<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionDiffusionEM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionDiffusionEM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionDiffusionEM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel for 2D advection-diffusion, solved using the Euler-Maruyama
+scheme (EM).</p>
+<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
+and variable <cite>fieldset.dres</cite>, setting the resolution for the central
+difference gradient approximation. This should be at least an order of
+magnitude less than the typical grid resolution.</p>
+<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
+mean and a standard deviation of sqrt(dt). Instead, here a uniform
+distribution with the same mean and std is used for efficiency and
+to keep random increments bounded. This substitution is valid for
+the convergence of particle distributions. If convergence of
+individual particle paths is required, use normally distributed
+random increments instead. See Gräwe et al (2012)
+doi.org/10.1007/s10236-012-0523-y for more information.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionEM">
+<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionRK4DiffusionEM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionRK4DiffusionEM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionEM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel for 2D advection-diffusion,  with advection solved
+using fourth order Runge-Kutta (RK4) and diffusion using the
+Euler-Maruyama scheme (EM). Using the RK4 scheme for diffusion is
+only advantageous in areas where the contribution from diffusion
+is negligible.</p>
+<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
+and variable <cite>fieldset.dres</cite>, setting the resolution for the central difference
+gradient approximation. This should be at least an order of magnitude
+less than the typical grid resolution.</p>
+<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
+mean and a standard deviation of sqrt(dt). Instead, here a uniform
+distribution with the same mean and std is used for efficiency and
+to keep random increments bounded. This substitution is valid for
+the convergence of particle distributions. If convergence of
+individual particle paths is required, use normally distributed
+random increments instead. See Gräwe et al (2012)
+doi.org/10.1007/s10236-012-0523-y for more information.</p>
 </dd></dl>
 
 </div>
