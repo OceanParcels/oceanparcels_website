@@ -132,7 +132,7 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
     <ul>
       <li>Basic arithmetical operators (<code class="language-python">+</code>, <code class="language-python">-</code>, <code class="language-python">*</code>, <code class="language-python">/</code>, <code class="language-python">**</code>) and assignments (<code class="language-python">=</code>).</li>
 
-      <li>Basic logical operators (<code class="language-python"><</code>, <code class="language-python">==</code>, <code class="language-python">></code>, <code class="language-python">&</code>, <code class="language-python">|</code>)</li>
+      <li>Basic logical operators (<code class="language-python"><</code>, <code class="language-python">==</code>, <code class="language-python">!=</code>, <code class="language-python">></code>, <code class="language-python">&</code>, <code class="language-python">|</code>). Note that you can use a statement like <code class="language-python">particle.lon != particle.lon</code> to check if <code class="language-python">particle.lon</code> is NaN (since <code class="language-python">math.nan != math.nan</code>)</li>
 
       <li><code class="language-python">if</code> and <code class="language-python">while</code> loops, as well as <code class="language-python">break</code> statements. Note that <code class="language-python">for</code>-loops are not supported in JIT mode</li>
 
