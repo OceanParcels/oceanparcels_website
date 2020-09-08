@@ -75,7 +75,9 @@
 <span class="sd">    :param dtype: Data type (numpy.dtype) of the variable</span>
 <span class="sd">    :param initial: Initial value of the variable. Note that this can also be a Field object,</span>
 <span class="sd">             which will then be sampled at the location of the particle</span>
-<span class="sd">    :param to_write: Boolean to control whether Variable is written to NetCDF file</span>
+<span class="sd">    :param to_write: Boolean or &#39;once&#39;. Controls whether Variable is written to NetCDF file.</span>
+<span class="sd">             If to_write = &#39;once&#39;, the variable will be written as a time-independent 1D array</span>
+<span class="sd">    :type to_write: (bool, &#39;once&#39;, optional)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>

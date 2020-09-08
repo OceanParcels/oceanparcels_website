@@ -1400,7 +1400,8 @@ to be executed in SciPy mode</p>
 <li><p><strong>dtype</strong> – Data type (numpy.dtype) of the variable</p></li>
 <li><p><strong>initial</strong> – Initial value of the variable. Note that this can also be a Field object,
 which will then be sampled at the location of the particle</p></li>
-<li><p><strong>to_write</strong> – Boolean to control whether Variable is written to NetCDF file</p></li>
+<li><p><strong>to_write</strong> (<em>(</em><em>bool</em><em>, </em><em>'once'</em><em>, </em><em>optional</em><em>)</em>) – Boolean or ‘once’. Controls whether Variable is written to NetCDF file.
+If to_write = ‘once’, the variable will be written as a time-independent 1D array</p></li>
 </ul>
 </dd>
 </dl>
