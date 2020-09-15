@@ -105,6 +105,7 @@
 
 <div class="viewcode-block" id="ParticleFile"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile">[docs]</a><span class="k">class</span> <span class="nc">ParticleFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialise trajectory output.</span>
+
 <span class="sd">    :param name: Basename of the output file</span>
 <span class="sd">    :param particleset: ParticleSet to output</span>
 <span class="sd">    :param outputdt: Interval which dictates the update frequency of file output</span>
@@ -175,6 +176,7 @@
 <span class="sd">        http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#discrete-sampling-geometries</span>
 <span class="sd">        The current implementation is based on the NCEI template:</span>
 <span class="sd">        http://www.nodc.noaa.gov/data/formats/netcdf/v2.0/trajectoryIncomplete.cdl</span>
+
 <span class="sd">        :param data_shape: shape of the variables in the NetCDF4 file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
@@ -263,6 +265,7 @@
 
 <div class="viewcode-block" id="ParticleFile.add_metadata"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.add_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">add_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add metadata to :class:`parcels.particleset.ParticleSet`</span>
+
 <span class="sd">        :param name: Name of the metadata variabale</span>
 <span class="sd">        :param message: message to be written</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -273,6 +276,7 @@
 
 <div class="viewcode-block" id="ParticleFile.convert_pset_to_dict"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.convert_pset_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_pset_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">deleted_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert all Particle data from one time step to a python dictionary.</span>
+
 <span class="sd">        :param pset: ParticleSet object to write</span>
 <span class="sd">        :param time: Time at which to write ParticleSet</span>
 <span class="sd">        :param deleted_only: Flag to write only the deleted Particles</span>
@@ -355,6 +359,7 @@
 <div class="viewcode-block" id="ParticleFile.write"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">deleted_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Write all data from one time step to a temporary npy-file</span>
 <span class="sd">        using a python dictionary. The data is saved in the folder &#39;out&#39;.</span>
+
 <span class="sd">        :param pset: ParticleSet object to write</span>
 <span class="sd">        :param time: Time at which to write ParticleSet</span>
 <span class="sd">        :param deleted_only: Flag to write only the deleted Particles</span>
@@ -366,6 +371,7 @@
 
 <div class="viewcode-block" id="ParticleFile.read_from_npy"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.read_from_npy">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read NPY-files for one variable using a loop over all files.</span>
+
 <span class="sd">        :param file_list: List that  contains all file names in the output directory</span>
 <span class="sd">        :param time_steps: Number of time steps that were written in out directory</span>
 <span class="sd">        :param var: name of the variable to read</span>
@@ -442,6 +448,7 @@
 
 <div class="viewcode-block" id="ParticleFile.delete_tempwritedir"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.delete_tempwritedir">[docs]</a>    <span class="k">def</span> <span class="nf">delete_tempwritedir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tempwritedir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Deleted all temporary npy files</span>
+
 <span class="sd">        :param tempwritedir Optional path of the directory to delete</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">tempwritedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
