@@ -2,9 +2,10 @@
 
 <!doctype html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Parcels documentation &#8212; Parcels  documentation</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +19,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
@@ -41,60 +42,10 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Parcels  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">Parcels  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Parcels documentation</a></li> 
       </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="#">
-              <img class="logo" src="_static/parcelslogo.png" alt="Logo"/>
-            </a></p>
-  <h3><a href="#">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Parcels documentation</a><ul>
-<li><a class="reference internal" href="#module-parcels.particleset">parcels.particleset module</a></li>
-<li><a class="reference internal" href="#module-parcels.fieldset">parcels.fieldset module</a></li>
-<li><a class="reference internal" href="#module-parcels.field">parcels.field module</a></li>
-<li><a class="reference internal" href="#module-parcels.gridset">parcels.gridset module</a></li>
-<li><a class="reference internal" href="#module-parcels.grid">parcels.grid module</a></li>
-<li><a class="reference internal" href="#module-parcels.particle">parcels.particle module</a></li>
-<li><a class="reference internal" href="#module-parcels.kernels.advection">parcels.kernels.advection module</a></li>
-<li><a class="reference internal" href="#parcels-kernels-advectiondiffusion-module">parcels.kernels.advectiondiffusion module</a></li>
-<li><a class="reference internal" href="#module-parcels.codegenerator">parcels.codegenerator module</a></li>
-<li><a class="reference internal" href="#module-parcels.compiler">parcels.compiler module</a></li>
-<li><a class="reference internal" href="#module-parcels.kernel">parcels.kernel module</a></li>
-<li><a class="reference internal" href="#module-parcels.particlefile">parcels.particlefile module</a></li>
-<li><a class="reference internal" href="#module-parcels.rng">parcels.rng module</a></li>
-<li><a class="reference internal" href="#module-parcels.tools.error">parcels.tools.error module</a></li>
-<li><a class="reference internal" href="#module-parcels.tools.converters">parcels.tools.converters module</a></li>
-<li><a class="reference internal" href="#module-parcels.tools.loggers">parcels.tools.loggers module</a></li>
-<li><a class="reference internal" href="#module-parcels.plotting">parcels.plotting module</a></li>
-<li><a class="reference internal" href="#module-scripts.plottrajectoriesfile">scripts.plottrajectoriesfile module</a></li>
-<li><a class="reference internal" href="#module-scripts.get_examples">scripts.get_examples module</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -1146,6 +1097,51 @@ if the sampled value is outside the time value range.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="parcels.field.NestedField">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.field.</code><code class="sig-name descname">NestedField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">F</span></em>, <em class="sig-param"><span class="n">V</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">W</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#NestedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.NestedField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>Class NestedField is a list of Fields from which the first one to be not declared out-of-boundaries
+at particle position is interpolated. This induces that the order of the fields in the list matters.
+Each one it its turn, a field is interpolated: if the interpolation succeeds or if an error other
+than <cite>ErrorOutOfBounds</cite> is thrown, the function is stopped. Otherwise, next field is interpolated.
+NestedField returns an <cite>ErrorOutOfBounds</cite> only if last field is as well out of boundaries.
+NestedField is composed of either Fields or VectorFields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the NestedField</p></li>
+<li><p><strong>F</strong> – List of fields (order matters). F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</p></li>
+<li><p><strong>V</strong> – List of fields defining the meridional component of a VectorField, if F is the zonal component. (default: None)</p></li>
+<li><p><strong>W</strong> – List of fields defining the vertical component of a VectorField, if F and V are the zonal and meridional components (default: None)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="parcels.field.SummedField">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.field.</code><code class="sig-name descname">SummedField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">F</span></em>, <em class="sig-param"><span class="n">V</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">W</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#SummedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.SummedField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>Class SummedField is a list of Fields over which Field interpolation
+is summed. This can e.g. be used when combining multiple flow fields,
+where the total flow is the sum of all the individual flows.
+Note that the individual Fields can be on different Grids.
+Also note that, since SummedFields are lists, the individual Fields can
+still be queried through their list index (e.g. SummedField[1]).
+SummedField is composed of either Fields or VectorFields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the SummedField</p></li>
+<li><p><strong>F</strong> – List of fields. F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</p></li>
+<li><p><strong>V</strong> – List of fields defining the meridional component of a VectorField, if F is the zonal component. (default: None)</p></li>
+<li><p><strong>W</strong> – List of fields defining the vertical component of a VectorField, if F and V are the zonal and meridional components (default: None)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
 <dt id="parcels.field.VectorField">
 <em class="property">class </em><code class="sig-prename descclassname">parcels.field.</code><code class="sig-name descname">VectorField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">U</span></em>, <em class="sig-param"><span class="n">V</span></em>, <em class="sig-param"><span class="n">W</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#VectorField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.VectorField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -1179,51 +1175,6 @@ Curvilinear grids are treated properly, since the element is projected to a rect
 
 </dd></dl>
 
-<dl class="py class">
-<dt id="parcels.field.SummedField">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.field.</code><code class="sig-name descname">SummedField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">F</span></em>, <em class="sig-param"><span class="n">V</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">W</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#SummedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.SummedField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
-<p>Class SummedField is a list of Fields over which Field interpolation
-is summed. This can e.g. be used when combining multiple flow fields,
-where the total flow is the sum of all the individual flows.
-Note that the individual Fields can be on different Grids.
-Also note that, since SummedFields are lists, the individual Fields can
-still be queried through their list index (e.g. SummedField[1]).
-SummedField is composed of either Fields or VectorFields.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Name of the SummedField</p></li>
-<li><p><strong>F</strong> – List of fields. F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</p></li>
-<li><p><strong>V</strong> – List of fields defining the meridional component of a VectorField, if F is the zonal component. (default: None)</p></li>
-<li><p><strong>W</strong> – List of fields defining the vertical component of a VectorField, if F and V are the zonal and meridional components (default: None)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt id="parcels.field.NestedField">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.field.</code><code class="sig-name descname">NestedField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">F</span></em>, <em class="sig-param"><span class="n">V</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">W</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#NestedField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.NestedField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
-<p>Class NestedField is a list of Fields from which the first one to be not declared out-of-boundaries
-at particle position is interpolated. This induces that the order of the fields in the list matters.
-Each one it its turn, a field is interpolated: if the interpolation succeeds or if an error other
-than <cite>ErrorOutOfBounds</cite> is thrown, the function is stopped. Otherwise, next field is interpolated.
-NestedField returns an <cite>ErrorOutOfBounds</cite> only if last field is as well out of boundaries.
-NestedField is composed of either Fields or VectorFields.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Name of the NestedField</p></li>
-<li><p><strong>F</strong> – List of fields (order matters). F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</p></li>
-<li><p><strong>V</strong> – List of fields defining the meridional component of a VectorField, if F is the zonal component. (default: None)</p></li>
-<li><p><strong>W</strong> – List of fields defining the vertical component of a VectorField, if F and V are the zonal and meridional components (default: None)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 <div class="section" id="module-parcels.gridset">
 <span id="parcels-gridset-module"></span><h2>parcels.gridset module<a class="headerlink" href="#module-parcels.gridset" title="Permalink to this headline">¶</a></h2>
@@ -1247,52 +1198,21 @@ overlaps on all grids in a gridset</p>
 <div class="section" id="module-parcels.grid">
 <span id="parcels-grid-module"></span><h2>parcels.grid module<a class="headerlink" href="#module-parcels.grid" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="parcels.grid.GridCode">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">GridCode</code><a class="reference internal" href="_modules/parcels/grid.html#GridCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.GridCode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
-<p>An enumeration.</p>
+<dt id="parcels.grid.CGrid">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">CGrid</code><a class="reference internal" href="_modules/parcels/grid.html#CGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.CGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="parcels.grid.RectilinearZGrid">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">RectilinearZGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_origin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'flat'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#RectilinearZGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.RectilinearZGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
-<p>Rectilinear Z Grid</p>
+<dt id="parcels.grid.CurvilinearSGrid">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">CurvilinearSGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_origin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'flat'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#CurvilinearSGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.CurvilinearSGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.CurvilinearGrid</span></code></p>
+<p>Curvilinear S Grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lon</strong> – Vector containing the longitude coordinates of the grid</p></li>
-<li><p><strong>lat</strong> – Vector containing the latitude coordinates of the grid</p></li>
-<li><p><strong>depth</strong> – Vector containing the vertical coordinates of the grid, which are z-coordinates.
-The depth of the different layers is thus constant.</p></li>
-<li><p><strong>time</strong> – Vector containing the time coordinates of the grid</p></li>
-<li><p><strong>time_origin</strong> – Time origin (TimeConverter object) of the time axis</p></li>
-<li><p><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
-units used during velocity interpolation:</p>
-<ol class="arabic simple">
-<li><p>spherical (default): Lat and lon in degree, with a
-correction for zonal velocity U near the poles.</p></li>
-<li><p>flat: No conversion, lat/lon are assumed to be in m.</p></li>
-</ol>
-</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt id="parcels.grid.RectilinearSGrid">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">RectilinearSGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_origin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'flat'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#RectilinearSGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.RectilinearSGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
-<dl class="simple">
-<dt>Rectilinear S Grid. Same horizontal discretisation as a rectilinear z grid,</dt><dd><p>but with s vertical coordinates</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lon</strong> – Vector containing the longitude coordinates of the grid</p></li>
-<li><p><strong>lat</strong> – Vector containing the latitude coordinates of the grid</p></li>
+<li><p><strong>lon</strong> – 2D array containing the longitude coordinates of the grid</p></li>
+<li><p><strong>lat</strong> – 2D array containing the latitude coordinates of the grid</p></li>
 <li><p><strong>depth</strong> – 4D (time-evolving) or 3D (time-independent) array containing the vertical coordinates of the grid,
 which are s-coordinates.
 s-coordinates can be terrain-following (sigma) or iso-density (rho) layers,
@@ -1343,15 +1263,39 @@ correction for zonal velocity U near the poles.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="parcels.grid.CurvilinearSGrid">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">CurvilinearSGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_origin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'flat'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#CurvilinearSGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.CurvilinearSGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.CurvilinearGrid</span></code></p>
-<p>Curvilinear S Grid.</p>
+<dt id="parcels.grid.Grid">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">Grid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">time</span></em>, <em class="sig-param"><span class="n">time_origin</span></em>, <em class="sig-param"><span class="n">mesh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#Grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.Grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Grid class that defines a (spatial and temporal) grid on which Fields are defined</p>
+<dl class="py method">
+<dt id="parcels.grid.Grid.child_ctypes_struct">
+<em class="property">property </em><code class="sig-name descname">child_ctypes_struct</code><a class="headerlink" href="#parcels.grid.Grid.child_ctypes_struct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a ctypes struct object containing all relevant
+pointers and sizes for this grid.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="parcels.grid.GridCode">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">GridCode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#GridCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.GridCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
+<p>An enumeration.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="parcels.grid.RectilinearSGrid">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">RectilinearSGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_origin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'flat'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#RectilinearSGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.RectilinearSGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
+<dl class="simple">
+<dt>Rectilinear S Grid. Same horizontal discretisation as a rectilinear z grid,</dt><dd><p>but with s vertical coordinates</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lon</strong> – 2D array containing the longitude coordinates of the grid</p></li>
-<li><p><strong>lat</strong> – 2D array containing the latitude coordinates of the grid</p></li>
+<li><p><strong>lon</strong> – Vector containing the longitude coordinates of the grid</p></li>
+<li><p><strong>lat</strong> – Vector containing the latitude coordinates of the grid</p></li>
 <li><p><strong>depth</strong> – 4D (time-evolving) or 3D (time-independent) array containing the vertical coordinates of the grid,
 which are s-coordinates.
 s-coordinates can be terrain-following (sigma) or iso-density (rho) layers,
@@ -1375,48 +1319,35 @@ correction for zonal velocity U near the poles.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="parcels.grid.CGrid">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">CGrid</code><a class="reference internal" href="_modules/parcels/grid.html#CGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.CGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
-</dd></dl>
-
-<dl class="py class">
-<dt id="parcels.grid.Grid">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">Grid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">time</span></em>, <em class="sig-param"><span class="n">time_origin</span></em>, <em class="sig-param"><span class="n">mesh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#Grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.Grid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Grid class that defines a (spatial and temporal) grid on which Fields are defined</p>
-<dl class="py method">
-<dt id="parcels.grid.Grid.child_ctypes_struct">
-<em class="property">property </em><code class="sig-name descname">child_ctypes_struct</code><a class="headerlink" href="#parcels.grid.Grid.child_ctypes_struct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a ctypes struct object containing all relevant
-pointers and sizes for this grid.</p>
-</dd></dl>
-
+<dt id="parcels.grid.RectilinearZGrid">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.grid.</code><code class="sig-name descname">RectilinearZGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_origin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'flat'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/grid.html#RectilinearZGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.grid.RectilinearZGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.grid.RectilinearGrid</span></code></p>
+<p>Rectilinear Z Grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lon</strong> – Vector containing the longitude coordinates of the grid</p></li>
+<li><p><strong>lat</strong> – Vector containing the latitude coordinates of the grid</p></li>
+<li><p><strong>depth</strong> – Vector containing the vertical coordinates of the grid, which are z-coordinates.
+The depth of the different layers is thus constant.</p></li>
+<li><p><strong>time</strong> – Vector containing the time coordinates of the grid</p></li>
+<li><p><strong>time_origin</strong> – Time origin (TimeConverter object) of the time axis</p></li>
+<li><p><strong>mesh</strong> – <p>String indicating the type of mesh coordinates and
+units used during velocity interpolation:</p>
+<ol class="arabic simple">
+<li><p>spherical (default): Lat and lon in degree, with a
+correction for zonal velocity U near the poles.</p></li>
+<li><p>flat: No conversion, lat/lon are assumed to be in m.</p></li>
+</ol>
+</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-parcels.particle">
 <span id="parcels-particle-module"></span><h2>parcels.particle module<a class="headerlink" href="#module-parcels.particle" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="parcels.particle.ScipyParticle">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.particle.</code><code class="sig-name descname">ScipyParticle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">pid</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">cptr</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#ScipyParticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.ScipyParticle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particle._Particle</span></code></p>
-<p>Class encapsulating the basic attributes of a particle,
-to be executed in SciPy mode</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lon</strong> – Initial longitude of particle</p></li>
-<li><p><strong>lat</strong> – Initial latitude of particle</p></li>
-<li><p><strong>depth</strong> – Initial depth of particle</p></li>
-<li><p><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object to track this particle on</p></li>
-<li><p><strong>time</strong> – Current time of the particle</p></li>
-</ul>
-</dd>
-</dl>
-<p>Additional Variables can be added via the :Class Variable: objects</p>
-</dd></dl>
-
 <dl class="py class">
 <dt id="parcels.particle.JITParticle">
 <em class="property">class </em><code class="sig-prename descclassname">parcels.particle.</code><code class="sig-name descname">JITParticle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#JITParticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.JITParticle" title="Permalink to this definition">¶</a></dt>
@@ -1438,6 +1369,26 @@ to be executed in SciPy mode</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="parcels.particle.ScipyParticle">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.particle.</code><code class="sig-name descname">ScipyParticle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em>, <em class="sig-param"><span class="n">lat</span></em>, <em class="sig-param"><span class="n">pid</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">cptr</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#ScipyParticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.ScipyParticle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.particle._Particle</span></code></p>
+<p>Class encapsulating the basic attributes of a particle,
+to be executed in SciPy mode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lon</strong> – Initial longitude of particle</p></li>
+<li><p><strong>lat</strong> – Initial latitude of particle</p></li>
+<li><p><strong>depth</strong> – Initial depth of particle</p></li>
+<li><p><strong>fieldset</strong> – <a class="reference internal" href="#parcels.fieldset.FieldSet" title="parcels.fieldset.FieldSet"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parcels.fieldset.FieldSet</span></code></a> object to track this particle on</p></li>
+<li><p><strong>time</strong> – Current time of the particle</p></li>
+</ul>
+</dd>
+</dl>
+<p>Additional Variables can be added via the :Class Variable: objects</p>
+</dd></dl>
+
+<dl class="py class">
 <dt id="parcels.particle.Variable">
 <em class="property">class </em><code class="sig-prename descclassname">parcels.particle.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">dtype=&lt;class 'numpy.float32'&gt;</em>, <em class="sig-param">initial=0</em>, <em class="sig-param">to_write=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particle.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.particle.Variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -1449,7 +1400,8 @@ to be executed in SciPy mode</p>
 <li><p><strong>dtype</strong> – Data type (numpy.dtype) of the variable</p></li>
 <li><p><strong>initial</strong> – Initial value of the variable. Note that this can also be a Field object,
 which will then be sampled at the location of the particle</p></li>
-<li><p><strong>to_write</strong> – Boolean to control whether Variable is written to NetCDF file</p></li>
+<li><p><strong>to_write</strong> (<em>(</em><em>bool</em><em>, </em><em>'once'</em><em>, </em><em>optional</em><em>)</em>) – Boolean or ‘once’. Controls whether Variable is written to NetCDF file.
+If to_write = ‘once’, the variable will be written as a time-independent 1D array</p></li>
 </ul>
 </dd>
 </dl>
@@ -1466,16 +1418,25 @@ which will then be sampled at the location of the particle</p></li>
 <span id="parcels-kernels-advection-module"></span><h2>parcels.kernels.advection module<a class="headerlink" href="#module-parcels.kernels.advection" title="Permalink to this headline">¶</a></h2>
 <p>Collection of pre-built advection kernels</p>
 <dl class="py function">
-<dt id="parcels.kernels.advection.AdvectionRK4">
-<code class="sig-prename descclassname">parcels.kernels.advection.</code><code class="sig-name descname">AdvectionRK4</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advection.html#AdvectionRK4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advection.AdvectionRK4" title="Permalink to this definition">¶</a></dt>
-<dd><p>Advection of particles using fourth-order Runge-Kutta integration.</p>
-<p>Function needs to be converted to Kernel object before execution</p>
+<dt id="parcels.kernels.advection.AdvectionAnalytical">
+<code class="sig-prename descclassname">parcels.kernels.advection.</code><code class="sig-name descname">AdvectionAnalytical</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advection.html#AdvectionAnalytical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advection.AdvectionAnalytical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advection of particles using ‘analytical advection’ integration</p>
+<p>Based on Ariane/TRACMASS algorithm, as detailed in e.g. Doos et al (<a class="reference external" href="https://doi.org/10.5194/gmd-10-1733-2017">https://doi.org/10.5194/gmd-10-1733-2017</a>).
+Note that the time-dependent scheme is currently implemented with ‘intermediate timesteps’
+(default 10 per model timestep) and not yet with the full analytical time integration</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="parcels.kernels.advection.AdvectionEE">
 <code class="sig-prename descclassname">parcels.kernels.advection.</code><code class="sig-name descname">AdvectionEE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advection.html#AdvectionEE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advection.AdvectionEE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Advection of particles using Explicit Euler (aka Euler Forward) integration.</p>
+<p>Function needs to be converted to Kernel object before execution</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="parcels.kernels.advection.AdvectionRK4">
+<code class="sig-prename descclassname">parcels.kernels.advection.</code><code class="sig-name descname">AdvectionRK4</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advection.html#AdvectionRK4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advection.AdvectionRK4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advection of particles using fourth-order Runge-Kutta integration.</p>
 <p>Function needs to be converted to Kernel object before execution</p>
 </dd></dl>
 
@@ -1495,127 +1456,9 @@ if error is smaller than 1/10th of tolerance, with tolerance set to
 <p>Function needs to be converted to Kernel object before execution</p>
 </dd></dl>
 
-<dl class="py function">
-<dt id="parcels.kernels.advection.AdvectionAnalytical">
-<code class="sig-prename descclassname">parcels.kernels.advection.</code><code class="sig-name descname">AdvectionAnalytical</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advection.html#AdvectionAnalytical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advection.AdvectionAnalytical" title="Permalink to this definition">¶</a></dt>
-<dd><p>Advection of particles using ‘analytical advection’ integration</p>
-<p>Based on Ariane/TRACMASS algorithm, as detailed in e.g. Doos et al (<a class="reference external" href="https://doi.org/10.5194/gmd-10-1733-2017">https://doi.org/10.5194/gmd-10-1733-2017</a>).
-Note that the time-dependent scheme is currently implemented with ‘intermediate timesteps’
-(default 10 per model timestep) and not yet with the full analytical time integration</p>
-</dd></dl>
-
 </div>
-<div class="section" id="parcels-kernels-advectiondiffusion-module">
-<h2>parcels.kernels.advectiondiffusion module<a class="headerlink" href="#parcels-kernels-advectiondiffusion-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-parcels.kernels.advectiondiffusion"></span><p>Collection of pre-built advection-diffusion kernels</p>
-<dl class="py function">
-<dt id="parcels.kernels.advectiondiffusion.DiffusionUniformKh">
-<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">DiffusionUniformKh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#DiffusionUniformKh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.DiffusionUniformKh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel for simple 2D diffusion where diffusivity (Kh) is assumed uniform.
-Assumes that fieldset has fields Kh_zonal and Kh_meridional.</p>
-<p>This kernel neglects gradients in the diffusivity field and is
-therefore more efficient in cases with uniform diffusivity.
-Since the perturbation due to diffusion is in this case spatially
-independent, this kernel contains no advection and can be used in
-combination with a seperate advection kernel.</p>
-<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
-mean and a standard deviation of sqrt(dt). Instead, here a uniform
-distribution with the same mean and std is used for efficiency and
-to keep random increments bounded. This substitution is valid for
-the convergence of particle distributions. If convergence of
-individual particle paths is required, use normally distributed
-random increments instead. See Gräwe et al (2012)
-doi.org/10.1007/s10236-012-0523-y for more information.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="parcels.kernels.advectiondiffusion.AdvectionDiffusionM1">
-<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionDiffusionM1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionDiffusionM1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionDiffusionM1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel for 2D advection-diffusion, solved using the Milstein scheme
-at first order (M1).</p>
-<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
-and variable <cite>fieldset.dres</cite>, setting the resolution for the central difference
-gradient approximation. This should be at least an order of magnitude
-less than the typical grid resolution.</p>
-<p>The Milstein scheme is superior to the Euler-Maruyama scheme, experiencing
-less spurious background diffusivity by including extra correction
-terms that are computationally cheap.</p>
-<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
-mean and a standard deviation of sqrt(dt). Instead, here a uniform
-distribution with the same mean and std is used for efficiency and
-to keep random increments bounded. This substitution is valid for
-the convergence of particle distributions. If convergence of
-individual particle paths is required, use normally distributed
-random increments instead. See Gräwe et al (2012)
-doi.org/10.1007/s10236-012-0523-y for more information.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionM1">
-<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionRK4DiffusionM1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionRK4DiffusionM1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionM1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel for 2D advection-diffusion, with advection solved
-using fourth order Runge-Kutta (RK4) and diffusion using the Milstein
-scheme at first order (M1). Using the RK4 scheme for diffusion is only
-advantageous in areas where the contribution from diffusion is
-negligible.</p>
-<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
-and variable <cite>fieldset.dres</cite>, setting the resolution for the central difference
-gradient approximation. This should be at least an order of magnitude
-less than the typical grid resolution.</p>
-<p>The Milstein scheme is superior to the Euler-Maruyama scheme, experiencing
-less spurious background diffusivity by including extra correction
-terms that are computationally cheap.</p>
-<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
-mean and a standard deviation of sqrt(dt). Instead, here a uniform
-distribution with the same mean and std is used for efficiency and
-to keep random increments bounded. This substitution is valid for
-the convergence of particle distributions. If convergence of
-individual particle paths is required, use normally distributed
-random increments instead. See Gräwe et al (2012)
-doi.org/10.1007/s10236-012-0523-y for more information.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="parcels.kernels.advectiondiffusion.AdvectionDiffusionEM">
-<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionDiffusionEM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionDiffusionEM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionDiffusionEM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel for 2D advection-diffusion, solved using the Euler-Maruyama
-scheme (EM).</p>
-<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
-and variable <cite>fieldset.dres</cite>, setting the resolution for the central
-difference gradient approximation. This should be at least an order of
-magnitude less than the typical grid resolution.</p>
-<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
-mean and a standard deviation of sqrt(dt). Instead, here a uniform
-distribution with the same mean and std is used for efficiency and
-to keep random increments bounded. This substitution is valid for
-the convergence of particle distributions. If convergence of
-individual particle paths is required, use normally distributed
-random increments instead. See Gräwe et al (2012)
-doi.org/10.1007/s10236-012-0523-y for more information.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionEM">
-<code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionRK4DiffusionEM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionRK4DiffusionEM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionRK4DiffusionEM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel for 2D advection-diffusion,  with advection solved
-using fourth order Runge-Kutta (RK4) and diffusion using the
-Euler-Maruyama scheme (EM). Using the RK4 scheme for diffusion is
-only advantageous in areas where the contribution from diffusion
-is negligible.</p>
-<p>Assumes that fieldset has fields <cite>Kh_zonal</cite> and <cite>Kh_meridional</cite>
-and variable <cite>fieldset.dres</cite>, setting the resolution for the central difference
-gradient approximation. This should be at least an order of magnitude
-less than the typical grid resolution.</p>
-<p>The Wiener increment <cite>dW</cite> should be normally distributed with zero
-mean and a standard deviation of sqrt(dt). Instead, here a uniform
-distribution with the same mean and std is used for efficiency and
-to keep random increments bounded. This substitution is valid for
-the convergence of particle distributions. If convergence of
-individual particle paths is required, use normally distributed
-random increments instead. See Gräwe et al (2012)
-doi.org/10.1007/s10236-012-0523-y for more information.</p>
-</dd></dl>
-
+<div class="section" id="parcels-kernels-diffusion-module">
+<h2>parcels.kernels.diffusion module<a class="headerlink" href="#parcels-kernels-diffusion-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-parcels.codegenerator">
 <span id="parcels-codegenerator-module"></span><h2>parcels.codegenerator module<a class="headerlink" href="#module-parcels.codegenerator" title="Permalink to this headline">¶</a></h2>
@@ -1915,27 +1758,9 @@ using a python dictionary. The data is saved in the folder ‘out’.
 <div class="section" id="module-parcels.rng">
 <span id="parcels-rng-module"></span><h2>parcels.rng module<a class="headerlink" href="#module-parcels.rng" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="parcels.rng.seed">
-<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.seed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the seed for parcels internal RNG</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="parcels.rng.random">
-<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">random</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#random"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.random" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a random float between 0. and 1.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="parcels.rng.uniform">
-<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">uniform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">low</span></em>, <em class="sig-param"><span class="n">high</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#uniform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.uniform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a random float between <cite>low</cite> and <cite>high</cite></p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="parcels.rng.randint">
-<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">randint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">low</span></em>, <em class="sig-param"><span class="n">high</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#randint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.randint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a random int between <cite>low</cite> and <cite>high</cite></p>
+<dt id="parcels.rng.expovariate">
+<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">expovariate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lamb</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#expovariate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.expovariate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a randome float of an exponential distribution with parameter lamb</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1945,9 +1770,27 @@ using a python dictionary. The data is saved in the folder ‘out’.
 </dd></dl>
 
 <dl class="py function">
-<dt id="parcels.rng.expovariate">
-<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">expovariate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lamb</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#expovariate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.expovariate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a randome float of an exponential distribution with parameter lamb</p>
+<dt id="parcels.rng.randint">
+<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">randint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">low</span></em>, <em class="sig-param"><span class="n">high</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#randint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.randint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random int between <cite>low</cite> and <cite>high</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="parcels.rng.random">
+<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">random</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#random"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random float between 0. and 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="parcels.rng.seed">
+<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the seed for parcels internal RNG</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="parcels.rng.uniform">
+<code class="sig-prename descclassname">parcels.rng.</code><code class="sig-name descname">uniform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">low</span></em>, <em class="sig-param"><span class="n">high</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/rng.html#uniform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.rng.uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random float between <cite>low</cite> and <cite>high</cite></p>
 </dd></dl>
 
 <dl class="py function">
@@ -1962,13 +1805,6 @@ with mean angle mu and concentration parameter kappa</p>
 <span id="parcels-tools-error-module"></span><h2>parcels.tools.error module<a class="headerlink" href="#module-parcels.tools.error" title="Permalink to this headline">¶</a></h2>
 <p>Collection of pre-built recovery kernels</p>
 <dl class="py exception">
-<dt id="parcels.tools.error.FieldSamplingError">
-<em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">FieldSamplingError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#FieldSamplingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.FieldSamplingError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
-<p>Utility error class to propagate erroneous field sampling in Scipy mode</p>
-</dd></dl>
-
-<dl class="py exception">
 <dt id="parcels.tools.error.FieldOutOfBoundError">
 <em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">FieldOutOfBoundError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#FieldOutOfBoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.FieldOutOfBoundError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
@@ -1976,10 +1812,10 @@ with mean angle mu and concentration parameter kappa</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="parcels.tools.error.TimeExtrapolationError">
-<em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">TimeExtrapolationError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">msg</span><span class="o">=</span><span class="default_value">'allow_time_extrapoltion'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#TimeExtrapolationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.TimeExtrapolationError" title="Permalink to this definition">¶</a></dt>
+<dt id="parcels.tools.error.FieldSamplingError">
+<em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">FieldSamplingError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#FieldSamplingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.FieldSamplingError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
-<p>Utility error class to propagate erroneous time extrapolation sampling in Scipy mode</p>
+<p>Utility error class to propagate erroneous field sampling in Scipy mode</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -1997,6 +1833,13 @@ with mean angle mu and concentration parameter kappa</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt id="parcels.tools.error.OutOfTimeError">
+<em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">OutOfTimeError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#OutOfTimeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.OutOfTimeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.error.KernelError" title="parcels.tools.error.KernelError"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.error.KernelError</span></code></a></p>
+<p>Particle kernel error for time extrapolation field sampling</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt id="parcels.tools.error.ThroughSurfaceError">
 <em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">ThroughSurfaceError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lon</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lat</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#ThroughSurfaceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.ThroughSurfaceError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#parcels.tools.error.KernelError" title="parcels.tools.error.KernelError"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.error.KernelError</span></code></a></p>
@@ -2004,23 +1847,15 @@ with mean angle mu and concentration parameter kappa</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="parcels.tools.error.OutOfTimeError">
-<em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">OutOfTimeError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#OutOfTimeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.OutOfTimeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#parcels.tools.error.KernelError" title="parcels.tools.error.KernelError"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.error.KernelError</span></code></a></p>
-<p>Particle kernel error for time extrapolation field sampling</p>
+<dt id="parcels.tools.error.TimeExtrapolationError">
+<em class="property">exception </em><code class="sig-prename descclassname">parcels.tools.error.</code><code class="sig-name descname">TimeExtrapolationError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">msg</span><span class="o">=</span><span class="default_value">'allow_time_extrapoltion'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/tools/error.html#TimeExtrapolationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.error.TimeExtrapolationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>Utility error class to propagate erroneous time extrapolation sampling in Scipy mode</p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-parcels.tools.converters">
 <span id="parcels-tools-converters-module"></span><h2>parcels.tools.converters module<a class="headerlink" href="#module-parcels.tools.converters" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="parcels.tools.converters.UnitConverter">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.tools.converters.</code><code class="sig-name descname">UnitConverter</code><a class="reference internal" href="_modules/parcels/tools/converters.html#UnitConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.UnitConverter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Interface class for spatial unit conversion during field sampling
-that performs no conversion.</p>
-</dd></dl>
-
 <dl class="py class">
 <dt id="parcels.tools.converters.Geographic">
 <em class="property">class </em><code class="sig-prename descclassname">parcels.tools.converters.</code><code class="sig-name descname">Geographic</code><a class="reference internal" href="_modules/parcels/tools/converters.html#Geographic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.Geographic" title="Permalink to this definition">¶</a></dt>
@@ -2037,18 +1872,18 @@ with a correction to account for narrower grid cells closer to the poles.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="parcels.tools.converters.GeographicSquare">
-<em class="property">class </em><code class="sig-prename descclassname">parcels.tools.converters.</code><code class="sig-name descname">GeographicSquare</code><a class="reference internal" href="_modules/parcels/tools/converters.html#GeographicSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.GeographicSquare" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
-<p>Square distance converter from geometric to geographic coordinates (m2 to degree2)</p>
-</dd></dl>
-
-<dl class="py class">
 <dt id="parcels.tools.converters.GeographicPolarSquare">
 <em class="property">class </em><code class="sig-prename descclassname">parcels.tools.converters.</code><code class="sig-name descname">GeographicPolarSquare</code><a class="reference internal" href="_modules/parcels/tools/converters.html#GeographicPolarSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.GeographicPolarSquare" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
 <p>Square distance converter from geometric to geographic coordinates (m2 to degree2)
 with a correction to account for narrower grid cells closer to the poles.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="parcels.tools.converters.GeographicSquare">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.tools.converters.</code><code class="sig-name descname">GeographicSquare</code><a class="reference internal" href="_modules/parcels/tools/converters.html#GeographicSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.GeographicSquare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#parcels.tools.converters.UnitConverter" title="parcels.tools.converters.UnitConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">parcels.tools.converters.UnitConverter</span></code></a></p>
+<p>Square distance converter from geometric to geographic coordinates (m2 to degree2)</p>
 </dd></dl>
 
 <dl class="py class">
@@ -2091,6 +1926,14 @@ of the TimeConverter</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt id="parcels.tools.converters.UnitConverter">
+<em class="property">class </em><code class="sig-prename descclassname">parcels.tools.converters.</code><code class="sig-name descname">UnitConverter</code><a class="reference internal" href="_modules/parcels/tools/converters.html#UnitConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.tools.converters.UnitConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Interface class for spatial unit conversion during field sampling
+that performs no conversion.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -2235,7 +2078,59 @@ from the package directory or from the Parcels website.</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/parcelslogo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Parcels documentation</a><ul>
+<li><a class="reference internal" href="#module-parcels.particleset">parcels.particleset module</a></li>
+<li><a class="reference internal" href="#module-parcels.fieldset">parcels.fieldset module</a></li>
+<li><a class="reference internal" href="#module-parcels.field">parcels.field module</a></li>
+<li><a class="reference internal" href="#module-parcels.gridset">parcels.gridset module</a></li>
+<li><a class="reference internal" href="#module-parcels.grid">parcels.grid module</a></li>
+<li><a class="reference internal" href="#module-parcels.particle">parcels.particle module</a></li>
+<li><a class="reference internal" href="#module-parcels.kernels.advection">parcels.kernels.advection module</a></li>
+<li><a class="reference internal" href="#parcels-kernels-diffusion-module">parcels.kernels.diffusion module</a></li>
+<li><a class="reference internal" href="#module-parcels.codegenerator">parcels.codegenerator module</a></li>
+<li><a class="reference internal" href="#module-parcels.compiler">parcels.compiler module</a></li>
+<li><a class="reference internal" href="#module-parcels.kernel">parcels.kernel module</a></li>
+<li><a class="reference internal" href="#module-parcels.particlefile">parcels.particlefile module</a></li>
+<li><a class="reference internal" href="#module-parcels.rng">parcels.rng module</a></li>
+<li><a class="reference internal" href="#module-parcels.tools.error">parcels.tools.error module</a></li>
+<li><a class="reference internal" href="#module-parcels.tools.converters">parcels.tools.converters module</a></li>
+<li><a class="reference internal" href="#module-parcels.tools.loggers">parcels.tools.loggers module</a></li>
+<li><a class="reference internal" href="#module-parcels.plotting">parcels.plotting module</a></li>
+<li><a class="reference internal" href="#module-scripts.plottrajectoriesfile">scripts.plottrajectoriesfile module</a></li>
+<li><a class="reference internal" href="#module-scripts.get_examples">scripts.get_examples module</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -2249,12 +2144,13 @@ from the package directory or from the Parcels website.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Parcels  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">Parcels  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Parcels documentation</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>
