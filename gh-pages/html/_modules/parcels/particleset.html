@@ -813,6 +813,7 @@
 <div class="viewcode-block" id="ParticleSet.Kernel"><a class="viewcode-back" href="../../index.html#parcels.particleset.ParticleSet.Kernel">[docs]</a>    <span class="k">def</span> <span class="nf">Kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pyfunc</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">delete_cfiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Wrapper method to convert a `pyfunc` into a :class:`parcels.kernel.Kernel` object</span>
 <span class="sd">        based on `fieldset` and `ptype` of the ParticleSet</span>
+
 <span class="sd">        :param delete_cfiles: Boolean whether to delete the C-files after compilation in JIT mode (default is True)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">pyfunc</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="n">c_include</span><span class="p">,</span>
