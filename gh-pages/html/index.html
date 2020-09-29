@@ -217,6 +217,12 @@ and np.float64 if the interpolation method is ‘cgrid_velocity’</p></li>
 </ul>
 </dd>
 </dl>
+<p>For usage examples see the following tutorials:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb">Basic Parcels setup</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_3D.ipynb">NEMO 3D</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb">Periodic boundaries</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
@@ -241,6 +247,11 @@ and np.float64 if the interpolation method is ‘cgrid_velocity’</p></li>
 </dd>
 </dl>
 <p>Other Variables can be initialised using further arguments (e.g. v=… for a Variable named ‘v’)</p>
+<p>For usage examples see the following tutorials:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb">Basic Parcels setup</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_curvilinear.ipynb">NEMO 2D</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
@@ -326,6 +337,10 @@ and np.float64 if the interpolation method is ‘cgrid_velocity’</p></li>
 <dd><p>Add a constant to the FieldSet. Note that all constants are
 stored as 32-bit floats. While constants can be updated during
 execution in SciPy mode, they can not be updated in JIT mode.</p>
+<p>Tutorials using fieldset.add_constant:
+<a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_analyticaladvection.ipynb">Analytical advection</a>
+<a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb">Diffusion</a>
+<a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb">Periodic boundaries</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -348,6 +363,11 @@ execution in SciPy mode, they can not be updated in JIT mode.</p>
 </ul>
 </dd>
 </dl>
+<p>For usage examples see the following tutorials:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb">Nested Fields</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">Unit converters</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
@@ -426,19 +446,32 @@ names in the netCDF file(s).</p></li>
 lat, depth, time, data) to dimensions in the netCF file(s).
 Note that dimensions can also be a dictionary of dictionaries if
 dimension names are different for each variable.
-U and V velocity nodes are not located as W velocity and T tracer nodes (see <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf">http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf</a> ).
-+—————————–+—————————–+—————————–+
-<a href="#id12"><span class="problematic" id="id13">|U[k,j+1,i],V[k,j+1,i]        |_____________________________|U[k,j+1,i+1],V[k,j+1,i+1]    |
-+-----------------------------+-----------------------------+-----------------------------+
-|                             |W[k:k+2,j+1,i+1],T[k,j+1,i+1]|</span></a>                             |
-+—————————–+—————————–+—————————–+
-<a href="#id1"><span class="problematic" id="id2">|</span></a>U[k,j,i],V[k,j,i]            <a href="#id3"><span class="problematic" id="id4">|</span></a>_____________________________+U[k,j,i+1],V[k,j,i+1]        |
-+—————————–+—————————–+—————————–+
-In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</p>
-<blockquote>
-<div><p>T node is at the cell centre and interpolated constant per cell as a C-grid.</p>
-</div></blockquote>
+U and V velocity nodes are not located as W velocity and T tracer nodes (see <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf">http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf</a> ).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>U[k,j+1,i],V[k,j+1,i]</p></td>
+<td></td>
+<td><p>U[k,j+1,i+1],V[k,j+1,i+1]</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>W[k:k+2,j+1,i+1],T[k,j+1,i+1]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>U[k,j,i],V[k,j,i]</p></td>
+<td rowspan="2"></td>
+<td rowspan="2"><p>U[k,j,i+1],V[k,j,i+1]</p></td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
 <dl class="simple">
+<dt>In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</dt><dd><p>T node is at the cell centre and interpolated constant per cell as a C-grid.</p>
+</dd>
 <dt>In 3D: U and V nodes are at the midlle of the cell vertical edges,</dt><dd><p>They are interpolated bilinearly (independently of z) in the cell.
 W nodes are at the centre of the horizontal interfaces.
 They are interpolated linearly (as a function of z) in the cell.
@@ -476,7 +509,9 @@ Note that in the case of from_pop() and from_bgrid(), the velocity fields are de
 <dl class="py method">
 <dt id="parcels.fieldset.FieldSet.from_c_grid_dataset">
 <em class="property">classmethod </em><code class="sig-name descname">from_c_grid_dataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filenames</span></em>, <em class="sig-param"><span class="n">variables</span></em>, <em class="sig-param"><span class="n">dimensions</span></em>, <em class="sig-param"><span class="n">indices</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'spherical'</span></em>, <em class="sig-param"><span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_periodic</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tracer_interp_method</span><span class="o">=</span><span class="default_value">'cgrid_tracer'</span></em>, <em class="sig-param"><span class="n">field_chunksize</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_c_grid_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_c_grid_dataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialises FieldSet object from NetCDF files of Curvilinear NEMO fields.</p>
+<dd><p>Initialises FieldSet object from NetCDF files of curvilinear c-grid fields.</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb">here</a>
+for a more detailed explanation of the different methods that can be used for c-grid datasets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -494,14 +529,29 @@ lat, depth, time, data) to dimensions in the netCF file(s).
 Note that dimensions can also be a dictionary of dictionaries if
 dimension names are different for each variable.
 Watch out: NEMO is discretised on a C-grid:
-U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).
-+—————————–+—————————–+—————————–+
-<a href="#id14"><span class="problematic" id="id15">|_____________________________|_________V[k,j+1,i+1]________|_____________________________|</span></a>
-+—————————–+—————————–+—————————–+
-<a href="#id16"><span class="problematic" id="id17">|U[k,j+1,i]                   |W[k:k+2,j+1,i+1],T[k,j+1,i+1]|U[k,j+1,i+1]                 |
-+-----------------------------+-----------------------------+-----------------------------+
-|_____________________________|_________V[k,j,i+1]__________+_____________________________|</span></a>
-+—————————–+—————————–+—————————–+</p>
+U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>V[k,j+1,i+1]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>U[k,j+1,i]</p></td>
+<td><p>W[k:k+2,j+1,i+1],T[k,j+1,i+1]</p></td>
+<td><p>U[k,j+1,i+1]</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"></td>
+<td rowspan="2"><p>V[k,j,i+1]</p></td>
+<td rowspan="2"></td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
 <p>To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
 which are located on the corners of the cells.
 (for indexing details: <a class="reference external" href="https://www.nemo-ocean.eu/doc/img360.png">https://www.nemo-ocean.eu/doc/img360.png</a> )
@@ -574,12 +624,24 @@ This flag overrides the allow_time_interpolation and sets it to False</p></li>
 </ul>
 </dd>
 </dl>
+<p>For usage examples see the following tutorials:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_analyticaladvection.ipynb">Analytical advection</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb">Diffusion</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_interpolation.ipynb">Interpolation</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">Unit converters</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
 <dt id="parcels.fieldset.FieldSet.from_nemo">
 <em class="property">classmethod </em><code class="sig-name descname">from_nemo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filenames</span></em>, <em class="sig-param"><span class="n">variables</span></em>, <em class="sig-param"><span class="n">dimensions</span></em>, <em class="sig-param"><span class="n">indices</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="o">=</span><span class="default_value">'spherical'</span></em>, <em class="sig-param"><span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_periodic</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tracer_interp_method</span><span class="o">=</span><span class="default_value">'cgrid_tracer'</span></em>, <em class="sig-param"><span class="n">field_chunksize</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/fieldset.html#FieldSet.from_nemo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.fieldset.FieldSet.from_nemo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialises FieldSet object from NetCDF files of Curvilinear NEMO fields.</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_curvilinear.ipynb">here</a>
+for a detailed tutorial on the setup for 2D NEMO fields and <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_3D.ipynb">here</a>
+for the tutorial on the setup for 3D NEMO fields.</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb">here</a>
+for a more detailed explanation of the different methods that can be used for c-grid datasets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -592,23 +654,39 @@ or a dictionary of dictionaries {var:{dim:[files]}}
 time values are in filenames[data]</p></li>
 <li><p><strong>variables</strong> – Dictionary mapping variables to variable names in the netCDF file(s).
 Note that the built-in Advection kernels assume that U and V are in m/s</p></li>
-<li><p><strong>dimensions</strong> – Dictionary mapping data dimensions (lon,
+<li><p><strong>dimensions</strong> – <p>Dictionary mapping data dimensions (lon,
 lat, depth, time, data) to dimensions in the netCF file(s).
 Note that dimensions can also be a dictionary of dictionaries if
 dimension names are different for each variable.
 Watch out: NEMO is discretised on a C-grid:
-U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).
-+—————————–+—————————–+—————————–+
-<a href="#id18"><span class="problematic" id="id19">|_____________________________|_________V[k,j+1,i+1]________|_____________________________|</span></a>
-+—————————–+—————————–+—————————–+
-<a href="#id20"><span class="problematic" id="id21">|U[k,j+1,i]                   |W[k:k+2,j+1,i+1],T[k,j+1,i+1]|U[k,j+1,i+1]                 |
-+-----------------------------+-----------------------------+-----------------------------+
-|_____________________________|_________V[k,j,i+1]__________+_____________________________|</span></a>
-+—————————–+—————————–+—————————–+
-To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
+U and V velocities are not located on the same nodes (see <a class="reference external" href="https://www.nemo-ocean.eu/doc/node19.html">https://www.nemo-ocean.eu/doc/node19.html</a> ).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>V[k,j+1,i+1]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>U[k,j+1,i]</p></td>
+<td><p>W[k:k+2,j+1,i+1],T[k,j+1,i+1]</p></td>
+<td><p>U[k,j+1,i+1]</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"></td>
+<td rowspan="2"><p>V[k,j,i+1]</p></td>
+<td rowspan="2"></td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
+<p>To interpolate U, V velocities on the C-grid, Parcels needs to read the f-nodes,
 which are located on the corners of the cells.
 (for indexing details: <a class="reference external" href="https://www.nemo-ocean.eu/doc/img360.png">https://www.nemo-ocean.eu/doc/img360.png</a> )
-In 3D, the depth is the one corresponding to W nodes</p></li>
+In 3D, the depth is the one corresponding to W nodes</p>
+</p></li>
 <li><p><strong>indices</strong> – Optional dictionary of indices for each dimension
 to read from file(s), to allow for reading of subset of data.
 Default is to read the full extent of each dimension.
@@ -692,6 +770,13 @@ but in cases where this doesn’t work, setting netcdf_engine=’scipy’ could 
 </ul>
 </dd>
 </dl>
+<p>For usage examples see the following tutorials:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb">Basic Parcels setup</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb">Argo floats</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timestamps.ipynb">Timestamps</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timevaryingdepthdimensions.ipynb">Time-evolving depth dimensions</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
@@ -749,19 +834,32 @@ lat, depth, time, data) to dimensions in the netCF file(s).
 Note that dimensions can also be a dictionary of dictionaries if
 dimension names are different for each variable.
 Watch out: POP is discretised on a B-grid:
-U and V velocity nodes are not located as W velocity and T tracer nodes (see <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf">http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf</a> ).
-+—————————–+—————————–+—————————–+
-<a href="#id22"><span class="problematic" id="id23">|U[k,j+1,i],V[k,j+1,i]        |_____________________________|U[k,j+1,i+1],V[k,j+1,i+1]    |
-+-----------------------------+-----------------------------+-----------------------------+
-|                             |W[k:k+2,j+1,i+1],T[k,j+1,i+1]|</span></a>                             |
-+—————————–+—————————–+—————————–+
-<a href="#id5"><span class="problematic" id="id6">|</span></a>U[k,j,i],V[k,j,i]            <a href="#id7"><span class="problematic" id="id8">|</span></a>_____________________________+U[k,j,i+1],V[k,j,i+1]        |
-+—————————–+—————————–+—————————–+
-In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</p>
-<blockquote>
-<div><p>T node is at the cell centre and interpolated constant per cell as a C-grid.</p>
-</div></blockquote>
+U and V velocity nodes are not located as W velocity and T tracer nodes (see <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf">http://www.cesm.ucar.edu/models/cesm1.0/pop2/doc/sci/POPRefManual.pdf</a> ).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>U[k,j+1,i],V[k,j+1,i]</p></td>
+<td></td>
+<td><p>U[k,j+1,i+1],V[k,j+1,i+1]</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>W[k:k+2,j+1,i+1],T[k,j+1,i+1]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>U[k,j,i],V[k,j,i]</p></td>
+<td rowspan="2"></td>
+<td rowspan="2"><p>U[k,j,i+1],V[k,j,i+1]</p></td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
 <dl class="simple">
+<dt>In 2D: U and V nodes are on the cell vertices and interpolated bilinearly as a A-grid.</dt><dd><p>T node is at the cell centre and interpolated constant per cell as a C-grid.</p>
+</dd>
 <dt>In 3D: U and V nodes are at the middle of the cell vertical edges,</dt><dd><p>They are interpolated bilinearly (independently of z) in the cell.
 W nodes are at the centre of the horizontal interfaces.
 They are interpolated linearly (as a function of z) in the cell.
@@ -904,12 +1002,19 @@ This flag overrides the allow_time_interpolation and sets it to False</p></li>
 </ul>
 </dd>
 </dl>
+<p>For usage examples see the following tutorials:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb">Nested Fields</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb">Summed Fields</a></p></li>
+</ul>
 <dl class="py method">
 <dt id="parcels.field.Field.add_periodic_halo">
 <code class="sig-name descname">add_periodic_halo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">zonal</span></em>, <em class="sig-param"><span class="n">meridional</span></em>, <em class="sig-param"><span class="n">halosize</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.add_periodic_halo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.add_periodic_halo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a ‘halo’ to all Fields in a FieldSet, through extending the Field (and lon/lat)
 by copying a small portion of the field on one side of the domain to the other.
 Before adding a periodic halo to the Field, it has to be added to the Grid on which the Field depends</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb">this tutorial</a>
+for a detailed explanation on how to set up periodic boundaries</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -996,6 +1101,10 @@ deferred_load=False is however sometimes necessary for plotting the fields.</p><
 </ul>
 </dd>
 </dl>
+<p>For usage examples see the following tutorial:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timestamps.ipynb">Timestamps</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
@@ -1027,6 +1136,14 @@ This flag overrides the allow_time_interpolation and sets it to False</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt id="parcels.field.Field.set_depth_from_field">
+<code class="sig-name descname">set_depth_from_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.set_depth_from_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.set_depth_from_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the depth dimensions from another (time-varying) field</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timevaryingdepthdimensions.ipynb">this tutorial</a>
+for a detailed explanation on how to set up time-evolving depth dimensions</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="parcels.field.Field.set_scaling_factor">
 <code class="sig-name descname">set_scaling_factor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">factor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/field.html#Field.set_scaling_factor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.field.Field.set_scaling_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scales the field data by some constant factor.</p>
@@ -1035,6 +1152,10 @@ This flag overrides the allow_time_interpolation and sets it to False</p></li>
 <dd class="field-odd"><p><strong>factor</strong> – scaling factor</p>
 </dd>
 </dl>
+<p>For usage examples see the following tutorial:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb">Unit converters</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
@@ -1116,6 +1237,8 @@ Each one it its turn, a field is interpolated: if the interpolation succeeds or 
 than <cite>ErrorOutOfBounds</cite> is thrown, the function is stopped. Otherwise, next field is interpolated.
 NestedField returns an <cite>ErrorOutOfBounds</cite> only if last field is as well out of boundaries.
 NestedField is composed of either Fields or VectorFields.</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb">here</a>
+for a detailed tutorial</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1139,7 +1262,8 @@ Note that the individual Fields can be on different Grids.
 Also note that, since SummedFields are lists, the individual Fields can
 still be queried through their list index (e.g. SummedField[1]).
 SummedField is composed of either Fields or VectorFields.</p>
-<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb">here</a> for the tutorial</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb">here</a>
+for a detailed tutorial</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1174,7 +1298,7 @@ This enables to interpolate them as one single vector field in the kernels.</p>
 <dd><blockquote>
 <div></div></blockquote>
 <div class="line-block">
-<div class="line"><a href="#id10"><span class="problematic" id="id11">|</span></a></div>
+<div class="line"><a href="#id17"><span class="problematic" id="id18">|</span></a></div>
 </div>
 <p>U0         U1
 | __ V0 __ |
@@ -1468,10 +1592,10 @@ if error is smaller than 1/10th of tolerance, with tolerance set to
 </dd></dl>
 
 </div>
-<div class="section" id="parcels-kernels-advectiondiffusion-module">
-<h2>parcels.kernels.advectiondiffusion module<a class="headerlink" href="#parcels-kernels-advectiondiffusion-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-parcels.kernels.advectiondiffusion"></span><p>Collection of pre-built advection-diffusion kernels</p>
-<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb">this tutorial</a> for a detailed explanation</p>
+<div class="section" id="module-parcels.kernels.advectiondiffusion">
+<span id="parcels-kernels-advectiondiffusion-module"></span><h2>parcels.kernels.advectiondiffusion module<a class="headerlink" href="#module-parcels.kernels.advectiondiffusion" title="Permalink to this headline">¶</a></h2>
+<p>Collection of pre-built advection-diffusion kernels</p>
+<p>See <a class="reference external" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb">this tutorial</a> for a detailed explanation</p>
 <dl class="py function">
 <dt id="parcels.kernels.advectiondiffusion.AdvectionDiffusionEM">
 <code class="sig-prename descclassname">parcels.kernels.advectiondiffusion.</code><code class="sig-name descname">AdvectionDiffusionEM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">particle</span></em>, <em class="sig-param"><span class="n">fieldset</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/kernels/advectiondiffusion.html#AdvectionDiffusionEM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parcels.kernels.advectiondiffusion.AdvectionDiffusionEM" title="Permalink to this definition">¶</a></dt>
@@ -2244,7 +2368,7 @@ from the package directory or from the Parcels website.</p>
 <li><a class="reference internal" href="#module-parcels.grid">parcels.grid module</a></li>
 <li><a class="reference internal" href="#module-parcels.particle">parcels.particle module</a></li>
 <li><a class="reference internal" href="#module-parcels.kernels.advection">parcels.kernels.advection module</a></li>
-<li><a class="reference internal" href="#parcels-kernels-advectiondiffusion-module">parcels.kernels.advectiondiffusion module</a></li>
+<li><a class="reference internal" href="#module-parcels.kernels.advectiondiffusion">parcels.kernels.advectiondiffusion module</a></li>
 <li><a class="reference internal" href="#module-parcels.codegenerator">parcels.codegenerator module</a></li>
 <li><a class="reference internal" href="#module-parcels.compiler">parcels.compiler module</a></li>
 <li><a class="reference internal" href="#module-parcels.kernel">parcels.kernel module</a></li>
