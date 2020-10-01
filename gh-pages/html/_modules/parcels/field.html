@@ -130,6 +130,13 @@
 <span class="sd">    :param time_periodic: To loop periodically over the time component of the Field. It is set to either False or the length of the period (either float in seconds or datetime.timedelta object).</span>
 <span class="sd">           The last value of the time series can be provided (which is the same as the initial one) or not (Default: False)</span>
 <span class="sd">           This flag overrides the allow_time_interpolation and sets it to False</span>
+
+<span class="sd">    For usage examples see the following tutorials:</span>
+
+<span class="sd">    * `Nested Fields &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb&gt;`_</span>
+
+<span class="sd">    * `Summed Fields &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb&gt;`_</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -291,6 +298,10 @@
 <span class="sd">               that case Parcels deals with a better memory management during particle set execution.</span>
 <span class="sd">               deferred_load=False is however sometimes necessary for plotting the fields.</span>
 <span class="sd">        :param field_chunksize: size of the chunks in dask loading</span>
+
+<span class="sd">        For usage examples see the following tutorial:</span>
+
+<span class="sd">        * `Timestamps &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timestamps.ipynb&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Ensure the timestamps array is compatible with the user-provided datafiles.</span>
         <span class="k">if</span> <span class="n">timestamps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -561,6 +572,10 @@
         <span class="sd">&quot;&quot;&quot;Scales the field data by some constant factor.</span>
 
 <span class="sd">        :param factor: scaling factor</span>
+
+<span class="sd">        For usage examples see the following tutorial:</span>
+
+<span class="sd">        * `Unit converters &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scaling_factor</span><span class="p">:</span>
@@ -569,8 +584,14 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">defer_load</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">*=</span> <span class="n">factor</span></div>
 
-    <span class="k">def</span> <span class="nf">set_depth_from_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">depth_field</span> <span class="o">=</span> <span class="n">field</span>
+<div class="viewcode-block" id="Field.set_depth_from_field"><a class="viewcode-back" href="../../index.html#parcels.field.Field.set_depth_from_field">[docs]</a>    <span class="k">def</span> <span class="nf">set_depth_from_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Define the depth dimensions from another (time-varying) field</span>
+
+<span class="sd">        See `this tutorial &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timevaryingdepthdimensions.ipynb&gt;`_</span>
+<span class="sd">        for a detailed explanation on how to set up time-evolving depth dimensions</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">depth_field</span> <span class="o">=</span> <span class="n">field</span></div>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">)</span>
@@ -1216,6 +1237,9 @@
 <span class="sd">        by copying a small portion of the field on one side of the domain to the other.</span>
 <span class="sd">        Before adding a periodic halo to the Field, it has to be added to the Grid on which the Field depends</span>
 
+<span class="sd">        See `this tutorial &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb&gt;`_</span>
+<span class="sd">        for a detailed explanation on how to set up periodic boundaries</span>
+
 <span class="sd">        :param zonal: Create a halo in zonal direction (boolean)</span>
 <span class="sd">        :param meridional: Create a halo in meridional direction (boolean)</span>
 <span class="sd">        :param halosize: size of the halo (in grid points). Default is 5 grid points</span>
@@ -1688,7 +1712,8 @@
 <span class="sd">    still be queried through their list index (e.g. SummedField[1]).</span>
 <span class="sd">    SummedField is composed of either Fields or VectorFields.</span>
 
-<span class="sd">    See `here &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb&gt;`_ for the tutorial</span>
+<span class="sd">    See `here &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb&gt;`_</span>
+<span class="sd">    for a detailed tutorial</span>
 
 <span class="sd">    :param name: Name of the SummedField</span>
 <span class="sd">    :param F: List of fields. F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</span>
@@ -1744,6 +1769,9 @@
 <span class="sd">    than `ErrorOutOfBounds` is thrown, the function is stopped. Otherwise, next field is interpolated.</span>
 <span class="sd">    NestedField returns an `ErrorOutOfBounds` only if last field is as well out of boundaries.</span>
 <span class="sd">    NestedField is composed of either Fields or VectorFields.</span>
+
+<span class="sd">    See `here &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb&gt;`_</span>
+<span class="sd">    for a detailed tutorial</span>
 
 <span class="sd">    :param name: Name of the NestedField</span>
 <span class="sd">    :param F: List of fields (order matters). F can be a scalar Field, a VectorField, or the zonal component (U) of the VectorField</span>
