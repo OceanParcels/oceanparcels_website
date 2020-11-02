@@ -39,10 +39,10 @@
 
   <script>
     /**
-     * Functie die een klik op een uitgaande link vastlegt in Analytics.
-     * Deze functie vereist een geldige URL-tekenreeks als argument en gebruikt deze
-     * als gebeurtenislabel. Wanneer de methode 'transport' wordt ingesteld op 'beacon', wordt de hit verzonden
-     * bij gebruik van 'navigator.sendBeacon' in een browser die dat ondersteunt.
+     * Function that records clicks on tutorial links
+     * The function takes the tutorial link as an argument and sends it to Google Analytics as an event
+     * These clicks can be seen under Behaviour -> Events
+     * The hit is sent when 'navigator.sendBeacon' is used in a compatible browser
      */
     var captureTutorialLink = function(url) {
       ga('send', 'event', 'tutorial', 'click', url, {
