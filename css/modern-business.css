@@ -73,3 +73,19 @@ hr {
     column-count: 3;
   }
 }
+
+ul#footerul {
+  list-style-type: none;
+  display: table;
+  margin: 0 auto;
+}
+
+li#footerli{
+  float: left;
+}
+
+a#footera{
+  color: lightgray;
+  text-align: center;
+  padding: 30px;
+}
