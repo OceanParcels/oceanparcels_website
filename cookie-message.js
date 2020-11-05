@@ -1,7 +1,7 @@
 // --- Config --- //
 var purecookieTitle = "Cookies."; // Title
-var purecookieDesc = "By using this website, you automatically accept that we use cookies to improve ."; // Description
-var purecookieLink = '<a href="cookie-policy.html" target="_blank">What for?</a>'; // Cookiepolicy link
+var purecookieDesc = "By using this website, you accept that we use cookies to improve your experience."; // Description
+var purecookieLink = '<a href="cookie-policy.html" target="_blank">What is being tracked?</a>'; // Cookiepolicy link
 var purecookieButton = "Understood"; // Button text
 // ---        --- //
 
@@ -63,7 +63,7 @@ function cookieConsent() {
 }
 
 function purecookieDismiss() {
-  setCookie('purecookieDismiss','1',30);
+  setCookie('purecookieDismiss','1',365);
   pureFadeOut("cookieConsentContainer");
 }
 
