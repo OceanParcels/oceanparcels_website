@@ -30,6 +30,7 @@
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('set', 'anonymizeIp', true)
       ga('create', 'UA-96368922-1', 'auto');
       ga('send', 'pageview');
   </script>
@@ -254,14 +255,20 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
 <!-- /.container -->
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-5 bg-dark" id="footer">
   <div class="container">
+    <div class="row">
+      <ul id="footerul">
+        <li id="footerli"><a id="footera" href="accessibility.html">Accessibility</a></li>
+        <li id="footerli"><a id="footera" href="cookie-policy.html">Cookie policy</a></li>
+        <li id="footerli"><a id="footera" href="utrechtteam.html">Utrecht Team</a></li>
+      </ul>
+    </div>
     <p class="m-0 text-center text-white">
-      Copyright &copy; OceanParcels project, 2018<br>
+      Copyright &copy; OceanParcels project, 2020<br>
       <small>Based on the <a href ="https://blackrockdigital.github.io/startbootstrap-modern-business/">Modern Business</a> theme, distributed by <a href="https://startbootstrap.com/template-overviews/modern-business/">Start Bootstrap</a> under an MIT license</small>
     </p>
   </div>
-  <!-- /.container -->
 </footer>
 
 <!-- Bootstrap core JavaScript -->
