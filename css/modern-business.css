@@ -74,6 +74,10 @@ hr {
   }
 }
 
+a.tutorialLink:link{color:black}
+a.tutorialLink:visited{color:black}
+a.tutorialLink:hover{color:black; text-decoration: none;}
+
 ul#footerul {
   list-style-type: none;
   display: table;
