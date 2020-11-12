@@ -8,90 +8,90 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="tags_kernels.svg"
-   id="svg2404"
-   version="1.1"
-   viewBox="0 0 28.574999 5.2916665"
+   width="28.574999mm"
    height="5.2916665mm"
-   width="28.574999mm">
+   viewBox="0 0 28.574999 5.2916665"
+   version="1.1"
+   id="svg2404"
+   sodipodi:docname="tags_kernels.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
   <defs
      id="defs2398">
     <clipPath
        id="a">
       <rect
-         width="108"
-         height="20"
-         rx="3"
-         fill="#ffffff"
-         id="rect10"
+         y="0"
          x="0"
-         y="0" />
+         id="rect10"
+         fill="#ffffff"
+         rx="3"
+         height="20"
+         width="108" />
     </clipPath>
     <linearGradient
-       id="b"
-       x2="0"
-       y2="46.4758"
-       gradientTransform="scale(2.32379,0.43033148)"
-       x1="0"
+       gradientUnits="userSpaceOnUse"
        y1="0"
-       gradientUnits="userSpaceOnUse">
+       x1="0"
+       gradientTransform="scale(2.32379,0.43033148)"
+       y2="46.4758"
+       x2="0"
+       id="b">
       <stop
-         offset="0"
+         id="stop5"
+         stop-opacity=".1"
          stop-color="#bbb"
-         stop-opacity=".1"
-         id="stop5" />
+         offset="0" />
       <stop
-         offset="1"
+         id="stop7"
          stop-opacity=".1"
-         id="stop7" />
+         offset="1" />
     </linearGradient>
     <clipPath
        id="a-2">
       <rect
-         width="108"
-         height="20"
-         rx="3"
-         fill="#ffffff"
-         id="rect10-5"
+         y="0"
          x="0"
-         y="0" />
+         id="rect10-5"
+         fill="#ffffff"
+         rx="3"
+         height="20"
+         width="108" />
     </clipPath>
     <linearGradient
-       inkscape:collect="always"
-       xlink:href="#b"
-       id="linearGradient1116"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="scale(2.32379,0.43033148)"
-       x1="0"
-       y1="0"
+       y2="46.4758"
        x2="0"
-       y2="46.4758" />
+       y1="0"
+       x1="0"
+       gradientTransform="scale(2.32379,0.43033148)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient1116"
+       xlink:href="#b"
+       inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
-     inkscape:window-maximized="0"
-     inkscape:window-y="0"
-     inkscape:window-x="208"
-     inkscape:window-height="1040"
-     inkscape:window-width="1374"
-     showborder="false"
-     fit-margin-bottom="0"
-     fit-margin-right="0"
-     fit-margin-left="0"
-     fit-margin-top="0"
-     showgrid="false"
-     inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="mm"
-     inkscape:cy="16.441259"
-     inkscape:cx="36.271075"
-     inkscape:zoom="3.959798"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="28.378103"
+     inkscape:cy="-19.21403"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g1114"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showborder="false"
+     inkscape:window-width="1374"
+     inkscape:window-height="1040"
+     inkscape:window-x="208"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2401">
     <rdf:RDF>
@@ -100,67 +100,67 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(-49.016893,-173.70529)"
-     id="layer1"
+     inkscape:label="Laag 1"
      inkscape:groupmode="layer"
-     inkscape:label="Laag 1">
+     id="layer1"
+     transform="translate(-49.016893,-173.70529)">
     <g
-       transform="matrix(0.26458333,0,0,0.26458333,49.016893,173.70529)"
-       clip-path="url(#a-2)"
-       id="g1104"
-       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_kernels.png"
+       inkscape:export-ydpi="1200"
        inkscape:export-xdpi="1200"
-       inkscape:export-ydpi="1200">
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_kernels.png"
+       id="g1104"
+       clip-path="url(#a-2)"
+       transform="matrix(0.26458333,0,0,0.26458333,49.016893,173.70529)">
       <path
-         fill="#555555"
+         id="path1098"
          d="M 0,0 H 47 V 20 H 0 Z"
-         id="path1098" />
+         fill="#555555" />
       <path
-         style="fill:#c526f3;fill-opacity:1;stroke-width:1.10622"
-         fill="#f37726"
+         id="path1100"
          d="M 33.3527,0 H 108 V 20 H 33.3527 Z"
-         id="path1100" />
+         fill="#f37726"
+         style="fill:#c526f3;fill-opacity:1;stroke-width:1.10622" />
       <path
-         fill="url(#b)"
-         d="M 0,0 H 108 V 20 H 0 Z"
+         style="fill:url(#linearGradient1116)"
          id="path1102"
-         style="fill:url(#linearGradient1116)" />
+         d="M 0,0 H 108 V 20 H 0 Z"
+         fill="url(#b)" />
     </g>
     <g
-       fill="#ffffff"
-       text-anchor="middle"
-       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
-       font-size="11px"
-       id="g1114"
-       transform="matrix(0.26458333,0,0,0.26458333,47.459272,173.70529)"
-       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_kernels.png"
+       inkscape:export-ydpi="1200"
        inkscape:export-xdpi="1200"
-       inkscape:export-ydpi="1200">
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_kernels.png"
+       transform="matrix(0.26458333,0,0,0.26458333,47.459272,173.70529)"
+       id="g1114"
+       font-size="11px"
+       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
+       text-anchor="middle"
+       fill="#ffffff">
       <text
-         x="23.5"
-         y="15"
-         fill="#010101"
+         id="text1106"
          fill-opacity="0.3"
-         id="text1106" />
-      <text
-         x="23.5"
-         y="14"
-         id="text1108" />
-      <text
-         x="76.5"
-         y="15"
          fill="#010101"
-         fill-opacity="0.3"
-         id="text1110">Kernels</text>
+         y="15"
+         x="23.5" />
       <text
-         x="76.5"
+         id="text1108"
          y="14"
-         id="text1112">Kernels</text>
+         x="23.5" />
+      <text
+         id="text1110"
+         fill-opacity="0.3"
+         fill="#010101"
+         y="15"
+         x="76.5">kernels</text>
+      <text
+         id="text1112"
+         y="14"
+         x="76.5">kernels</text>
     </g>
   </g>
 </svg>

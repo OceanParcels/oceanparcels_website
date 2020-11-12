@@ -8,123 +8,123 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="tags_beginner.svg"
-   id="svg2404"
-   version="1.1"
-   viewBox="0 0 28.574999 5.2916665"
+   width="28.574999mm"
    height="5.2916665mm"
-   width="28.574999mm">
+   viewBox="0 0 28.574999 5.2916665"
+   version="1.1"
+   id="svg2404"
+   sodipodi:docname="tags_beginner.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
   <defs
      id="defs2398">
     <clipPath
        id="a">
       <rect
-         width="108"
-         height="20"
-         rx="3"
-         fill="#ffffff"
-         id="rect10"
+         y="0"
          x="0"
-         y="0" />
+         id="rect10"
+         fill="#ffffff"
+         rx="3"
+         height="20"
+         width="108" />
     </clipPath>
     <linearGradient
-       id="b"
-       x2="0"
-       y2="46.4758"
-       gradientTransform="scale(2.32379,0.43033148)"
-       x1="0"
+       gradientUnits="userSpaceOnUse"
        y1="0"
-       gradientUnits="userSpaceOnUse">
+       x1="0"
+       gradientTransform="scale(2.32379,0.43033148)"
+       y2="46.4758"
+       x2="0"
+       id="b">
       <stop
-         offset="0"
+         id="stop5"
+         stop-opacity=".1"
          stop-color="#bbb"
-         stop-opacity=".1"
-         id="stop5" />
+         offset="0" />
       <stop
-         offset="1"
+         id="stop7"
          stop-opacity=".1"
-         id="stop7" />
+         offset="1" />
     </linearGradient>
     <clipPath
        id="a-2">
       <rect
-         width="108"
-         height="20"
-         rx="3"
-         fill="#ffffff"
-         id="rect10-5"
+         y="0"
          x="0"
-         y="0" />
+         id="rect10-5"
+         fill="#ffffff"
+         rx="3"
+         height="20"
+         width="108" />
     </clipPath>
     <clipPath
        id="a-3">
       <rect
-         width="108"
-         height="20"
-         rx="3"
-         fill="#ffffff"
-         id="rect10-6"
+         y="0"
          x="0"
-         y="0" />
+         id="rect10-6"
+         fill="#ffffff"
+         rx="3"
+         height="20"
+         width="108" />
     </clipPath>
     <clipPath
        id="a-5">
       <rect
-         width="108"
-         height="20"
-         rx="3"
-         fill="#ffffff"
-         id="rect10-2"
+         y="0"
          x="0"
-         y="0" />
+         id="rect10-2"
+         fill="#ffffff"
+         rx="3"
+         height="20"
+         width="108" />
     </clipPath>
     <clipPath
        id="a-8">
       <rect
-         width="108"
-         height="20"
-         rx="3"
-         fill="#ffffff"
-         id="rect10-56"
+         y="0"
          x="0"
-         y="0" />
+         id="rect10-56"
+         fill="#ffffff"
+         rx="3"
+         height="20"
+         width="108" />
     </clipPath>
     <linearGradient
-       inkscape:collect="always"
-       xlink:href="#b"
-       id="linearGradient1176"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="scale(2.32379,0.43033148)"
-       x1="0"
-       y1="0"
+       y2="46.4758"
        x2="0"
-       y2="46.4758" />
+       y1="0"
+       x1="0"
+       gradientTransform="scale(2.32379,0.43033148)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient1176"
+       xlink:href="#b"
+       inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
-     inkscape:window-maximized="0"
-     inkscape:window-y="0"
-     inkscape:window-x="208"
-     inkscape:window-height="1040"
-     inkscape:window-width="1374"
-     showborder="false"
-     fit-margin-bottom="0"
-     fit-margin-right="0"
-     fit-margin-left="0"
-     fit-margin-top="0"
-     showgrid="false"
-     inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="mm"
-     inkscape:cy="-0.025764853"
-     inkscape:cx="37.909356"
-     inkscape:zoom="3.959798"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="44.365849"
+     inkscape:cy="-47.959708"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g1164"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showborder="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata2401">
     <rdf:RDF>
@@ -133,67 +133,67 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(-22.524652,-182.40532)"
-     id="layer1"
+     inkscape:label="Laag 1"
      inkscape:groupmode="layer"
-     inkscape:label="Laag 1">
+     id="layer1"
+     transform="translate(-22.524652,-182.40532)">
     <g
-       transform="matrix(0.26458333,0,0,0.26458333,22.524652,182.40532)"
-       clip-path="url(#a-8)"
-       id="g1164"
-       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_beginner.png"
+       inkscape:export-ydpi="1200"
        inkscape:export-xdpi="1200"
-       inkscape:export-ydpi="1200">
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_beginner.png"
+       id="g1164"
+       clip-path="url(#a-8)"
+       transform="matrix(0.26458333,0,0,0.26458333,22.524652,182.40532)">
       <path
-         fill="#555555"
+         id="path1158"
          d="M 0,0 H 47 V 20 H 0 Z"
-         id="path1158" />
+         fill="#555555" />
       <path
-         style="fill:#96f326;fill-opacity:1;stroke-width:1.10622"
-         fill="#f37726"
+         id="path1160"
          d="M 33.3527,0 H 108 V 20 H 33.3527 Z"
-         id="path1160" />
+         fill="#f37726"
+         style="fill:#50880a;fill-opacity:1;stroke-width:1.10740158;stroke-miterlimit:4;stroke-dasharray:none" />
       <path
-         fill="url(#b)"
-         d="M 0,0 H 108 V 20 H 0 Z"
+         style="fill:url(#linearGradient1176)"
          id="path1162"
-         style="fill:url(#linearGradient1176)" />
+         d="M 0,0 H 108 V 20 H 0 Z"
+         fill="url(#b)" />
     </g>
     <g
-       fill="#ffffff"
-       text-anchor="middle"
-       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
-       font-size="11px"
-       id="g1174"
-       transform="matrix(0.26458333,0,0,0.26458333,20.967031,182.40532)"
-       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_beginner.png"
+       inkscape:export-ydpi="1200"
        inkscape:export-xdpi="1200"
-       inkscape:export-ydpi="1200">
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_beginner.png"
+       transform="matrix(0.26458333,0,0,0.26458333,20.967031,182.40532)"
+       id="g1174"
+       font-size="11px"
+       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
+       text-anchor="middle"
+       fill="#ffffff">
       <text
-         x="23.5"
-         y="15"
-         fill="#010101"
+         id="text1166"
          fill-opacity="0.3"
-         id="text1166" />
-      <text
-         x="23.5"
-         y="14"
-         id="text1168" />
-      <text
-         x="76.5"
-         y="15"
          fill="#010101"
-         fill-opacity="0.3"
-         id="text1170">Beginner</text>
+         y="15"
+         x="23.5" />
       <text
-         x="76.5"
+         id="text1168"
          y="14"
-         id="text1172">Beginner</text>
+         x="23.5" />
+      <text
+         id="text1170"
+         fill-opacity="0.3"
+         fill="#010101"
+         y="15"
+         x="76.5">beginner</text>
+      <text
+         id="text1172"
+         y="14"
+         x="76.5">beginner</text>
     </g>
   </g>
 </svg>

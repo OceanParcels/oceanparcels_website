@@ -8,79 +8,79 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="28.574999mm"
-   height="5.2916665mm"
-   viewBox="0 0 28.574999 5.2916665"
-   version="1.1"
-   id="svg1197"
+   sodipodi:docname="tags_general.svg"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="tags_general.svg">
+   id="svg1197"
+   version="1.1"
+   viewBox="0 0 28.574999 5.2916665"
+   height="5.2916665mm"
+   width="28.574999mm">
   <defs
      id="defs1191">
     <clipPath
        id="a">
       <rect
-         y="0"
-         x="0"
-         id="rect10"
-         fill="#ffffff"
-         rx="3"
+         width="108"
          height="20"
-         width="108" />
+         rx="3"
+         fill="#ffffff"
+         id="rect10"
+         x="0"
+         y="0" />
     </clipPath>
     <linearGradient
-       y2="46.4758"
-       x2="0"
-       y1="0"
-       x1="0"
-       gradientTransform="scale(2.32379,0.43033148)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient1156"
+       inkscape:collect="always"
        xlink:href="#b"
-       inkscape:collect="always" />
-    <linearGradient
+       id="linearGradient1156"
        gradientUnits="userSpaceOnUse"
-       y1="0"
-       x1="0"
        gradientTransform="scale(2.32379,0.43033148)"
-       y2="46.4758"
+       x1="0"
+       y1="0"
        x2="0"
-       id="b">
+       y2="46.4758" />
+    <linearGradient
+       id="b"
+       x2="0"
+       y2="46.4758"
+       gradientTransform="scale(2.32379,0.43033148)"
+       x1="0"
+       y1="0"
+       gradientUnits="userSpaceOnUse">
       <stop
-         id="stop5"
-         stop-opacity=".1"
+         offset="0"
          stop-color="#bbb"
-         offset="0" />
-      <stop
-         id="stop7"
          stop-opacity=".1"
-         offset="1" />
+         id="stop5" />
+      <stop
+         offset="1"
+         stop-opacity=".1"
+         id="stop7" />
     </linearGradient>
   </defs>
   <sodipodi:namedview
-     showborder="false"
-     fit-margin-bottom="0"
-     fit-margin-right="0"
-     fit-margin-left="0"
-     fit-margin-top="0"
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="19.473305"
-     inkscape:cy="30.312913"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     inkscape:document-rotation="0"
-     showgrid="false"
-     inkscape:window-width="1374"
-     inkscape:window-height="1040"
-     inkscape:window-x="130"
+     inkscape:window-maximized="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="0" />
+     inkscape:window-x="130"
+     inkscape:window-height="1040"
+     inkscape:window-width="1374"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="g1154"
+     inkscape:document-units="mm"
+     inkscape:cy="-34.40045"
+     inkscape:cx="71.105698"
+     inkscape:zoom="3.959798"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showborder="false" />
   <metadata
      id="metadata1194">
     <rdf:RDF>
@@ -89,67 +89,67 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(-52.992262,-97.139881)"
-     inkscape:label="Laag 1"
+     id="layer1"
      inkscape:groupmode="layer"
-     id="layer1">
+     inkscape:label="Laag 1"
+     transform="translate(-52.992262,-97.139881)">
     <g
-       inkscape:export-ydpi="1200"
-       inkscape:export-xdpi="1200"
-       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_general.png"
-       id="g1144"
+       transform="matrix(0.26458333,0,0,0.26458333,52.992262,97.139881)"
        clip-path="url(#a)"
-       transform="matrix(0.26458333,0,0,0.26458333,52.992262,97.139881)">
+       id="g1144"
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_general.png"
+       inkscape:export-xdpi="1200"
+       inkscape:export-ydpi="1200">
       <path
-         id="path1138"
+         fill="#555555"
          d="M 0,0 H 47 V 20 H 0 Z"
-         fill="#555555" />
+         id="path1138" />
       <path
-         id="path1140"
-         d="M 33.3527,0 H 108 V 20 H 33.3527 Z"
+         style="fill:#f32626;fill-opacity:1;stroke-width:1.10622"
          fill="#f37726"
-         style="fill:#f32626;fill-opacity:1;stroke-width:1.10622" />
+         d="M 33.3527,0 H 108 V 20 H 33.3527 Z"
+         id="path1140" />
       <path
-         style="fill:url(#linearGradient1156)"
-         id="path1142"
+         fill="url(#b)"
          d="M 0,0 H 108 V 20 H 0 Z"
-         fill="url(#b)" />
+         id="path1142"
+         style="fill:url(#linearGradient1156)" />
     </g>
     <g
-       inkscape:export-ydpi="1200"
-       inkscape:export-xdpi="1200"
-       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_general.png"
-       transform="matrix(0.26458333,0,0,0.26458333,51.434641,97.139881)"
-       id="g1154"
-       font-size="11px"
-       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
+       fill="#ffffff"
        text-anchor="middle"
-       fill="#ffffff">
+       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
+       font-size="11px"
+       id="g1154"
+       transform="matrix(0.26458333,0,0,0.26458333,51.434641,97.139881)"
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_general.png"
+       inkscape:export-xdpi="1200"
+       inkscape:export-ydpi="1200">
       <text
-         id="text1146"
-         fill-opacity="0.3"
-         fill="#010101"
+         x="23.5"
          y="15"
-         x="23.5" />
-      <text
-         id="text1148"
-         y="14"
-         x="23.5" />
-      <text
-         id="text1150"
-         fill-opacity="0.3"
          fill="#010101"
-         y="15"
-         x="76.5">General</text>
+         fill-opacity="0.3"
+         id="text1146" />
       <text
-         id="text1152"
+         x="23.5"
          y="14"
-         x="76.5">General</text>
+         id="text1148" />
+      <text
+         x="76.5"
+         y="15"
+         fill="#010101"
+         fill-opacity="0.3"
+         id="text1150">general</text>
+      <text
+         x="76.5"
+         y="14"
+         id="text1152">general</text>
     </g>
   </g>
 </svg>
