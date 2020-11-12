@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="tags_fieldset.svg"
+   id="svg2404"
+   version="1.1"
+   viewBox="0 0 28.574999 5.2916665"
+   height="5.2916665mm"
+   width="28.574999mm">
+  <defs
+     id="defs2398">
+    <clipPath
+       id="a">
+      <rect
+         width="108"
+         height="20"
+         rx="3"
+         fill="#ffffff"
+         id="rect10"
+         x="0"
+         y="0" />
+    </clipPath>
+    <linearGradient
+       id="b"
+       x2="0"
+       y2="46.4758"
+       gradientTransform="scale(2.32379,0.43033148)"
+       x1="0"
+       y1="0"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#bbb"
+         stop-opacity=".1"
+         id="stop5" />
+      <stop
+         offset="1"
+         stop-opacity=".1"
+         id="stop7" />
+    </linearGradient>
+    <clipPath
+       id="a-2">
+      <rect
+         width="108"
+         height="20"
+         rx="3"
+         fill="#ffffff"
+         id="rect10-5"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="a-3">
+      <rect
+         width="108"
+         height="20"
+         rx="3"
+         fill="#ffffff"
+         id="rect10-6"
+         x="0"
+         y="0" />
+    </clipPath>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#b"
+       id="linearGradient998"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(2.32379,0.43033148)"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="46.4758" />
+    <linearGradient
+       y2="46.4758"
+       x2="0"
+       y1="0"
+       x1="0"
+       gradientTransform="scale(2.32379,0.43033148)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3221"
+       xlink:href="#b"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-maximized="0"
+     inkscape:window-y="0"
+     inkscape:window-x="208"
+     inkscape:window-height="1040"
+     inkscape:window-width="1374"
+     showborder="false"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="-29.369676"
+     inkscape:cx="61.734266"
+     inkscape:zoom="3.959798"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata2401">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-42.279757,-185.8261)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Laag 1">
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,42.279757,185.8261)"
+       clip-path="url(#a-3)"
+       id="g986"
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_fieldset.png"
+       inkscape:export-xdpi="1200"
+       inkscape:export-ydpi="1200">
+      <path
+         fill="#555555"
+         d="M 0,0 H 47 V 20 H 0 Z"
+         id="path980" />
+      <path
+         style="fill:#f3cf26;fill-opacity:1;stroke-width:1.10622"
+         fill="#f37726"
+         d="M 33.3527,0 H 108 V 20 H 33.3527 Z"
+         id="path982" />
+      <path
+         fill="url(#b)"
+         d="M 0,0 H 108 V 20 H 0 Z"
+         id="path984"
+         style="fill:url(#linearGradient3221)" />
+      <path
+         id="path1000"
+         d="M 0,0 H 47 V 20 H 0 Z"
+         fill="#555555" />
+      <path
+         id="path1002"
+         d="M 33.3527,0 H 108 V 20 H 33.3527 Z"
+         fill="#f37726"
+         style="fill:#f3cf26;fill-opacity:1;stroke-width:1.10622" />
+      <path
+         style="fill:url(#linearGradient998)"
+         id="path1004"
+         d="M 0,0 H 108 V 20 H 0 Z"
+         fill="url(#b)" />
+    </g>
+    <g
+       fill="#ffffff"
+       text-anchor="middle"
+       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
+       font-size="11px"
+       id="g996"
+       transform="matrix(0.26458333,0,0,0.26458333,40.722136,185.8261)"
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_fieldset.png"
+       inkscape:export-xdpi="1200"
+       inkscape:export-ydpi="1200">
+      <text
+         x="23.5"
+         y="15"
+         fill="#010101"
+         fill-opacity="0.3"
+         id="text988" />
+      <text
+         x="23.5"
+         y="14"
+         id="text990" />
+      <text
+         x="76.5"
+         y="15"
+         fill="#010101"
+         fill-opacity="0.3"
+         id="text992">FieldSet</text>
+      <text
+         x="76.5"
+         y="14"
+         id="text994">FieldSet</text>
+    </g>
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,40.722136,185.8261)"
+       id="g1014"
+       font-size="11px"
+       font-family="'DejaVu Sans', Verdana, Geneva, sans-serif"
+       text-anchor="middle"
+       fill="#ffffff"
+       inkscape:export-filename="C:\Users\Gebruiker\Documents\GitHub\oceanparcels_website\images\tags_fieldset.png"
+       inkscape:export-xdpi="1200"
+       inkscape:export-ydpi="1200">
+      <text
+         id="text1006"
+         fill-opacity="0.3"
+         fill="#010101"
+         y="15"
+         x="23.5" />
+      <text
+         id="text1008"
+         y="14"
+         x="23.5" />
+      <text
+         id="text1010"
+         fill-opacity="0.3"
+         fill="#010101"
+         y="15"
+         x="76.5">FieldSet</text>
+      <text
+         id="text1012"
+         y="14"
+         x="76.5">FieldSet</text>
+    </g>
+  </g>
+</svg>
