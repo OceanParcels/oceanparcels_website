@@ -42,7 +42,10 @@ hr {
 }
 
 .team-photo {
+  text-align:center;
+  display:block;
   max-width:280px;
+  max-height:200px;
   margin: 0 auto;
 }
 
