@@ -130,15 +130,15 @@
       </p><p>
 
       The code from the Ocean<b>Parcels</b> project is licensed under an open source <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md">MIT license</a> and can be downloaded from <a href="https://github.com/OceanParcels/parcels">github.com/OceanParcels/parcels</a> or installed via <a href="https://anaconda.org/conda-forge/parcels">anaconda.org/conda-forge/parcels</a>:
-      </p><p>
+    </p><p>
       <a href="https://mybinder.org/v2/gh/OceanParcels/parcels_examples_binder/master?urlpath=lab/tree/parcels_examples/parcels_tutorial.ipynb"><img src="https://mybinder.org/badge.svg"></a>
       <a href="https://github.com/oceanparcels/parcels/"><img src="https://github.com/oceanparcels/parcels/workflows/test-suite/badge.svg?branch=master"></a>
       <a href="https://anaconda.org/conda-forge/parcels/"><img src="https://anaconda.org/conda-forge/parcels/badges/version.svg"></a>
       <a href="https://anaconda.org/conda-forge/parcels/"><img src="https://anaconda.org/conda-forge/parcels/badges/latest_release_date.svg"></a>
-      </p><p>
+    </p><p>
 
       The manuscript detailing this first release of Parcels, version 0.9, has been published in <a href="https://www.geosci-model-dev.net/10/4175/2017/gmd-10-4175-2017.html">Geoscientific Model Development</a> and can be cited as:
-      </p><p>
+    </p><p>
       <div class="card">
         <div class="card-header" role="tab">
           <h5 class="mb-0">
@@ -188,7 +188,7 @@
     <li>Install Anaconda's Miniconda following the steps at <a href="https://conda.io/docs/user-guide/install/">https://conda.io/docs/user-guide/install/</a>, making sure to select the Python-3 version. If you're on Linux / macOS, it also assumes that you installed Miniconda-3 to your home directory.</li>
     <p></p>
     <li>Start a terminal (Linux / macOS) or the Anaconda prompt (Windows). Activate the root (or base) environment of your Miniconda and create an environment containing Parcels, all its essential dependencies, and the nice-to-have Jupyter, cartopy, and ffmpeg packages:
-    <pre><code class="language-bash">conda activate root  # Linux / macOS
+      <pre><code class="language-bash">conda activate root  # Linux / macOS
 activate root        # Windows
 
 conda create -n py3_parcels -c conda-forge python=3.6 parcels jupyter cartopy ffmpeg</code></pre></li>
@@ -199,30 +199,30 @@ conda create -n py3_parcels -c conda-forge python=3.6 parcels jupyter cartopy ff
       <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
 activate py3_parcels        # Windows</code></pre></li>
     <li>Get a copy of the Parcels tutorials and examples, as well as the data required to run these:
-    <pre><code class="language-bash">parcels_get_examples parcels_examples</code></pre></li>
+      <pre><code class="language-bash">parcels_get_examples parcels_examples</code></pre></li>
     <i>*Note that if you are on Windows and you get a <code>Fatal error in launcher</code> error, you can instead download the data with</i>
-      <i><pre><code class="language-bash">curl https://raw.githubusercontent.com/OceanParcels/parcels/master/parcels/scripts/get_examples.py > parcels_get_examples.py
+    <i><pre><code class="language-bash">curl https://raw.githubusercontent.com/OceanParcels/parcels/master/parcels/scripts/get_examples.py > parcels_get_examples.py
 python parcels_get_examples.py parcels_examples</code></pre></i></li>
-      <li>Run the simplest of the examples to validate that you have a working Parcels setup:
-        <pre><code class="language-bash">cd parcels_examples
+    <li>Run the simplest of the examples to validate that you have a working Parcels setup:
+      <pre><code class="language-bash">cd parcels_examples
 python example_peninsula.py --fieldset 100 100</code></pre></li>
     <i>*Note that if you are on macOS and get a compilation error, you may need to accept the Apple xcode license </i> (<code  class="language-bash">xcode-select --install</code>). <i>If this does not solve the compilation error, you may want to try running </i> <code  class="language-bash">export CC=gcc</code> <i>. If the compilation error remains, you may want to check <a href="https://stackoverflow.com/a/58323411/5172570">this solution</a></i>.
     <p></p>
     <li>Optionally, if you want to run all the examples and tutorials, start Jupyter and open the tutorial notebooks:
-    <pre><code class="language-bash">jupyter notebook</code></pre></li>
+      <pre><code class="language-bash">jupyter notebook</code></pre></li>
     <p></p>
     <li>The next time you start a terminal and want to work with Parcels, activate the environment with:
-    <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
+      <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
 activate py3_parcels        # Windows</code></pre></li>
   </ol>
 
   <p></p>
   <h4>Installing a non-released version of Parcels</h4>
 
-    There might be cases where you want to install a version of Parcels that has not been released yet.  (Perhaps, if you want to use a bleeding-edge feature which already is included on Github, but not in the conda-forge package.)
+  There might be cases where you want to install a version of Parcels that has not been released yet.  (Perhaps, if you want to use a bleeding-edge feature which already is included on Github, but not in the conda-forge package.)
 
   Then, just after step 2 of <a href="#installing">Installing Parcels</a> above, use the following commands to remove the conda-forge package again, and use <code>pip</code> to install Parcels from Github:
-    <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
+  <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
 activate py3_parcels        # Windows
 
 conda remove --force parcels
@@ -233,7 +233,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
   <h4>Installation for developers</h4>
 
   Parcels depends on a working Python installation, a netCDF installation, a C compiler, and various Python packages.  If you prefer to maintain your own Python installation providing all this, <code class="language-bash">git clone</code> the <a href="https://github.com/OceanParcels/parcels">master branch of Parcels</a> and manually install all packages listed under <code>dependencies</code> in the environment files (<a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_linux.yml">environment_py3_linux.yml</a> for Linux, <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_osx.yml">environment_py3_osx.yml</a> for OSX and
-    <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_win.yml">environment_py3_win.yml</a> for Windows), before running <code class="language-bash">python setup.py install</code>.
+  <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_win.yml">environment_py3_win.yml</a> for Windows), before running <code class="language-bash">python setup.py install</code>.
 
   <p></p>
   <h4 id="parallel_install">Installation of Parallel Parcels with MPI</h4>
@@ -248,7 +248,7 @@ conda activate py3_parcels_mpi</code></pre></li>
       <pre><code class="language-bash">export CONDA_BUILD_SYSROOT=/
 export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/
 </code></pre>
-    Where possibly you may need to change the <code class="language-bash">MacOSX10.14.sdk</code> into the macOS version you have.</li>
+      Where possibly you may need to change the <code class="language-bash">MacOSX10.14.sdk</code> into the macOS version you have.</li>
     <p></p>
     <li>Now, you can run in Parallel with e.g.
       <pre><code class="language-bash">mpirun -np 2 python parcels/examples/example_stommel.py -p 10
@@ -328,291 +328,252 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb" onclick="captureTutorialLink('tutorial_periodic_boundaries');">
+  <p></p>
+  <h3 id="Fieldset-tutorials">More tutorials on how to correctly set up your fieldset</h3>
+  <p></p>
+  <div class="card-columns">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb" onclick="captureTutorialLink('tutorial_periodic_boundaries');">
+        <div class="card-header" role="tab">
+          <h5>
             Periodic boundaries tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_periodic_boundaries.ipynb" onclick="captureTutorialLink('tutorial_periodic_boundaries');"><img class="card-img-top team-photo" src="images/tutorial_periodicbcs.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial to explain how to implement periodic (east-west or north-south) boundaries in Parcels
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial to explain how to implement periodic (east-west or north-south) boundaries in Parcels</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_interpolation.ipynb" onclick="captureTutorialLink('tutorial_interpolation');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_interpolation.ipynb" onclick="captureTutorialLink('tutorial_interpolation');">
+        <div class="card-header" role="tab">
+          <h5>
             Interpolation tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_interpolation.ipynb" onclick="captureTutorialLink('tutorial_interpolation');"><img class="card-img-top team-photo" src="images/tutorial_interpolation.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial on the different interpolation methods available in Parcels
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial on the different interpolation methods available in Parcels</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb" onclick="captureTutorialLink('tutorial_unitconverters');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb" onclick="captureTutorialLink('tutorial_unitconverters');">
+        <div class="card-header" role="tab">
+          <h5>
             UnitConverter tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_unitconverters.ipynb" onclick="captureTutorialLink('tutorial_unitconverters');"><img class="card-img-top team-photo" src="images/tutorial_unitconverters.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial on how Parcels automatically converts the units of velocity and diffusion fields from meters to degrees
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial on how Parcels automatically converts the units of velocity and diffusion fields from meters to degrees</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timestamps.ipynb" onclick="captureTutorialLink('tutorial_timestamps');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timestamps.ipynb" onclick="captureTutorialLink('tutorial_timestamps');">
+        <div class="card-header" role="tab">
+          <h5>
             TimeStamps tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_timestamps.ipynb" onclick="captureTutorialLink('tutorial_timestamps');"><img class="card-img-top team-photo" src="images/Calendar-595b40b65ba036ed117d3cfb.png" alt=""></a>
-          <p class="card-text">
-            A tutorial on how to create <code class="language-python">FieldSets</code> from NetCDF files with Calendars that can't be parsed by <code class="language-python">xarray</code>.
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial on how to create <code class="language-python">FieldSets</code> from NetCDF files with Calendars that can't be parsed by <code class="language-python">xarray</code>.</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb" onclick="captureTutorialLink('documentation_indexing');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb" onclick="captureTutorialLink('documentation_indexing');">
+        <div class="card-header" role="tab">
+          <h5>
             Grid indexing documentation
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_indexing.ipynb" onclick="captureTutorialLink('documentation_indexing');"><img class="card-img-top team-photo" src="images/gridindexing.png" alt=""></a>
-          <p class="card-text">
-            A notebook with background on the different types of grid indexing
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A notebook with background on the different types of grid indexing.</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_curvilinear.ipynb" onclick="captureTutorialLink('tutorial_nemo_curvilinear');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_curvilinear.ipynb" onclick="captureTutorialLink('tutorial_nemo_curvilinear');">
+        <div class="card-header" role="tab">
+          <h5>
             Curvilinear grid tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_curvilinear.ipynb" onclick="captureTutorialLink('tutorial_nemo_curvilinear');"><img class="card-img-top team-photo" src="images/tutorial_nemo.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial to explain how to use Parcels with hydrodynamic models that use curvilinear grids, such as NEMO
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial to explain how to use Parcels with hydrodynamic models that use curvilinear grids, such as NEMO.</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_3D.ipynb" onclick="captureTutorialLink('tutorial_nemo_3D');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_3D.ipynb" onclick="captureTutorialLink('tutorial_nemo_3D');">
+        <div class="card-header" role="tab">
+          <h5>
             Nemo 3D tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_nemo_3D.ipynb" onclick="captureTutorialLink('tutorial_nemo_3D');"><img class="card-img-top team-photo" src="images/tutorial_nemo3d.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial to create a <code class="language-python">FieldSet</code> for three-dimensional NEMO data and other C-grids
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial to create a <code class="language-python">FieldSet</code> for three-dimensional NEMO data and other C-grids.</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb" onclick="captureTutorialLink('tutorial_SummedFields');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb" onclick="captureTutorialLink('tutorial_SummedFields');">
+        <div class="card-header" role="tab">
+          <h5>
             SummedFields tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_SummedFields.ipynb" onclick="captureTutorialLink('tutorial_SummedFields');"><img class="card-img-top team-photo" src="images/tutorial_summedfields.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial on how to combine different Fields for advection
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial on how to combine different Fields for advection.</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
+      </a>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb" onclick="captureTutorialLink('tutorial_NestedFields');">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb" onclick="captureTutorialLink('tutorial_NestedFields');">
+        <div class="card-header" role="tab">
+          <h5>
             NestedFields tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_NestedFields.ipynb" onclick="captureTutorialLink('tutorial_NestedFields');"><img class="card-img-top team-photo" src="images/tutorial_nestedfields.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial on how to use Fields with (multiple) nested domains
-          </p>
-        </div>
-        <div class="card-footer">
+          </h5>
+          <small>A tutorial on how to use Fields with (multiple) nested domains.</small>
           <img src="https://img.shields.io/badge/type-FieldSet-c3b100">
         </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb" onclick="captureTutorialLink('tutorial_delaystart');">
-            Delay start tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb" onclick="captureTutorialLink('tutorial_delaystart');"><img class="card-img-top team-photo" src="images/tutorial_delaystart.gif" alt=""></a>
-          <p class="card-text">
-            A tutorial on how to release particles after the start of a run
-          </p>
-        </div>
-        <div class="card-footer">
-          <img src="https://img.shields.io/badge/type-ParticleSet-11aed5">
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb" onclick="captureTutorialLink('tutorial_diffusion');">
-            Diffusion tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb" onclick="captureTutorialLink('tutorial_diffusion');"><img class="card-img-top team-photo" src="images/tutorial_diffusion.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial about how to use the advection-diffusion kernels, with a short explanation of how diffusion is implemented in a Lagrangian setting.
-          </p>
-        </div>
-        <div class="card-footer">
-          <img src="https://img.shields.io/badge/type-kernels-aa11d5">
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb" onclick="captureTutorialLink('tutorial_Argofloats');">
-            Argo Kernel tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb" onclick="captureTutorialLink('tutorial_Argofloats');"><img class="card-img-top team-photo" src="images/tutorial_argo.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial on how to create a custom Kernel that mimics sampling of Argo floats
-          </p>
-        </div>
-        <div class="card-footer">
-          <img src="https://img.shields.io/badge/type-kernels-aa11d5">
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_sampling.ipynb" onclick="captureTutorialLink('tutorial_sampling');">
-            Field Sampling tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_sampling.ipynb" onclick="captureTutorialLink('tutorial_sampling');"><img class="card-img-top team-photo" src="images/tutorial_sampling.svg" alt=""></a>
-          <p class="card-text">
-            A tutorial on how to sample fields with particles
-          </p>
-        </div>
-        <div class="card-footer">
-          <img src="https://img.shields.io/badge/type-kernels-aa11d5">
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_MPI.ipynb" onclick="captureTutorialLink('documentation_MPI');">
-            Parallelisation documentation
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_MPI.ipynb" onclick="captureTutorialLink('documentation_MPI');"><img class="card-img-top team-photo" src="images/parcelsParallel_before.png" alt=""></a>
-          <p class="card-text">
-            A notebook with background on the parallelisation approach
-          </p>
-        </div>
-        <div class="card-footer">
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">
-          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_plotting.ipynb" onclick="captureTutorialLink('tutorial_plotting');">
-            Plotting tutorial
-          </a>
-        </h4>
-        <div class="card-body">
-          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_plotting.ipynb" onclick="captureTutorialLink('tutorial_plotting');"><img class="card-img-top team-photo" src="images/tutorial_plotting.png" alt=""></a>
-          <p class="card-text">
-            A tutorial on how to plot particle trajectories
-          </p>
-        </div>
-        <div class="card-footer">
-          <img src="https://img.shields.io/badge/type-output-1fba3f">
-        </div>
-      </div>
+      </a>
     </div>
   </div>
+
+  <p></p>
+  <h3 id="Particleset-tutorials">More tutorials on creating ParticleSets</h3>
+  <p></p>
+  <div class="card-columns">
+    <div class="card">
+      <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb" onclick="captureTutorialLink('tutorial_delaystart');">
+        <div class="card-header" role="tab">
+          <h5>
+            Delay start tutorial
+          </h5>
+          <small>A tutorial on how to release particles after the start of a run.</small>
+          <img src="https://img.shields.io/badge/type-ParticleSet-11aed5">
+        </div>
+      </a>
+    </div>
+  </div>
+
+
+<!--    <div class="col-lg-4 mb-4">-->
+<!--      <div class="card h-100">-->
+<!--        <h4 class="card-header">-->
+<!--          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb" onclick="captureTutorialLink('tutorial_delaystart');">-->
+<!--            Delay start tutorial-->
+<!--          </a>-->
+<!--        </h4>-->
+<!--        <div class="card-body">-->
+<!--          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_delaystart.ipynb" onclick="captureTutorialLink('tutorial_delaystart');"><img class="card-img-top team-photo" src="images/tutorial_delaystart.gif" alt=""></a>-->
+<!--          <p class="card-text">-->
+<!--            A tutorial on how to release particles after the start of a run-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="card-footer">-->
+<!--          <img src="https://img.shields.io/badge/type-ParticleSet-11aed5">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-lg-4 mb-4">-->
+<!--      <div class="card h-100">-->
+<!--        <h4 class="card-header">-->
+<!--          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb" onclick="captureTutorialLink('tutorial_diffusion');">-->
+<!--            Diffusion tutorial-->
+<!--          </a>-->
+<!--        </h4>-->
+<!--        <div class="card-body">-->
+<!--          <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb" onclick="captureTutorialLink('tutorial_diffusion');"><img class="card-img-top team-photo" src="images/tutorial_diffusion.svg" alt=""></a>-->
+<!--          <p class="card-text">-->
+<!--            A tutorial about how to use the advection-diffusion kernels, with a short explanation of how diffusion is implemented in a Lagrangian setting.-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="card-footer">-->
+<!--          <img src="https://img.shields.io/badge/type-kernels-aa11d5">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-lg-4 mb-4">-->
+<!--      <div class="card h-100">-->
+<!--        <h4 class="card-header">-->
+<!--          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb" onclick="captureTutorialLink('tutorial_Argofloats');">-->
+<!--            Argo Kernel tutorial-->
+<!--          </a>-->
+<!--        </h4>-->
+<!--        <div class="card-body">-->
+<!--          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_Argofloats.ipynb" onclick="captureTutorialLink('tutorial_Argofloats');"><img class="card-img-top team-photo" src="images/tutorial_argo.svg" alt=""></a>-->
+<!--          <p class="card-text">-->
+<!--            A tutorial on how to create a custom Kernel that mimics sampling of Argo floats-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="card-footer">-->
+<!--          <img src="https://img.shields.io/badge/type-kernels-aa11d5">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-lg-4 mb-4">-->
+<!--      <div class="card h-100">-->
+<!--        <h4 class="card-header">-->
+<!--          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_sampling.ipynb" onclick="captureTutorialLink('tutorial_sampling');">-->
+<!--            Field Sampling tutorial-->
+<!--          </a>-->
+<!--        </h4>-->
+<!--        <div class="card-body">-->
+<!--          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_sampling.ipynb" onclick="captureTutorialLink('tutorial_sampling');"><img class="card-img-top team-photo" src="images/tutorial_sampling.svg" alt=""></a>-->
+<!--          <p class="card-text">-->
+<!--            A tutorial on how to sample fields with particles-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="card-footer">-->
+<!--          <img src="https://img.shields.io/badge/type-kernels-aa11d5">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-lg-4 mb-4">-->
+<!--      <div class="card h-100">-->
+<!--        <h4 class="card-header">-->
+<!--          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_MPI.ipynb" onclick="captureTutorialLink('documentation_MPI');">-->
+<!--            Parallelisation documentation-->
+<!--          </a>-->
+<!--        </h4>-->
+<!--        <div class="card-body">-->
+<!--          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/documentation_MPI.ipynb" onclick="captureTutorialLink('documentation_MPI');"><img class="card-img-top team-photo" src="images/parcelsParallel_before.png" alt=""></a>-->
+<!--          <p class="card-text">-->
+<!--            A notebook with background on the parallelisation approach-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="card-footer">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-lg-4 mb-4">-->
+<!--      <div class="card h-100">-->
+<!--        <h4 class="card-header">-->
+<!--          <a class="tutorialLink" href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_plotting.ipynb" onclick="captureTutorialLink('tutorial_plotting');">-->
+<!--            Plotting tutorial-->
+<!--          </a>-->
+<!--        </h4>-->
+<!--        <div class="card-body">-->
+<!--          <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_plotting.ipynb" onclick="captureTutorialLink('tutorial_plotting');"><img class="card-img-top team-photo" src="images/tutorial_plotting.png" alt=""></a>-->
+<!--          <p class="card-text">-->
+<!--            A tutorial on how to plot particle trajectories-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="card-footer">-->
+<!--          <img src="https://img.shields.io/badge/type-output-1fba3f">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <hr>
 
@@ -882,12 +843,12 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
           Nooteboom, PD, P Delandmeter, E van Sebille, PK Bijl, HA Dijkstra, AS von der Heydt (2020), <i>PLoS ONE</i>, <i>15</i>, e0238650<br>
           <a class="collapsed card-link" data-toggle="collapse" href="#Nooteboom2020" aria-expanded="true">[ Expand abstract ]</a>
           <a class="card-link" href="https://doi.org/10.1371/journal.pone.0238650"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a>
-        <div id="Nooteboom2020" class="collapse" role="tabpanel">
-          <div class="card-body">
-            Any type of non-buoyant material in the ocean is transported horizontally by currents during its sinking journey. This lateral transport can be far from negligible for small sinking velocities. To estimate its magnitude and direction, the material is often modelled as a set of Lagrangian particles advected by current velocities that are obtained from Ocean General Circulation Models (OGCMs). State-of-the-art OGCMs are strongly eddying, similar to the real ocean, providing results with a spatial resolution on the order of 10 km on a daily frequency. While the importance of eddies in OGCMs is well-appreciated in the physical oceanographic community, other marine research communities may not. Further, many long term climate modelling simulations (e.g. in paleoclimate) rely on lower spatial resolution models that do not capture mesoscale features. To demonstrate how much the absence of mesoscale features in low-resolution models influences the Lagrangian particle transport, we simulate the transport of sinking Lagrangian particles using low- and high-resolution global OGCMs, and assess the lateral transport differences resulting from the difference in spatial and temporal model resolution. We find major differences between the transport in the non-eddying OGCM and in the eddying OGCM. Addition of stochastic noise to the particle trajectories in the non-eddying OGCM parameterises the effect of eddies well in some cases (e.g. in the North Pacific gyre). The effect of a coarser temporal resolution (once every 5 days versus monthly) is smaller compared to a coarser spatial resolution (0.1° versus 1° horizontally). We recommend to use sinking Lagrangian particles, representing e.g. marine snow, microplankton or sinking plastic, only with velocity fields from eddying Eulerian OGCMs, requiring high-resolution models in e.g. paleoceanographic studies. To increase the accessibility of our particle trace simulations, we launch planktondrift.science.uu.nl, an online tool to reconstruct the surface origin of sedimentary particles in a specific location.
+          <div id="Nooteboom2020" class="collapse" role="tabpanel">
+            <div class="card-body">
+              Any type of non-buoyant material in the ocean is transported horizontally by currents during its sinking journey. This lateral transport can be far from negligible for small sinking velocities. To estimate its magnitude and direction, the material is often modelled as a set of Lagrangian particles advected by current velocities that are obtained from Ocean General Circulation Models (OGCMs). State-of-the-art OGCMs are strongly eddying, similar to the real ocean, providing results with a spatial resolution on the order of 10 km on a daily frequency. While the importance of eddies in OGCMs is well-appreciated in the physical oceanographic community, other marine research communities may not. Further, many long term climate modelling simulations (e.g. in paleoclimate) rely on lower spatial resolution models that do not capture mesoscale features. To demonstrate how much the absence of mesoscale features in low-resolution models influences the Lagrangian particle transport, we simulate the transport of sinking Lagrangian particles using low- and high-resolution global OGCMs, and assess the lateral transport differences resulting from the difference in spatial and temporal model resolution. We find major differences between the transport in the non-eddying OGCM and in the eddying OGCM. Addition of stochastic noise to the particle trajectories in the non-eddying OGCM parameterises the effect of eddies well in some cases (e.g. in the North Pacific gyre). The effect of a coarser temporal resolution (once every 5 days versus monthly) is smaller compared to a coarser spatial resolution (0.1° versus 1° horizontally). We recommend to use sinking Lagrangian particles, representing e.g. marine snow, microplankton or sinking plastic, only with velocity fields from eddying Eulerian OGCMs, requiring high-resolution models in e.g. paleoceanographic studies. To increase the accessibility of our particle trace simulations, we launch planktondrift.science.uu.nl, an online tool to reconstruct the surface origin of sedimentary particles in a specific location.
+            </div>
           </div>
         </div>
-      </div>
       </div>
 
       <p></p>
