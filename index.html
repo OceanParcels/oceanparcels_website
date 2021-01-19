@@ -715,24 +715,6 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
       <div class="card">
         <div class="card-header" role="tab">
           <h5 class="mb-0">
-            3-D ocean particle tracking modeling reveals extensive vertical movement and downstream interdependence of closed areas in the northwest Atlantic
-          </h5>
-          Wang, S, EL Kenchington, Z Wang, I Yashayaev, AJ Davies (2020), <i>Scientific Reports</i>, <i>in press</i><br>
-          <a class="collapsed card-link" data-toggle="collapse" href="#Wang2020" aria-expanded="true">[ Expand abstract ]</a>
-          <a class="card-link" href="https://doi.org/10.1038/s41598-020-76617-x"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a>
-        </div>
-        <div id="Wang2020" class="collapse" role="tabpanel">
-          <div class="card-body">
-            Novel 3-D passive particle tracking experiments were performed in the northwest Atlantic to elucidate connectivity among areas closed to protect vulnerable marine ecosystems. We examined (1) the degree of vertical movement of particles released at different depths and locations; (2) the location of potential source populations for the deep-sea taxa protected by the closures; and (3) the degree of functional connectivity. A long-term oceanographic dataset (EN4) was queried to characterize the temperature and salinity regimes in each of the closed areas as a basis for interpreting recently published climate change projections. Using the Parcels Lagrangian particle tracking framework and the BNAM hydrodynamic model, we found enhanced connectivity over previously developed 2-D models and unexpected, current-driven, strong (to a maximum of about 1340 m) downward displacement at depth (450, 1000 and 2250 m), with weaker upward displacement except for the release depth of 2250 m which showed upward movement of 955 m with a drift duration of 3 months. The current velocities create down-stream interdependence among closed areas and allow redundancy to develop in some of the areas of the network, with some of the larger areas also showing retention. Source populations for sponges in the upstream closure are likely in adjacent waters of the Canadian continental shelf. Collectively this information can be used to inform management decisions related to the size and placement of these closed areas, and vertical velocity surfaces have potential for use in species distribution modeling of benthic species and habitats.
-          </div>
-        </div>
-      </div>
-
-      <p></p>
-
-      <div class="card">
-        <div class="card-header" role="tab">
-          <h5 class="mb-0">
             Ocean Surface Connectivity in the Arctic: Capabilities and Caveats of Community Detection in Lagrangian Flow Networks
           </h5>
           Reijnders, D, EJ van Leeuwen, E van Sebille (2021), <i>Journal of Geophysical Research</i>, <i>126</i>, e2020JC016416<br>
@@ -742,6 +724,43 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
         <div id="Reijnders2020" class="collapse" role="tabpanel">
           <div class="card-body">
             To identify barriers to transport in a fluid domain, community detection algorithms from network science have been used to divide the domain into clusters that are sparsely connected with each other. In a previous application to the closed domain of the Mediterranean Sea, communities detected by the Infomap algorithm have barriers that often coincide with well‐known oceanographic features. We apply this clustering method to the surface of the Arctic and subarctic oceans and thereby show that it can also be applied to open domains. First, we construct a Lagrangian flow network by simulating the exchange of Lagrangian particles between different bins in an icosahedral‐hexagonal grid. Then, Infomap is applied to identify groups of well‐connected bins. The resolved transport barriers include naturally occurring structures, such as the major currents. As expected, clusters in the Arctic are affected by seasonal and annual variations in sea‐ice concentration. An important caveat of community detection algorithms is that many different divisions into clusters may qualify as good solutions. Moreover, while certain cluster boundaries lie consistently at the same location between different good solutions, other boundary locations vary significantly, making it difficult to assess the physical meaning of a single solution. We therefore consider an ensemble of solutions to find persistent boundaries, trends and correlations with surface velocities and sea‐ice cover.
+          </div>
+        </div>
+      </div>
+
+
+      <p></p>
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            Ordering of trajectories reveals hierarchical finite-time coherent sets in Lagrangian particle data: detecting Agulhas rings in the South Atlantic Ocean
+          </h5>
+          Wichmann, D, C Kehl, HA Dijkstra, E van Sebille  (2021), <i>Nonlinear Processes in Geophysics</i>, <i>28</i>, 43-59<br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#Wichmann2021" aria-expanded="true">[ Expand abstract ]</a>
+          <a class="card-link" href="https://doi.org/10.5194/npg-28-43-2021"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a>
+        </div>
+        <div id="Wichmann2021" class="collapse" role="tabpanel">
+          <div class="card-body">
+            The detection of finite-time coherent particle sets in Lagrangian trajectory data using data clustering techniques is an active research field at the moment. Yet, the clustering methods mostly employed so far have been based on graph partitioning, which assigns each trajectory to a cluster, i.e. there is no concept of noisy, incoherent trajectories. This is problematic for applications to the ocean, where many small coherent eddies are present in a large fluid domain. In addition, to our knowledge none of the existing methods to detect finite-time coherent sets has an intrinsic notion of coherence hierarchy, i.e. the detection of finite-time coherent sets at different spatial scales. Such coherence hierarchies are present in the ocean, where basin scale coherence coexists with smaller coherent structures such as jets and mesoscale eddies. Here, for the first time in this context, we use the density-based clustering algorithm OPTICS (Ankerst et al., 1999) to detect finite-time coherent particle sets in Lagrangian trajectory data. Different from partition based clustering methods, OPTICS does not require to fix the number of clusters beforehand. Derived clustering results contain a concept of noise, such that not every trajectory needs to be part of a cluster. OPTICS also has a major advantage compared to the previously used DBSCAN method, as it can detect clusters of varying density. Further, clusters can also be detected based on density changes instead of absolute density. Finally, OPTICS based clusters have an intrinsically hierarchical structure, which allows to detect coherent trajectory sets at different spatial scales at once. We apply OPTICS directly to Lagrangian trajectory data in the Bickley jet model flow and successfully detect the expected vortices and the jet. The resulting clustering separates the vortices and the jet from background noise, with an imprint of the hierarchical clustering structure of coherent, small scale vortices in a coherent, large-scale, background flow. We then apply our method to a set of virtual trajectories released in the eastern South Atlantic Ocean in an eddying ocean model and successfully detect Agulhas rings. At larger scale, our method also separates the eastward and westward moving parts of the subtropical gyre. We illustrate the difference between our approach and partition based k-Means clustering using a 2-dimensional embedding of the trajectories derived from classical multidimensional scaling. We also show how OPTICS can be applied to the spectral embedding of a trajectory based network to overcome the problems of k-Means spectral clustering in detecting Agulhas rings.
+          </div>
+        </div>
+      </div>
+
+      <p></p>
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
+            3-D ocean particle tracking modeling reveals extensive vertical movement and downstream interdependence of closed areas in the northwest Atlantic
+          </h5>
+          Wang, S, EL Kenchington, Z Wang, I Yashayaev, AJ Davies (2020), <i>Scientific Reports</i>, <i>in press</i><br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#Wang2020" aria-expanded="true">[ Expand abstract ]</a>
+          <a class="card-link" href="https://doi.org/10.1038/s41598-020-76617-x"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a>
+        </div>
+        <div id="Wang2020" class="collapse" role="tabpanel">
+          <div class="card-body">
+            Novel 3-D passive particle tracking experiments were performed in the northwest Atlantic to elucidate connectivity among areas closed to protect vulnerable marine ecosystems. We examined (1) the degree of vertical movement of particles released at different depths and locations; (2) the location of potential source populations for the deep-sea taxa protected by the closures; and (3) the degree of functional connectivity. A long-term oceanographic dataset (EN4) was queried to characterize the temperature and salinity regimes in each of the closed areas as a basis for interpreting recently published climate change projections. Using the Parcels Lagrangian particle tracking framework and the BNAM hydrodynamic model, we found enhanced connectivity over previously developed 2-D models and unexpected, current-driven, strong (to a maximum of about 1340 m) downward displacement at depth (450, 1000 and 2250 m), with weaker upward displacement except for the release depth of 2250 m which showed upward movement of 955 m with a drift duration of 3 months. The current velocities create down-stream interdependence among closed areas and allow redundancy to develop in some of the areas of the network, with some of the larger areas also showing retention. Source populations for sponges in the upstream closure are likely in adjacent waters of the Canadian continental shelf. Collectively this information can be used to inform management decisions related to the size and placement of these closed areas, and vertical velocity surfaces have potential for use in species distribution modeling of benthic species and habitats.
           </div>
         </div>
       </div>
@@ -778,24 +797,6 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
         <div id="Busch2020" class="collapse" role="tabpanel">
           <div class="card-body">
             Connectivity is a fundamental process driving the persistence of marine populations and their adaptation potential in response to environmental change. In this study, we analysed the population genetics of two morphologically highly similar deep-sea sponge clades (Phakellia hirondellei and the ‘Topsentia-and-Petromica’ clade, (hereafter referred to as ‘TaP clade’)) at three locations in the Cantabrian Sea and simultaneously assessed the corresponding host microbiome by 16S rRNA gene sequencing. A virtual particle tracking approach (Lagrangian modelling) was applied to assess oceanographic connectivity in the study area. We observed overall genetic uniformity for both sponge clades. Notably, subtle genetic differences were observed for sponges of the TaP clade and also their microbiomes between a canyon and bank location, < 100 km apart and with the same depth range. The Lagrangian model output suggests a strong retention of larvae in the study area with variable inter-annual connectivity via currents between the three sampling regions. We conclude that geologic features (canyons) and the prevailing ocean currents may dictate sponge holobiont connectivity and that differentiation can emerge even on small spatial scales.
-          </div>
-        </div>
-      </div>
-
-      <p></p>
-
-      <div class="card">
-        <div class="card-header" role="tab">
-          <h5 class="mb-0">
-            Ordering of trajectories reveals hierarchical finite-time coherent sets in Lagrangian particle data: detecting Agulhas rings in the South Atlantic Ocean
-          </h5>
-          Wichmann, D, C Kehl, HA Dijkstra, E van Sebille  (2020), <i>Nonlinear Processes in Geophysics</i>, <i>in press</i><br>
-          <a class="collapsed card-link" data-toggle="collapse" href="#Wichmann2020b" aria-expanded="true">[ Expand abstract ]</a>
-          <a class="card-link" href="https://doi.org/10.5194/npg-2020-28"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a>
-        </div>
-        <div id="Wichmann2020b" class="collapse" role="tabpanel">
-          <div class="card-body">
-            The detection of finite-time coherent particle sets in Lagrangian trajectory data using data clustering techniques is an active research field at the moment. Yet, the clustering methods mostly employed so far have been based on graph partitioning, which assigns each trajectory to a cluster, i.e. there is no concept of noisy, incoherent trajectories. This is problematic for applications to the ocean, where many small coherent eddies are present in a large fluid domain. In addition, to our knowledge none of the existing methods to detect finite-time coherent sets has an intrinsic notion of coherence hierarchy, i.e. the detection of finite-time coherent sets at different spatial scales. Such coherence hierarchies are present in the ocean, where basin scale coherence coexists with smaller coherent structures such as jets and mesoscale eddies. Here, for the first time in this context, we use the density-based clustering algorithm OPTICS (Ankerst et al., 1999) to detect finite-time coherent particle sets in Lagrangian trajectory data. Different from partition based clustering methods, OPTICS does not require to fix the number of clusters beforehand. Derived clustering results contain a concept of noise, such that not every trajectory needs to be part of a cluster. OPTICS also has a major advantage compared to the previously used DBSCAN method, as it can detect clusters of varying density. Further, clusters can also be detected based on density changes instead of absolute density. Finally, OPTICS based clusters have an intrinsically hierarchical structure, which allows to detect coherent trajectory sets at different spatial scales at once. We apply OPTICS directly to Lagrangian trajectory data in the Bickley jet model flow and successfully detect the expected vortices and the jet. The resulting clustering separates the vortices and the jet from background noise, with an imprint of the hierarchical clustering structure of coherent, small scale vortices in a coherent, large-scale, background flow. We then apply our method to a set of virtual trajectories released in the eastern South Atlantic Ocean in an eddying ocean model and successfully detect Agulhas rings. At larger scale, our method also separates the eastward and westward moving parts of the subtropical gyre. We illustrate the difference between our approach and partition based k-Means clustering using a 2-dimensional embedding of the trajectories derived from classical multidimensional scaling. We also show how OPTICS can be applied to the spectral embedding of a trajectory based network to overcome the problems of k-Means spectral clustering in detecting Agulhas rings.
           </div>
         </div>
       </div>
