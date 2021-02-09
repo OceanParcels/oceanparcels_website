@@ -1,0 +1,193 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>parcels.kernels.TEOSseawaterdensity &#8212; Parcels 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96368922-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.kernels.TEOSseawaterdensity</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for parcels.kernels.TEOSseawaterdensity</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Collection of pre-built sea water density kernels&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PolyTEOS10_bsq&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="PolyTEOS10_bsq"><a class="viewcode-back" href="../../../index.html#parcels.kernels.TEOSseawaterdensity.PolyTEOS10_bsq">[docs]</a><span class="k">def</span> <span class="nf">PolyTEOS10_bsq</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    # calculates density based on the polyTEOS10-bsq algorithm from Appendix A.2 of</span>
+<span class="sd">    # https://www.sciencedirect.com/science/article/pii/S1463500315000566</span>
+<span class="sd">    # requires fieldset.abs_salinity and fieldset.cons_temperature Fields in the fieldset</span>
+<span class="sd">    # and a particle.density Variable in the ParticleSet</span>
+<span class="sd">    #</span>
+<span class="sd">    # References:</span>
+<span class="sd">    #  Roquet, F., Madec, G., McDougall, T. J., Barker, P. M., 2014: Accurate</span>
+<span class="sd">    #   polynomial expressions for the density and specific volume of</span>
+<span class="sd">    #   seawater using the TEOS-10 standard. Ocean Modelling.</span>
+<span class="sd">    #  McDougall, T. J., D. R. Jackett, D. G. Wright and R. Feistel, 2003:</span>
+<span class="sd">    #   Accurate and computationally efficient algorithms for potential</span>
+<span class="sd">    #   temperature and density of seawater.  Journal of Atmospheric and</span>
+<span class="sd">    #   Oceanic Technology, 20, 730-741.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">Z</span> <span class="o">=</span> <span class="o">-</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span>  <span class="c1"># note: use negative depths!</span>
+    <span class="n">SA</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">abs_salinity</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
+    <span class="n">CT</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">cons_temperature</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
+
+    <span class="n">SAu</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="mf">35.16504</span> <span class="o">/</span> <span class="mi">35</span>
+    <span class="n">CTu</span> <span class="o">=</span> <span class="mi">40</span>
+    <span class="n">Zu</span> <span class="o">=</span> <span class="mf">1e4</span>
+    <span class="n">deltaS</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">R000</span> <span class="o">=</span> <span class="mf">8.0189615746e+02</span>
+    <span class="n">R100</span> <span class="o">=</span> <span class="mf">8.6672408165e+02</span>
+    <span class="n">R200</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.7864682637e+03</span>
+    <span class="n">R300</span> <span class="o">=</span> <span class="mf">2.0375295546e+03</span>
+    <span class="n">R400</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.2849161071e+03</span>
+    <span class="n">R500</span> <span class="o">=</span> <span class="mf">4.3227585684e+02</span>
+    <span class="n">R600</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.0579916612e+01</span>
+    <span class="n">R010</span> <span class="o">=</span> <span class="mf">2.6010145068e+01</span>
+    <span class="n">R110</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.5281885265e+01</span>
+    <span class="n">R210</span> <span class="o">=</span> <span class="mf">8.1770425108e+01</span>
+    <span class="n">R310</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.6888046321e+01</span>
+    <span class="n">R410</span> <span class="o">=</span> <span class="mf">1.7681814114e+01</span>
+    <span class="n">R510</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.9193502195e+00</span>
+    <span class="n">R020</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.7074170417e+01</span>
+    <span class="n">R120</span> <span class="o">=</span> <span class="mf">6.1548258127e+01</span>
+    <span class="n">R220</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.0362551501e+01</span>
+    <span class="n">R320</span> <span class="o">=</span> <span class="mf">2.9130021253e+01</span>
+    <span class="n">R420</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.4723692739e+00</span>
+    <span class="n">R030</span> <span class="o">=</span> <span class="mf">2.1661789529e+01</span>
+    <span class="n">R130</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.3449108469e+01</span>
+    <span class="n">R230</span> <span class="o">=</span> <span class="mf">1.9717078466e+01</span>
+    <span class="n">R330</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.1742946532e+00</span>
+    <span class="n">R040</span> <span class="o">=</span> <span class="o">-</span><span class="mf">8.3627885467e+00</span>
+    <span class="n">R140</span> <span class="o">=</span> <span class="mf">1.1311538584e+01</span>
+    <span class="n">R240</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.3563304045e+00</span>
+    <span class="n">R050</span> <span class="o">=</span> <span class="mf">5.4048723791e-01</span>
+    <span class="n">R150</span> <span class="o">=</span> <span class="mf">4.8169980163e-01</span>
+    <span class="n">R060</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.9083568888e-01</span>
+    <span class="n">R001</span> <span class="o">=</span> <span class="mf">1.9681925209e+01</span>
+    <span class="n">R101</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.2549998214e+01</span>
+    <span class="n">R201</span> <span class="o">=</span> <span class="mf">5.0774768218e+01</span>
+    <span class="n">R301</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0938076334e+01</span>
+    <span class="n">R401</span> <span class="o">=</span> <span class="mf">6.6051753097e+00</span>
+    <span class="n">R011</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.3336301113e+01</span>
+    <span class="n">R111</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.4870114575e+00</span>
+    <span class="n">R211</span> <span class="o">=</span> <span class="mf">5.0042598061e+00</span>
+    <span class="n">R311</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.5399043664e-01</span>
+    <span class="n">R021</span> <span class="o">=</span> <span class="mf">6.7080479603e+00</span>
+    <span class="n">R121</span> <span class="o">=</span> <span class="mf">3.5063081279e+00</span>
+    <span class="n">R221</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.8795372996e+00</span>
+    <span class="n">R031</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.4649669534e+00</span>
+    <span class="n">R131</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.5077101279e-01</span>
+    <span class="n">R041</span> <span class="o">=</span> <span class="mf">5.5927935970e-01</span>
+    <span class="n">R002</span> <span class="o">=</span> <span class="mf">2.0660924175e+00</span>
+    <span class="n">R102</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.9527603989e+00</span>
+    <span class="n">R202</span> <span class="o">=</span> <span class="mf">2.5019633244e+00</span>
+    <span class="n">R012</span> <span class="o">=</span> <span class="mf">2.0564311499e+00</span>
+    <span class="n">R112</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.1311365518e-01</span>
+    <span class="n">R022</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.2419983026e+00</span>
+    <span class="n">R003</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.3342758797e-02</span>
+    <span class="n">R103</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.8507636718e-02</span>
+    <span class="n">R013</span> <span class="o">=</span> <span class="mf">3.7969820455e-01</span>
+    <span class="n">ss</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">SA</span> <span class="o">+</span> <span class="n">deltaS</span><span class="p">)</span> <span class="o">/</span> <span class="n">SAu</span><span class="p">)</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">CT</span> <span class="o">/</span> <span class="n">CTu</span>
+    <span class="n">zz</span> <span class="o">=</span> <span class="o">-</span><span class="n">Z</span> <span class="o">/</span> <span class="n">Zu</span>
+    <span class="n">rz3</span> <span class="o">=</span> <span class="n">R013</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="n">R103</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R003</span>
+    <span class="n">rz2</span> <span class="o">=</span> <span class="p">(</span><span class="n">R022</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="n">R112</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R012</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">(</span><span class="n">R202</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R102</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R002</span>
+    <span class="n">rz1</span> <span class="o">=</span> <span class="p">(((</span><span class="n">R041</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="n">R131</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R031</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">(</span><span class="n">R221</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R121</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R021</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">((</span><span class="n">R311</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R211</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R111</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R011</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">(((</span><span class="n">R401</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R301</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R201</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R101</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R001</span>
+    <span class="n">rz0</span> <span class="o">=</span> <span class="p">(((((</span><span class="n">R060</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="n">R150</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R050</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">(</span><span class="n">R240</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R140</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R040</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">((</span><span class="n">R330</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R230</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R130</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R030</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">(((</span><span class="n">R420</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R320</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R220</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R120</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R020</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">((((</span><span class="n">R510</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R410</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R310</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R210</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R110</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R010</span><span class="p">)</span> <span class="o">*</span> <span class="n">tt</span> <span class="o">+</span> <span class="p">(((((</span><span class="n">R600</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R500</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R400</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R300</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R200</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R100</span><span class="p">)</span> <span class="o">*</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">R000</span>
+    <span class="n">particle</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="p">((</span><span class="n">rz3</span> <span class="o">*</span> <span class="n">zz</span> <span class="o">+</span> <span class="n">rz2</span><span class="p">)</span> <span class="o">*</span> <span class="n">zz</span> <span class="o">+</span> <span class="n">rz1</span><span class="p">)</span> <span class="o">*</span> <span class="n">zz</span> <span class="o">+</span> <span class="n">rz0</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../../index.html">
+              <img class="logo" src="../../../_static/parcelslogo.png" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.kernels.TEOSseawaterdensity</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

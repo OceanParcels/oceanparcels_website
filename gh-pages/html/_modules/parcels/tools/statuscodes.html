@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.tools.error &#8212; Parcels 2.2.1 documentation</title>
+    <title>parcels.tools.statuscodes &#8212; Parcels 2.2.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -44,7 +44,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.tools.error</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.tools.statuscodes</a></li> 
       </ul>
     </div>  
 
@@ -53,21 +53,28 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for parcels.tools.error</h1><div class="highlight"><pre>
+  <h1>Source code for parcels.tools.statuscodes</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Collection of pre-built recovery kernels&quot;&quot;&quot;</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldSamplingError&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldOutOfBoundError&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeExtrapolationError&#39;</span><span class="p">,</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;StateCode&#39;</span><span class="p">,</span> <span class="s1">&#39;OperationCode&#39;</span><span class="p">,</span> <span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;FieldSamplingError&#39;</span><span class="p">,</span> <span class="s1">&#39;FieldOutOfBoundError&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeExtrapolationError&#39;</span><span class="p">,</span>
            <span class="s1">&#39;KernelError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfBoundsError&#39;</span><span class="p">,</span> <span class="s1">&#39;ThroughSurfaceError&#39;</span><span class="p">,</span> <span class="s1">&#39;OutOfTimeError&#39;</span><span class="p">,</span>
            <span class="s1">&#39;recovery_map&#39;</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">ErrorCode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">StateCode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">Success</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">Evaluate</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="k">class</span> <span class="nc">OperationCode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">Repeat</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">Delete</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">StopExecution</span> <span class="o">=</span> <span class="mi">4</span>
+
+
+<span class="k">class</span> <span class="nc">ErrorCode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">Error</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">ErrorInterpolation</span> <span class="o">=</span> <span class="mi">51</span>
     <span class="n">ErrorOutOfBounds</span> <span class="o">=</span> <span class="mi">6</span>
@@ -75,7 +82,17 @@
     <span class="n">ErrorTimeExtrapolation</span> <span class="o">=</span> <span class="mi">7</span>
 
 
-<div class="viewcode-block" id="FieldSamplingError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.FieldSamplingError">[docs]</a><span class="k">class</span> <span class="nc">FieldSamplingError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">DaskChunkingError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Error indicating to the user that something with setting up Dask and chunked fieldsets went wrong.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_class_type</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">]: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">src_class_type</span><span class="p">),</span> <span class="n">message</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DaskChunkingError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="FieldSamplingError"><a class="viewcode-back" href="../../../index.html#parcels.tools.statuscodes.FieldSamplingError">[docs]</a><span class="k">class</span> <span class="nc">FieldSamplingError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Utility error class to propagate erroneous field sampling in Scipy mode&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -89,7 +106,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">FieldSamplingError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="FieldOutOfBoundError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.FieldOutOfBoundError">[docs]</a><span class="k">class</span> <span class="nc">FieldOutOfBoundError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+<div class="viewcode-block" id="FieldOutOfBoundError"><a class="viewcode-back" href="../../../index.html#parcels.tools.statuscodes.FieldOutOfBoundError">[docs]</a><span class="k">class</span> <span class="nc">FieldOutOfBoundError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Utility error class to propagate out-of-bound field sampling in Scipy mode&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -118,7 +135,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">FieldOutOfBoundSurfaceError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="TimeExtrapolationError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.TimeExtrapolationError">[docs]</a><span class="k">class</span> <span class="nc">TimeExtrapolationError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+<div class="viewcode-block" id="TimeExtrapolationError"><a class="viewcode-back" href="../../../index.html#parcels.tools.statuscodes.TimeExtrapolationError">[docs]</a><span class="k">class</span> <span class="nc">TimeExtrapolationError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Utility error class to propagate erroneous time extrapolation sampling in Scipy mode&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;allow_time_extrapoltion&#39;</span><span class="p">):</span>
@@ -135,7 +152,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">TimeExtrapolationError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="KernelError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.KernelError">[docs]</a><span class="k">class</span> <span class="nc">KernelError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+<div class="viewcode-block" id="KernelError"><a class="viewcode-back" href="../../../index.html#parcels.tools.statuscodes.KernelError">[docs]</a><span class="k">class</span> <span class="nc">KernelError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;General particle kernel error with optional custom message&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -175,7 +192,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">InterpolationError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="OutOfBoundsError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.OutOfBoundsError">[docs]</a><span class="k">class</span> <span class="nc">OutOfBoundsError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
+<div class="viewcode-block" id="OutOfBoundsError"><a class="viewcode-back" href="../../../index.html#parcels.tools.statuscodes.OutOfBoundsError">[docs]</a><span class="k">class</span> <span class="nc">OutOfBoundsError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Particle kernel error for out-of-bounds field sampling&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -190,7 +207,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">OutOfBoundsError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ThroughSurfaceError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.ThroughSurfaceError">[docs]</a><span class="k">class</span> <span class="nc">ThroughSurfaceError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
+<div class="viewcode-block" id="ThroughSurfaceError"><a class="viewcode-back" href="../../../index.html#parcels.tools.statuscodes.ThroughSurfaceError">[docs]</a><span class="k">class</span> <span class="nc">ThroughSurfaceError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Particle kernel error for field sampling at surface&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -205,7 +222,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">ThroughSurfaceError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="OutOfTimeError"><a class="viewcode-back" href="../../../index.html#parcels.tools.error.OutOfTimeError">[docs]</a><span class="k">class</span> <span class="nc">OutOfTimeError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
+<div class="viewcode-block" id="OutOfTimeError"><a class="viewcode-back" href="../../../index.html#parcels.tools.statuscodes.OutOfTimeError">[docs]</a><span class="k">class</span> <span class="nc">OutOfTimeError</span><span class="p">(</span><span class="n">KernelError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Particle kernel error for time extrapolation field sampling&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">):</span>
@@ -297,7 +314,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.tools.error</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.tools.statuscodes</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
