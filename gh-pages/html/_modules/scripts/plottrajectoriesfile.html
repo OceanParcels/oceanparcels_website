@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>scripts.plottrajectoriesfile &#8212; Parcels  documentation</title>
+    <title>scripts.plottrajectoriesfile &#8212; Parcels 2.2.1 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">scripts.plottrajectoriesfile</a></li> 
       </ul>
@@ -73,7 +73,7 @@
 
 <div class="viewcode-block" id="plotTrajectoriesFile"><a class="viewcode-back" href="../../index.html#scripts.plottrajectoriesfile.plotTrajectoriesFile">[docs]</a><span class="k">def</span> <span class="nf">plotTrajectoriesFile</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;2d&#39;</span><span class="p">,</span> <span class="n">tracerfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tracerfield</span><span class="o">=</span><span class="s1">&#39;P&#39;</span><span class="p">,</span>
                          <span class="n">tracerlon</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">tracerlat</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">recordedvar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">movie_forward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                         <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">show_plt</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                         <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">show_plt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Quick and simple plotting of Parcels trajectories</span>
 
 <span class="sd">    :param filename: Name of Parcels-generated NetCDF file with particle positions</span>
@@ -89,6 +89,7 @@
 <span class="sd">    :param movie_forward: Boolean whether to show movie in forward or backward mode (default True)</span>
 <span class="sd">    :param bins: Number of bins to use in `hist2d` mode. See also https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist2d.html</span>
 <span class="sd">    :param show_plt: Boolean whether plot should directly be show (for py.test)</span>
+<span class="sd">    :param central_longitude: Degrees East at which to center the plot</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">environ</span><span class="p">[</span><span class="s2">&quot;HDF5_USE_FILE_LOCKING&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;FALSE&quot;</span>
@@ -114,7 +115,7 @@
         <span class="n">titlestr</span> <span class="o">=</span> <span class="s1">&#39; and &#39;</span> <span class="o">+</span> <span class="n">tracerfield</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">spherical</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;3d&#39;</span> <span class="ow">or</span> <span class="n">mesh</span> <span class="o">==</span> <span class="s1">&#39;flat&#39;</span> <span class="k">else</span> <span class="kc">True</span>
-        <span class="n">plt</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">cartopy</span> <span class="o">=</span> <span class="n">create_parcelsfig_axis</span><span class="p">(</span><span class="n">spherical</span><span class="o">=</span><span class="n">spherical</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">cartopy</span> <span class="o">=</span> <span class="n">create_parcelsfig_axis</span><span class="p">(</span><span class="n">spherical</span><span class="o">=</span><span class="n">spherical</span><span class="p">,</span> <span class="n">central_longitude</span><span class="o">=</span><span class="n">central_longitude</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">plt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>  <span class="c1"># creating axes was not possible</span>
         <span class="n">titlestr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -144,7 +145,7 @@
         <span class="n">cartopy_colorbar</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">plt</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Particle histogram&#39;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;movie2d&#39;</span><span class="p">,</span> <span class="s1">&#39;movie2d_notebook&#39;</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">lon</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">((</span><span class="n">lon</span><span class="o">+</span><span class="n">central_longitude</span><span class="o">+</span><span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span> <span class="o">-</span> <span class="mi">180</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">((</span><span class="n">lon</span><span class="o">+</span><span class="n">central_longitude</span><span class="o">+</span><span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span> <span class="o">-</span> <span class="mi">180</span><span class="p">))</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">lat</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">lat</span><span class="p">))</span>
         <span class="n">plottimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">movie_forward</span><span class="p">:</span>
@@ -254,7 +255,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">scripts.plottrajectoriesfile</a></li> 
       </ul>
