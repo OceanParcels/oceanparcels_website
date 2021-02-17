@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="eng">
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style type="text/css">
+      #map {
+		margin: auto;
+        height: 100vh;
+		width: 100vw;
+		background: #4444FF;
+      }
+	  body, html {
+		height: 100%;
+	  }
+    </style>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk7VbZaTv1WP5TvIVofiCqzp3sCPBM0pg&callback=initMap&map_ids=d315b7ffc2a2258a&libraries=&v=weekly"
+      async
+    ></script>
+  </body>
+</html>
