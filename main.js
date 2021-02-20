@@ -7,13 +7,17 @@ class RLayer {
 
 	add(feature, name="") {
 		this.features.push(feature);
-		this.layer.setSource(new ol.source.Vector({features: this.features}));
+		this.refresh();
 		this.named[name] = feature;
 	}
 
 	addTo(map, z = 2) {
 		map.addLayer(this.layer);
 		this.layer.setZIndex(z);
+	}
+
+	refresh() {
+		this.layer.setSource(new ol.source.Vector({features: this.features}));
 	}
 }
 
@@ -34,6 +38,8 @@ class DrifterApp {
 		this.lines = new RLayer(lines);
 		this.lines.addTo(this.map, 2);
 
+		this.data = undefined;
+
 		if (selection)
 		{
 			this.selected = selection.split(",");
@@ -42,6 +48,11 @@ class DrifterApp {
 		{
 			this.selected = [];
 		}
+
+		this.timeline = undefined;
+		this.keyframes = [];
+		this.animating = false;
+		this.anim_i = 0;
 	}
 
 	loadDrifters() {
@@ -68,6 +79,7 @@ class DrifterApp {
 	drawDrifters(data) {
 		let i = 0;
 		let n = Object.keys(data).length;
+		this.data = data;
 
 		// undraw all existing features
 
@@ -107,12 +119,19 @@ class DrifterApp {
 
 		return marker;
 	}
+
+	moveMarker(name, lat, lng) {
+		let marker = this.markers.named[name];
+
+		if (marker) {
+			marker.setGeometry(new ol.geom.Point(ol.proj.fromLonLat([lng, lat])));
+		}
+	}
 	
 	createLine(colour, path) {
 		let points = [];
 
-		for (let p of path) {
-			let [_, lat, lng] = p;
+		for (let [_, lat, lng] of path) {
 			points.push(ol.proj.fromLonLat([lng, lat]));
 		}
 
@@ -130,8 +149,48 @@ class DrifterApp {
 		
 	}
 	
-	mainloop(animate = false) {
-		
+	startAnimate() {
+		if (this.animating) {
+			return;
+		}
+
+		if (!this.timeline) {
+			this.timeline = {}; // may or may not be cleaner than just seeking at each step
+
+			for (let [name, path] of Object.entries(this.data))
+			{
+				for (let [time, lat, lng] of path) {
+					this.timeline[time] = this.timeline[time] || [];
+					this.timeline[time].push([name, lat, lng]);
+				}
+			}
+		}
+
+		this.keyframes = Object.keys(this.timeline).sort();
+
+		this.animating = true;
+		this.stepAnimate()
+	}
+
+	stopAnimate() {
+		this.animating = false;
+	}
+
+	stepAnimate() {
+		if (this.animating) {
+			let key = this.keyframes[this.anim_i];
+			this.anim_i = (this.anim_i + 1) % this.keyframes.length;
+
+			let events = this.timeline[key];
+
+			for (let [name, lat, lng] of events)
+			{
+				this.moveMarker(name, lat, lng);
+			}
+
+			// doing timeout here, for now, as it may be a little cleaner for pausing and continuing animations through user interaction
+			setTimeout(this.stepAnimate.bind(this), 1000)
+		}
 	}
 }
 
