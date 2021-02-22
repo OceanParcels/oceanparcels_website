@@ -24,8 +24,22 @@ class RLayer {
 
 class DrifterApp {
 	constructor(center, zoom, selection) {
+		this.playButton = document.createElement('button');
+		this.playButton.innerHTML = '>';
+
+		this.playButton.addEventListener('click', this.toggleAnimate.bind(this), false);
+
+		let playContainer = document.createElement('div');
+		playContainer.className = 'play-button ol-unselectable ol-control';
+		playContainer.appendChild(this.playButton);
+
+		let PlayControl = new ol.control.Control({
+			element: playContainer
+		});
+
 		this.map = new ol.Map({
 			target: 'map',
+			controls: [PlayControl],
 			layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
 			view: new ol.View({center: center, zoom: zoom})
 		});
@@ -53,6 +67,7 @@ class DrifterApp {
 		this.keyframes = [];
 		this.animating = false;
 		this.anim_i = 0;
+		this.anim_h = -1;
 	}
 
 	loadDrifters() {
@@ -148,11 +163,22 @@ class DrifterApp {
 	hideTooltip() {
 		
 	}
+
+	toggleAnimate(e) {
+		if (this.animating) {
+			this.stopAnimate();
+		}
+		else {
+			this.startAnimate();
+		}
+	}
 	
 	startAnimate() {
 		if (this.animating) {
 			return;
 		}
+
+		this.playButton.innerHTML = "||";
 
 		if (!this.timeline) {
 			this.timeline = {}; // may or may not be cleaner than just seeking at each step
@@ -174,6 +200,8 @@ class DrifterApp {
 
 	stopAnimate() {
 		this.animating = false;
+		this.playButton.innerHTML = ">";
+		clearTimeout(this.anim_h);
 	}
 
 	stepAnimate() {
@@ -189,7 +217,7 @@ class DrifterApp {
 			}
 
 			// doing timeout here, for now, as it may be a little cleaner for pausing and continuing animations through user interaction
-			setTimeout(this.stepAnimate.bind(this), 1000)
+			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000)
 		}
 	}
 }
