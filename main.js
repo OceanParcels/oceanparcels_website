@@ -223,7 +223,10 @@ class DrifterApp {
 		let name = feature.drifterName;
 		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
-		let hlUrl = "http://localhost:63342/chess3/driftermap.html?_ijt=6m2ltfpmdr1c91b2ml35dnavp3" + "&s=" + name;
+		urlParams.set("s", name);
+		let baseUrl = window.location.origin + window.location.pathname;
+
+		let hlUrl = baseUrl + "?" + urlParams.toString();
 
 		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}<br><a href="${hlUrl}">Highlight</a></p>`;
 	    this.overlay.setPosition(coordinate);
