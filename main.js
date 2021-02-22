@@ -37,12 +37,42 @@ class DrifterApp {
 			element: playContainer
 		});
 
+		this.unlightButton = document.createElement('button');
+		this.unlightButton.innerHTML = 'U';
+
+		this.unlightButton.addEventListener('click', this.unsetHighlight.bind(this), false);
+
+		let unlightContainer = document.createElement('div');
+		unlightContainer.className = 'unset-highlight ol-unselectable ol-control';
+		unlightContainer.appendChild(this.unlightButton);
+
+		let unlightControl = new ol.control.Control({
+			element: unlightContainer
+		});
+
+		this.container = document.getElementById('popup');
+		this.content = document.getElementById('popup-content');
+		this.closer = document.getElementById('popup-closer');
+
+		this.overlay = new ol.Overlay({
+		  element: this.container,
+		  autoPan: true,
+		  autoPanAnimation: {
+			duration: 250,
+		  },
+		});
+
+		this.closer.onclick = this.hideTooltip.bind(this);
+
 		this.map = new ol.Map({
 			target: 'map',
-			controls: [PlayControl],
+			controls: [PlayControl, unlightControl],
+			overlays: [this.overlay],
 			layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
 			view: new ol.View({center: center, zoom: zoom})
 		});
+
+		this.map.on('singleclick', this.click.bind(this));
 
 		let markers = new ol.layer.Vector({});
 		this.markers = new RLayer(markers);
@@ -81,13 +111,13 @@ class DrifterApp {
 	colourMap(name, i, n) {
 		if (this.selected.length && !this.selected.includes(name))
 		{
-			return "rgb(127, 127, 127)";
+			return ["rgba(127, 127, 127, 0.4)", 0.4, 0];
 		}
 		else {
 			let h = parseFloat(i) / (n + 1) * 360;
 			h = h.toFixed(2);
 
-			return `hsl(${h}, 100%, 50%)`;
+			return [`hsl(${h}, 100%, 50%)`, 1.0, 1];
 		}
 	}
 	
@@ -100,12 +130,12 @@ class DrifterApp {
 
 		for (let [name, path] of Object.entries(data))
 		{
-			let colour = this.colourMap(name, i, n);
+			let [colour, opacity, zindex] = this.colourMap(name, i, n);
 			let last = path[path.length - 1];
 			let [_, lat, lng] = last;
 
-			let mark = this.createMarker(colour, lat, lng);
-			let line = this.createLine(colour, path);
+			let mark = this.createMarker(colour, lat, lng, name, opacity, zindex);
+			let line = this.createLine(colour, path, opacity, zindex);
 
 			this.markers.add(mark, name);
 			this.lines.add(line, name);
@@ -114,7 +144,7 @@ class DrifterApp {
 		}
 	}
 	
-	createMarker(colour, lat, lng) {
+	createMarker(colour, lat, lng, name="", opacity=1.0, z=1) {
 		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
 
 		let marker = new ol.Feature({
@@ -122,14 +152,28 @@ class DrifterApp {
 			type: "icon",
 			geometry: new ol.geom.Point(ol.proj.fromLonLat([lng, lat]))
 		});
+		marker.drifterName = name;
+
+		if (opacity < 1.0) { // svgs have a quirky interaction with rgba opacity, so avoid that
+			let match = colour.match("rgba\\((.*),(.*),(.*),(.*)\\)");
+
+			if (match) {
+				let [_, r, g, b, a] = match;
+
+				colour = `rgb(${r}, ${g}, ${b})`;
+				opacity = parseFloat(a);
+			}
+		}
 
 		marker.setStyle(new ol.style.Style({
 			image: new ol.style.Icon({
 				anchor: [0.5, 1],
 				src: "marker.svg",
 				scale: 0.8,
+				opacity: opacity,
 				color: colour
-        	})
+        	}),
+			zIndex: z
     	}));
 
 		return marker;
@@ -143,7 +187,7 @@ class DrifterApp {
 		}
 	}
 	
-	createLine(colour, path) {
+	createLine(colour, path, opacity=1.0, z=1) {
 		let points = [];
 
 		for (let [_, lat, lng] of path) {
@@ -151,17 +195,51 @@ class DrifterApp {
 		}
 
 		let line = new ol.Feature({geometry: new ol.geom.LineString(points)});
-		line.setStyle(new ol.style.Style({stroke: new ol.style.Stroke({ color: colour, width: 2 })}));
+		line.setStyle(new ol.style.Style({
+			stroke: new ol.style.Stroke({ color: colour, width: 2}),
+			opacity: opacity,
+			zIndex: z
+		}));
 
 		return line;
 	}
-	
-	drawTooltip() {
-		
+
+	click(evt) {
+		let pixel = evt.pixel;
+		let feature = this.map.forEachFeatureAtPixel(pixel, function (f) {return f;});
+
+		if (feature && feature.get("name") === "marker") {
+			return this.showTooltip(feature);
+		}
+		else
+		{
+			return this.hideTooltip(evt);
+		}
 	}
 	
-	hideTooltip() {
-		
+	showTooltip(feature) {
+		let coordinate = feature.getGeometry().getCoordinates();
+
+		let name = feature.drifterName;
+		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+
+		let hlUrl = "http://localhost:63342/chess3/driftermap.html?_ijt=6m2ltfpmdr1c91b2ml35dnavp3" + "&s=" + name;
+
+		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}<br><a href="${hlUrl}">Highlight</a></p>`;
+	    this.overlay.setPosition(coordinate);
+	}
+	
+	hideTooltip(evt) {
+		  this.overlay.setPosition(undefined);
+		  this.closer.blur();
+		  return false;
+	}
+
+	unsetHighlight() {
+		urlParams.delete("s");
+		let baseUrl = window.location.origin + window.location.pathname;
+
+		window.location.href = baseUrl + "?" + urlParams.toString();
 	}
 
 	toggleAnimate(e) {
