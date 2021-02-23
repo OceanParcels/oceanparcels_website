@@ -1,6 +1,6 @@
-class RLayer {
-	constructor(layer) {
-		this.layer = layer;
+class VLayer {
+	constructor() {
+		this.layer = new ol.layer.Vector({});
 		this.features = [];
 		this.named = {};
 	}
@@ -16,6 +16,12 @@ class RLayer {
 		this.layer.setZIndex(z);
 	}
 
+	clear() {
+		this.features = [];
+		this.named = {};
+		this.refresh();
+	}
+
 	refresh() {
 		this.layer.setSource(new ol.source.Vector({features: this.features}));
 	}
@@ -24,31 +30,10 @@ class RLayer {
 
 class DrifterApp {
 	constructor(center, zoom, selection) {
-		this.playButton = document.createElement('button');
-		this.playButton.innerHTML = '>';
+		let controls = [];
 
-		this.playButton.addEventListener('click', this.toggleAnimate.bind(this), false);
-
-		let playContainer = document.createElement('div');
-		playContainer.className = 'play-button ol-unselectable ol-control';
-		playContainer.appendChild(this.playButton);
-
-		let PlayControl = new ol.control.Control({
-			element: playContainer
-		});
-
-		this.unlightButton = document.createElement('button');
-		this.unlightButton.innerHTML = 'U';
-
-		this.unlightButton.addEventListener('click', this.unsetHighlight.bind(this), false);
-
-		let unlightContainer = document.createElement('div');
-		unlightContainer.className = 'unset-highlight ol-unselectable ol-control';
-		unlightContainer.appendChild(this.unlightButton);
-
-		let unlightControl = new ol.control.Control({
-			element: unlightContainer
-		});
+		controls.push(this.createButton(">", this.toggleAnimate.bind(this)));		//animation button
+		controls.push(this.createButton('E', this.exportSelection.bind(this)));	//export selection button
 
 		this.container = document.getElementById('popup');
 		this.content = document.getElementById('popup-content');
@@ -66,7 +51,7 @@ class DrifterApp {
 
 		this.map = new ol.Map({
 			target: 'map',
-			controls: [PlayControl, unlightControl],
+			controls: controls,
 			overlays: [this.overlay],
 			layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
 			view: new ol.View({center: center, zoom: zoom})
@@ -74,12 +59,10 @@ class DrifterApp {
 
 		this.map.on('singleclick', this.click.bind(this));
 
-		let markers = new ol.layer.Vector({});
-		this.markers = new RLayer(markers);
+		this.markers = new VLayer();
 		this.markers.addTo(this.map, 3);
 
-		let lines = new ol.layer.Vector({});
-		this.lines = new RLayer(lines);
+		this.lines = new VLayer();
 		this.lines.addTo(this.map, 2);
 
 		this.data = undefined;
@@ -108,6 +91,21 @@ class DrifterApp {
 		$.getJSON("grouped.json", callback);
 	}
 
+	createButton(text, callback) {
+		let button = document.createElement('button');
+		button.innerHTML = text;
+
+		button.addEventListener('click', callback, false);
+
+		let container = document.createElement('div');
+		container.className = 'play-button ol-unselectable ol-control';
+		container.appendChild(button);
+
+		return new ol.control.Control({
+			element: container
+		});
+	}
+
 	colourMap(name, i, n) {
 		if (this.selected.length && !this.selected.includes(name))
 		{
@@ -119,6 +117,12 @@ class DrifterApp {
 
 			return [`hsl(${h}, 100%, 50%)`, 1.0, 1];
 		}
+	}
+
+	redrawDrifters() {
+		this.markers.clear();
+		this.lines.clear();
+		this.drawDrifters(this.data);
 	}
 	
 	drawDrifters(data) {
@@ -134,8 +138,11 @@ class DrifterApp {
 			let last = path[path.length - 1];
 			let [_, lat, lng] = last;
 
-			let mark = this.createMarker(colour, lat, lng, name, opacity, zindex);
+			let mark = this.createMarker(colour, lat, lng, opacity, zindex);
 			let line = this.createLine(colour, path, opacity, zindex);
+
+			mark.drifterName = name;
+			line.drifterName = name;
 
 			this.markers.add(mark, name);
 			this.lines.add(line, name);
@@ -143,17 +150,8 @@ class DrifterApp {
 			++i;
 		}
 	}
-	
-	createMarker(colour, lat, lng, name="", opacity=1.0, z=1) {
-		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
 
-		let marker = new ol.Feature({
-			name: "marker",
-			type: "icon",
-			geometry: new ol.geom.Point(ol.proj.fromLonLat([lng, lat]))
-		});
-		marker.drifterName = name;
-
+	svgAlphaFix(colour, opacity) {
 		if (opacity < 1.0) { // svgs have a quirky interaction with rgba opacity, so avoid that
 			let match = colour.match("rgba\\((.*),(.*),(.*),(.*)\\)");
 
@@ -164,6 +162,20 @@ class DrifterApp {
 				opacity = parseFloat(a);
 			}
 		}
+
+		return [colour, opacity];
+	}
+	
+	createMarker(colour, lat, lng, opacity=1.0, z=1) {
+		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
+
+		let marker = new ol.Feature({
+			name: "marker",
+			type: "icon",
+			geometry: new ol.geom.Point(ol.proj.fromLonLat([lng, lat]))
+		});
+
+		[colour, opacity] = this.svgAlphaFix(colour, opacity);
 
 		marker.setStyle(new ol.style.Style({
 			image: new ol.style.Icon({
@@ -208,12 +220,46 @@ class DrifterApp {
 		let pixel = evt.pixel;
 		let feature = this.map.forEachFeatureAtPixel(pixel, function (f) {return f;});
 
-		if (feature && feature.get("name") === "marker") {
-			return this.showTooltip(feature);
+		let shiftDown = evt.originalEvent.shiftKey;
+
+		if (feature) {
+			if (shiftDown)
+			{
+				let name = feature.drifterName;
+
+				if (this.selected.includes(name))
+				{
+					this.selected = this.selected.filter(s => s !== name);
+				}
+				else {
+					this.selected.push(feature.drifterName);
+				}
+
+				this.redrawDrifters();
+				return this.hideTooltip(evt);
+			}
+			else
+			{
+				this.setSelected([feature.drifterName]);
+				return this.showTooltip(feature);
+			}
 		}
 		else
 		{
+			if (!shiftDown) {
+				this.setSelected([]);
+			}
+
 			return this.hideTooltip(evt);
+		}
+	}
+
+	setSelected(selection) {
+		let prev = this.selected;
+		this.selected = selection;
+
+		if (!(prev.length === selection.length && prev.every(e => selection.includes(e)))) {
+			this.redrawDrifters();
 		}
 	}
 	
@@ -223,12 +269,7 @@ class DrifterApp {
 		let name = feature.drifterName;
 		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
-		urlParams.set("s", name);
-		let baseUrl = window.location.origin + window.location.pathname;
-
-		let hlUrl = baseUrl + "?" + urlParams.toString();
-
-		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}<br><a href="${hlUrl}">Highlight</a></p>`;
+		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}`;
 	    this.overlay.setPosition(coordinate);
 	}
 	
@@ -238,10 +279,9 @@ class DrifterApp {
 		  return false;
 	}
 
-	unsetHighlight() {
-		urlParams.delete("s");
+	exportSelection() {
+		urlParams.set("s", this.selected.join(","));
 		let baseUrl = window.location.origin + window.location.pathname;
-
 		window.location.href = baseUrl + "?" + urlParams.toString();
 	}
 
