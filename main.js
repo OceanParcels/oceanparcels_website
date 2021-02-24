@@ -243,7 +243,7 @@ class DrifterApp {
 			else
 			{
 				this.setSelected([feature.drifterName]);
-				return this.showTooltip(feature);
+				return this.showTooltip(feature.drifterName);
 			}
 		}
 		else
@@ -265,7 +265,9 @@ class DrifterApp {
 		}
 	}
 
-	showTooltip(feature) {
+	showTooltip(drifterName) {
+		let feature = this.markers.named[drifterName];
+
 		let coordinate = feature.getGeometry().getCoordinates();
 
 		let name = feature.drifterName;
