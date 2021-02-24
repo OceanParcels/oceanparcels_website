@@ -32,8 +32,10 @@ class DrifterApp {
 	constructor(center, zoom, selection) {
 		let controls = [];
 
-		controls.push(this.createButton(">", this.toggleAnimate.bind(this)));		//animation button
-		controls.push(this.createButton('E', this.exportSelection.bind(this)));	//export selection button
+		let playControl;
+		[this.playButton, playControl] = this.createButton("Start", this.toggleAnimate.bind(this));
+		controls.push(playControl);		//animation button
+		controls.push(this.createButton('Export', this.exportSelection.bind(this))[1]);	//export selection button
 
 		this.container = document.getElementById('popup');
 		this.content = document.getElementById('popup-content');
@@ -86,7 +88,7 @@ class DrifterApp {
 	loadDrifters() {
 		this.refreshDrifters(this.drawDrifters.bind(this))
 	}
-	
+
 	refreshDrifters(callback) {
 		$.getJSON("grouped.json", callback);
 	}
@@ -101,9 +103,9 @@ class DrifterApp {
 		container.className = 'play-button ol-unselectable ol-control';
 		container.appendChild(button);
 
-		return new ol.control.Control({
+		return [button, new ol.control.Control({
 			element: container
-		});
+		})];
 	}
 
 	colourMap(name, i, n) {
@@ -124,7 +126,7 @@ class DrifterApp {
 		this.lines.clear();
 		this.drawDrifters(this.data);
 	}
-	
+
 	drawDrifters(data) {
 		let i = 0;
 		let n = Object.keys(data).length;
@@ -165,7 +167,7 @@ class DrifterApp {
 
 		return [colour, opacity];
 	}
-	
+
 	createMarker(colour, lat, lng, opacity=1.0, z=1) {
 		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
 
@@ -198,7 +200,7 @@ class DrifterApp {
 			marker.setGeometry(new ol.geom.Point(ol.proj.fromLonLat([lng, lat])));
 		}
 	}
-	
+
 	createLine(colour, path, opacity=1.0, z=1) {
 		let points = [];
 
@@ -262,7 +264,7 @@ class DrifterApp {
 			this.redrawDrifters();
 		}
 	}
-	
+
 	showTooltip(feature) {
 		let coordinate = feature.getGeometry().getCoordinates();
 
@@ -272,7 +274,7 @@ class DrifterApp {
 		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}`;
 	    this.overlay.setPosition(coordinate);
 	}
-	
+
 	hideTooltip(evt) {
 		  this.overlay.setPosition(undefined);
 		  this.closer.blur();
@@ -293,13 +295,13 @@ class DrifterApp {
 			this.startAnimate();
 		}
 	}
-	
+
 	startAnimate() {
 		if (this.animating) {
 			return;
 		}
 
-		this.playButton.innerHTML = "||";
+		this.playButton.innerHTML = "Pause";
 
 		if (!this.timeline) {
 			this.timeline = {}; // may or may not be cleaner than just seeking at each step
@@ -321,7 +323,7 @@ class DrifterApp {
 
 	stopAnimate() {
 		this.animating = false;
-		this.playButton.innerHTML = ">";
+		this.playButton.innerHTML = "Start";
 		clearTimeout(this.anim_h);
 	}
 
