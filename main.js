@@ -78,15 +78,28 @@ class DrifterApp {
 			this.selected = [];
 		}
 
-		this.timeline = undefined;
-		this.keyframes = [];
+		this.data = null;
 		this.animating = false;
-		this.anim_i = 0;
-		this.anim_h = -1;
+		this.anim_t = null;
+		this.anim_0 = null;
+		this.anim_s = 24 * 3600 * 1000;
 	}
 
 	loadDrifters() {
-		this.refreshDrifters(this.drawDrifters.bind(this))
+		let self = this;
+		this.refreshDrifters(function (data) {self.processDrifters(data); self.drawDrifters(self.data)});
+	}
+
+	processDrifters(data) {
+		for (let drifter of Object.values(data))
+		{
+			for (let evt of drifter)
+			{
+				evt[0] = Date.parse(evt[0]);
+			}
+		}
+
+		this.data = data;
 	}
 
 	refreshDrifters(callback) {
@@ -128,16 +141,22 @@ class DrifterApp {
 	}
 
 	drawDrifters(data) {
+		this.markers.clear();
+		this.lines.clear();
+
 		let i = 0;
 		let n = Object.keys(data).length;
-		this.data = data;
-
-		// undraw all existing features
 
 		for (let [name, path] of Object.entries(data))
 		{
 			let [colour, opacity, zindex] = this.colourMap(name, i, n);
 			let last = path[path.length - 1];
+
+			if (!last)
+			{
+				continue;
+			}
+
 			let [_, lat, lng] = last;
 
 			let mark = this.createMarker(colour, lat, lng, opacity, zindex);
@@ -237,7 +256,10 @@ class DrifterApp {
 					this.selected.push(feature.drifterName);
 				}
 
-				this.redrawDrifters();
+				if (!this.animating) {
+					this.redrawDrifters();
+				}
+
 				return this.hideTooltip(evt);
 			}
 			else
@@ -261,7 +283,9 @@ class DrifterApp {
 		this.selected = selection;
 
 		if (!(prev.length === selection.length && prev.every(e => selection.includes(e)))) {
-			this.redrawDrifters();
+			if (!this.animating) {
+				this.redrawDrifters();
+			}
 		}
 	}
 
@@ -293,33 +317,37 @@ class DrifterApp {
 		if (this.animating) {
 			this.stopAnimate();
 		}
+		else if (this.anim_t !== null) {
+			this.animating = true;
+			this.stepAnimate();
+		}
 		else {
 			this.startAnimate();
 		}
 	}
 
 	startAnimate() {
-		if (this.animating) {
+		this.animating = true;
+
+		if (this.anim_t) {
 			return;
 		}
 
 		this.playButton.innerHTML = "Pause";
 
-		if (!this.timeline) {
-			this.timeline = {}; // may or may not be cleaner than just seeking at each step
-
-			for (let [name, path] of Object.entries(this.data))
+		this.anim_t = 0;
+		let _, t;
+		for (let drifter of Object.values(this.data))
+		{
+			[t, _, _] = drifter[0];
+			if (t > this.anim_t)
 			{
-				for (let [time, lat, lng] of path) {
-					this.timeline[time] = this.timeline[time] || [];
-					this.timeline[time].push([name, lat, lng]);
-				}
+				this.anim_t = t;
 			}
 		}
 
-		this.keyframes = Object.keys(this.timeline).sort();
+		this.anim_0 = this.anim_t;
 
-		this.animating = true;
 		this.stepAnimate()
 	}
 
@@ -331,18 +359,31 @@ class DrifterApp {
 
 	stepAnimate() {
 		if (this.animating) {
-			let key = this.keyframes[this.anim_i];
-			this.anim_i = (this.anim_i + 1) % this.keyframes.length;
+			let data = {};
+			let end = true;
 
-			let events = this.timeline[key];
-
-			for (let [name, lat, lng] of events)
+			for (let [key, value] of Object.entries(this.data))
 			{
-				this.moveMarker(name, lat, lng);
+				data[key] = value.filter(v => v[0] <= this.anim_t)
+
+				if (value[value.length - 1][0] > this.anim_t)
+				{
+					end = false;
+				}
 			}
 
-			// doing timeout here, for now, as it may be a little cleaner for pausing and continuing animations through user interaction
-			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000)
+			this.drawDrifters(data);
+
+			if (end)
+			{
+				this.anim_t = this.anim_0;
+			}
+			else
+			{
+				this.anim_t += this.anim_s;
+			}
+
+			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000);
 		}
 	}
 }
