@@ -7,7 +7,6 @@ class VLayer {
 
 	add(feature, name="") {
 		this.features.push(feature);
-		this.refresh();
 		this.named[name] = feature;
 	}
 
@@ -19,17 +18,26 @@ class VLayer {
 	clear() {
 		this.features = [];
 		this.named = {};
-		this.refresh();
 	}
 
-	refresh() {
+	update() {
 		this.layer.setSource(new ol.source.Vector({features: this.features}));
 	}
 }
 
 
 class DrifterApp {
-	constructor(center, zoom, selection) {
+	constructor(center, zoom) {
+		this.begin = null;
+		this.data = null;
+		this.selection = null;
+
+		this.animating = false;
+		this.anim_t = null;
+		this.anim_0 = null;
+		this.anim_s = 24 * 3600 * 1000;
+
+
 		let controls = [];
 
 		let playControl;
@@ -67,8 +75,12 @@ class DrifterApp {
 		this.lines = new VLayer();
 		this.lines.addTo(this.map, 2);
 
-		this.data = undefined;
-
+		this.readQuery();
+	}
+	
+	readQuery() {
+		let selection = urlParams.get("s");
+		
 		if (selection)
 		{
 			this.selected = selection.split(",");
@@ -77,12 +89,14 @@ class DrifterApp {
 		{
 			this.selected = [];
 		}
+		
+		this.begin = Date.parse(urlParams.get("b")) || 0;
+	}
 
-		this.data = null;
-		this.animating = false;
-		this.anim_t = null;
-		this.anim_0 = null;
-		this.anim_s = 24 * 3600 * 1000;
+	updateDate(timestamp) {
+		let date = new Date(timestamp);
+
+		document.getElementById("date").innerHTML = date.toDateString();
 	}
 
 	loadDrifters() {
@@ -97,6 +111,11 @@ class DrifterApp {
 			{
 				evt[0] = Date.parse(evt[0]);
 			}
+		}
+
+		for (let [name, path] of Object.entries(data))
+		{
+			data[name] = path.filter(e => e[0] > this.begin);
 		}
 
 		this.data = data;
@@ -146,6 +165,7 @@ class DrifterApp {
 
 		let i = 0;
 		let n = Object.keys(data).length;
+		let now = 0;
 
 		for (let [name, path] of Object.entries(data))
 		{
@@ -157,7 +177,12 @@ class DrifterApp {
 				continue;
 			}
 
-			let [_, lat, lng] = last;
+			let [t, lat, lng] = last;
+
+			if (t > now)
+			{
+				now = t;
+			}
 
 			let mark = this.createMarker(colour, lat, lng, opacity, zindex);
 			let line = this.createLine(colour, path, opacity, zindex);
@@ -170,6 +195,11 @@ class DrifterApp {
 
 			++i;
 		}
+
+		this.updateDate(now);
+
+		this.markers.update();
+		this.lines.update();
 	}
 
 	svgAlphaFix(colour, opacity) {
@@ -319,6 +349,7 @@ class DrifterApp {
 		}
 		else if (this.anim_t !== null) {
 			this.animating = true;
+			this.playButton.innerHTML = "Pause";
 			this.stepAnimate();
 		}
 		else {
@@ -364,7 +395,7 @@ class DrifterApp {
 
 			for (let [key, value] of Object.entries(this.data))
 			{
-				data[key] = value.filter(v => v[0] <= this.anim_t)
+				data[key] = value.filter(v => v[0] <= this.anim_t);
 
 				if (value[value.length - 1][0] > this.anim_t)
 				{
@@ -372,6 +403,7 @@ class DrifterApp {
 				}
 			}
 
+			this.updateDate(this.anim_t);
 			this.drawDrifters(data);
 
 			if (end)
@@ -390,9 +422,7 @@ class DrifterApp {
 
 
 const GALAPAGOS = [ -90.8770522, -0.246927];
-
 const urlParams = new URLSearchParams(window.location.search);
-let selection = urlParams.get("s");
 
-let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0, selection);
+let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
 app.loadDrifters();
