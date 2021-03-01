@@ -44,6 +44,7 @@ class DrifterApp {
 		[this.playButton, playControl] = this.createButton("Start", this.toggleAnimate.bind(this));
 		controls.push(playControl);		//animation button
 
+		controls.push(this.createButton("Search", this.createSearchModal.bind(this))[1]);
 		//controls.push(this.createButton('Export', this.exportSelection.bind(this))[1]);	//export selection button
 
 		this.container = document.getElementById('popup');
@@ -159,6 +160,45 @@ class DrifterApp {
 		return [button, new ol.control.Control({
 			element: container
 		})];
+	}
+
+	createSearchModal() {
+		let search = prompt("Which drifter do you want to select?");
+
+		let result = null;
+
+		while (!result || result.length) {
+			result = this.searchDrifterByName(search);
+
+			if (result.length) {
+				search = prompt("Did you mean one of:\n" + result.join("\n"));
+			}
+		}
+	}
+
+	searchDrifterByName(search) {
+		// do we process regex? if we would, assume no autocorrect, as the user knows what they're doing
+		let names = Object.keys(this.data);
+
+		let exact = names.filter(x => x === search);
+		if (exact.length) {
+			this.setSelected(exact);
+			return [];
+		}
+
+		let close = names.filter(x => levenshtein(x, search) < 4);
+
+		if (close.length) {
+			if (close.length === 1)
+			{	//if it's close and the only one eligible, assume it's that one
+				this.setSelected(close);
+				return [];
+			}
+
+			return close;
+		}
+
+		//maybe modal "None found"
 	}
 
 	colourMap(name, i, n) {
@@ -443,6 +483,47 @@ class DrifterApp {
 	setUrl(url) {
 		window.history.replaceState({}, "", url);
 	}
+}
+
+
+function levenshtein(a, b, i=null, j=null, m=null) {
+	if (i === null) {
+		i = a.length - 1;
+	}
+
+	if (j === null) {
+		j = b.length - 1;
+	}
+
+	if (m === null) {
+		m = [];
+	}
+
+	if (i in m && j in m[i]) {
+		return m[i][j];
+	}
+
+	if (i === -1)
+	{
+		return j + 1;
+	}
+
+	if (j === -1)
+	{
+		return i + 1;
+	}
+
+	if (!(i in m))
+	{
+		m[i] = [];
+	}
+
+	m[i][j] = Math.min(
+		levenshtein(a, b, i - 1, j, m) + 1,
+		levenshtein(a, b, i, j - 1, m) + 1,
+		levenshtein(a, b, i - 1, j - 1, m) + (a[i] === b[j] ? 0 : 1));
+
+	return m[i][j];
 }
 
 
