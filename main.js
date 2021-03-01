@@ -75,11 +75,28 @@ class DrifterApp {
 
 		this.lines = new VLayer();
 		this.lines.addTo(this.map, 2);
+	}
 
+	start() {
 		this.readQuery();
+
+		let self = this;
+
+		this.refreshDrifters(function (data) {
+			self.processDrifters(data);
+
+			if (self.animating)
+			{
+				self.startAnimate();
+			}
+			else {
+				self.drawDrifters(self.data);
+			}
+		});
 	}
 	
 	readQuery() {
+		this.animating = Number.parseInt(urlParams.get("a"));
 		let selection = urlParams.get("s");
 		
 		if (selection)
@@ -94,15 +111,18 @@ class DrifterApp {
 		this.begin = Date.parse(urlParams.get("b")) || 0;
 	}
 
+	createQueryURL() {
+		urlParams.set("s", this.selected.join(","));
+		urlParams.set("a", (this.animating ? 1 : 0).toString());
+
+		let baseUrl = window.location.origin + window.location.pathname;
+		return baseUrl + "?" + urlParams.toString();
+	}
+
 	updateDate(timestamp) {
 		let date = new Date(timestamp);
 
 		document.getElementById("date").innerHTML = date.toDateString();
-	}
-
-	loadDrifters() {
-		let self = this;
-		this.refreshDrifters(function (data) {self.processDrifters(data); self.drawDrifters(self.data)});
 	}
 
 	processDrifters(data) {
@@ -321,7 +341,7 @@ class DrifterApp {
 			}
 		}
 
-		this.setUrl(this.exportSelection());
+		this.setUrl(this.createQueryURL());
 	}
 
 	showTooltip(drifterName) {
@@ -342,12 +362,6 @@ class DrifterApp {
 		  return false;
 	}
 
-	exportSelection() {
-		urlParams.set("s", this.selected.join(","));
-		let baseUrl = window.location.origin + window.location.pathname;
-		return baseUrl + "?" + urlParams.toString();
-	}
-
 	toggleAnimate(e) {
 		if (this.animating) {
 			this.stopAnimate();
@@ -360,6 +374,8 @@ class DrifterApp {
 		else {
 			this.startAnimate();
 		}
+
+		this.setUrl(this.createQueryURL());
 	}
 
 	startAnimate() {
@@ -434,4 +450,4 @@ const GALAPAGOS = [ -90.8770522, -0.246927];
 const urlParams = new URLSearchParams(window.location.search);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
-app.loadDrifters();
+app.start();
