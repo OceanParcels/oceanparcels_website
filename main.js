@@ -43,7 +43,8 @@ class DrifterApp {
 		let playControl;
 		[this.playButton, playControl] = this.createButton("Start", this.toggleAnimate.bind(this));
 		controls.push(playControl);		//animation button
-		controls.push(this.createButton('Export', this.exportSelection.bind(this))[1]);	//export selection button
+
+		//controls.push(this.createButton('Export', this.exportSelection.bind(this))[1]);	//export selection button
 
 		this.container = document.getElementById('popup');
 		this.content = document.getElementById('popup-content');
@@ -286,6 +287,8 @@ class DrifterApp {
 					this.selected.push(feature.drifterName);
 				}
 
+				this.setSelected(this.selected);
+
 				if (!this.animating) {
 					this.redrawDrifters();
 				}
@@ -317,6 +320,8 @@ class DrifterApp {
 				this.redrawDrifters();
 			}
 		}
+
+		this.setUrl(this.exportSelection());
 	}
 
 	showTooltip(drifterName) {
@@ -340,7 +345,7 @@ class DrifterApp {
 	exportSelection() {
 		urlParams.set("s", this.selected.join(","));
 		let baseUrl = window.location.origin + window.location.pathname;
-		window.location.href = baseUrl + "?" + urlParams.toString();
+		return baseUrl + "?" + urlParams.toString();
 	}
 
 	toggleAnimate(e) {
@@ -417,6 +422,10 @@ class DrifterApp {
 
 			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000);
 		}
+	}
+
+	setUrl(url) {
+		window.history.replaceState({}, "", url);
 	}
 }
 
