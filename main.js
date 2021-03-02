@@ -41,11 +41,10 @@ class DrifterApp {
 		let controls = [];
 
 		let playControl;
-		[this.playButton, playControl] = this.createButton("Start", this.toggleAnimate.bind(this));
+		[this.playButton, playControl] = this.createOLButton("Start", this.toggleAnimate.bind(this));
 		controls.push(playControl);		//animation button
 
-		controls.push(this.createButton("Search", this.createSearchModal.bind(this))[1]);
-		//controls.push(this.createButton('Export', this.exportSelection.bind(this))[1]);	//export selection button
+		controls.push(this.createOLButton("Search", this.createSearchModal.bind(this))[1]);
 
 		this.container = document.getElementById('popup');
 		this.content = document.getElementById('popup-content');
@@ -147,14 +146,15 @@ class DrifterApp {
 		$.getJSON("grouped.json", callback);
 	}
 
-	createButton(text, callback) {
+	createOLButton(text, callback) {
 		let button = document.createElement('button');
 		button.innerHTML = text;
 
 		button.addEventListener('click', callback, false);
+		button.className = "ol-button";
 
 		let container = document.createElement('div');
-		container.className = 'play-button ol-unselectable ol-control';
+		container.className = 'ol-unselectable ol-control';
 		container.appendChild(button);
 
 		return [button, new ol.control.Control({
@@ -165,15 +165,36 @@ class DrifterApp {
 	createSearchModal() {
 		let search = prompt("Which drifter do you want to select?");
 
-		let result = null;
-
-		while (!result || result.length) {
-			result = this.searchDrifterByName(search);
-
-			if (result.length) {
-				search = prompt("Did you mean one of:\n" + result.join("\n"));
-			}
+		if (search === null)
+		{
+			return;
 		}
+
+		let result = this.searchDrifterByName(search);
+
+		if (result.length)
+		{
+			this.showAutocorrectModal(result)
+		}
+
+	}
+
+	showAutocorrectModal(result) {
+		let modalButtons = $(".correct-buttons")[0];
+		modalButtons.innerHTML = "";
+
+		let self = this;
+
+		for (let name of result)
+		{
+			let button = document.createElement("button");
+			button.innerHTML = name;
+			button.addEventListener("click", function (event) {self.setSelected([name]); modal.style.display = "none"});
+			modalButtons.appendChild(button);
+		}
+
+		let modal = $(".correct-modal")[0];
+		modal.style.display = "block";
 	}
 
 	searchDrifterByName(search) {
@@ -197,8 +218,6 @@ class DrifterApp {
 
 			return close;
 		}
-
-		//maybe modal "None found"
 	}
 
 	colourMap(name, i, n) {
@@ -525,6 +544,20 @@ function levenshtein(a, b, i=null, j=null, m=null) {
 
 	return m[i][j];
 }
+
+
+let modal = $(".correct-modal")[0];
+let span = $(".correct-close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+};
+
+window.onclick = function(event) {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
 
 
 const GALAPAGOS = [ -90.8770522, -0.246927];
