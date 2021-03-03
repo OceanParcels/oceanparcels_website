@@ -297,6 +297,17 @@ class DrifterApp {
 		return [colour, opacity];
 	}
 
+	markerScale(mstyle, istyle, feature, resolution) {
+		resolution = Math.max(200, Math.min(resolution, 2000));
+
+		let base = 50;
+		istyle.setScale(base / (1 + resolution));
+
+		console.log(resolution);
+
+		return [mstyle];
+	}
+
 	createMarker(colour, lat, lng, opacity=1.0, z=1) {
 		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
 
@@ -308,16 +319,20 @@ class DrifterApp {
 
 		[colour, opacity] = this.svgAlphaFix(colour, opacity);
 
-		marker.setStyle(new ol.style.Style({
-			image: new ol.style.Icon({
-				anchor: [0.5, 1],
+		let iconStyle = new ol.style.Icon({
+				anchor: [0.5, 0.5],
 				src: "marker.svg",
-				scale: 0.8,
+				scale: 0.1,
 				opacity: opacity,
 				color: colour
-        	}),
+		});
+
+		let markerStyle = new ol.style.Style({
+			image: iconStyle,
 			zIndex: z
-    	}));
+    	});
+
+		marker.setStyle(this.markerScale.bind(this, markerStyle, iconStyle));
 
 		return marker;
 	}
