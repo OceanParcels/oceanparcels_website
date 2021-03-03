@@ -1,24 +1,122 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="eng">
-  <head>
+<head>
+    <meta charset="UTF-8">
     <title>Surface Drifter Map</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style type="text/css">
-      #map {
-        position: absolute; left: 0; right: 0; top: 0; bottom: 0;
-		background: #4444FF;
-      }
-    </style>
-    <script src="main.js"></script>
-  </head>
-  <body>
-    <div id="map"></div>
+        body {
+            width: 60vw; margin: auto;
+        }
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk7VbZaTv1WP5TvIVofiCqzp3sCPBM0pg&callback=initMap&map_ids=d315b7ffc2a2258a&libraries=&v=weekly"
-      async
-    ></script>
-  </body>
+        .ol-button {
+            width: 60px; height: 60px;
+        }
+
+        .map {
+            position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+            background: #4444FF;
+            z-index: -1;
+        }
+        .date {
+            width: 100%; text-align: center; font-weight: bold; font-size: 30pt;
+        }
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 280px;
+            z-index: 1;
+        }
+        .ol-popup:after, .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+        .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+        }
+        .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+        }
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        }
+        .ol-popup-closer:after {
+            content: "✖";
+        }
+
+        .correct-modal {
+            display: none;
+            position: fixed;
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        
+        .correct-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+        }
+
+        .correct-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .correct-close:hover,
+        .correct-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div id="correct-modal" class="correct-modal">
+    <div class="correct-content">
+        Did you mean one of:
+        <span class="correct-close">&times;</span>
+        <div class="correct-buttons"></div>
+    </div>
+</div>
+
+<div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+</div>
+<div class="date" id="date"></div>
+<div class="map" id="map"></div>
+</body>
+
+<script src="ol-v6.5.0-dist/ol.js"></script>
+<script src="main.js"></script>
 </html>

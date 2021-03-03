@@ -1,87 +1,567 @@
-let map;
-let drifters;
-let markers;
-let lines;
+class VLayer {
+	constructor() {
+		this.layer = new ol.layer.Vector({});
+		this.features = [];
+		this.named = {};
+	}
 
-function loadDrifters() {
-    $.getJSON("grouped.json", drawDrifters)  // replace drawDrifters with a slow update loop
+	add(feature, name="") {
+		this.features.push(feature);
+		this.named[name] = feature;
+	}
+
+	addTo(map, z = 2) {
+		map.addLayer(this.layer);
+		this.layer.setZIndex(z);
+	}
+
+	clear() {
+		this.features = [];
+		this.named = {};
+	}
+
+	update() {
+		this.layer.setSource(new ol.source.Vector({features: this.features}));
+	}
 }
 
-function drawDrifters(data) {
-    drifters = data;
 
-    markers = {};
-    lines = {};
+class DrifterApp {
+	constructor(center, zoom) {
+		this.begin = null;
+		this.data = null;
+		this.selection = null;
 
-    let i = 0;
-    let n = Object.keys(drifters).length;
+		this.animating = false;
+		this.anim_t = null;
+		this.anim_0 = null;
+		this.anim_s = 24 * 3600 * 1000;
 
-    for (let [name, path] of Object.entries(drifters))
-    {
-        let colour = hslMap(i, n);
 
-        let polyline = drawTrail(map, path, colour);
+		let controls = [];
 
-        let last = path[path.length - 1];
-        let [_, lat, lng] = last;
-        let icon = createMarkerSymbol(colour);
-        let mark = drawMarker(map, icon, colour, lat, lng);
+		let playControl;
+		[this.playButton, playControl] = this.createOLButton("Start", this.toggleAnimate.bind(this));
+		controls.push(playControl);		//animation button
 
-        lines[name] = polyline;
-        markers[name] = mark;
-        ++i;
-    }
+		controls.push(this.createOLButton("Search", this.createSearchModal.bind(this))[1]);
+
+		this.container = document.getElementById('popup');
+		this.content = document.getElementById('popup-content');
+		this.closer = document.getElementById('popup-closer');
+
+		this.overlay = new ol.Overlay({
+		  element: this.container,
+		  autoPan: true,
+		  autoPanAnimation: {
+			duration: 250,
+		  },
+		});
+
+		this.closer.onclick = this.hideTooltip.bind(this);
+
+		this.map = new ol.Map({
+			target: 'map',
+			controls: controls,
+			overlays: [this.overlay],
+			layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
+			view: new ol.View({center: center, zoom: zoom})
+		});
+
+		this.map.on('singleclick', this.click.bind(this));
+
+		this.markers = new VLayer();
+		this.markers.addTo(this.map, 3);
+
+		this.lines = new VLayer();
+		this.lines.addTo(this.map, 2);
+	}
+
+	start() {
+		this.readQuery();
+
+		let self = this;
+
+		this.refreshDrifters(function (data) {
+			self.processDrifters(data);
+
+			if (self.animating)
+			{
+				self.startAnimate();
+			}
+			else {
+				self.drawDrifters(self.data);
+			}
+		});
+	}
+	
+	readQuery() {
+		this.animating = Number.parseInt(urlParams.get("a"));
+		let selection = urlParams.get("s");
+		
+		if (selection)
+		{
+			this.selected = selection.split(",");
+		}
+		else
+		{
+			this.selected = [];
+		}
+		
+		this.begin = Date.parse(urlParams.get("b")) || 0;
+	}
+
+	createQueryURL() {
+		urlParams.set("s", this.selected.join(","));
+		urlParams.set("a", (this.animating ? 1 : 0).toString());
+
+		let baseUrl = window.location.origin + window.location.pathname;
+		return baseUrl + "?" + urlParams.toString();
+	}
+
+	updateDate(timestamp) {
+		let date = new Date(timestamp);
+
+		document.getElementById("date").innerHTML = date.toDateString();
+	}
+
+	processDrifters(data) {
+		for (let drifter of Object.values(data))
+		{
+			for (let evt of drifter)
+			{
+				evt[0] = Date.parse(evt[0]);
+			}
+		}
+
+		for (let [name, path] of Object.entries(data))
+		{
+			data[name] = path.filter(e => e[0] > this.begin);
+		}
+
+		this.data = data;
+	}
+
+	refreshDrifters(callback) {
+		$.getJSON("grouped.json", callback);
+	}
+
+	createOLButton(text, callback) {
+		let button = document.createElement('button');
+		button.innerHTML = text;
+
+		button.addEventListener('click', callback, false);
+		button.className = "ol-button";
+
+		let container = document.createElement('div');
+		container.className = 'ol-unselectable ol-control';
+		container.appendChild(button);
+
+		return [button, new ol.control.Control({
+			element: container
+		})];
+	}
+
+	createSearchModal() {
+		let search = prompt("Which drifter do you want to select?");
+
+		if (search === null)
+		{
+			return;
+		}
+
+		let result = this.searchDrifterByName(search);
+
+		if (result.length)
+		{
+			this.showAutocorrectModal(result)
+		}
+
+	}
+
+	showAutocorrectModal(result) {
+		let modalButtons = $(".correct-buttons")[0];
+		modalButtons.innerHTML = "";
+
+		let self = this;
+
+		for (let name of result)
+		{
+			let button = document.createElement("button");
+			button.innerHTML = name;
+			button.addEventListener("click", function (event) {self.setSelected([name]); modal.style.display = "none"});
+			modalButtons.appendChild(button);
+		}
+
+		let modal = $(".correct-modal")[0];
+		modal.style.display = "block";
+	}
+
+	searchDrifterByName(search) {
+		// do we process regex? if we would, assume no autocorrect, as the user knows what they're doing
+		let names = Object.keys(this.data);
+
+		let exact = names.filter(x => x === search);
+		if (exact.length) {
+			this.setSelected(exact);
+			return [];
+		}
+
+		let close = names.filter(x => levenshtein(x, search) < 4);
+
+		if (close.length) {
+			if (close.length === 1)
+			{	//if it's close and the only one eligible, assume it's that one
+				this.setSelected(close);
+				return [];
+			}
+
+			return close;
+		}
+	}
+
+	colourMap(name, i, n) {
+		if (this.selected.length && !this.selected.includes(name))
+		{
+			return ["rgba(127, 127, 127, 0.4)", 0.4, 0];
+		}
+		else {
+			let h = parseFloat(i) / (n + 1) * 360;
+			h = h.toFixed(2);
+
+			return [`hsl(${h}, 100%, 50%)`, 1.0, 1];
+		}
+	}
+
+	redrawDrifters() {
+		this.markers.clear();
+		this.lines.clear();
+		this.drawDrifters(this.data);
+	}
+
+	drawDrifters(data) {
+		this.markers.clear();
+		this.lines.clear();
+
+		let i = 0;
+		let n = Object.keys(data).length;
+		let now = 0;
+
+		for (let [name, path] of Object.entries(data))
+		{
+			let [colour, opacity, zindex] = this.colourMap(name, i, n);
+			let last = path[path.length - 1];
+
+			if (!last)
+			{
+				continue;
+			}
+
+			let [t, lat, lng] = last;
+
+			if (t > now)
+			{
+				now = t;
+			}
+
+			let mark = this.createMarker(colour, lat, lng, opacity, zindex);
+			let line = this.createLine(colour, path, opacity, zindex);
+
+			mark.drifterName = name;
+			line.drifterName = name;
+
+			this.markers.add(mark, name);
+			this.lines.add(line, name);
+
+			++i;
+		}
+
+		this.updateDate(now);
+
+		this.markers.update();
+		this.lines.update();
+	}
+
+	svgAlphaFix(colour, opacity) {
+		if (opacity < 1.0) { // svgs have a quirky interaction with rgba opacity, so avoid that
+			let match = colour.match("rgba\\((.*),(.*),(.*),(.*)\\)");
+
+			if (match) {
+				let [_, r, g, b, a] = match;
+
+				colour = `rgb(${r}, ${g}, ${b})`;
+				opacity = parseFloat(a);
+			}
+		}
+
+		return [colour, opacity];
+	}
+
+	createMarker(colour, lat, lng, opacity=1.0, z=1) {
+		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
+
+		let marker = new ol.Feature({
+			name: "marker",
+			type: "icon",
+			geometry: new ol.geom.Point(ol.proj.fromLonLat([lng, lat]))
+		});
+
+		[colour, opacity] = this.svgAlphaFix(colour, opacity);
+
+		marker.setStyle(new ol.style.Style({
+			image: new ol.style.Icon({
+				anchor: [0.5, 1],
+				src: "marker.svg",
+				scale: 0.8,
+				opacity: opacity,
+				color: colour
+        	}),
+			zIndex: z
+    	}));
+
+		return marker;
+	}
+
+	moveMarker(name, lat, lng) {
+		let marker = this.markers.named[name];
+
+		if (marker) {
+			marker.setGeometry(new ol.geom.Point(ol.proj.fromLonLat([lng, lat])));
+		}
+	}
+
+	createLine(colour, path, opacity=1.0, z=1) {
+		let points = [];
+
+		for (let [_, lat, lng] of path) {
+			points.push(ol.proj.fromLonLat([lng, lat]));
+		}
+
+		let line = new ol.Feature({geometry: new ol.geom.LineString(points)});
+		line.setStyle(new ol.style.Style({
+			stroke: new ol.style.Stroke({ color: colour, width: 2}),
+			opacity: opacity,
+			zIndex: z
+		}));
+
+		return line;
+	}
+
+	click(evt) {
+		let pixel = evt.pixel;
+		let feature = this.map.forEachFeatureAtPixel(pixel, function (f) {return f;});
+
+		let shiftDown = evt.originalEvent.shiftKey;
+
+		if (feature) {
+			if (shiftDown)
+			{
+				let name = feature.drifterName;
+
+				if (this.selected.includes(name))
+				{
+					this.selected = this.selected.filter(s => s !== name);
+				}
+				else {
+					this.selected.push(feature.drifterName);
+				}
+
+				this.setSelected(this.selected);
+
+				if (!this.animating) {
+					this.redrawDrifters();
+				}
+
+				return this.hideTooltip(evt);
+			}
+			else
+			{
+				this.setSelected([feature.drifterName]);
+				return this.showTooltip(feature.drifterName);
+			}
+		}
+		else
+		{
+			if (!shiftDown) {
+				this.setSelected([]);
+			}
+
+			return this.hideTooltip(evt);
+		}
+	}
+
+	setSelected(selection) {
+		let prev = this.selected;
+		this.selected = selection;
+
+		if (!(prev.length === selection.length && prev.every(e => selection.includes(e)))) {
+			if (!this.animating) {
+				this.redrawDrifters();
+			}
+		}
+
+		this.setUrl(this.createQueryURL());
+	}
+
+	showTooltip(drifterName) {
+		let feature = this.markers.named[drifterName];
+
+		let coordinate = feature.getGeometry().getCoordinates();
+
+		let name = feature.drifterName;
+		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+
+		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}`;
+	    this.overlay.setPosition(coordinate);
+	}
+
+	hideTooltip(evt) {
+		  this.overlay.setPosition(undefined);
+		  this.closer.blur();
+		  return false;
+	}
+
+	toggleAnimate(e) {
+		if (this.animating) {
+			this.stopAnimate();
+		}
+		else if (this.anim_t !== null) {
+			this.animating = true;
+			this.playButton.innerHTML = "Pause";
+			this.stepAnimate();
+		}
+		else {
+			this.startAnimate();
+		}
+
+		this.setUrl(this.createQueryURL());
+	}
+
+	startAnimate() {
+		this.animating = true;
+
+		if (this.anim_t) {
+			return;
+		}
+
+		this.playButton.innerHTML = "Pause";
+
+		this.anim_t = 0;
+		let _, t;
+		for (let drifter of Object.values(this.data))
+		{
+			[t, _, _] = drifter[0];
+			if (t > this.anim_t)
+			{
+				this.anim_t = t;
+			}
+		}
+
+		this.anim_0 = this.anim_t;
+
+		this.stepAnimate()
+	}
+
+	stopAnimate() {
+		this.animating = false;
+		this.playButton.innerHTML = "Start";
+		clearTimeout(this.anim_h);
+	}
+
+	stepAnimate() {
+		if (this.animating) {
+			let data = {};
+			let end = true;
+
+			for (let [key, value] of Object.entries(this.data))
+			{
+				data[key] = value.filter(v => v[0] <= this.anim_t);
+
+				if (value[value.length - 1][0] > this.anim_t)
+				{
+					end = false;
+				}
+			}
+
+			this.updateDate(this.anim_t);
+			this.drawDrifters(data);
+
+			if (end)
+			{
+				this.anim_t = this.anim_0;
+			}
+			else
+			{
+				this.anim_t += this.anim_s;
+			}
+
+			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000);
+		}
+	}
+
+	setUrl(url) {
+		window.history.replaceState({}, "", url);
+	}
 }
 
-function drawMarker(map, icon, hscColour, lat, lng) {
-    return new google.maps.Marker({
-            position: {lat: lat, lng: lng},
-            map: map,
-            icon: icon
-    });
+
+function levenshtein(a, b, i=null, j=null, m=null) {
+	if (i === null) {
+		i = a.length - 1;
+	}
+
+	if (j === null) {
+		j = b.length - 1;
+	}
+
+	if (m === null) {
+		m = [];
+	}
+
+	if (i in m && j in m[i]) {
+		return m[i][j];
+	}
+
+	if (i === -1)
+	{
+		return j + 1;
+	}
+
+	if (j === -1)
+	{
+		return i + 1;
+	}
+
+	if (!(i in m))
+	{
+		m[i] = [];
+	}
+
+	m[i][j] = Math.min(
+		levenshtein(a, b, i - 1, j, m) + 1,
+		levenshtein(a, b, i, j - 1, m) + 1,
+		levenshtein(a, b, i - 1, j - 1, m) + (a[i] === b[j] ? 0 : 1));
+
+	return m[i][j];
 }
 
-function drawTrail(map, path, hslColour) {
-    let latlngPath = [];
 
-    for (let p of path) {
-        let [_, lat, lng] = p;
-        latlngPath.push({lat: lat, lng: lng})
-    }
+let modal = $(".correct-modal")[0];
+let span = $(".correct-close")[0];
 
-    return new google.maps.Polyline({
-        map: map,
-        path: latlngPath,
-        strokeColor: hslColour
-    })
-}
+span.onclick = function() {
+  modal.style.display = "none";
+};
 
-function hslMap(i, n) {
-    let h = parseFloat(i) / (n + 1) * 360;
-    h = h.toFixed(2);
+window.onclick = function(event) {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
 
-    return `hsl(${h}, 100%, 50%)`;
-}
 
-function createMarkerSymbol(hslColour) {
-    return {
-        path:
-            "m 12.498047,-0.00195313 c -2.9529008,0 -5.8818186,1.40132583 -8.1660158,3.53906253 C 3.4099134,4.3288681 2.6487611,5.2387072 2.0546875,6.2519531 0.78097778,8.2099633 -0.00159796,10.443191 0,12.691406 c 6.8195633e-4,0.997898 0.87011581,3.291747 2.21875,6.027344 0.4032234,0.847335 0.9089877,1.801742 1.4960938,2.847656 0.16336,0.294801 0.3279171,0.587597 0.4980468,0.884766 0.1123534,0.1944 0.2328989,0.399397 0.3515625,0.601562 0.1465322,0.25041 0.2870558,0.49986 0.4375,0.75 2.7496668,4.57183 5.5340949,10.421833 6.1894529,13 l 1.039063,4.080078 0.109375,0.607422 0.02344,-0.08789 0.02149,0.08789 1.55664,-5.068359 c 0.856422,-2.787591 3.694141,-8.677106 6.306641,-13.087891 0.386874,-0.653168 0.758498,-1.313336 1.119141,-1.972656 1.01923,-1.762576 1.74467,-3.20631 2.228515,-4.470703 0.864886,-1.952026 1.402344,-3.539427 1.402344,-4.287109 0,-2.403317 -0.9154,-4.8045123 -2.388672,-6.8593754 -0.619897,-0.93839 -1.387611,-1.7835244 -2.292969,-2.5214844 -2.236201,-1.9571964 -5.025597,-3.22460933 -7.818359,-3.22460933 z m 0,7.99414063 c 0.175599,0 0.362788,0.034416 0.554687,0.085937 1.068994,0.096877 2.088457,0.4575975 2.746094,1.1152344 2.804999,2.8049771 0.690948,7.7988281 -3.300781,7.7988281 -1.155001,0 -2.6407814,-0.539238 -3.3007814,-1.199218 C 8.5252206,15.120924 8.1645696,14.071192 8.078125,12.976562 8.030851,12.800535 7.998047,12.633993 7.998047,12.492188 c 0,-0.175822 0.03429,-0.36253 0.085937,-0.554688 C 8.181027,10.868925 8.5398636,9.8507614 9.1972656,9.1933594 9.8549025,8.5357225 10.874365,8.175002 11.943359,8.078125 c 0.1919,-0.051522 0.379089,-0.085937 0.554688,-0.085937 z",
-        fillColor: hslColour,
-        fillOpacity: 1.0,
-        strokeWeight: 0,
-        rotation: 0,
-        scale: 0.8,
-        anchor: new google.maps.Point(15, 30),
-    };
-}
+const GALAPAGOS = [ -90.8770522, -0.246927];
+const urlParams = new URLSearchParams(window.location.search);
 
-function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -0.246927, lng: -90.8770522 },
-        zoom: 7.0,
-        mapId: "d315b7ffc2a2258a"
-    });
-
-    loadDrifters();
-}
+let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
+app.start();
