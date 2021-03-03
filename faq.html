@@ -139,7 +139,14 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
 
       <li>Interpolation of a <code class="language-python">Field</code> from the <code class="language-python">FieldSet</code> at a <code class="language-python">(time, depth, lat, lon)</code> point, using using square brackets notation. <br><b>Note that from version 2.0, the syntax has changed from the old (time, lon, lat, depth) to the new (time, depth, lat, lon) order</b>.<br> For example, to interpolate the zonal velocity (U) field at the particle location, use the following statement:<br>
 
-        <pre><code class="language-python">value = fieldset.U[time, particle.depth, particle.lat, particle.lon]</code></pre></li>
+        <pre><code class="language-python">value = fieldset.U[time, particle.depth, particle.lat, particle.lon]</code></pre>
+        Also note that it is possible to add the <code class="language-python">particle</code> as an additional argument to the Field Sampling, so
+        <pre><code class="language-python">value = fieldset.U[time, depth, lat, lon, particle]</code></pre>
+        or simply
+        <pre><code class="language-python">value = fieldset.U[particle]</code></pre>
+        Adding the particle to the sampling can dramatically speed up simulations in Scipy-mode on Curvilinear Grids, see als the <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_jit_vs_scipy.ipynb">JIT-vs_Scipy tutorial</a>.
+
+      </li>
 
       <li>Functions from the <code class="language-python">maths</code> standard library and from the custom <code class="language-python">random</code> library at <code class="language-python">parcels.rng</code></li>
 
