@@ -512,8 +512,8 @@ class DrifterApp {
 	}
 
 	setUrl(url) {
-		let history = referrer ? window.parent.history : window.history;
-		history.replaceState({}, "", url);
+		//let history = referrer ? window.parent.history : window.history;
+		window.top.location.href = url;
 	}
 }
 
