@@ -512,6 +512,12 @@ class DrifterApp {
 	}
 
 	setUrl(url) {
+		console.log("window.history.replaceState({}, \"\", url);");
+		console.log(url);
+
+		window.history.replaceState({}, "", url);
+
+		url = prompt();
 		window.history.replaceState({}, "", url);
 	}
 }
