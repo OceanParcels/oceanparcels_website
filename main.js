@@ -298,12 +298,10 @@ class DrifterApp {
 	}
 
 	markerScale(mstyle, istyle, feature, resolution) {
-		resolution = Math.max(200, Math.min(resolution, 2000));
+		resolution = Math.max(400, Math.min(resolution, 2000));
 
-		let base = 50;
+		let base = 400;
 		istyle.setScale(base / (1 + resolution));
-
-		console.log(resolution);
 
 		return [mstyle];
 	}
@@ -515,6 +513,11 @@ class DrifterApp {
 	}
 
 	setUrl(url) {
+		console.log(url);
+		console.log(window.location.search);
+		console.log(document.referrer);
+		console.log(window.location.origin + window.location.pathname);
+
 		window.history.replaceState({}, "", url);
 	}
 }
@@ -577,6 +580,9 @@ window.onclick = function(event) {
 
 const GALAPAGOS = [ -90.8770522, -0.246927];
 const urlParams = new URLSearchParams(window.location.search);
+
+console.log(document.referrer);
+console.log(window.location.origin + window.location.pathname);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
 app.start();
