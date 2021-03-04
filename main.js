@@ -115,8 +115,7 @@ class DrifterApp {
 		urlParams.set("s", this.selected.join(","));
 		urlParams.set("a", (this.animating ? 1 : 0).toString());
 
-		let baseUrl = window.location.origin + window.location.pathname;
-		return baseUrl + "?" + urlParams.toString();
+		return "?" + urlParams.toString();
 	}
 
 	updateDate(timestamp) {
@@ -513,11 +512,6 @@ class DrifterApp {
 	}
 
 	setUrl(url) {
-		console.log(url);
-		console.log(window.location.search);
-		console.log(document.referrer);
-		console.log(window.location.origin + window.location.pathname);
-
 		window.history.replaceState({}, "", url);
 	}
 }
@@ -579,10 +573,24 @@ window.onclick = function(event) {
 
 
 const GALAPAGOS = [ -90.8770522, -0.246927];
-const urlParams = new URLSearchParams(window.location.search);
 
-console.log(document.referrer);
-console.log(window.location.origin + window.location.pathname);
+let referrer = document.referrer;
+let query;
+
+if (referrer)
+{
+	let baseUrl = referrer || window.location.origin + window.location.pathname;
+	let split = baseUrl.split("/");
+	split = split[split.length - 1].split("?");
+	query = split[split.length - 1];
+}
+else
+{
+	console.log("Please try to access this map on https://galapagosplasticfree.nl/ instead ;)");
+	query = window.location.search;
+}
+
+const urlParams = new URLSearchParams(query);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
 app.start();
