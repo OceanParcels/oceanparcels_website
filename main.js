@@ -41,10 +41,10 @@ class DrifterApp {
 		let controls = [];
 
 		let playControl;
-		[this.playButton, playControl] = this.createOLButton("Start Animation", this.toggleAnimate.bind(this));
+		[this.playButton, playControl] = this.createOLButton("Start animation", this.toggleAnimate.bind(this));
 		controls.push(playControl);		//animation button
 
-		controls.push(this.createOLButton("Search Drifter", this.createSearchModal.bind(this))[1]);
+		controls.push(this.createOLButton("Select drifter by name", this.createSearchModal.bind(this))[1]);
 
 		this.container = document.getElementById('popup');
 		this.content = document.getElementById('popup-content');
@@ -439,7 +439,7 @@ class DrifterApp {
 		}
 		else if (this.anim_t !== null) {
 			this.animating = true;
-			this.playButton.innerHTML = "Pause Animation";
+			this.playButton.innerHTML = "Pause animation";
 			this.stepAnimate();
 		}
 		else {
@@ -456,7 +456,7 @@ class DrifterApp {
 			return;
 		}
 
-		this.playButton.innerHTML = "Pause Animation";
+		this.playButton.innerHTML = "Pause animation";
 
 		this.anim_t = 0;
 		let _, t;
@@ -476,7 +476,7 @@ class DrifterApp {
 
 	stopAnimate() {
 		this.animating = false;
-		this.playButton.innerHTML = "Start Animation";
+		this.playButton.innerHTML = "Start animation";
 		clearTimeout(this.anim_h);
 	}
 
