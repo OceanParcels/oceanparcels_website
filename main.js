@@ -47,6 +47,8 @@ class DrifterApp {
 		this.anim_0 = null;
 		this.anim_s = 24 * 3600 * 1000;
 
+		this.data_source = "drifters.json";
+
 
 		let controls = [];
 
@@ -143,16 +145,22 @@ class DrifterApp {
 			}
 		}
 
+		let new_data = {};
+
 		for (let [name, path] of Object.entries(data))
 		{
-			data[name] = path.filter(e => e[0] > this.begin);
+			let trimmed = path.filter(e => e[0] > this.begin);
+			if (trimmed.length)
+			{
+				new_data[name] = trimmed;
+			}
 		}
 
-		this.data = data;
+		this.data = new_data;
 	}
 
 	refreshDrifters(callback) {
-		$.getJSON("grouped.json", callback);
+		$.getJSON(this.data_source, callback);
 	}
 
 	createOLButton(text, callback) {
@@ -606,4 +614,5 @@ else
 const urlParams = new URLSearchParams(query);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
+app.data_source = "TrAtlDrifters.json";
 app.start();
