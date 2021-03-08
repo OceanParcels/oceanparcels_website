@@ -1,3 +1,13 @@
+const TEXT = {
+	animation_start: "Start animation",
+	animation_pause: "Pause animation",
+	select_drifter: "Select drifter by name",
+	drifter_prompt: "Which drifter do you want to select?",
+	drifter_date: "Drifters on",
+	no_referrer: "Please try to access this map on https://galapagosplasticfree.nl/ instead ;)"
+};
+
+
 class VLayer {
 	constructor() {
 		this.layer = new ol.layer.Vector({});
@@ -41,10 +51,10 @@ class DrifterApp {
 		let controls = [];
 
 		let playControl;
-		[this.playButton, playControl] = this.createOLButton("Start animation", this.toggleAnimate.bind(this));
+		[this.playButton, playControl] = this.createOLButton(TEXT.animation_start, this.toggleAnimate.bind(this));
 		controls.push(playControl);		//animation button
 
-		controls.push(this.createOLButton("Select drifter by name", this.createSearchModal.bind(this))[1]);
+		controls.push(this.createOLButton(TEXT.select_drifter, this.createSearchModal.bind(this))[1]);
 
 		this.container = document.getElementById('popup');
 		this.content = document.getElementById('popup-content');
@@ -121,7 +131,7 @@ class DrifterApp {
 	updateDate(timestamp) {
 		let date = new Date(timestamp);
 
-		document.getElementById("date").innerHTML = "Drifters on "+date.toDateString();
+		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toDateString();
 	}
 
 	processDrifters(data) {
@@ -162,7 +172,7 @@ class DrifterApp {
 	}
 
 	createSearchModal() {
-		let search = prompt("Which drifter do you want to select?");
+		let search = prompt(TEXT.drifter_prompt);
 
 		if (search === null)
 		{
@@ -439,7 +449,7 @@ class DrifterApp {
 		}
 		else if (this.anim_t !== null) {
 			this.animating = true;
-			this.playButton.innerHTML = "Pause animation";
+			this.playButton.innerHTML = TEXT.animation_pause;
 			this.stepAnimate();
 		}
 		else {
@@ -456,7 +466,7 @@ class DrifterApp {
 			return;
 		}
 
-		this.playButton.innerHTML = "Pause animation";
+		this.playButton.innerHTML = TEXT.animation_pause;
 
 		this.anim_t = 0;
 		let _, t;
@@ -476,7 +486,7 @@ class DrifterApp {
 
 	stopAnimate() {
 		this.animating = false;
-		this.playButton.innerHTML = "Start animation";
+		this.playButton.innerHTML = TEXT.animation_start;
 		clearTimeout(this.anim_h);
 	}
 
@@ -512,8 +522,10 @@ class DrifterApp {
 	}
 
 	setUrl(url) {
-		//let history = referrer ? window.parent.history : window.history;
-		window.top.location.href = url;
+		if (!referrer)
+		{
+			window.history.replaceState(null, "", url)
+		}
 	}
 }
 
@@ -587,7 +599,7 @@ if (referrer)
 }
 else
 {
-	console.log("Please try to access this map on https://galapagosplasticfree.nl/ instead ;)");
+	console.log(TEXT.no_referrer);
 	query = window.location.search;
 }
 
