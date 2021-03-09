@@ -614,5 +614,5 @@ else
 const urlParams = new URLSearchParams(query);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
-app.data_source = "TrAtlDrifters.json";
+app.data_source = "grouped.json";
 app.start();
