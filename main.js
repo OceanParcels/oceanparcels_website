@@ -429,8 +429,6 @@ class DrifterApp {
 				this.redrawDrifters();
 			}
 		}
-
-		this.setUrl(this.createQueryURL());
 	}
 
 	showTooltip(drifterName) {
@@ -463,8 +461,6 @@ class DrifterApp {
 		else {
 			this.startAnimate();
 		}
-
-		this.setUrl(this.createQueryURL());
 	}
 
 	startAnimate() {
@@ -476,15 +472,20 @@ class DrifterApp {
 
 		this.playButton.innerHTML = TEXT.animation_pause;
 
-		this.anim_t = 0;
+		this.anim_t = Number.POSITIVE_INFINITY;
 		let _, t;
 		for (let drifter of Object.values(this.data))
 		{
 			[t, _, _] = drifter[0];
-			if (t > this.anim_t)
+			if (t < this.anim_t)
 			{
 				this.anim_t = t;
 			}
+		}
+
+		if (!this.selected.length)
+		{
+			this.setSelected(Object.keys(this.data));
 		}
 
 		this.anim_0 = this.anim_t;
@@ -499,24 +500,47 @@ class DrifterApp {
 	}
 
 	stepAnimate() {
+		const deselectDead = true;
+		const deathTimeout = 2 * this.anim_s;
+
 		if (this.animating) {
-			let data = {};
-			let end = true;
+			let trimmed = {};
+			let alive = [];
+			let finished = true;
 
-			for (let [key, value] of Object.entries(this.data))
+			for (let [name, path] of Object.entries(this.data))
 			{
-				data[key] = value.filter(v => v[0] <= this.anim_t);
-
-				if (value[value.length - 1][0] > this.anim_t)
+				if (path.length)
 				{
-					end = false;
+					let lastTime = path[path.length - 1][0];
+
+					if (lastTime > this.anim_t) {
+						finished = false;
+					}
+
+					if (lastTime + deathTimeout > this.anim_t)
+					{
+						alive.push(name)
+					}
+				}
+
+				let earlier = path.filter(v => v[0] <= this.anim_t);
+
+				if (earlier.length)
+				{
+					trimmed[name] = earlier;
 				}
 			}
 
-			this.updateDate(this.anim_t);
-			this.drawDrifters(data);
+			if (deselectDead)
+			{
+				this.setSelected(this.selected.filter(n => alive.includes(n)));
+			}
 
-			if (end)
+			this.updateDate(this.anim_t);
+			this.drawDrifters(trimmed);
+
+			if (finished)
 			{
 				this.anim_t = this.anim_0;
 			}
@@ -526,13 +550,6 @@ class DrifterApp {
 			}
 
 			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000);
-		}
-	}
-
-	setUrl(url) {
-		if (!referrer)
-		{
-			window.history.replaceState(null, "", url)
 		}
 	}
 }
@@ -614,5 +631,5 @@ else
 const urlParams = new URLSearchParams(query);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
-app.data_source = "grouped.json";
+app.data_source = "TrAtlDrifters.json";
 app.start();
