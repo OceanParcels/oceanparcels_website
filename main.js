@@ -97,6 +97,8 @@ class DrifterApp {
 		this.refreshDrifters(function (data) {
 			self.processDrifters(data);
 
+			self.zoomToRelevant();
+
 			if (self.animating)
 			{
 				self.startAnimate();
@@ -551,6 +553,47 @@ class DrifterApp {
 
 			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000);
 		}
+	}
+
+	zoomToRelevant() {
+		let relevant = this.selected.length ? this.selected : Object.keys(this.data);
+		let relevantData = relevant.map(n => this.data[n]);
+
+		function select1(prev, curr)  // select min/max lng/lat from trail
+		{
+			return [Math.min(prev[0], curr[1]), Math.min(prev[1], curr[2]), Math.max(prev[2], curr[1]), Math.max(prev[3], curr[2])];
+		}
+
+		function select4(prev, curr)  // select min/max lng/lat from Array<Array[4]> of min/max lng/lat
+		{
+			return [Math.min(prev[0], curr[0]), Math.min(prev[1], curr[1]), Math.max(prev[2], curr[2]), Math.max(prev[3], curr[3])];
+		}
+
+		let def = [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY];
+		let bounds = relevantData.map(d => d.reduce(select1, def)).reduce(select4);
+
+		function scale(m, a) {
+			let c = (a[0] + a[1]) / 2;
+			return a.map(x => m * (x - c) + c)
+		}
+
+		let upper = [bounds[1], bounds[0]];
+		let lower = [bounds[3], bounds[2]];
+
+		let scaleF = 1.5;
+
+		upper = ol.proj.fromLonLat(upper);
+		lower = ol.proj.fromLonLat(lower);
+
+		let lng = [lower[0], upper[0]];
+		let lat = [lower[1], upper[1]];
+
+		lng = scale(scaleF, lng);
+		lat = scale(scaleF, lat);
+
+		let bbox = [lng[1], lat[1], lng[0], lat[0]];
+
+		this.map.getView().fit(bbox);
 	}
 }
 
