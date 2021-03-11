@@ -1,7 +1,7 @@
 const TEXT = {
-	animation_start: "Start animation",
-	animation_pause: "Pause animation",
-	select_drifter: "Select drifter by name",
+	animation_start: "START ANIMATION",
+	animation_pause: "PAUSE ANIMATION",
+	select_drifter: "SELECT DRIFTER BY NAME",
 	drifter_prompt: "Which drifter do you want to select?",
 	drifter_date: "Drifters on",
 	no_referrer: "Please try to access this map on https://galapagosplasticfree.nl/ instead ;)"
