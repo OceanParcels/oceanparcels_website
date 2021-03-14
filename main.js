@@ -72,6 +72,8 @@ class DrifterApp {
 
 		this.closer.onclick = this.hideTooltip.bind(this);
 
+		this.setupSocialButtons();
+
 		this.map = new ol.Map({
 			target: 'map',
 			controls: controls,
@@ -87,6 +89,8 @@ class DrifterApp {
 
 		this.lines = new VLayer();
 		this.lines.addTo(this.map, 2);
+
+		this.openlayersUnselectableFix()
 	}
 
 	start() {
@@ -129,7 +133,7 @@ class DrifterApp {
 		urlParams.set("s", this.selected.join(","));
 		urlParams.set("a", (this.animating ? 1 : 0).toString());
 
-		return "?" + urlParams.toString();
+		return baseUrl + "?" + urlParams.toString();
 	}
 
 	updateDate(timestamp) {
@@ -595,6 +599,20 @@ class DrifterApp {
 
 		this.map.getView().fit(bbox);
 	}
+
+	setupSocialButtons() {
+		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.createQueryURL()}`);
+		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.createQueryURL()}`);
+		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.createQueryURL()}&t=${this.createQueryURL()}`);
+	}
+
+	openlayersUnselectableFix() {
+		// OpenLayers unselectables, are not really unselectable, so we make them (note the pointer-events: all on the buttons themselves)
+		for (let el of $(".ol-control"))
+		{
+			el.style = "pointer-events: none";
+		}
+	}
 }
 
 
@@ -657,21 +675,25 @@ const GALAPAGOS = [ -90.8770522, -0.246927];
 
 let referrer = document.referrer;
 let query;
+let baseUrl;
 
 if (referrer)
 {
-	let baseUrl = referrer || window.location.origin + window.location.pathname;
+	baseUrl = referrer || window.location.origin + window.location.pathname;
 	let split = baseUrl.split("/");
 	split = split[split.length - 1].split("?");
 	query = split[split.length - 1];
 }
 else
 {
+	baseUrl = window.location.origin + window.location.pathname;
 	console.log(TEXT.no_referrer);
 	query = window.location.search;
 }
 
 const urlParams = new URLSearchParams(query);
+
+console.log(baseUrl);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
 app.data_source = "TrAtlDrifters.json";
