@@ -21,11 +21,55 @@
             padding: 0 0 0 20px;
         }
         .social-link {
-            width: 32px;
+            width: 84px;
             height: 32px;
             background-color: rgba(255, 205, 0, 1);
             pointer-events: all;
         }
+        .social-link:hover {
+            cursor: pointer;
+        }
+        .social-share-links__link {
+            pointer-events: all;
+            position: relative;
+            display: block;
+            width: 84px;
+            height: 42px;
+            background-color: #ffcd00;
+        }
+        .social-share-links__link:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 50%;
+            bottom: 0;
+            left: 0;
+            background-color: #000;
+        }
+        .social-share-links__link-icon {
+            position: absolute;
+            left: 25%;
+            top: 50%;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%,-50%);
+            fill: #fff;
+        }
+        .social-share-links__arrow-icon {
+            position: absolute;
+            left: 75%;
+            top: 50%;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%,-50%);
+            fill: #fff;
+        }
+        .social-share-links__list {
+            list-style: none;
+            margin: 0;
+            padding-left: 0;
+        }
+
         .ol-button {
             pointer-events: all;
             width: 250px; height: 40px; border: 0;
@@ -147,10 +191,43 @@
 </div>
 <div class="date" id="date">Drifters on</div>
 <div class="map" id="map"></div>
-<ul class="social">
-    <li><div class="social-link twitter"></div></li>
-    <li><div class="social-link linkedin"></div></li>
-    <li><div class="social-link facebook"></div></li>
+<ul class="social links social-share-links__list social-share-links__list--inline">
+    <li class="social-share-links__list-item">
+        <div class="social-link twitter">
+        <a target="_blank" class="social-share-links__link social-share-links__link--twitter js-no-external-icon" title="Deel op Twitter" rel="noopener">
+        <svg aria-hidden="true" focusable="false" class="social-share-links__link-icon">
+            <use xlink:href="sprite.svg?v=1611727326#twitter"></use>
+        </svg>
+            <svg aria-hidden="true" focusable="false" class="social-share-links__arrow-icon">
+                <use xlink:href="sprite.svg?v=1611727326#arrow-right"></use>
+            </svg>
+        </a>
+        </div>
+    </li>
+    <li class="social-share-links__list-item">
+        <div class="social-link linkedin">
+            <a target="_blank" class="social-share-links__link social-share-links__link--linkedin js-no-external-icon" title="Deel op LinkedIn" rel="noopener">
+                <svg aria-hidden="true" focusable="false" class="social-share-links__link-icon">
+                    <use xlink:href="sprite.svg?v=1611727326#linkedin"></use>
+                </svg>
+                <svg aria-hidden="true" focusable="false" class="social-share-links__arrow-icon">
+                    <use xlink:href="sprite.svg?v=1611727326#arrow-right"></use>
+                </svg>
+            </a>
+        </div>
+    </li>
+    <li class="social-share-links__list-item">
+        <div class="social-link facebook">
+            <a target="_blank" class="social-share-links__link social-share-links__link--facebook js-no-external-icon" title="Deel op Facebook" rel="noopener">
+                <svg aria-hidden="true" focusable="false" class="social-share-links__link-icon">
+                    <use xlink:href="sprite.svg?v=1611727326#facebook"></use>
+                </svg>
+                <svg aria-hidden="true" focusable="false" class="social-share-links__arrow-icon">
+                    <use xlink:href="sprite.svg?v=1611727326#arrow-right"></use>
+                </svg>
+            </a>
+        </div>
+    </li>
 </ul>
 </body>
 
