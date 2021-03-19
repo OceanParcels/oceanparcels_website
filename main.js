@@ -445,7 +445,7 @@ class DrifterApp {
 		let name = feature.drifterName;
 		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
-		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}`;
+		this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}`;
 	    this.overlay.setPosition(coordinate);
 	}
 
