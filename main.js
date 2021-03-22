@@ -247,6 +247,8 @@ class DrifterApp {
 
 			return close;
 		}
+
+		return [];
 	}
 
 	colourMap(name, i, n) {
