@@ -1,3 +1,14 @@
+const TEXT = {
+	animation_start: "START ANIMATION",
+	animation_pause: "PAUSE ANIMATION",
+	select_drifter: "SELECT DRIFTER BY NAME",
+	drifter_prompt: "Which drifter do you want to select?",
+	drifter_date: "Drifters on",
+	no_referrer: "Please try to access this map on https://galapagosplasticfree.nl/ instead ;)"
+};
+
+const DATA_URL = "https://samuelhklumpers.github.io/oceanparcels_website/";
+
 class VLayer {
 	constructor() {
 		this.layer = new ol.layer.Vector({});
@@ -37,14 +48,15 @@ class DrifterApp {
 		this.anim_0 = null;
 		this.anim_s = 24 * 3600 * 1000;
 
+		this.data_source = null;
 
 		let controls = [];
 
 		let playControl;
-		[this.playButton, playControl] = this.createOLButton("Start", this.toggleAnimate.bind(this));
+		[this.playButton, playControl] = this.createOLButton(TEXT.animation_start, this.toggleAnimate.bind(this));
 		controls.push(playControl);		//animation button
 
-		controls.push(this.createOLButton("Search", this.createSearchModal.bind(this))[1]);
+		controls.push(this.createOLButton(TEXT.select_drifter, this.createSearchModal.bind(this))[1]);
 
 		this.container = document.getElementById('popup');
 		this.content = document.getElementById('popup-content');
@@ -59,6 +71,8 @@ class DrifterApp {
 		});
 
 		this.closer.onclick = this.hideTooltip.bind(this);
+
+		this.setupSocialButtons();
 
 		this.map = new ol.Map({
 			target: 'map',
@@ -75,6 +89,8 @@ class DrifterApp {
 
 		this.lines = new VLayer();
 		this.lines.addTo(this.map, 2);
+
+		this.openlayersUnselectableFix()
 	}
 
 	start() {
@@ -84,6 +100,8 @@ class DrifterApp {
 
 		this.refreshDrifters(function (data) {
 			self.processDrifters(data);
+
+			self.zoomToRelevant();
 
 			if (self.animating)
 			{
@@ -115,14 +133,13 @@ class DrifterApp {
 		urlParams.set("s", this.selected.join(","));
 		urlParams.set("a", (this.animating ? 1 : 0).toString());
 
-		let baseUrl = window.location.origin + window.location.pathname;
 		return baseUrl + "?" + urlParams.toString();
 	}
 
 	updateDate(timestamp) {
 		let date = new Date(timestamp);
 
-		document.getElementById("date").innerHTML = date.toDateString();
+		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toDateString();
 	}
 
 	processDrifters(data) {
@@ -134,16 +151,28 @@ class DrifterApp {
 			}
 		}
 
+		let new_data = {};
+
 		for (let [name, path] of Object.entries(data))
 		{
-			data[name] = path.filter(e => e[0] > this.begin);
+			let trimmed = path.filter(e => e[0] > this.begin);
+			if (trimmed.length)
+			{
+				new_data[name] = trimmed;
+			}
 		}
 
-		this.data = data;
+		this.data = new_data;
 	}
 
 	refreshDrifters(callback) {
-		$.getJSON("grouped.json", callback);
+		if (this.data_source) {
+			$.getJSON(DATA_URL + this.data_source, callback).catch(e => $.getJSON(DATA_URL + data_default, callback));
+		}
+		else
+		{
+			$.getJSON(DATA_URL + data_default, callback);
+		}
 	}
 
 	createOLButton(text, callback) {
@@ -163,7 +192,7 @@ class DrifterApp {
 	}
 
 	createSearchModal() {
-		let search = prompt("Which drifter do you want to select?");
+		let search = prompt(TEXT.drifter_prompt);
 
 		if (search === null)
 		{
@@ -297,6 +326,15 @@ class DrifterApp {
 		return [colour, opacity];
 	}
 
+	markerScale(mstyle, istyle, feature, resolution) {
+		resolution = Math.max(400, Math.min(resolution, 2000));
+
+		let base = 400;
+		istyle.setScale(base / (1 + resolution));
+
+		return [mstyle];
+	}
+
 	createMarker(colour, lat, lng, opacity=1.0, z=1) {
 		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
 
@@ -308,16 +346,20 @@ class DrifterApp {
 
 		[colour, opacity] = this.svgAlphaFix(colour, opacity);
 
-		marker.setStyle(new ol.style.Style({
-			image: new ol.style.Icon({
-				anchor: [0.5, 1],
+		let iconStyle = new ol.style.Icon({
+				anchor: [0.5, 0.5],
 				src: "marker.svg",
-				scale: 0.8,
+				scale: 0.1,
 				opacity: opacity,
 				color: colour
-        	}),
+		});
+
+		let markerStyle = new ol.style.Style({
+			image: iconStyle,
 			zIndex: z
-    	}));
+    	});
+
+		marker.setStyle(this.markerScale.bind(this, markerStyle, iconStyle));
 
 		return marker;
 	}
@@ -399,8 +441,6 @@ class DrifterApp {
 				this.redrawDrifters();
 			}
 		}
-
-		this.setUrl(this.createQueryURL());
 	}
 
 	showTooltip(drifterName) {
@@ -411,7 +451,7 @@ class DrifterApp {
 		let name = feature.drifterName;
 		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
-		this.content.innerHTML = `<p>Name: ${name}<br>Coordinates: ${hdms}`;
+		this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}`;
 	    this.overlay.setPosition(coordinate);
 	}
 
@@ -427,14 +467,12 @@ class DrifterApp {
 		}
 		else if (this.anim_t !== null) {
 			this.animating = true;
-			this.playButton.innerHTML = "Pause";
+			this.playButton.innerHTML = TEXT.animation_pause;
 			this.stepAnimate();
 		}
 		else {
 			this.startAnimate();
 		}
-
-		this.setUrl(this.createQueryURL());
 	}
 
 	startAnimate() {
@@ -444,17 +482,22 @@ class DrifterApp {
 			return;
 		}
 
-		this.playButton.innerHTML = "Pause";
+		this.playButton.innerHTML = TEXT.animation_pause;
 
-		this.anim_t = 0;
+		this.anim_t = Number.POSITIVE_INFINITY;
 		let _, t;
 		for (let drifter of Object.values(this.data))
 		{
 			[t, _, _] = drifter[0];
-			if (t > this.anim_t)
+			if (t < this.anim_t)
 			{
 				this.anim_t = t;
 			}
+		}
+
+		if (!this.selected.length)
+		{
+			this.setSelected(Object.keys(this.data));
 		}
 
 		this.anim_0 = this.anim_t;
@@ -464,29 +507,52 @@ class DrifterApp {
 
 	stopAnimate() {
 		this.animating = false;
-		this.playButton.innerHTML = "Start";
+		this.playButton.innerHTML = TEXT.animation_start;
 		clearTimeout(this.anim_h);
 	}
 
 	stepAnimate() {
+		const deselectDead = true;
+		const deathTimeout = 2 * this.anim_s;
+
 		if (this.animating) {
-			let data = {};
-			let end = true;
+			let trimmed = {};
+			let alive = [];
+			let finished = true;
 
-			for (let [key, value] of Object.entries(this.data))
+			for (let [name, path] of Object.entries(this.data))
 			{
-				data[key] = value.filter(v => v[0] <= this.anim_t);
-
-				if (value[value.length - 1][0] > this.anim_t)
+				if (path.length)
 				{
-					end = false;
+					let lastTime = path[path.length - 1][0];
+
+					if (lastTime > this.anim_t) {
+						finished = false;
+					}
+
+					if (lastTime + deathTimeout > this.anim_t)
+					{
+						alive.push(name)
+					}
+				}
+
+				let earlier = path.filter(v => v[0] <= this.anim_t);
+
+				if (earlier.length)
+				{
+					trimmed[name] = earlier;
 				}
 			}
 
-			this.updateDate(this.anim_t);
-			this.drawDrifters(data);
+			if (deselectDead)
+			{
+				this.setSelected(this.selected.filter(n => alive.includes(n)));
+			}
 
-			if (end)
+			this.updateDate(this.anim_t);
+			this.drawDrifters(trimmed);
+
+			if (finished)
 			{
 				this.anim_t = this.anim_0;
 			}
@@ -499,8 +565,62 @@ class DrifterApp {
 		}
 	}
 
-	setUrl(url) {
-		window.history.replaceState({}, "", url);
+	zoomToRelevant() {
+		let relevant = this.selected.length ? this.selected : Object.keys(this.data);
+		let relevantData = relevant.map(n => this.data[n]);
+
+		function select1(prev, curr)  // select min/max lng/lat from trail
+		{
+			return [Math.min(prev[0], curr[1]), Math.min(prev[1], curr[2]), Math.max(prev[2], curr[1]), Math.max(prev[3], curr[2])];
+		}
+
+		function select4(prev, curr)  // select min/max lng/lat from Array<Array[4]> of min/max lng/lat
+		{
+			return [Math.min(prev[0], curr[0]), Math.min(prev[1], curr[1]), Math.max(prev[2], curr[2]), Math.max(prev[3], curr[3])];
+		}
+
+		let def = [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY];
+		let bounds = relevantData.map(d => d.reduce(select1, def)).reduce(select4);
+
+		function scale(m, a) {
+			let c = (a[0] + a[1]) / 2;
+			return a.map(x => m * (x - c) + c)
+		}
+
+		let upper = [bounds[1], bounds[0]];
+		let lower = [bounds[3], bounds[2]];
+
+		let scaleF = 1.5;
+
+		upper = ol.proj.fromLonLat(upper);
+		lower = ol.proj.fromLonLat(lower);
+
+		let lng = [lower[0], upper[0]];
+		let lat = [lower[1], upper[1]];
+
+		lng = scale(scaleF, lng);
+		lat = scale(scaleF, lat);
+
+		let bbox = [lng[1], lat[1], lng[0], lat[0]];
+
+		this.map.getView().fit(bbox);
+	}
+
+	setupSocialButtons() {
+		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.createQueryURL()}`);
+		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.createQueryURL()}`);
+		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.createQueryURL()}&t=${this.createQueryURL()}`);
+
+		let copypaste = $(".copypaste")[0];
+		copypaste.onclick = e => navigator.clipboard.writeText(this.createQueryURL());
+	}
+
+	openlayersUnselectableFix() {
+		// OpenLayers unselectables, are not really unselectable, so we make them (note the pointer-events: all on the buttons themselves)
+		for (let el of $(".ol-control"))
+		{
+			el.style = "pointer-events: none";
+		}
 	}
 }
 
@@ -561,7 +681,34 @@ window.onclick = function(event) {
 
 
 const GALAPAGOS = [ -90.8770522, -0.246927];
-const urlParams = new URLSearchParams(window.location.search);
+
+let referrer = document.referrer;
+let query;
+let iframeQuery;
+let baseUrl;
+
+if (referrer)
+{
+	baseUrl = referrer || window.location.origin + window.location.pathname;
+	let split = baseUrl.split("/");
+	split = split[split.length - 1].split("?");
+	query = split[split.length - 1];
+	iframeQuery = document.location.search;
+}
+else
+{
+	baseUrl = window.location.origin + window.location.pathname;
+	console.log(TEXT.no_referrer);
+	query = window.location.search;
+	iframeQuery = query;
+}
+
+const urlParams = new URLSearchParams(query);
+const iframeParams = new URLSearchParams(iframeQuery);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
+let data_default = "grouped.json";
+app.data_source = iframeParams.get("fn");
+
 app.start();
+
