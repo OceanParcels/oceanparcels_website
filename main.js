@@ -7,6 +7,7 @@ const TEXT = {
 	no_referrer: "Please try to access this map on https://galapagosplasticfree.nl/ instead ;)"
 };
 
+const DATA_URL = "https://samuelhklumpers.github.io/oceanparcels_website/";
 
 class VLayer {
 	constructor() {
@@ -47,8 +48,7 @@ class DrifterApp {
 		this.anim_0 = null;
 		this.anim_s = 24 * 3600 * 1000;
 
-		this.data_source = "drifters.json";
-
+		this.data_source = null;
 
 		let controls = [];
 
@@ -166,7 +166,13 @@ class DrifterApp {
 	}
 
 	refreshDrifters(callback) {
-		$.getJSON(this.data_source, callback);
+		if (this.data_source) {
+			$.getJSON(DATA_URL + this.data_source, callback).catch(e => $.getJSON(DATA_URL + data_default, callback));
+		}
+		else
+		{
+			$.getJSON(DATA_URL + data_default, callback);
+		}
 	}
 
 	createOLButton(text, callback) {
@@ -604,6 +610,9 @@ class DrifterApp {
 		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.createQueryURL()}`);
 		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.createQueryURL()}`);
 		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.createQueryURL()}&t=${this.createQueryURL()}`);
+
+		let copypaste = $(".copypaste")[0];
+		copypaste.onclick = e => navigator.clipboard.writeText(this.createQueryURL());
 	}
 
 	openlayersUnselectableFix() {
@@ -675,6 +684,7 @@ const GALAPAGOS = [ -90.8770522, -0.246927];
 
 let referrer = document.referrer;
 let query;
+let iframeQuery;
 let baseUrl;
 
 if (referrer)
@@ -683,18 +693,22 @@ if (referrer)
 	let split = baseUrl.split("/");
 	split = split[split.length - 1].split("?");
 	query = split[split.length - 1];
+	iframeQuery = document.location.search;
 }
 else
 {
 	baseUrl = window.location.origin + window.location.pathname;
 	console.log(TEXT.no_referrer);
 	query = window.location.search;
+	iframeQuery = query;
 }
 
 const urlParams = new URLSearchParams(query);
-
-console.log(baseUrl);
+const iframeParams = new URLSearchParams(iframeQuery);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
-app.data_source = "TrAtlDrifters.json";
+let data_default = "grouped.json";
+app.data_source = iframeParams.get("fn");
+
 app.start();
+
