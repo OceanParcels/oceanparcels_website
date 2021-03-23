@@ -7,7 +7,7 @@ const TEXT = {
 	no_referrer: "Please try to access this map on https://galapagosplasticfree.nl/ instead ;)"
 };
 
-const DATA_URL = "https://samuelhklumpers.github.io/oceanparcels_website/";
+const DATA_URL = "https://oceanparcels.org/";
 
 class VLayer {
 	constructor() {
