@@ -704,6 +704,7 @@ else
 	query = window.location.search;
 	iframeQuery = query;
 }
+baseUrl = baseUrl.split("?")[0];
 
 const urlParams = new URLSearchParams(query);
 const iframeParams = new URLSearchParams(iframeQuery);
