@@ -608,13 +608,21 @@ class DrifterApp {
 		this.map.getView().fit(bbox);
 	}
 
+	copyShareableURL(e) {
+		navigator.clipboard.writeText(this.createQueryURL()).catch(this.showCopyModal.bind(this));
+	}
+
+	showCopyModal(e) {
+		prompt("Copy to clipboard: CTRL+C", this.createQueryURL())
+	}
+
 	setupSocialButtons() {
 		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.createQueryURL()}`);
 		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.createQueryURL()}`);
 		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.createQueryURL()}&t=${this.createQueryURL()}`);
 
 		let copypaste = $(".copypaste")[0];
-		copypaste.onclick = e => navigator.clipboard.writeText(this.createQueryURL());
+		copypaste.onclick = this.copyShareableURL.bind(this)
 	}
 
 	openlayersUnselectableFix() {
