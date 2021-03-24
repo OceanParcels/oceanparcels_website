@@ -129,11 +129,17 @@ class DrifterApp {
 		this.begin = Date.parse(urlParams.get("b")) || 0;
 	}
 
-	createQueryURL() {
+	generateQueryURL(escape=false) {
 		urlParams.set("s", this.selected.join(","));
 		urlParams.set("a", (this.animating ? 1 : 0).toString());
 
-		return baseUrl + "?" + urlParams.toString();
+		let ret = baseUrl + "?" + urlParams.toString();
+
+		console.log("params: " + urlParams.toString());
+		console.log("base: " + baseUrl.toString());
+		console.log(encodeURIComponent(ret));
+
+		return escape ? encodeURIComponent(ret) : ret;
 	}
 
 	updateDate(timestamp) {
@@ -609,17 +615,17 @@ class DrifterApp {
 	}
 
 	copyShareableURL(e) {
-		navigator.clipboard.writeText(this.createQueryURL()).catch(this.showCopyModal.bind(this));
+		navigator.clipboard.writeText(this.generateQueryURL(false)).catch(this.showCopyModal.bind(this));
 	}
 
 	showCopyModal(e) {
-		prompt("Copy to clipboard: CTRL+C", this.createQueryURL())
+		prompt("Copy to clipboard: CTRL+C", this.generateQueryURL(false))
 	}
 
 	setupSocialButtons() {
-		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.createQueryURL()}`);
-		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.createQueryURL()}`);
-		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.createQueryURL()}&t=${this.createQueryURL()}`);
+		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.generateQueryURL(true)}`);
+		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.generateQueryURL(true)}`);
+		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.generateQueryURL()}&t=${this.generateQueryURL(true)}`);
 
 		let copypaste = $(".copypaste")[0];
 		copypaste.onclick = this.copyShareableURL.bind(this)
