@@ -134,11 +134,6 @@ class DrifterApp {
 		urlParams.set("a", (this.animating ? 1 : 0).toString());
 
 		let ret = baseUrl + "?" + urlParams.toString();
-
-		console.log("params: " + urlParams.toString());
-		console.log("base: " + baseUrl.toString());
-		console.log(encodeURIComponent(ret));
-
 		return escape ? encodeURIComponent(ret) : ret;
 	}
 
@@ -706,10 +701,11 @@ let baseUrl;
 if (referrer)
 {
 	baseUrl = referrer || window.location.origin + window.location.pathname;
-	let split = baseUrl.split("/");
 
+	let split = baseUrl.split("/");
+	split = split[split.length - 1];
 	if (split.includes("?")) {
-		split = split[split.length - 1].split("?");
+		split = split.split("?");
 		query = split[split.length - 1];
 	}
 	else
@@ -727,9 +723,6 @@ else
 	iframeQuery = query;
 }
 baseUrl = baseUrl.split("?")[0];
-
-console.log(query);
-console.log(iframeQuery);
 
 const urlParams = new URLSearchParams(query);
 const iframeParams = new URLSearchParams(iframeQuery);
