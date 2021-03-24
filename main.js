@@ -252,7 +252,9 @@ class DrifterApp {
 		return [];
 	}
 
-	colourMap(name, i, n) {
+	colourMap(name, n) {
+		let i = Object.keys(this.data).indexOf(name);
+
 		if (this.selected.length && !this.selected.includes(name))
 		{
 			return ["rgba(127, 127, 127, 0.4)", 0.4, 0];
@@ -275,13 +277,12 @@ class DrifterApp {
 		this.markers.clear();
 		this.lines.clear();
 
-		let i = 0;
-		let n = Object.keys(data).length;
+		let n = Object.keys(this.data).length;
 		let now = 0;
 
 		for (let [name, path] of Object.entries(data))
 		{
-			let [colour, opacity, zindex] = this.colourMap(name, i, n);
+			let [colour, opacity, zindex] = this.colourMap(name, n);
 			let last = path[path.length - 1];
 
 			if (!last)
@@ -304,8 +305,6 @@ class DrifterApp {
 
 			this.markers.add(mark, name);
 			this.lines.add(line, name);
-
-			++i;
 		}
 
 		this.updateDate(now);
