@@ -625,7 +625,7 @@ class DrifterApp {
 	setupSocialButtons() {
 		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.generateQueryURL(true)}`);
 		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.generateQueryURL(true)}`);
-		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.generateQueryURL()}&t=${this.generateQueryURL(true)}`);
+		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.generateQueryURL(true)}&t=${this.generateQueryURL(true)}`);
 
 		let copypaste = $(".copypaste")[0];
 		copypaste.onclick = this.copyShareableURL.bind(this)
@@ -707,8 +707,16 @@ if (referrer)
 {
 	baseUrl = referrer || window.location.origin + window.location.pathname;
 	let split = baseUrl.split("/");
-	split = split[split.length - 1].split("?");
-	query = split[split.length - 1];
+
+	if (split.includes("?")) {
+		split = split[split.length - 1].split("?");
+		query = split[split.length - 1];
+	}
+	else
+	{
+		query = "";
+	}
+
 	iframeQuery = document.location.search;
 }
 else
@@ -719,6 +727,9 @@ else
 	iframeQuery = query;
 }
 baseUrl = baseUrl.split("?")[0];
+
+console.log(query);
+console.log(iframeQuery);
 
 const urlParams = new URLSearchParams(query);
 const iframeParams = new URLSearchParams(iframeQuery);
