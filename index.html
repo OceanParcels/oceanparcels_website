@@ -191,7 +191,7 @@
       <pre><code class="language-bash">conda activate root  # Linux / macOS
 activate root        # Windows
 
-conda create -n py3_parcels -c conda-forge python=3.6 parcels jupyter cartopy ffmpeg</code></pre></li>
+conda create -n py3_parcels -c conda-forge parcels jupyter cartopy ffmpeg</code></pre></li>
     <!--<i>*Note that Parcels has a problem with the latest release of the netCDF4 library, v1.4.2 (see also <a href="https://github.com/OceanParcels/parcels/issues/513">Issue #513 on github</a>). For the time being, we recommend downgrading to v1.4.1, using <code class="language-bash">conda install netcdf4=1.4.1</code></i>-->
     <i>*Note that for some of the examples, <code class="language-bash">pytest</code> needs to be installed with <code class="language-bash">conda install -n py3_parcels pytest</code>.</i>
     <p></p>
@@ -241,7 +241,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
   <p></p>
   <ol>
     <li>We strongly encourage to create a new environment for Parallel Parcels:
-      <pre><code class="language-bash">conda create -n py3_parcels_mpi -c conda-forge python=3.6 parcels mpi4py mpich scikit-learn jupyter cartopy ffmpeg
+      <pre><code class="language-bash">conda create -n py3_parcels_mpi -c conda-forge parcels mpi4py mpich scikit-learn jupyter cartopy ffmpeg
 conda activate py3_parcels_mpi</code></pre></li>
     <p></p>
     <li>If you are on a Mac, you may need to issue
