@@ -233,7 +233,7 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
   <h4>Installation for developers</h4>
 
   Parcels depends on a working Python installation, a netCDF installation, a C compiler, and various Python packages.  If you prefer to maintain your own Python installation providing all this, <code class="language-bash">git clone</code> the <a href="https://github.com/OceanParcels/parcels">master branch of Parcels</a> and manually install all packages listed under <code>dependencies</code> in the environment files (<a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_linux.yml">environment_py3_linux.yml</a> for Linux, <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_osx.yml">environment_py3_osx.yml</a> for OSX and
-  <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_win.yml">environment_py3_win.yml</a> for Windows), before running <code class="language-bash">python setup.py install</code>.
+  <a href="https://raw.githubusercontent.com/OceanParcels/parcels/master/environment_py3_win.yml">environment_py3_win.yml</a> for Windows), before running <code class="language-bash">python setup.py install --prefix=PREFIX</code> where <code class="language-bash">PREFIX</code> is the path to the directory of your local branch of the parcels code.
 
   <p></p>
   <h4 id="parallel_install">Installation of Parallel Parcels with MPI</h4>
