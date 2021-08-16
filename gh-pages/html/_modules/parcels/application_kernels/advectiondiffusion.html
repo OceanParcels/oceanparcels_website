@@ -6,15 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.kernels.advectiondiffusion &#8212; Parcels 2.2.1 documentation</title>
-    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <title>parcels.application_kernels.advectiondiffusion &#8212; Parcels 2.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -44,7 +43,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.kernels.advectiondiffusion</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.application_kernels.advectiondiffusion</a></li> 
       </ul>
     </div>  
 
@@ -53,7 +52,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for parcels.kernels.advectiondiffusion</h1><div class="highlight"><pre>
+  <h1>Source code for parcels.application_kernels.advectiondiffusion</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Collection of pre-built advection-diffusion kernels</span>
 
 <span class="sd">See `this tutorial &lt;https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_diffusion.ipynb&gt;`_ for a detailed explanation&quot;&quot;&quot;</span>
@@ -65,7 +64,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DiffusionUniformKh&#39;</span><span class="p">,</span> <span class="s1">&#39;AdvectionDiffusionM1&#39;</span><span class="p">,</span> <span class="s1">&#39;AdvectionDiffusionEM&#39;</span><span class="p">,</span> <span class="p">]</span>
 
 
-<div class="viewcode-block" id="AdvectionDiffusionM1"><a class="viewcode-back" href="../../../index.html#parcels.kernels.advectiondiffusion.AdvectionDiffusionM1">[docs]</a><span class="k">def</span> <span class="nf">AdvectionDiffusionM1</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="AdvectionDiffusionM1"><a class="viewcode-back" href="../../../index.html#parcels.application_kernels.advectiondiffusion.AdvectionDiffusionM1">[docs]</a><span class="k">def</span> <span class="nf">AdvectionDiffusionM1</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Kernel for 2D advection-diffusion, solved using the Milstein scheme</span>
 <span class="sd">    at first order (M1).</span>
 
@@ -104,7 +103,7 @@
     <span class="n">particle</span><span class="o">.</span><span class="n">lat</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">particle</span><span class="o">.</span><span class="n">dt</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dKdy</span> <span class="o">*</span> <span class="p">(</span><span class="n">dWy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">particle</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span> <span class="o">+</span> <span class="n">by</span> <span class="o">*</span> <span class="n">dWy</span></div>
 
 
-<div class="viewcode-block" id="AdvectionDiffusionEM"><a class="viewcode-back" href="../../../index.html#parcels.kernels.advectiondiffusion.AdvectionDiffusionEM">[docs]</a><span class="k">def</span> <span class="nf">AdvectionDiffusionEM</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="AdvectionDiffusionEM"><a class="viewcode-back" href="../../../index.html#parcels.application_kernels.advectiondiffusion.AdvectionDiffusionEM">[docs]</a><span class="k">def</span> <span class="nf">AdvectionDiffusionEM</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Kernel for 2D advection-diffusion, solved using the Euler-Maruyama</span>
 <span class="sd">    scheme (EM).</span>
 
@@ -139,12 +138,13 @@
     <span class="n">particle</span><span class="o">.</span><span class="n">lat</span> <span class="o">+=</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">particle</span><span class="o">.</span><span class="n">dt</span> <span class="o">+</span> <span class="n">by</span> <span class="o">*</span> <span class="n">dWy</span></div>
 
 
-<div class="viewcode-block" id="DiffusionUniformKh"><a class="viewcode-back" href="../../../index.html#parcels.kernels.advectiondiffusion.DiffusionUniformKh">[docs]</a><span class="k">def</span> <span class="nf">DiffusionUniformKh</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="DiffusionUniformKh"><a class="viewcode-back" href="../../../index.html#parcels.application_kernels.advectiondiffusion.DiffusionUniformKh">[docs]</a><span class="k">def</span> <span class="nf">DiffusionUniformKh</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Kernel for simple 2D diffusion where diffusivity (Kh) is assumed uniform.</span>
 
 <span class="sd">    Assumes that fieldset has constant fields `Kh_zonal` and `Kh_meridional`.</span>
 <span class="sd">    These can be added via e.g.</span>
 <span class="sd">        fieldset.add_constant_field(&quot;Kh_zonal&quot;, kh_zonal, mesh=mesh)</span>
+
 <span class="sd">        fieldset.add_constant_field(&quot;Kh_meridional&quot;, kh_meridional, mesh=mesh)</span>
 <span class="sd">    where mesh is either &#39;flat&#39; or &#39;spherical&#39;</span>
 
@@ -201,12 +201,12 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.kernels.advectiondiffusion</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.application_kernels.advectiondiffusion</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
 </html>

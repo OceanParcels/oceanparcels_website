@@ -1,0 +1,343 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>parcels.kernel.kernelsoa &#8212; Parcels 2.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96368922-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.kernel.kernelsoa</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for parcels.kernel.kernelsoa</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">math</span>  <span class="c1"># noqa</span>
+<span class="kn">import</span> <span class="nn">random</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">ast</span> <span class="kn">import</span> <span class="n">parse</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">byref</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_double</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_int</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">MPI</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="kn">from</span> <span class="nn">parcels.kernel.basekernel</span> <span class="kn">import</span> <span class="n">BaseKernel</span>
+<span class="kn">from</span> <span class="nn">parcels.compilation.codegenerator</span> <span class="kn">import</span> <span class="n">ArrayKernelGenerator</span> <span class="k">as</span> <span class="n">KernelGenerator</span>
+<span class="kn">from</span> <span class="nn">parcels.compilation.codegenerator</span> <span class="kn">import</span> <span class="n">LoopGenerator</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">NestedField</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">SummedField</span>
+<span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">VectorField</span>
+<span class="kn">import</span> <span class="nn">parcels.rng</span> <span class="k">as</span> <span class="nn">ParcelsRandom</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.statuscodes</span> <span class="kn">import</span> <span class="n">StateCode</span><span class="p">,</span> <span class="n">OperationCode</span><span class="p">,</span> <span class="n">ErrorCode</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.statuscodes</span> <span class="kn">import</span> <span class="n">recovery_map</span> <span class="k">as</span> <span class="n">recovery_base_map</span>
+<span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="kn">import</span> <span class="n">logger</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KernelSOA&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="KernelSOA"><a class="viewcode-back" href="../../../index.html#parcels.kernel.kernelsoa.KernelSOA">[docs]</a><span class="k">class</span> <span class="nc">KernelSOA</span><span class="p">(</span><span class="n">BaseKernel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Kernel object that encapsulates auto-generated code.</span>
+
+<span class="sd">    :arg fieldset: FieldSet object providing the field information</span>
+<span class="sd">    :arg ptype: PType object for the kernel particle</span>
+<span class="sd">    :param delete_cfiles: Boolean whether to delete the C-files after compilation in JIT mode (default is True)</span>
+
+<span class="sd">    Note: A Kernel is either created from a compiled &lt;function ...&gt; object</span>
+<span class="sd">    or the necessary information (funcname, funccode, funcvars) is provided.</span>
+<span class="sd">    The py_ast argument may be derived from the code string, but for</span>
+<span class="sd">    concatenation, the merged AST plus the new header definition is required.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">funcname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">funccode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">py_ast</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">funcvars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">delete_cfiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">KernelSOA</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">ptype</span><span class="o">=</span><span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">pyfunc</span><span class="p">,</span> <span class="n">funcname</span><span class="o">=</span><span class="n">funcname</span><span class="p">,</span> <span class="n">funccode</span><span class="o">=</span><span class="n">funccode</span><span class="p">,</span> <span class="n">py_ast</span><span class="o">=</span><span class="n">py_ast</span><span class="p">,</span> <span class="n">funcvars</span><span class="o">=</span><span class="n">funcvars</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="n">c_include</span><span class="p">,</span> <span class="n">delete_cfiles</span><span class="o">=</span><span class="n">delete_cfiles</span><span class="p">)</span>
+
+        <span class="c1"># Derive meta information from pyfunc, if not given</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_fieldsets_in_kernels</span><span class="p">(</span><span class="n">pyfunc</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">funcvars</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">funcvars</span> <span class="o">=</span> <span class="n">funcvars</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pyfunc</span><span class="p">,</span> <span class="s1">&#39;__code__&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">funcvars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pyfunc</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">funcvars</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">funccode</span> <span class="o">=</span> <span class="n">funccode</span> <span class="ow">or</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">pyfunc</span><span class="o">.</span><span class="vm">__code__</span><span class="p">)</span>
+        <span class="c1"># Parse AST if it is not provided explicitly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">py_ast</span> <span class="o">=</span> <span class="n">py_ast</span> <span class="ow">or</span> <span class="n">parse</span><span class="p">(</span><span class="n">BaseKernel</span><span class="o">.</span><span class="n">fix_indentation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">funccode</span><span class="p">))</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pyfunc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Extract user context by inspecting the call stack</span>
+            <span class="n">stack</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">user_ctx</span> <span class="o">=</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">f_globals</span>
+                <span class="n">user_ctx</span><span class="p">[</span><span class="s1">&#39;math&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;math&#39;</span><span class="p">]</span>
+                <span class="n">user_ctx</span><span class="p">[</span><span class="s1">&#39;ParcelsRandom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;ParcelsRandom&#39;</span><span class="p">]</span>
+                <span class="n">user_ctx</span><span class="p">[</span><span class="s1">&#39;random&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;random&#39;</span><span class="p">]</span>
+                <span class="n">user_ctx</span><span class="p">[</span><span class="s1">&#39;StateCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;StateCode&#39;</span><span class="p">]</span>
+                <span class="n">user_ctx</span><span class="p">[</span><span class="s1">&#39;OperationCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;OperationCode&#39;</span><span class="p">]</span>
+                <span class="n">user_ctx</span><span class="p">[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Could not access user context when merging kernels&quot;</span><span class="p">)</span>
+                <span class="n">user_ctx</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">stack</span>  <span class="c1"># Remove cyclic references</span>
+            <span class="c1"># Compile and generate Python function from AST</span>
+            <span class="n">py_mod</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">py_mod</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">py_ast</span><span class="p">]</span>
+            <span class="n">exec</span><span class="p">(</span><span class="nb">compile</span><span class="p">(</span><span class="n">py_mod</span><span class="p">,</span> <span class="s2">&quot;&lt;ast&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;exec&quot;</span><span class="p">),</span> <span class="n">user_ctx</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pyfunc</span> <span class="o">=</span> <span class="n">user_ctx</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">funcname</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pyfunc</span> <span class="o">=</span> <span class="n">pyfunc</span>
+
+        <span class="n">numkernelargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_kernel_signature_on_version</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">numkernelargs</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> \
+            <span class="s1">&#39;Since Parcels v2.0, kernels do only take 3 arguments: particle, fieldset, time !! AND !! Argument order in field interpolation is time, depth, lat, lon.&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ptype</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcname</span><span class="p">)</span>
+
+        <span class="c1"># Generate the kernel function and add the outer loop</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
+            <span class="n">kernelgen</span> <span class="o">=</span> <span class="n">KernelGenerator</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">ptype</span><span class="p">)</span>
+            <span class="n">kernel_ccode</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">py_ast</span><span class="p">),</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">funcvars</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">field_args</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vector_field_args</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">vector_field_args</span>
+            <span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_field_args</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">Wname</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">ccode_name</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">W</span> <span class="k">else</span> <span class="s1">&#39;not_defined&#39;</span>
+                <span class="k">for</span> <span class="n">sF_name</span><span class="p">,</span> <span class="n">sF_component</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">ccode_name</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">ccode_name</span><span class="p">,</span> <span class="n">Wname</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">sF_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">sF_name</span> <span class="o">!=</span> <span class="s1">&#39;not_defined&#39;</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">[</span><span class="n">sF_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">sF_component</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">const_args</span> <span class="o">=</span> <span class="n">kernelgen</span><span class="o">.</span><span class="n">const_args</span>
+            <span class="n">loopgen</span> <span class="o">=</span> <span class="n">LoopGenerator</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">ptype</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_c_include</span><span class="p">):</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_c_include</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">c_include_str</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">c_include_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c_include</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ccode</span> <span class="o">=</span> <span class="n">loopgen</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">funcname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">const_args</span><span class="p">,</span>
+                                          <span class="n">kernel_ccode</span><span class="p">,</span> <span class="n">c_include_str</span><span class="p">)</span>
+
+            <span class="n">src_file_or_files</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_kernel_compile_files</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">src_file_or_files</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dyn_srcs</span> <span class="o">=</span> <span class="n">src_file_or_files</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">src_file</span> <span class="o">=</span> <span class="n">src_file_or_files</span>
+
+<div class="viewcode-block" id="KernelSOA.execute_jit"><a class="viewcode-back" href="../../../index.html#parcels.kernel.kernelsoa.KernelSOA.execute_jit">[docs]</a>    <span class="k">def</span> <span class="nf">execute_jit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Invokes JIT engine to perform the core update loop&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_fieldset_jit</span><span class="p">(</span><span class="n">pset</span><span class="p">)</span>
+
+        <span class="n">fargs</span> <span class="o">=</span> <span class="p">[</span><span class="n">byref</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">ctypes_struct</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">fargs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">c_double</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">const_args</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">particle_data</span> <span class="o">=</span> <span class="n">byref</span><span class="p">(</span><span class="n">pset</span><span class="o">.</span><span class="n">ctypes_struct</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_function</span><span class="p">(</span><span class="n">c_int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pset</span><span class="p">)),</span> <span class="n">particle_data</span><span class="p">,</span>
+                              <span class="n">c_double</span><span class="p">(</span><span class="n">endtime</span><span class="p">),</span> <span class="n">c_double</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="o">*</span><span class="n">fargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KernelSOA.execute_python"><a class="viewcode-back" href="../../../index.html#parcels.kernel.kernelsoa.KernelSOA.execute_python">[docs]</a>    <span class="k">def</span> <span class="nf">execute_python</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Performs the core update loop via Python&quot;&quot;&quot;</span>
+        <span class="c1"># sign of dt: { [0, 1]: forward simulation; -1: backward simulation }</span>
+        <span class="n">sign_dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="n">analytical</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="s1">&#39;AdvectionAnalytical&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pyfunc</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
+            <span class="n">analytical</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning_once</span><span class="p">(</span><span class="s1">&#39;dt is not used in AnalyticalAdvection, so is set to np.inf&#39;</span><span class="p">)</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]:</span>
+                    <span class="k">continue</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pset</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_particle</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">sign_dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">analytical</span><span class="o">=</span><span class="n">analytical</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Clean-up the in-memory dynamic linked libraries.</span>
+        <span class="c1"># This is not really necessary, as these programs are not that large, but with the new random</span>
+        <span class="c1"># naming scheme which is required on Windows OS&#39;es to deal with updates to a Parcels&#39; kernel.)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">KernelSOA</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__del__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">KernelSOA</span><span class="p">):</span>
+            <span class="n">kernel</span> <span class="o">=</span> <span class="n">KernelSOA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">KernelSOA</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">KernelSOA</span><span class="p">):</span>
+            <span class="n">kernel</span> <span class="o">=</span> <span class="n">KernelSOA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">kernel</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">KernelSOA</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KernelSOA.remove_deleted"><a class="viewcode-back" href="../../../index.html#parcels.kernel.kernelsoa.KernelSOA.remove_deleted">[docs]</a>    <span class="k">def</span> <span class="nf">remove_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">endtime</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility to remove all particles that signalled deletion</span>
+
+<span class="sd">        This deletion function is targetted to index-addressable, random-access array-collections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Indices marked for deletion.</span>
+        <span class="n">bool_indices</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">OperationCode</span><span class="o">.</span><span class="n">Delete</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bool_indices</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">output_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">deleted_only</span><span class="o">=</span><span class="n">bool_indices</span><span class="p">)</span>
+        <span class="n">pset</span><span class="o">.</span><span class="n">remove_indices</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KernelSOA.execute"><a class="viewcode-back" href="../../../index.html#parcels.kernel.kernelsoa.KernelSOA.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">execute_once</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute this Kernel over a ParticleSet for several timesteps&quot;&quot;&quot;</span>
+        <span class="n">pset</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">state</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">StateCode</span><span class="o">.</span><span class="n">Evaluate</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-6</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">execute_once</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning_once</span><span class="p">(</span><span class="s2">&quot;&#39;dt&#39; is too small, causing numerical accuracy limit problems. Please chose a higher &#39;dt&#39; and rather scale the &#39;time&#39; axis of the field accordingly. (related issue #762)&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">recovery</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">recovery</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span> <span class="ow">in</span> <span class="n">recovery</span> <span class="ow">and</span> <span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorThroughSurface</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">recovery</span><span class="p">:</span>
+            <span class="n">recovery</span><span class="p">[</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorThroughSurface</span><span class="p">]</span> <span class="o">=</span> <span class="n">recovery</span><span class="p">[</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">ErrorOutOfBounds</span><span class="p">]</span>
+        <span class="n">recovery_map</span> <span class="o">=</span> <span class="n">recovery_base_map</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">recovery_map</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">recovery</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="n">chunk_not_loaded</span><span class="p">:</span>  <span class="c1"># not the case if a field in not called in the kernel</span>
+                    <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">chunk_loaded_touched</span><span class="p">,</span>
+                                            <span class="n">g</span><span class="o">.</span><span class="n">chunk_deprecated</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">load_chunk</span><span class="p">)</span>
+
+        <span class="c1"># Execute the kernel over the particle set</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_jit</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_python</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+        <span class="c1"># Remove all particles that signalled deletion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_deleted</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">)</span>   <span class="c1"># Generalizable version!</span>
+
+        <span class="c1"># Identify particles that threw errors</span>
+        <span class="n">n_error</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">num_error_particles</span>
+
+        <span class="k">while</span> <span class="n">n_error</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">error_pset</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">error_particles</span>
+            <span class="c1"># Apply recovery kernel</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">error_pset</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">OperationCode</span><span class="o">.</span><span class="n">StopExecution</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">OperationCode</span><span class="o">.</span><span class="n">Repeat</span><span class="p">:</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
+                <span class="k">elif</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">OperationCode</span><span class="o">.</span><span class="n">Delete</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="n">p</span><span class="o">.</span><span class="n">state</span> <span class="ow">in</span> <span class="n">recovery_map</span><span class="p">:</span>
+                    <span class="n">recovery_kernel</span> <span class="o">=</span> <span class="n">recovery_map</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">state</span><span class="p">]</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">StateCode</span><span class="o">.</span><span class="n">Success</span><span class="p">)</span>
+                    <span class="n">recovery_kernel</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">isComputed</span><span class="p">():</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning_once</span><span class="p">(</span><span class="s1">&#39;Deleting particle </span><span class="si">{}</span><span class="s1"> because of non-recoverable error&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+
+            <span class="c1"># Remove all particles that signalled deletion</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_deleted</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">)</span>   <span class="c1"># Generalizable version!</span>
+
+            <span class="c1"># Execute core loop again to continue interrupted particles</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptype</span><span class="o">.</span><span class="n">uses_jit</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">execute_jit</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">execute_python</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+            <span class="n">n_error</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">num_error_particles</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../../index.html">
+              <img class="logo" src="../../../_static/parcelslogo.png" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.kernel.kernelsoa</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

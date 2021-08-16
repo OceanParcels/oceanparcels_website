@@ -6,15 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.kernels.TEOSseawaterdensity &#8212; Parcels 2.2.1 documentation</title>
-    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <title>parcels.application_kernels.TEOSseawaterdensity &#8212; Parcels 2.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -44,7 +43,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.kernels.TEOSseawaterdensity</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.application_kernels.TEOSseawaterdensity</a></li> 
       </ul>
     </div>  
 
@@ -53,7 +52,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for parcels.kernels.TEOSseawaterdensity</h1><div class="highlight"><pre>
+  <h1>Source code for parcels.application_kernels.TEOSseawaterdensity</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Collection of pre-built sea water density kernels&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
@@ -61,21 +60,21 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PolyTEOS10_bsq&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="PolyTEOS10_bsq"><a class="viewcode-back" href="../../../index.html#parcels.kernels.TEOSseawaterdensity.PolyTEOS10_bsq">[docs]</a><span class="k">def</span> <span class="nf">PolyTEOS10_bsq</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="PolyTEOS10_bsq"><a class="viewcode-back" href="../../../index.html#parcels.application_kernels.TEOSseawaterdensity.PolyTEOS10_bsq">[docs]</a><span class="k">def</span> <span class="nf">PolyTEOS10_bsq</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    # calculates density based on the polyTEOS10-bsq algorithm from Appendix A.2 of</span>
-<span class="sd">    # https://www.sciencedirect.com/science/article/pii/S1463500315000566</span>
-<span class="sd">    # requires fieldset.abs_salinity and fieldset.cons_temperature Fields in the fieldset</span>
-<span class="sd">    # and a particle.density Variable in the ParticleSet</span>
-<span class="sd">    #</span>
-<span class="sd">    # References:</span>
-<span class="sd">    #  Roquet, F., Madec, G., McDougall, T. J., Barker, P. M., 2014: Accurate</span>
-<span class="sd">    #   polynomial expressions for the density and specific volume of</span>
-<span class="sd">    #   seawater using the TEOS-10 standard. Ocean Modelling.</span>
-<span class="sd">    #  McDougall, T. J., D. R. Jackett, D. G. Wright and R. Feistel, 2003:</span>
-<span class="sd">    #   Accurate and computationally efficient algorithms for potential</span>
-<span class="sd">    #   temperature and density of seawater.  Journal of Atmospheric and</span>
-<span class="sd">    #   Oceanic Technology, 20, 730-741.</span>
+<span class="sd">    calculates density based on the polyTEOS10-bsq algorithm from Appendix A.2 of</span>
+<span class="sd">    https://www.sciencedirect.com/science/article/pii/S1463500315000566</span>
+<span class="sd">    requires fieldset.abs_salinity and fieldset.cons_temperature Fields in the fieldset</span>
+<span class="sd">    and a particle.density Variable in the ParticleSet</span>
+
+<span class="sd">    References:</span>
+<span class="sd">    Roquet, F., Madec, G., McDougall, T. J., Barker, P. M., 2014: Accurate</span>
+<span class="sd">    polynomial expressions for the density and specific volume of</span>
+<span class="sd">    seawater using the TEOS-10 standard. Ocean Modelling.</span>
+<span class="sd">    McDougall, T. J., D. R. Jackett, D. G. Wright and R. Feistel, 2003:</span>
+<span class="sd">    Accurate and computationally efficient algorithms for potential</span>
+<span class="sd">    temperature and density of seawater.  Journal of Atmospheric and</span>
+<span class="sd">    Oceanic Technology, 20, 730-741.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">Z</span> <span class="o">=</span> <span class="o">-</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span>  <span class="c1"># note: use negative depths!</span>
@@ -182,12 +181,12 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.kernels.TEOSseawaterdensity</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.application_kernels.TEOSseawaterdensity</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
 </html>

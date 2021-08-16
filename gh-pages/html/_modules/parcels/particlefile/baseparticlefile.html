@@ -6,18 +6,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.particlefile &#8212; Parcels 2.2.1 documentation</title>
-    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <title>parcels.particlefile.baseparticlefile &#8212; Parcels 2.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
-    <script src="../../_static/bizstyle.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -37,14 +36,14 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
+          <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
+          <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.particlefile</a></li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.particlefile.baseparticlefile</a></li> 
       </ul>
     </div>  
 
@@ -53,13 +52,14 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for parcels.particlefile</h1><div class="highlight"><pre>
+  <h1>Source code for parcels.particlefile.baseparticlefile</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Module controlling the writing of ParticleSets to NetCDF file&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">string</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
 
 <span class="kn">import</span> <span class="nn">netCDF4</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -80,7 +80,7 @@
         <span class="k">return</span> <span class="s1">&#39;tmp&#39;</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ParticleFile&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BaseParticleFile&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_set_calendar</span><span class="p">(</span><span class="n">origin_calendar</span><span class="p">):</span>
@@ -90,7 +90,7 @@
         <span class="k">return</span> <span class="n">origin_calendar</span>
 
 
-<div class="viewcode-block" id="ParticleFile"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile">[docs]</a><span class="k">class</span> <span class="nc">ParticleFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleFile"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile">[docs]</a><span class="k">class</span> <span class="nc">BaseParticleFile</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialise trajectory output.</span>
 
 <span class="sd">    :param name: Basename of the output file</span>
@@ -106,6 +106,24 @@
 <span class="sd">    :param pset_info: dictionary of info on the ParticleSet, stored in tempwritedir/XX/pset_info.npy,</span>
 <span class="sd">                     used to create NetCDF file from npy-files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">write_ondelete</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">convert_at_end</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">outputdt</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">lasttime_written</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">particleset</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">parcels_mesh</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">time_origin</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">lonlatdepth_dtype</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">var_names</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">file_list</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">var_names_once</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">file_list_once</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">maxid_written</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">tempwritedir_base</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">tempwritedir</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">particleset</span><span class="p">,</span> <span class="n">outputdt</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">,</span> <span class="n">write_ondelete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_at_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">tempwritedir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pset_info</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -117,13 +135,15 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="n">pset_info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pset_info</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pset_info</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">pset_info</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">particleset</span> <span class="o">=</span> <span class="n">particleset</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parcels_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">particleset</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parcels_mesh</span> <span class="o">=</span> <span class="s1">&#39;spherical&#39;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">particleset</span><span class="o">.</span><span class="n">fieldset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parcels_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">particleset</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">particleset</span><span class="o">.</span><span class="n">time_origin</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lonlatdepth_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">particleset</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">lonlatdepth_dtype</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[]</span>
@@ -138,27 +158,34 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">file_list_once</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">time_written</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">maxid_written</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
+        <span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">tempwritedir</span>
         <span class="k">if</span> <span class="n">tempwritedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">tempwritedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)),</span> <span class="s2">&quot;out-</span><span class="si">%s</span><span class="s2">&quot;</span>
-                                        <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)))</span>
+            <span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)),</span> <span class="s2">&quot;out-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">tempwritedir</span>
 
         <span class="k">if</span> <span class="n">MPI</span><span class="p">:</span>
             <span class="n">mpi_rank</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">tempwritedir</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span> <span class="o">=</span> <span class="n">tempwritedir</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span> <span class="o">=</span> <span class="n">tmp_dir</span>
             <span class="n">mpi_rank</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mpi_rank</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">pset_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;output directory </span><span class="si">%s</span><span class="s2"> already exists. Please remove first.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;output directory </span><span class="si">%s</span><span class="s2"> already exists. Please remove the directory.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ParticleFile.open_netcdf_file"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.open_netcdf_file">[docs]</a>    <span class="k">def</span> <span class="nf">open_netcdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_shape</span><span class="p">):</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_reserved_var_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the reserved dimension names not to be written just once.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="BaseParticleFile.open_netcdf_file"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.open_netcdf_file">[docs]</a>    <span class="k">def</span> <span class="nf">open_netcdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_shape</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialise NetCDF4.Dataset for trajectory output.</span>
 <span class="sd">        The output follows the format outlined in the Discrete Sampling Geometries</span>
 <span class="sd">        section of the CF-conventions:</span>
@@ -172,6 +199,15 @@
         <span class="n">fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">extension</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;.nc4&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.nc&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fname</span><span class="p">)):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_trajectory_file</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">fname</span><span class="p">,</span> <span class="n">data_shape</span><span class="o">=</span><span class="n">data_shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_trajectory_records</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_metadata_records</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">close_netcdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_create_trajectory_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">data_shape</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">netCDF4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;NETCDF4&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">data_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s2">&quot;traj&quot;</span><span class="p">,</span> <span class="n">data_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -181,7 +217,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">ncei_template_version</span> <span class="o">=</span> <span class="s2">&quot;NCEI_NetCDF_Trajectory_Template_v2.0&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">parcels_version</span> <span class="o">=</span> <span class="n">parcels_version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">parcels_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parcels_mesh</span>
+        <span class="k">return</span> <span class="n">coords</span>
 
+    <span class="k">def</span> <span class="nf">_create_trajectory_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        creates the NetCDF record structure of a trajectory.</span>
+
+<span class="sd">        Attention:</span>
+<span class="sd">        For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Create ID variable according to CF conventions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s2">&quot;trajectory&quot;</span><span class="p">,</span> <span class="s2">&quot;i8&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=-</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">63</span><span class="p">))</span>  <span class="c1"># minint64 fill_value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;Unique identifier for each particle&quot;</span>
@@ -225,7 +269,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">positive</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
 
         <span class="k">for</span> <span class="n">vname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">vname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">vname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reserved_var_names</span><span class="p">():</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">vname</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">))</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span><span class="o">.</span><span class="n">standard_name</span> <span class="o">=</span> <span class="n">vname</span>
@@ -237,14 +281,15 @@
             <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span><span class="o">.</span><span class="n">standard_name</span> <span class="o">=</span> <span class="n">vname</span>
             <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;unknown&quot;</span>
 
+    <span class="k">def</span> <span class="nf">_create_metadata_records</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_at_end</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<div class="viewcode-block" id="ParticleFile.close"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_tempfiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleFile.close"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_tempfiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close the ParticleFile object by exporting and then deleting</span>
 <span class="sd">        the temporary npy files&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">export</span><span class="p">()</span>
@@ -254,7 +299,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">delete_tempwritedir</span><span class="p">(</span><span class="n">tempwritedir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_at_end</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="ParticleFile.add_metadata"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.add_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">add_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleFile.add_metadata"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.add_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">add_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add metadata to :class:`parcels.particleset.ParticleSet`</span>
 
 <span class="sd">        :param name: Name of the metadata variabale</span>
@@ -265,8 +310,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ParticleFile.dump_dict_to_npy"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.dump_dict_to_npy">[docs]</a>    <span class="k">def</span> <span class="nf">dump_dict_to_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_dict_once</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleFile.dump_dict_to_npy"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.dump_dict_to_npy">[docs]</a>    <span class="k">def</span> <span class="nf">dump_dict_to_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_dict_once</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Buffer data to set of temporary numpy files, using np.save&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">tmpfilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;.npy&quot;</span><span class="p">)</span>
@@ -280,18 +328,31 @@
                 <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">data_dict_once</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_list_once</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmpfilename</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ParticleFile.dump_psetinfo_to_npy"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.dump_psetinfo_to_npy">[docs]</a>    <span class="k">def</span> <span class="nf">dump_psetinfo_to_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleFile.get_pset_info_attributes"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.get_pset_info_attributes">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_pset_info_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the main attributes of the pset_info.npy file.</span>
+
+<span class="sd">        Attention:</span>
+<span class="sd">        For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="BaseParticleFile.dump_psetinfo_to_npy"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.dump_psetinfo_to_npy">[docs]</a>    <span class="k">def</span> <span class="nf">dump_psetinfo_to_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        function writes the major attributes and values to a pset information file (*.npy).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pset_info</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">attrs_to_dump</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;var_names&#39;</span><span class="p">,</span> <span class="s1">&#39;var_names_once&#39;</span><span class="p">,</span> <span class="s1">&#39;time_origin&#39;</span><span class="p">,</span> <span class="s1">&#39;lonlatdepth_dtype&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;file_list&#39;</span><span class="p">,</span> <span class="s1">&#39;file_list_once&#39;</span><span class="p">,</span> <span class="s1">&#39;maxid_written&#39;</span><span class="p">,</span> <span class="s1">&#39;time_written&#39;</span><span class="p">,</span> <span class="s1">&#39;parcels_mesh&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;metadata&#39;</span><span class="p">]</span>
+        <span class="n">attrs_to_dump</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pset_info_attributes</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">attrs_to_dump</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">attrs_to_dump</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
                 <span class="n">pset_info</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">,</span> <span class="s1">&#39;pset_info.npy&#39;</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">pset_info</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ParticleFile.write"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">deleted_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleFile.write"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">deleted_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Write all data from one time step to a temporary npy-file</span>
 <span class="sd">        using a python dictionary. The data is saved in the folder &#39;out&#39;.</span>
 
@@ -304,83 +365,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dump_dict_to_npy</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">data_dict_once</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dump_psetinfo_to_npy</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ParticleFile.read_from_npy"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.read_from_npy">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Read NPY-files for one variable using a loop over all files.</span>
+<div class="viewcode-block" id="BaseParticleFile.read_from_npy"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.read_from_npy">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read NPY-files for one variable using a loop over all files.</span>
+
+<span class="sd">        Attention:</span>
+<span class="sd">        For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</span>
 
 <span class="sd">        :param file_list: List that  contains all file names in the output directory</span>
 <span class="sd">        :param time_steps: Number of time steps that were written in out directory</span>
 <span class="sd">        :param var: name of the variable to read</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">maxid_written</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">))</span>
-        <span class="n">time_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxid_written</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-        <span class="n">t_ind_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">time_steps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
-        <span class="c1"># loop over all files</span>
-        <span class="k">for</span> <span class="n">npyfile</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">data_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">npyfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Cannot combine npy files into netcdf file because your ParticleFile is &#39;</span>
-                                   <span class="s1">&#39;still open on interpreter shutdown.</span><span class="se">\n</span><span class="s1">You can use &#39;</span>
-                                   <span class="s1">&#39;&quot;parcels_convert_npydir_to_netcdf </span><span class="si">%s</span><span class="s1">&quot; to convert these to &#39;</span>
-                                   <span class="s1">&#39;a NetCDF file yourself.</span><span class="se">\n</span><span class="s1">To avoid this error, make sure you &#39;</span>
-                                   <span class="s1">&#39;close() your ParticleFile at the end of your script.&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">)</span>
-            <span class="n">id_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-            <span class="n">t_ind</span> <span class="o">=</span> <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;once&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">t_ind_used</span><span class="p">[</span><span class="n">t_ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">data</span><span class="p">[</span><span class="n">id_ind</span><span class="p">,</span> <span class="n">t_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
-            <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="viewcode-block" id="BaseParticleFile.export"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.export">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exports outputs in temporary NPY-files to NetCDF file</span>
 
-        <span class="c1"># remove rows and columns that are completely filled with nan values</span>
-        <span class="n">tmp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">time_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="k">return</span> <span class="n">tmp</span><span class="p">[:,</span> <span class="n">t_ind_used</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span></div>
+<span class="sd">        Attention:</span>
+<span class="sd">        For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="ParticleFile.export"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Exports outputs in temporary NPY-files to NetCDF file&quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="n">MPI</span><span class="p">:</span>
-            <span class="c1"># The export can only start when all threads are done.</span>
-            <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">Barrier</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">return</span>  <span class="c1"># export only on threat 0</span>
-
-        <span class="c1"># Retrieve all temporary writing directories and sort them in numerical order</span>
-        <span class="n">temp_names</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)),</span>
-                            <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No npy files found in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">)</span>
-
-        <span class="n">global_maxid_written</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="n">global_time_written</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">global_file_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">global_file_list_once</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">tempwritedir</span> <span class="ow">in</span> <span class="n">temp_names</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tempwritedir</span><span class="p">):</span>
-                <span class="n">pset_info_local</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempwritedir</span><span class="p">,</span> <span class="s1">&#39;pset_info.npy&#39;</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-                <span class="n">global_maxid_written</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">global_maxid_written</span><span class="p">,</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;maxid_written&#39;</span><span class="p">]])</span>
-                <span class="n">global_time_written</span> <span class="o">+=</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;time_written&#39;</span><span class="p">]</span>
-                <span class="n">global_file_list</span> <span class="o">+=</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;file_list&#39;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">global_file_list_once</span> <span class="o">+=</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;file_list_once&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maxid_written</span> <span class="o">=</span> <span class="n">global_maxid_written</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">time_written</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">global_time_written</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_from_npy</span><span class="p">(</span><span class="n">global_file_list</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_written</span><span class="p">),</span> <span class="n">var</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">open_netcdf_file</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-            <span class="n">varout</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span> <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;depth&#39;</span> <span class="k">else</span> <span class="n">var</span>
-            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">varout</span><span class="p">)[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">:</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">)[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_from_npy</span><span class="p">(</span><span class="n">global_file_list_once</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="ParticleFile.delete_tempwritedir"><a class="viewcode-back" href="../../index.html#parcels.particlefile.ParticleFile.delete_tempwritedir">[docs]</a>    <span class="k">def</span> <span class="nf">delete_tempwritedir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tempwritedir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleFile.delete_tempwritedir"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.baseparticlefile.BaseParticleFile.delete_tempwritedir">[docs]</a>    <span class="k">def</span> <span class="nf">delete_tempwritedir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tempwritedir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Deleted all temporary npy files</span>
 
 <span class="sd">        :param tempwritedir Optional path of the directory to delete</span>
@@ -397,13 +406,13 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/parcelslogo.png" alt="Logo"/>
+            <p class="logo"><a href="../../../index.html">
+              <img class="logo" src="../../../_static/parcelslogo.png" alt="Logo"/>
             </a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
+    <form class="search" action="../../../search.html" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
@@ -418,19 +427,19 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
+          <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
+          <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.particlefile</a></li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.particlefile.baseparticlefile</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
 </html>

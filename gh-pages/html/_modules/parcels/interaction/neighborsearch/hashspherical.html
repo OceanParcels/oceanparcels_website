@@ -1,0 +1,265 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>parcels.interaction.neighborsearch.hashspherical &#8212; Parcels 2.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96368922-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.interaction.neighborsearch.hashspherical</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for parcels.interaction.neighborsearch.hashspherical</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">parcels.interaction.neighborsearch.base</span> <span class="kn">import</span> <span class="n">BaseSphericalNeighborSearch</span>
+<span class="kn">from</span> <span class="nn">parcels.interaction.neighborsearch.basehash</span> <span class="kn">import</span> <span class="n">BaseHashNeighborSearch</span>
+<span class="kn">from</span> <span class="nn">parcels.interaction.neighborsearch.basehash</span> <span class="kn">import</span> <span class="n">hash_split</span>
+
+
+<div class="viewcode-block" id="HashSphericalNeighborSearch"><a class="viewcode-back" href="../../../../index.html#parcels.interaction.neighborsearch.HashSphericalNeighborSearch">[docs]</a><span class="k">class</span> <span class="nc">HashSphericalNeighborSearch</span><span class="p">(</span><span class="n">BaseHashNeighborSearch</span><span class="p">,</span>
+                                  <span class="n">BaseSphericalNeighborSearch</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Neighbor search using a hashtable (similar to octtrees).&#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inter_dist_vert</span><span class="p">,</span> <span class="n">inter_dist_horiz</span><span class="p">,</span>
+                 <span class="n">max_depth</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Initialize the neighbor data structure.</span>
+
+<span class="sd">        :param interaction_distance: maximum horizontal interaction distance.</span>
+<span class="sd">        :param interaction_depth: maximum depth of interaction.</span>
+<span class="sd">        :param values: depth, lat, lon values for particles.</span>
+<span class="sd">        :param max_depth: maximum depth of the ocean.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">inter_dist_vert</span><span class="p">,</span> <span class="n">inter_dist_horiz</span><span class="p">,</span> <span class="n">max_depth</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_structure</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_find_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hash_id</span><span class="p">,</span> <span class="n">coor</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Get neighbors from hash_id and location.&#39;&#39;&#39;</span>
+        <span class="c1"># Get the neighboring cells.</span>
+        <span class="n">neighbor_blocks</span> <span class="o">=</span> <span class="n">geo_hash_to_neighbors</span><span class="p">(</span>
+            <span class="n">hash_id</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bits</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inter_arc_dist</span><span class="p">)</span>
+        <span class="n">all_neighbor_points</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Get the particles from the neighboring cells.</span>
+        <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">neighbor_blocks</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">all_neighbor_points</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hashtable</span><span class="p">[</span><span class="n">block</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">potential_neighbors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_neighbor_points</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_close_neighbor_dist</span><span class="p">(</span><span class="n">coor</span><span class="p">,</span> <span class="n">potential_neighbors</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_values_to_hashes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">active_idx</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Convert coordinates to cell ids.</span>
+
+<span class="sd">        :param values: array of positions of particles to convert</span>
+<span class="sd">                       ([depth, lat, lon], # of particles to convert).</span>
+<span class="sd">        :returns array of cell ids.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">active_idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">active_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">active_idx</span><span class="p">]</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">active_idx</span><span class="p">]</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">active_idx</span><span class="p">]</span>
+
+        <span class="c1"># Southern or Nothern hemisphere.</span>
+        <span class="n">lat_sign</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Find the lattitude part of the cell id.</span>
+        <span class="n">i_depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">depth</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_dist_vert</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">i_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_degree_dist</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Get the arc length of the smaller circle around the earth.</span>
+        <span class="n">circ_small</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">i_lat</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_arc_dist</span><span class="p">)</span>
+        <span class="n">n_lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">circ_small</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_arc_dist</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">n_lon</span><span class="p">[</span><span class="n">n_lon</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">d_lon</span> <span class="o">=</span> <span class="mi">360</span><span class="o">/</span><span class="n">n_lon</span>
+
+        <span class="c1"># Get the longitude part of the cell id.</span>
+        <span class="n">i_lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">lon</span><span class="o">/</span><span class="n">d_lon</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Merge the 4 parts of the cell into one id.</span>
+        <span class="n">point_hash</span> <span class="o">=</span> <span class="n">i_3d_to_hash</span><span class="p">(</span><span class="n">i_depth</span><span class="p">,</span> <span class="n">i_lat</span><span class="p">,</span> <span class="n">i_lon</span><span class="p">,</span> <span class="n">lat_sign</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bits</span><span class="p">)</span>
+        <span class="n">point_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">point_array</span><span class="p">[</span><span class="n">active_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_hash</span>
+        <span class="k">return</span> <span class="n">point_array</span>
+
+<div class="viewcode-block" id="HashSphericalNeighborSearch.rebuild"><a class="viewcode-back" href="../../../../index.html#parcels.interaction.neighborsearch.HashSphericalNeighborSearch.rebuild">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">active_mask</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Recreate the tree with new values.</span>
+
+<span class="sd">        :param values: positions of the particles.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">active_mask</span><span class="p">)</span>
+        <span class="n">active_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_idx</span>
+
+        <span class="c1"># Compute the hash values:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particle_hashes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particle_hashes</span><span class="p">[</span><span class="n">active_idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values_to_hashes</span><span class="p">(</span>
+            <span class="n">values</span><span class="p">[:,</span> <span class="n">active_idx</span><span class="p">])</span>
+
+        <span class="c1"># Create the hashtable.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hashtable</span> <span class="o">=</span> <span class="n">hash_split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_particle_hashes</span><span class="p">,</span>
+                                     <span class="n">active_idx</span><span class="o">=</span><span class="n">active_idx</span><span class="p">)</span>
+
+        <span class="c1"># Keep track of the position of a particle index within a cell.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hash_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_particle_hashes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx_array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hashtable</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_hash_idx</span><span class="p">[</span><span class="n">idx_array</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">idx_array</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_init_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Initialize the basic tree properties without building&#39;&#39;&#39;</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-12</span>
+        <span class="n">R_earth</span> <span class="o">=</span> <span class="mi">6371000</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inter_arc_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inter_dist_horiz</span><span class="o">/</span><span class="n">R_earth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inter_degree_dist</span> <span class="o">=</span> <span class="mi">180</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_arc_dist</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">n_lines_depth</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_depth</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_dist_vert</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">))</span>
+        <span class="n">n_lines_lat</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_arc_dist</span><span class="o">+</span><span class="n">epsilon</span><span class="p">))</span>
+        <span class="n">n_lines_lon</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">inter_arc_dist</span><span class="o">+</span><span class="n">epsilon</span><span class="p">))</span>
+        <span class="n">n_bits_lat</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n_lines_lat</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">n_bits_lon</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n_lines_lon</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">n_bits_depth</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n_lines_depth</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">n_bits_depth</span><span class="p">,</span> <span class="n">n_bits_lat</span><span class="p">,</span> <span class="n">n_bits_lon</span><span class="p">])</span></div>
+
+
+<span class="k">def</span> <span class="nf">i_3d_to_hash</span><span class="p">(</span><span class="n">i_depth</span><span class="p">,</span> <span class="n">i_lat</span><span class="p">,</span> <span class="n">i_lon</span><span class="p">,</span> <span class="n">lat_sign</span><span class="p">,</span> <span class="n">bits</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Convert longitude and lattitude id&#39;s to hash&#39;&#39;&#39;</span>
+    <span class="n">point_hash</span> <span class="o">=</span> <span class="n">lat_sign</span>
+    <span class="n">point_hash</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">point_hash</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">left_shift</span><span class="p">(</span><span class="n">i_depth</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">point_hash</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">point_hash</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">left_shift</span><span class="p">(</span><span class="n">i_lat</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="n">bits</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">point_hash</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">point_hash</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">left_shift</span><span class="p">(</span><span class="n">i_lon</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="n">bits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">bits</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">point_hash</span>
+
+
+<span class="k">def</span> <span class="nf">geo_hash_to_neighbors</span><span class="p">(</span><span class="n">hash_id</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">bits</span><span class="p">,</span> <span class="n">inter_arc_dist</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Compute the hashes of all neighboring cells in a 3x3x3 neighborhood.&#39;&#39;&#39;</span>
+    <span class="n">lat_sign</span> <span class="o">=</span> <span class="n">hash_id</span> <span class="o">&amp;</span> <span class="mh">0x1</span>
+    <span class="n">i_depth</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_id</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">i_lat</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_id</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">bits</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">all_neigh_depth</span><span class="p">(</span><span class="n">i_lat</span><span class="p">,</span> <span class="n">i_lon</span><span class="p">,</span> <span class="n">lat_sign</span><span class="p">):</span>
+        <span class="n">hashes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d_depth</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="n">new_depth</span> <span class="o">=</span> <span class="n">i_depth</span> <span class="o">+</span> <span class="n">d_depth</span>
+            <span class="k">if</span> <span class="n">new_depth</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">hashes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">i_3d_to_hash</span><span class="p">(</span><span class="n">new_depth</span><span class="p">,</span> <span class="n">i_lat</span><span class="p">,</span> <span class="n">i_lon</span><span class="p">,</span> <span class="n">lat_sign</span><span class="p">,</span> <span class="n">bits</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">hashes</span>
+
+    <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Loop over lower row, middle row, upper row</span>
+    <span class="k">for</span> <span class="n">i_d_lat</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+        <span class="n">new_lat_sign</span> <span class="o">=</span> <span class="n">lat_sign</span>
+        <span class="n">new_i_lat</span> <span class="o">=</span> <span class="n">i_lat</span> <span class="o">+</span> <span class="n">i_d_lat</span>
+        <span class="k">if</span> <span class="n">new_i_lat</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">new_i_lat</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">new_lat_sign</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">lat_sign</span><span class="p">)</span>
+
+        <span class="n">min_lat</span> <span class="o">=</span> <span class="n">new_i_lat</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">circ_small</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">min_lat</span><span class="o">*</span><span class="n">inter_arc_dist</span><span class="p">)</span>
+        <span class="n">n_new_lon</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">circ_small</span><span class="o">/</span><span class="n">inter_arc_dist</span><span class="p">)))</span>
+        <span class="n">d_lon</span> <span class="o">=</span> <span class="mi">360</span><span class="o">/</span><span class="n">n_new_lon</span>
+        <span class="k">if</span> <span class="n">n_new_lon</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">new_i_lon</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_new_lon</span><span class="p">):</span>
+                <span class="n">neighbors</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="n">all_neigh_depth</span><span class="p">(</span><span class="n">new_i_lat</span><span class="p">,</span> <span class="n">new_i_lon</span><span class="p">,</span> <span class="n">new_lat_sign</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start_i_lon</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">d_lon</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">delta_lon</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">new_i_lon</span> <span class="o">=</span> <span class="p">(</span><span class="n">start_i_lon</span><span class="o">+</span><span class="n">delta_lon</span><span class="o">+</span><span class="n">n_new_lon</span><span class="p">)</span> <span class="o">%</span> <span class="n">n_new_lon</span>
+                <span class="n">neighbors</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="n">all_neigh_depth</span><span class="p">(</span><span class="n">new_i_lat</span><span class="p">,</span> <span class="n">new_i_lon</span><span class="p">,</span> <span class="n">new_lat_sign</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">neighbors</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../../../index.html">
+              <img class="logo" src="../../../../_static/parcelslogo.png" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">parcels.interaction.neighborsearch.hashspherical</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

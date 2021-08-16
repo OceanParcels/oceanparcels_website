@@ -7,14 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>parcels.particle &#8212; Parcels 2.2.1 documentation</title>
-    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -63,7 +62,7 @@
 <span class="kn">from</span> <span class="nn">parcels.tools.statuscodes</span> <span class="kn">import</span> <span class="n">StateCode</span><span class="p">,</span> <span class="n">OperationCode</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ScipyParticle&#39;</span><span class="p">,</span> <span class="s1">&#39;JITParticle&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ScipyParticle&#39;</span><span class="p">,</span> <span class="s1">&#39;JITParticle&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable&#39;</span><span class="p">,</span> <span class="s1">&#39;ScipyInteractionParticle&#39;</span><span class="p">]</span>
 
 <span class="n">indicators_64bit</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
 
@@ -169,7 +168,7 @@
         <span class="c1"># Developer note: other dtypes (mostly 2-byte ones) are not supported now</span>
         <span class="c1"># because implementing and aligning them in cgen.GenerableStruct is a</span>
         <span class="c1"># major headache. Perhaps in a later stage</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">double</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">double</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">_Particle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -190,7 +189,8 @@
                 <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Cannot initialise a Variable with a Field if no time provided. &#39;</span>
                                        <span class="s1">&#39;Add a &quot;time=&quot; to ParticleSet construction&#39;</span><span class="p">)</span>
-                <span class="n">v</span><span class="o">.</span><span class="n">initial</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">initial</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">ti</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">v</span><span class="o">.</span><span class="n">initial</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">computeTimeChunk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="n">initial</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">initial</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">]</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning_once</span><span class="p">(</span><span class="s2">&quot;Particle initialisation from field can be very slow as it is computed in scipy mode.&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -201,6 +201,9 @@
 
         <span class="c1"># Placeholder for explicit error handling</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># superclass is &#39;object&#39;, and object itself has no destructor, hence &#39;pass&#39;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">getPType</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -232,17 +235,13 @@
     <span class="n">lat</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="n">depth</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="n">time</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-    <span class="n">xi</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;xi&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">yi</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;yi&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">zi</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;zi&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">ti</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;ti&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initial</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
     <span class="n">fileid</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;fileid&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">initial</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">dt</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">state</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="n">StateCode</span><span class="o">.</span><span class="n">Evaluate</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">next_dt</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;_next_dt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">to_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">cptr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ngrids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">cptr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="c1"># Enforce default values through Variable descriptor</span>
         <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">initial</span> <span class="o">=</span> <span class="n">lon</span>
@@ -255,13 +254,10 @@
         <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">initial</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">next_dt</span><span class="o">.</span><span class="n">initial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;xi&#39;</span><span class="p">,</span> <span class="s1">&#39;yi&#39;</span><span class="p">,</span> <span class="s1">&#39;zi&#39;</span><span class="p">,</span> <span class="s1">&#39;ti&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">index</span> <span class="o">!=</span> <span class="s1">&#39;ti&#39;</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">fieldset</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">fieldset</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">))</span>
-
         <span class="nb">super</span><span class="p">(</span><span class="n">ScipyParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ScipyParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__del__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">time_string</span> <span class="o">=</span> <span class="s1">&#39;not_yet_set&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="si">{:f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
@@ -277,6 +273,15 @@
     <span class="k">def</span> <span class="nf">set_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">state</span>
 
+    <span class="k">def</span> <span class="nf">succeeded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">StateCode</span><span class="o">.</span><span class="n">Success</span>
+
+    <span class="k">def</span> <span class="nf">isComputed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">StateCode</span><span class="o">.</span><span class="n">Success</span>
+
+    <span class="k">def</span> <span class="nf">reset_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">StateCode</span><span class="o">.</span><span class="n">Evaluate</span>
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">set_lonlatdepth_dtype</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
@@ -289,7 +294,55 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_dt</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_next_dt</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_next_dt</span> <span class="o">=</span> <span class="n">next_dt</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_next_dt</span> <span class="o">=</span> <span class="n">next_dt</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">ids_eq</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">attr_eq</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">attr_eq</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lon</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span>
+        <span class="n">attr_eq</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
+        <span class="n">attr_eq</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">attr_eq</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="n">attr_eq</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ids_eq</span> <span class="ow">and</span> <span class="n">attr_eq</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="o">==</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+            <span class="n">err_msg</span> <span class="o">=</span> <span class="s2">&quot;This object and the other object (type=</span><span class="si">{}</span><span class="s2">) do note have the same type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+            <span class="n">err_msg</span> <span class="o">=</span> <span class="s2">&quot;This object and the other object (type=</span><span class="si">{}</span><span class="s2">) do note have the same type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+            <span class="n">err_msg</span> <span class="o">=</span> <span class="s2">&quot;This object and the other object (type=</span><span class="si">{}</span><span class="s2">) do note have the same type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+            <span class="n">err_msg</span> <span class="o">=</span> <span class="s2">&quot;This object and the other object (type=</span><span class="si">{}</span><span class="s2">) do note have the same type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">def</span> <span class="nf">__sizeof__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ptype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPType</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ptype</span><span class="o">.</span><span class="n">variables</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="ScipyInteractionParticle"><a class="viewcode-back" href="../../index.html#parcels.particle.ScipyInteractionParticle">[docs]</a><span class="k">class</span> <span class="nc">ScipyInteractionParticle</span><span class="p">(</span><span class="n">ScipyParticle</span><span class="p">):</span>
+    <span class="n">vert_dist</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;vert_dist&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">horiz_dist</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;horiz_dist&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="JITParticle"><a class="viewcode-back" href="../../index.html#parcels.particle.JITParticle">[docs]</a><span class="k">class</span> <span class="nc">JITParticle</span><span class="p">(</span><span class="n">ScipyParticle</span><span class="p">):</span>
@@ -315,9 +368,50 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ptype</span><span class="o">.</span><span class="n">dtype</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">JITParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;xi&#39;</span><span class="p">,</span> <span class="s1">&#39;yi&#39;</span><span class="p">,</span> <span class="s1">&#39;zi&#39;</span><span class="p">,</span> <span class="s1">&#39;ti&#39;</span><span class="p">]:</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">+</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">c_void_p</span><span class="p">))</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">+</span><span class="n">index</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">+</span><span class="s1">&#39;p&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">JITParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__del__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">cdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">c_void_p</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_cptr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">ptype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPType</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ptype</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">get_cptr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span>
+
+    <span class="k">def</span> <span class="nf">reset_cptr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cptr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">JITParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="o">==</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">JITParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__lt__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">JITParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__le__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">JITParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__gt__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">JITParticle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__ge__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__sizeof__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ptype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPType</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ptype</span><span class="o">.</span><span class="n">variables</span><span class="p">])</span></div>
 </pre></div>
 
             <div class="clearer"></div>
@@ -359,7 +453,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
 </html>

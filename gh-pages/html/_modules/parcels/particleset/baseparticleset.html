@@ -6,15 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.particlesets.baseparticleset &#8212; Parcels 2.2.1 documentation</title>
-    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <title>parcels.particleset.baseparticleset &#8212; Parcels 2.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -44,7 +43,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.particlesets.baseparticleset</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.particleset.baseparticleset</a></li> 
       </ul>
     </div>  
 
@@ -53,7 +52,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for parcels.particlesets.baseparticleset</h1><div class="highlight"><pre>
+  <h1>Source code for parcels.particleset.baseparticleset</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
@@ -70,19 +69,22 @@
 <span class="kn">from</span> <span class="nn">parcels.compilation.codecompiler</span> <span class="kn">import</span> <span class="n">GNUCompiler</span>
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">NestedField</span>
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">SummedField</span>
-<span class="kn">from</span> <span class="nn">parcels.kernels.advection</span> <span class="kn">import</span> <span class="n">AdvectionRK4</span>
-<span class="kn">from</span> <span class="nn">parcels.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span>
+<span class="kn">from</span> <span class="nn">parcels.application_kernels.advection</span> <span class="kn">import</span> <span class="n">AdvectionRK4</span>
+<span class="kn">from</span> <span class="nn">parcels.kernel.basekernel</span> <span class="kn">import</span> <span class="n">BaseKernel</span> <span class="k">as</span> <span class="n">Kernel</span>
+<span class="kn">from</span> <span class="nn">parcels.collection.collections</span> <span class="kn">import</span> <span class="n">ParticleCollection</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">parcels.interaction.baseinteractionkernel</span> <span class="kn">import</span> <span class="n">BaseInteractionKernel</span>
 
 
-<div class="viewcode-block" id="NDCluster"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.NDCluster">[docs]</a><span class="k">class</span> <span class="nc">NDCluster</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="NDCluster"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.NDCluster">[docs]</a><span class="k">class</span> <span class="nc">NDCluster</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Interface.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="BaseParticleSet"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet">[docs]</a><span class="k">class</span> <span class="nc">BaseParticleSet</span><span class="p">(</span><span class="n">NDCluster</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleSet"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet">[docs]</a><span class="k">class</span> <span class="nc">BaseParticleSet</span><span class="p">(</span><span class="n">NDCluster</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base ParticleSet.&quot;&quot;&quot;</span>
     <span class="n">_collection</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">interaction_kernel</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">fieldset</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">time_origin</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">repeat_starttime</span> <span class="o">=</span> <span class="kc">None</span>
@@ -92,7 +94,8 @@
     <span class="n">repeatpclass</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">repeatkwargs</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pid_orig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pid_orig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repeatlon</span> <span class="o">=</span> <span class="kc">None</span>
@@ -101,14 +104,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">repeatpclass</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repeatkwargs</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interaction_kernel</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">,</span> <span class="n">ParticleCollection</span><span class="p">):</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">iterator</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Allows for more intuitive iteration over a particleset, while</span>
 <span class="sd">        in reality iterating over the particles in the collection.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -139,7 +151,7 @@
     <span class="k">def</span> <span class="nf">collection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span>
 
-<div class="viewcode-block" id="BaseParticleSet.cstruct"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.cstruct">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseParticleSet.cstruct"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.cstruct">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">cstruct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &#39;cstruct&#39; returns the ctypes mapping of the combined collections cstruct and the fieldset cstruct.</span>
@@ -158,7 +170,7 @@
                 <span class="n">pbar</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">ProgressBar</span><span class="p">(</span><span class="n">maxval</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">starttime</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">pbar</span>
 
-<div class="viewcode-block" id="BaseParticleSet.from_list"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.from_list">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseParticleSet.from_list"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.from_list">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet from lists of lon and lat</span>
 
@@ -177,7 +189,7 @@
 <span class="sd">       &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="n">repeatdt</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="n">lonlatdepth_dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseParticleSet.from_line"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.from_line">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseParticleSet.from_line"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.from_line">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_line</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet from start/finish coordinates with equidistant spacing</span>
 <span class="sd">        Note that this method uses simple numpy.linspace calls and does not take into account</span>
@@ -203,7 +215,7 @@
             <span class="n">depth</span> <span class="o">=</span> <span class="p">[</span><span class="n">depth</span><span class="p">]</span> <span class="o">*</span> <span class="n">size</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="n">repeatdt</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="n">lonlatdepth_dtype</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseParticleSet.monte_carlo_sample"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.monte_carlo_sample">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseParticleSet.monte_carlo_sample"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.monte_carlo_sample">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">monte_carlo_sample</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">start_field</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;monte_carlo&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -215,7 +227,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseParticleSet.from_field"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.from_field">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseParticleSet.from_field"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.from_field">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_field</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">start_field</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;monte_carlo&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet randomly drawn according to distribution from a field</span>
 
@@ -233,11 +245,11 @@
 <span class="sd">               and np.float64 if the interpolation method is &#39;cgrid_velocity&#39;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">monte_carlo_sample</span><span class="p">(</span><span class="n">start_field</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">monte_carlo_sample</span><span class="p">(</span><span class="n">start_field</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="n">lonlatdepth_dtype</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="n">repeatdt</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseParticleSet.from_particlefile"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.from_particlefile">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseParticleSet.from_particlefile"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.from_particlefile">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">from_particlefile</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet from a netcdf ParticleFile.</span>
@@ -260,23 +272,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseParticleSet.show"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_particles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-             <span class="n">land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">animation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Method to &#39;show&#39; a Parcels ParticleSet</span>
-
-<span class="sd">        :param with_particles: Boolean whether to show particles</span>
-<span class="sd">        :param show_time: Time at which to show the ParticleSet</span>
-<span class="sd">        :param field: Field to plot under particles (either None, a Field object, or &#39;vector&#39;)</span>
-<span class="sd">        :param domain: dictionary (with keys &#39;N&#39;, &#39;S&#39;, &#39;E&#39;, &#39;W&#39;) defining domain to show</span>
-<span class="sd">        :param projection: type of cartopy projection to use (default PlateCarree)</span>
-<span class="sd">        :param land: Boolean whether to show land. This is ignored for flat meshes</span>
-<span class="sd">        :param vmin: minimum colour scale (only in single-plot mode)</span>
-<span class="sd">        :param vmax: maximum colour scale (only in single-plot mode)</span>
-<span class="sd">        :param savefile: Name of a file to save the plot to</span>
-<span class="sd">        :param animation: Boolean whether result is a single plot, or an animation</span>
-<span class="sd">        &quot;&quot;&quot;</span></div>
-
-<div class="viewcode-block" id="BaseParticleSet.density"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.density">[docs]</a>    <span class="k">def</span> <span class="nf">density</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">particle_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">area_scale</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParticleSet.density"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.density">[docs]</a>    <span class="k">def</span> <span class="nf">density</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">particle_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">area_scale</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Method to calculate the density of particles in a ParticleSet from their locations,</span>
 <span class="sd">        through a 2D histogram.</span>
 
@@ -292,7 +288,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseParticleSet.Kernel"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.Kernel">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseParticleSet.Kernel"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.Kernel">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">Kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pyfunc</span><span class="p">,</span> <span class="n">c_include</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">delete_cfiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Wrapper method to convert a `pyfunc` into a :class:`parcels.kernel.Kernel` object</span>
 <span class="sd">        based on `fieldset` and `ptype` of the ParticleSet</span>
@@ -300,7 +296,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseParticleSet.ParticleFile"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.ParticleFile">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">InteractionKernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pyfunc_inter</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Particle set type is not compatible with interaction.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BaseParticleSet.ParticleFile"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.ParticleFile">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">ParticleFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Wrapper method to initialise a :class:`parcels.particlefile.ParticleFile`</span>
 <span class="sd">        object from the ParticleSet&quot;&quot;&quot;</span>
@@ -357,7 +356,7 @@
                 <span class="n">min_rt</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">time</span>
         <span class="k">return</span> <span class="n">min_rt</span><span class="p">,</span> <span class="n">max_rt</span>
 
-<div class="viewcode-block" id="BaseParticleSet.execute"><a class="viewcode-back" href="../../../index.html#parcels.particlesets.baseparticleset.BaseParticleSet.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">AdvectionRK4</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">runtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+<div class="viewcode-block" id="BaseParticleSet.execute"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pyfunc</span><span class="o">=</span><span class="n">AdvectionRK4</span><span class="p">,</span> <span class="n">pyfunc_inter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">runtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
                 <span class="n">moviedt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">movie_background_field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">verbose_progress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postIterationCallbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callbackdt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Execute a given kernel function over the particle set for</span>
@@ -401,6 +400,13 @@
                 <span class="n">cppargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-DDOUBLE_COORD_VARIABLES&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">lonlatdepth_dtype</span> <span class="k">else</span> <span class="kc">None</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">compiler</span><span class="o">=</span><span class="n">GNUCompiler</span><span class="p">(</span><span class="n">cppargs</span><span class="o">=</span><span class="n">cppargs</span><span class="p">,</span> <span class="n">incdirs</span><span class="o">=</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_package_dir</span><span class="p">(),</span> <span class="s1">&#39;include&#39;</span><span class="p">),</span> <span class="s2">&quot;.&quot;</span><span class="p">]))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">load_lib</span><span class="p">()</span>
+
+        <span class="c1"># Set up the interaction kernel(s) if not set and given.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interaction_kernel</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">pyfunc_inter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pyfunc_inter</span><span class="p">,</span> <span class="n">BaseInteractionKernel</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">interaction_kernel</span> <span class="o">=</span> <span class="n">pyfunc_inter</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">interaction_kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">InteractionKernel</span><span class="p">(</span><span class="n">pyfunc_inter</span><span class="p">)</span>
 
         <span class="c1"># Convert all time variables to seconds</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">endtime</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
@@ -496,12 +502,36 @@
                                 <span class="s1">&#39;to a NetCDF file during the run.&#39;</span> <span class="o">%</span> <span class="n">output_file</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">)</span>
                 <span class="n">pbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__create_progressbar</span><span class="p">(</span><span class="n">_starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
                 <span class="n">verbose_progress</span> <span class="o">=</span> <span class="kc">True</span>
+
             <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">next_prelease</span><span class="p">,</span> <span class="n">next_input</span><span class="p">,</span> <span class="n">next_output</span><span class="p">,</span> <span class="n">next_movie</span><span class="p">,</span> <span class="n">next_callback</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
+                <span class="n">next_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">next_prelease</span><span class="p">,</span> <span class="n">next_input</span><span class="p">,</span> <span class="n">next_output</span><span class="p">,</span> <span class="n">next_movie</span><span class="p">,</span> <span class="n">next_callback</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">next_prelease</span><span class="p">,</span> <span class="n">next_input</span><span class="p">,</span> <span class="n">next_output</span><span class="p">,</span> <span class="n">next_movie</span><span class="p">,</span> <span class="n">next_callback</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="n">recovery</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">,</span>
-                                <span class="n">execute_once</span><span class="o">=</span><span class="n">execute_once</span><span class="p">)</span>
+                <span class="n">next_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">next_prelease</span><span class="p">,</span> <span class="n">next_input</span><span class="p">,</span> <span class="n">next_output</span><span class="p">,</span> <span class="n">next_movie</span><span class="p">,</span> <span class="n">next_callback</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
+
+            <span class="c1"># If we don&#39;t perform interaction, only execute the normal kernel efficiently.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interaction_kernel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">next_time</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="n">recovery</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">,</span>
+                                    <span class="n">execute_once</span><span class="o">=</span><span class="n">execute_once</span><span class="p">)</span>
+            <span class="c1"># Interaction: interleave the interaction and non-interaction kernel for each time step.</span>
+            <span class="c1"># E.g. Inter -&gt; Normal -&gt; Inter -&gt; Normal if endtime-time == 2*dt</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cur_time</span> <span class="o">=</span> <span class="n">time</span>
+                <span class="k">while</span> <span class="p">(</span><span class="n">cur_time</span> <span class="o">&lt;</span> <span class="n">next_time</span> <span class="ow">and</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">cur_time</span> <span class="o">&gt;</span> <span class="n">next_time</span> <span class="ow">and</span> <span class="n">dt</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">dt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">cur_end_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cur_time</span><span class="o">+</span><span class="n">dt</span><span class="p">,</span> <span class="n">next_time</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cur_end_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cur_time</span><span class="o">+</span><span class="n">dt</span><span class="p">,</span> <span class="n">next_time</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">interaction_kernel</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">cur_end_time</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="n">recovery</span><span class="p">,</span>
+                        <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">,</span> <span class="n">execute_once</span><span class="o">=</span><span class="n">execute_once</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">cur_end_time</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">recovery</span><span class="o">=</span><span class="n">recovery</span><span class="p">,</span>
+                        <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">,</span> <span class="n">execute_once</span><span class="o">=</span><span class="n">execute_once</span><span class="p">)</span>
+                    <span class="n">cur_time</span> <span class="o">+=</span> <span class="n">dt</span>
+                    <span class="k">if</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">break</span>
+            <span class="c1"># End of interaction specific code</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">next_time</span>
             <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span><span class="o">-</span><span class="n">next_prelease</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
                 <span class="n">pset_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
                     <span class="n">fieldset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">repeatlon</span><span class="p">,</span>
@@ -513,7 +543,15 @@
                     <span class="n">p</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pset_new</span><span class="p">)</span>
                 <span class="n">next_prelease</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span><span class="o">-</span><span class="n">next_output</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="n">next_output</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span> <span class="ow">or</span> <span class="n">dt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fld</span><span class="p">,</span> <span class="s1">&#39;to_write&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fld</span><span class="o">.</span><span class="n">to_write</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">fld</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">tdim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Field writing during execution only works for Fields with one snapshot in time&#39;</span><span class="p">)</span>
+                        <span class="n">fldfilename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;_</span><span class="si">%.4d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fld</span><span class="o">.</span><span class="n">to_write</span><span class="p">)</span>
+                        <span class="n">fld</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fldfilename</span><span class="p">)</span>
+                        <span class="n">fld</span><span class="o">.</span><span class="n">to_write</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="n">next_output</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
                     <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
                 <span class="n">next_output</span> <span class="o">+=</span> <span class="n">outputdt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
@@ -536,7 +574,26 @@
         <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
             <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">verbose_progress</span><span class="p">:</span>
-            <span class="n">pbar</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span></div></div>
+            <span class="n">pbar</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BaseParticleSet.show"><a class="viewcode-back" href="../../../index.html#parcels.particleset.baseparticleset.BaseParticleSet.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_particles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">animation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to &#39;show&#39; a Parcels ParticleSet</span>
+
+<span class="sd">        :param with_particles: Boolean whether to show particles</span>
+<span class="sd">        :param show_time: Time at which to show the ParticleSet</span>
+<span class="sd">        :param field: Field to plot under particles (either None, a Field object, or &#39;vector&#39;)</span>
+<span class="sd">        :param domain: dictionary (with keys &#39;N&#39;, &#39;S&#39;, &#39;E&#39;, &#39;W&#39;) defining domain to show</span>
+<span class="sd">        :param projection: type of cartopy projection to use (default PlateCarree)</span>
+<span class="sd">        :param land: Boolean whether to show land. This is ignored for flat meshes</span>
+<span class="sd">        :param vmin: minimum colour scale (only in single-plot mode)</span>
+<span class="sd">        :param vmax: maximum colour scale (only in single-plot mode)</span>
+<span class="sd">        :param savefile: Name of a file to save the plot to</span>
+<span class="sd">        :param animation: Boolean whether result is a single plot, or an animation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">parcels.plotting</span> <span class="kn">import</span> <span class="n">plotparticles</span>
+        <span class="n">plotparticles</span><span class="p">(</span><span class="n">particles</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_particles</span><span class="o">=</span><span class="n">with_particles</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="n">show_time</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">domain</span><span class="p">,</span>
+                      <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="n">land</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="n">savefile</span><span class="p">,</span> <span class="n">animation</span><span class="o">=</span><span class="n">animation</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 </pre></div>
 
             <div class="clearer"></div>
@@ -573,12 +630,12 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">parcels.particlesets.baseparticleset</a></li> 
+        <li class="nav-item nav-item-this"><a href="">parcels.particleset.baseparticleset</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
 </html>
