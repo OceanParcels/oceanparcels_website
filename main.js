@@ -331,7 +331,7 @@ class DrifterApp {
 	markerScale(mstyle, istyle, feature, resolution) {
 		resolution = Math.max(400, Math.min(resolution, 2000));
 
-		let base = 400;
+		let base = 200;
 		istyle.setScale(base / (1 + resolution));
 
 		return [mstyle];
