@@ -620,7 +620,11 @@ class DrifterApp {
 		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.generateQueryURL(true)}`);
 		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.generateQueryURL(true)}`);
 		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.generateQueryURL(true)}&t=${this.generateQueryURL(true)}`);
-
+		if (this.data_source) {
+			$(".download")[0].onclick = e => window.open(DATA_URL + this.data_source);
+		} else {
+			$(".download")[0].onclick = e => window.open(DATA_URL + data_default);
+		}
 		let copypaste = $(".copypaste")[0];
 		copypaste.onclick = this.copyShareableURL.bind(this)
 	}
