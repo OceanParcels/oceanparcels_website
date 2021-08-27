@@ -732,7 +732,7 @@ const urlParams = new URLSearchParams(query);
 const iframeParams = new URLSearchParams(iframeQuery);
 
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
-let data_default = "grouped.json";
+let data_default = "driftersGI.json";
 app.data_source = iframeParams.get("fn");
 
 app.start();
