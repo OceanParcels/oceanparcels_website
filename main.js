@@ -582,7 +582,8 @@ class DrifterApp {
 		}
 
 		let def = [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY];
-		let bounds = relevantData.map(d => d.reduce(select1, def)).reduce(select4);
+		// let bounds = relevantData.map(d => d.reduce(select1, def)).reduce(select4);
+		let bounds = [-1.5, -92, 0.5, -88.5]
 
 		function scale(m, a) {
 			let c = (a[0] + a[1]) / 2;
