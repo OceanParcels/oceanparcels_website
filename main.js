@@ -7,7 +7,7 @@ const TEXT = {
 	no_referrer: "Please try to access this map on https://galapagosplasticfree.nl/ instead ;)"
 };
 
-const DATA_URL = "https://oceanparcels.org/";
+const DATA_URL = "";
 
 class VLayer {
 	constructor() {
@@ -583,7 +583,7 @@ class DrifterApp {
 
 		let def = [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY];
 		// let bounds = relevantData.map(d => d.reduce(select1, def)).reduce(select4);
-		let bounds = [-1.5, -92, 0.5, -88.5]
+		let bounds = [-0.9, -91, -0.7, -90]
 
 		function scale(m, a) {
 			let c = (a[0] + a[1]) / 2;
