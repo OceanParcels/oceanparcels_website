@@ -46,7 +46,7 @@ class DrifterApp {
 		this.animating = false;
 		this.anim_t = null;
 		this.anim_0 = null;
-		this.anim_s = 24 * 3600 * 1000;
+		this.anim_s = 1 * 3600 * 1000;
 
 		this.data_source = null;
 
@@ -139,8 +139,8 @@ class DrifterApp {
 
 	updateDate(timestamp) {
 		let date = new Date(timestamp);
-
-		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toDateString();
+		var options = {year: 'numeric', month: 'long', day: 'numeric' , hour: '2-digit', minute: '2-digit'};
+		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toLocaleDateString("en-UK", options);
 	}
 
 	processDrifters(data) {
