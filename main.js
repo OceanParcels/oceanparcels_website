@@ -46,7 +46,7 @@ class DrifterApp {
 		this.animating = false;
 		this.anim_t = null;
 		this.anim_0 = null;
-		this.anim_s = 1 * 3600 * 1000;
+		this.anim_s = 4 * 3600 * 1000;
 
 		this.data_source = null;
 
