@@ -302,6 +302,7 @@ class DrifterApp {
 
 			mark.drifterName = name;
 			line.drifterName = name;
+			mark.lastT = now - t;
 
 			this.markers.add(mark, name);
 			this.lines.add(line, name);
@@ -452,8 +453,13 @@ class DrifterApp {
 
 		let name = feature.drifterName;
 		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
-
-		this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}`;
+        let lastT = new Date(feature.lastT).getHours()-1;
+        if (lastT > 0) {
+            this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${lastT} hours ago`;
+		}
+		else {
+            this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}`;
+        }
 	    this.overlay.setPosition(coordinate);
 	}
 
