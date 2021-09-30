@@ -302,7 +302,7 @@ class DrifterApp {
 
 			mark.drifterName = name;
 			line.drifterName = name;
-			mark.lastT = now - t;
+			mark.lastTime = t;
 
 			this.markers.add(mark, name);
 			this.lines.add(line, name);
@@ -453,12 +453,17 @@ class DrifterApp {
 
 		let name = feature.drifterName;
 		let hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
-        let lastT = new Date(feature.lastT).getHours()-1;
-        if (lastT > 0) {
-            this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${lastT} hours ago`;
+        let lastTime = new Date(feature.lastTime);
+		let lastTimediff = Date.now() - lastTime;
+		let hourdiff = Math.floor(lastTimediff / (60*60*1000))
+        if (hourdiff > 24) {
+            this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${Math.floor(hourdiff/24)} days ago`;
+		}
+		else  if (hourdiff > 6) {  // six hours 'grace period'
+			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${hourdiff} hours ago`;
 		}
 		else {
-            this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}`;
+			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}`;
         }
 	    this.overlay.setPosition(coordinate);
 	}
