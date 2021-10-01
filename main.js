@@ -459,7 +459,7 @@ class DrifterApp {
         if (hourdiff > 24) {
             this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${Math.floor(hourdiff/24)} days ago`;
 		}
-		else  if (hourdiff > 6) {  // six hours 'grace period'
+		else  if (hourdiff > 9) {  // nine hours 'grace period'
 			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${hourdiff} hours ago`;
 		}
 		else {
