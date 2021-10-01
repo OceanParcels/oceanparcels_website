@@ -48,8 +48,6 @@ class DrifterApp {
 		this.anim_0 = null;
 		this.anim_s = 4 * 3600 * 1000;
 
-		this.data_source = null;
-
 		let controls = [];
 
 		let playControl;
@@ -167,13 +165,7 @@ class DrifterApp {
 	}
 
 	refreshDrifters(callback) {
-		if (this.data_source) {
-			$.getJSON(DATA_URL + this.data_source, callback).catch(e => $.getJSON(DATA_URL + data_default, callback));
-		}
-		else
-		{
-			$.getJSON(DATA_URL + data_default, callback);
-		}
+		$.getJSON(DATA_URL + data_source, callback);
 	}
 
 	createOLButton(text, callback) {
@@ -632,11 +624,7 @@ class DrifterApp {
 		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.generateQueryURL(true)}`);
 		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.generateQueryURL(true)}`);
 		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.generateQueryURL(true)}&t=${this.generateQueryURL(true)}`);
-		if (this.data_source) {
-			$(".download")[0].onclick = e => window.open(DATA_URL + this.data_source);
-		} else {
-			$(".download")[0].onclick = e => window.open(DATA_URL + data_default);
-		}
+		$(".download")[0].onclick = e => window.open(DATA_URL + data_source);
 		let copypaste = $(".copypaste")[0];
 		copypaste.onclick = this.copyShareableURL.bind(this)
 	}
@@ -742,9 +730,11 @@ baseUrl = baseUrl.split("?")[0];
 const urlParams = new URLSearchParams(query);
 const iframeParams = new URLSearchParams(iframeQuery);
 
+let data_source = iframeParams.get("fn");
+if (! data_source){
+	data_source = "driftersGI.json";
+}
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
-let data_default = "driftersGI.json";
-app.data_source = iframeParams.get("fn");
 
 app.start();
 
