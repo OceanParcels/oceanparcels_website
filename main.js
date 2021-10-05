@@ -137,7 +137,11 @@ class DrifterApp {
 
 	updateDate(timestamp) {
 		let date = new Date(timestamp);
-		var options = {year: 'numeric', month: 'long', day: 'numeric' , hour: '2-digit', minute: '2-digit'};
+		if (anim_freq < 24) {
+			var options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'};
+		} else {
+			var options = {year: 'numeric', month: 'long', day: 'numeric'};
+		}
 		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toLocaleDateString("en-UK", options);
 	}
 
