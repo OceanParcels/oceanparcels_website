@@ -46,7 +46,7 @@ class DrifterApp {
 		this.animating = false;
 		this.anim_t = null;
 		this.anim_0 = null;
-		this.anim_s = 4 * 3600 * 1000;
+		this.anim_s = anim_freq * 3600 * 1000;
 
 		let controls = [];
 
@@ -734,6 +734,12 @@ let data_source = iframeParams.get("fn");
 if (! data_source){
 	data_source = "driftersGI.json";
 }
+
+let anim_freq = iframeParams.get("anim_freq");
+if (! anim_freq){
+	anim_freq = 12
+}
+
 let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
 
 app.start();
