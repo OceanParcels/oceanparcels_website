@@ -293,7 +293,12 @@ class DrifterApp {
 				now = t;
 			}
 
-			let mark = this.createMarker(colour, lat, lng, opacity, zindex);
+			let hourdiff = Math.floor((Date.now() - t) / (60*60*1000))
+			let src = "marker.svg"
+			if (hourdiff > 9) {
+				src = "marker_notx.svg"
+			}
+			let mark = this.createMarker(colour, lat, lng, opacity, zindex, src);
 			let line = this.createLine(colour, path, opacity, zindex);
 
 			mark.drifterName = name;
@@ -334,7 +339,7 @@ class DrifterApp {
 		return [mstyle];
 	}
 
-	createMarker(colour, lat, lng, opacity=1.0, z=1) {
+	createMarker(colour, lat, lng, opacity=1.0, z=1, src) {
 		[lat, lng] = [parseFloat(lat), parseFloat(lng)];
 
 		let marker = new ol.Feature({
@@ -347,7 +352,7 @@ class DrifterApp {
 
 		let iconStyle = new ol.style.Icon({
 				anchor: [0.5, 0.5],
-				src: "marker.svg",
+				src: src,
 				scale: 0.1,
 				opacity: opacity,
 				color: colour
