@@ -6,13 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.fieldset &#8212; Parcels 2.2.1 documentation</title>
+    <title>parcels.fieldset &#8212; Parcels 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -41,7 +42,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.fieldset</a></li> 
       </ul>
@@ -59,6 +60,7 @@
 
 <span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">DeferredArray</span>
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">NestedField</span>
@@ -66,7 +68,6 @@
 <span class="kn">from</span> <span class="nn">parcels.field</span> <span class="kn">import</span> <span class="n">VectorField</span>
 <span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span> <span class="nn">parcels.gridset</span> <span class="kn">import</span> <span class="n">GridSet</span>
-<span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="kn">import</span> <span class="n">GridCode</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.converters</span> <span class="kn">import</span> <span class="n">TimeConverter</span><span class="p">,</span> <span class="n">convert_xarray_time_units</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.statuscodes</span> <span class="kn">import</span> <span class="n">TimeExtrapolationError</span>
 <span class="kn">from</span> <span class="nn">parcels.tools.loggers</span> <span class="kn">import</span> <span class="n">logger</span>
@@ -101,6 +102,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_field</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">compute_on_defer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_UVfield</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">checkvaliddimensionsdict</span><span class="p">(</span><span class="n">dims</span><span class="p">):</span>
@@ -243,6 +245,22 @@
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">vfield</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">fieldset</span> <span class="o">=</span> <span class="bp">self</span></div>
 
+    <span class="k">def</span> <span class="nf">add_UVfield</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UV&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UVW&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
+
     <span class="k">def</span> <span class="nf">check_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="s1">&#39;FieldSet does not have a Field named &quot;U&quot;&#39;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="s1">&#39;FieldSet does not have a Field named &quot;V&quot;&#39;</span>
@@ -265,12 +283,11 @@
             <span class="k">if</span> <span class="n">U</span><span class="o">.</span><span class="n">gridindexingtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;nemo&#39;</span><span class="p">,</span> <span class="s1">&#39;mitgcm&#39;</span><span class="p">,</span> <span class="s1">&#39;mom5&#39;</span><span class="p">,</span> <span class="s1">&#39;pop&#39;</span><span class="p">]:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Field.gridindexing has to be one of &#39;nemo&#39;, &#39;mitgcm&#39;, &#39;mom5&#39; or &#39;pop&#39;&quot;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">U</span><span class="o">.</span><span class="n">gridindexingtype</span> <span class="o">==</span> <span class="s1">&#39;mitgcm&#39;</span> <span class="ow">and</span> <span class="n">U</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">gtype</span> <span class="ow">in</span> <span class="p">[</span><span class="n">GridCode</span><span class="o">.</span><span class="n">CurvilinearZGrid</span><span class="p">,</span> <span class="n">GridCode</span><span class="o">.</span><span class="n">CurvilinearZGrid</span><span class="p">]:</span>
-                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Curvilinear Grids are not implemented for mitgcm-style grid indexing.&#39;</span>
-                                          <span class="s1">&#39;If you have a use-case for this, please let us know by filing an Issue on github&#39;</span><span class="p">)</span>
-
             <span class="k">if</span> <span class="n">V</span><span class="o">.</span><span class="n">gridindexingtype</span> <span class="o">!=</span> <span class="n">U</span><span class="o">.</span><span class="n">gridindexingtype</span> <span class="ow">or</span> <span class="p">(</span><span class="n">W</span> <span class="ow">and</span> <span class="n">W</span><span class="o">.</span><span class="n">gridindexingtype</span> <span class="o">!=</span> <span class="n">U</span><span class="o">.</span><span class="n">gridindexingtype</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Not all velocity Fields have the same gridindexingtype&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">U</span><span class="o">.</span><span class="n">cast_data_dtype</span> <span class="o">!=</span> <span class="n">V</span><span class="o">.</span><span class="n">cast_data_dtype</span> <span class="ow">or</span> <span class="p">(</span><span class="n">W</span> <span class="ow">and</span> <span class="n">W</span><span class="o">.</span><span class="n">cast_data_dtype</span> <span class="o">!=</span> <span class="n">U</span><span class="o">.</span><span class="n">cast_data_dtype</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Not all velocity Fields have the same dtype&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="p">(</span><span class="n">SummedField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">)):</span>
             <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">)</span>
@@ -279,6 +296,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="n">check_velocityfields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fld</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">interp_method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;partialslip&#39;</span><span class="p">,</span> <span class="s1">&#39;freeslip&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">([</span><span class="n">fld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">grid</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fld</span><span class="p">]):</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Slip boundary conditions may not work well with SummedFields. Be careful&#39;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridset</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
             <span class="n">g</span><span class="o">.</span><span class="n">check_zonal_periodic</span><span class="p">()</span>
@@ -289,20 +310,7 @@
             <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">defer_load</span><span class="p">:</span>
                 <span class="n">g</span><span class="o">.</span><span class="n">time_full</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">time_full</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span><span class="o">.</span><span class="n">reltime</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">time_origin</span><span class="p">)</span>
             <span class="n">g</span><span class="o">.</span><span class="n">time_origin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_origin</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UV&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="s1">&#39;UV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UVW&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">SummedField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">NestedField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_vector_field</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="s1">&#39;UVW&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_UVfield</span><span class="p">()</span>
 
         <span class="n">ccode_fieldnames</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
@@ -331,7 +339,7 @@
             <span class="n">paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">paths</span><span class="p">)))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">notfound_paths</span> <span class="o">=</span> <span class="n">filenames</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">filenames</span> <span class="k">else</span> <span class="n">filenames</span>
-            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;FieldSet files not found: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">notfound_paths</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;FieldSet files not found for variable </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">notfound_paths</span><span class="p">)))</span>
         <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fp</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;FieldSet file not found: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span>
@@ -1047,7 +1055,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s1">&#39;vomecrty&#39;</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Field</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;V&#39;</span><span class="p">):</span>
                     <span class="n">v</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FieldSet.advancetime"><a class="viewcode-back" href="../../index.html#parcels.fieldset.FieldSet.advancetime">[docs]</a>    <span class="k">def</span> <span class="nf">advancetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset_new</span><span class="p">):</span>
@@ -1244,12 +1252,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1263,14 +1271,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.fieldset</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

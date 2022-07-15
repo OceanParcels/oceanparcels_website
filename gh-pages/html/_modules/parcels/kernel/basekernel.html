@@ -6,13 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.kernel.basekernel &#8212; Parcels 2.2.1 documentation</title>
+    <title>parcels.kernel.basekernel &#8212; Parcels 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -41,7 +42,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.kernel.basekernel</a></li> 
       </ul>
@@ -151,7 +152,10 @@
         <span class="c1"># Clean-up the in-memory dynamic linked libraries.</span>
         <span class="c1"># This is not really necessary, as these programs are not that large, but with the new random</span>
         <span class="c1"># naming scheme which is required on Windows OS&#39;es to deal with updates to a Parcels&#39; kernel.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">remove_lib</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_lib</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fieldset</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">const_args</span> <span class="o">=</span> <span class="kc">None</span>
@@ -352,7 +356,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">_ctypes</span><span class="o">.</span><span class="n">FreeLibrary</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">_handle</span><span class="p">)</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="n">_ctypes</span><span class="o">.</span><span class="n">dlclose</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">_handle</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning_once</span><span class="p">(</span><span class="s2">&quot;compiled library already freed.&quot;</span><span class="p">)</span></div>
+                <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseKernel.remove_deleted"><a class="viewcode-back" href="../../../index.html#parcels.kernel.basekernel.BaseKernel.remove_deleted">[docs]</a>    <span class="k">def</span> <span class="nf">remove_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pset</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">endtime</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -377,6 +381,8 @@
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">pset</span><span class="o">.</span><span class="n">fieldset</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
                 <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">VectorField</span><span class="p">,</span> <span class="n">NestedField</span><span class="p">,</span> <span class="n">SummedField</span><span class="p">]:</span>
                     <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Field </span><span class="si">%s</span><span class="s1"> data needs to be float32 in JIT mode&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_args</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">chunk_data</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -526,12 +532,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -545,14 +551,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.kernel.basekernel</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

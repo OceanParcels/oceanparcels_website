@@ -6,13 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.application_kernels.advectiondiffusion &#8212; Parcels 2.2.1 documentation</title>
+    <title>parcels.application_kernels.advectiondiffusion &#8212; Parcels 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -41,7 +42,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.application_kernels.advectiondiffusion</a></li> 
       </ul>
@@ -88,14 +89,13 @@
     <span class="n">Kxm1</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_zonal</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span> <span class="o">-</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">]</span>
     <span class="n">dKdx</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kxp1</span> <span class="o">-</span> <span class="n">Kxm1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">)</span>
 
-    <span class="n">u</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">UV</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
     <span class="n">bx</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_zonal</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">])</span>
 
     <span class="n">Kyp1</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_meridional</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span> <span class="o">+</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
     <span class="n">Kym1</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_meridional</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span> <span class="o">-</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
     <span class="n">dKdy</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kyp1</span> <span class="o">-</span> <span class="n">Kym1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">)</span>
 
-    <span class="n">v</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
     <span class="n">by</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_meridional</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">])</span>
 
     <span class="c1"># Particle positions are updated only after evaluating all terms.</span>
@@ -121,16 +121,18 @@
     <span class="n">dWx</span> <span class="o">=</span> <span class="n">ParcelsRandom</span><span class="o">.</span><span class="n">normalvariate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">particle</span><span class="o">.</span><span class="n">dt</span><span class="p">)))</span>
     <span class="n">dWy</span> <span class="o">=</span> <span class="n">ParcelsRandom</span><span class="o">.</span><span class="n">normalvariate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">particle</span><span class="o">.</span><span class="n">dt</span><span class="p">)))</span>
 
+    <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">UV</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
+
     <span class="n">Kxp1</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_zonal</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span> <span class="o">+</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">]</span>
     <span class="n">Kxm1</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_zonal</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span> <span class="o">-</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">]</span>
     <span class="n">dKdx</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kxp1</span> <span class="o">-</span> <span class="n">Kxm1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">U</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span> <span class="o">+</span> <span class="n">dKdx</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">u</span> <span class="o">+</span> <span class="n">dKdx</span>
     <span class="n">bx</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_zonal</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">])</span>
 
     <span class="n">Kyp1</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_meridional</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span> <span class="o">+</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
     <span class="n">Kym1</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_meridional</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span> <span class="o">-</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span>
     <span class="n">dKdy</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kyp1</span> <span class="o">-</span> <span class="n">Kym1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">dres</span><span class="p">)</span>
-    <span class="n">ay</span> <span class="o">=</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">]</span> <span class="o">+</span> <span class="n">dKdy</span>
+    <span class="n">ay</span> <span class="o">=</span> <span class="n">v</span> <span class="o">+</span> <span class="n">dKdy</span>
     <span class="n">by</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fieldset</span><span class="o">.</span><span class="n">Kh_meridional</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">particle</span><span class="o">.</span><span class="n">lon</span><span class="p">])</span>
 
     <span class="c1"># Particle positions are updated only after evaluating all terms.</span>
@@ -180,12 +182,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -199,14 +201,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.application_kernels.advectiondiffusion</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

@@ -6,13 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.particlefile.particlefilesoa &#8212; Parcels 2.2.1 documentation</title>
+    <title>parcels.particlefile.particlefilesoa &#8212; Parcels 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -41,7 +42,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particlefile.particlefilesoa</a></li> 
       </ul>
@@ -57,6 +58,8 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
@@ -110,11 +113,12 @@
 <span class="sd">        Attention:</span>
 <span class="sd">        For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;var_names&#39;</span><span class="p">,</span> <span class="s1">&#39;var_names_once&#39;</span><span class="p">,</span> <span class="s1">&#39;time_origin&#39;</span><span class="p">,</span> <span class="s1">&#39;lonlatdepth_dtype&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;file_list&#39;</span><span class="p">,</span> <span class="s1">&#39;file_list_once&#39;</span><span class="p">,</span> <span class="s1">&#39;maxid_written&#39;</span><span class="p">,</span> <span class="s1">&#39;parcels_mesh&#39;</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">]</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;var_names&#39;</span><span class="p">,</span> <span class="s1">&#39;var_dtypes&#39;</span><span class="p">,</span> <span class="s1">&#39;var_names_once&#39;</span><span class="p">,</span> <span class="s1">&#39;var_dtypes_once&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;time_origin&#39;</span><span class="p">,</span> <span class="s1">&#39;lonlatdepth_dtype&#39;</span><span class="p">,</span> <span class="s1">&#39;file_list&#39;</span><span class="p">,</span> <span class="s1">&#39;file_list_once&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;parcels_mesh&#39;</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">attributes</span></div>
 
-<div class="viewcode-block" id="ParticleFileSOA.read_from_npy"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.particlefilesoa.ParticleFileSOA.read_from_npy">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+<div class="viewcode-block" id="ParticleFileSOA.read_from_npy"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.particlefilesoa.ParticleFileSOA.read_from_npy">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_npy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read NPY-files for one variable using a loop over all files.</span>
 
@@ -122,36 +126,44 @@
 <span class="sd">        For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</span>
 
 <span class="sd">        :param file_list: List that  contains all file names in the output directory</span>
-<span class="sd">        :param time_steps: Number of time steps that were written in out directory</span>
+<span class="sd">        :param n_timesteps: Dictionary with (for each particle) number of time steps that were written in out directory</span>
 <span class="sd">        :param var: name of the variable to read</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">maxid_written</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">))</span>
-        <span class="n">time_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxid_written</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-        <span class="n">t_ind_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">time_steps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">max_timesteps</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">n_timesteps</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">n_timesteps</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">fill_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_value_map</span><span class="p">[</span><span class="n">dtype</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">fill_value</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">n_timesteps</span><span class="p">),</span> <span class="n">max_timesteps</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">time_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_timesteps</span><span class="p">))</span>
+        <span class="n">id_index</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">n_timesteps</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">id_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># loop over all files</span>
         <span class="k">for</span> <span class="n">npyfile</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">data_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">npyfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">npyfile</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">data_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
             <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Cannot combine npy files into netcdf file because your ParticleFile is &#39;</span>
                                    <span class="s1">&#39;still open on interpreter shutdown.</span><span class="se">\n</span><span class="s1">You can use &#39;</span>
                                    <span class="s1">&#39;&quot;parcels_convert_npydir_to_netcdf </span><span class="si">%s</span><span class="s1">&quot; to convert these to &#39;</span>
                                    <span class="s1">&#39;a NetCDF file yourself.</span><span class="se">\n</span><span class="s1">To avoid this error, make sure you &#39;</span>
                                    <span class="s1">&#39;close() your ParticleFile at the end of your script.&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir</span><span class="p">)</span>
-            <span class="n">id_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-            <span class="n">t_ind</span> <span class="o">=</span> <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;once&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">t_ind_used</span><span class="p">[</span><span class="n">t_ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">data</span><span class="p">[</span><span class="n">id_ind</span><span class="p">,</span> <span class="n">t_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
-            <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]):</span>
+                <span class="n">id_ind</span> <span class="o">=</span> <span class="n">id_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">t_ind</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;once&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">id_ind</span><span class="p">,</span> <span class="n">t_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="n">ii</span><span class="p">]</span>
+                <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_index</span><span class="p">[</span><span class="n">id_ind</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
 
+        <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
         <span class="c1"># remove rows and columns that are completely filled with nan values</span>
-        <span class="n">tmp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">time_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="k">return</span> <span class="n">tmp</span><span class="p">[:,</span> <span class="n">t_ind_used</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="n">time_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span></div>
 
 <div class="viewcode-block" id="ParticleFileSOA.export"><a class="viewcode-back" href="../../../index.html#parcels.particlefile.particlefilesoa.ParticleFileSOA.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Exports outputs in temporary NPY-files to NetCDF file</span>
+<span class="sd">        Exports outputs in temporary NPY-files to output file (either netcdf or zarr)</span>
 
 <span class="sd">        Attention:</span>
 <span class="sd">        For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</span>
@@ -163,6 +175,18 @@
             <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span>  <span class="c1"># export only on threat 0</span>
 
+        <span class="c1"># Create dictionary to translate datatypes and fill_values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmt_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span> <span class="s1">&#39;f2&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">:</span> <span class="s1">&#39;f8&#39;</span><span class="p">,</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">:</span> <span class="s1">&#39;i1&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">:</span> <span class="s1">&#39;i1&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">:</span> <span class="s1">&#39;i2&#39;</span><span class="p">,</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">:</span> <span class="s1">&#39;i4&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span> <span class="s1">&#39;i8&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">:</span> <span class="s1">&#39;u1&#39;</span><span class="p">,</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">:</span> <span class="s1">&#39;u2&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">:</span> <span class="s1">&#39;u4&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">:</span> <span class="s1">&#39;u8&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill_value_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                               <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span>
+                               <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span>
+                               <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span>
+                               <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">,</span>
+                               <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">}</span>
+
         <span class="c1"># Retrieve all temporary writing directories and sort them in numerical order</span>
         <span class="n">temp_names</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)),</span>
                             <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
@@ -170,36 +194,46 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No npy files found in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">)</span>
 
-        <span class="n">global_maxid_written</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="n">global_time_written</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">n_timesteps</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">global_file_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">global_file_list_once</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tempwritedir</span> <span class="ow">in</span> <span class="n">temp_names</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tempwritedir</span><span class="p">):</span>
                 <span class="n">pset_info_local</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempwritedir</span><span class="p">,</span> <span class="s1">&#39;pset_info.npy&#39;</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-                <span class="n">global_maxid_written</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">global_maxid_written</span><span class="p">,</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;maxid_written&#39;</span><span class="p">]])</span>
                 <span class="k">for</span> <span class="n">npyfile</span> <span class="ow">in</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;file_list&#39;</span><span class="p">]:</span>
-                    <span class="n">tmp_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">npyfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-                    <span class="n">global_time_written</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tmp_dict</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]])</span>
+                    <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">npyfile</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">tmp_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tmp_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">n_timesteps</span><span class="p">:</span>
+                            <span class="n">n_timesteps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">n_timesteps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="n">global_file_list</span> <span class="o">+=</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;file_list&#39;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">global_file_list_once</span> <span class="o">+=</span> <span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;file_list_once&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maxid_written</span> <span class="o">=</span> <span class="n">global_maxid_written</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">time_written</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">global_time_written</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_from_npy</span><span class="p">(</span><span class="n">global_file_list</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_written</span><span class="p">),</span> <span class="n">var</span><span class="p">)</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="n">pset_info_local</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_dtypes</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_from_npy</span><span class="p">(</span><span class="n">global_file_list</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">open_netcdf_file</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">open_output_file</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
             <span class="n">varout</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span> <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;depth&#39;</span> <span class="k">else</span> <span class="n">var</span>
-            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">varout</span><span class="p">)[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="n">varout</span> <span class="o">=</span> <span class="s1">&#39;trajectory&#39;</span> <span class="k">if</span> <span class="n">varout</span> <span class="o">==</span> <span class="s1">&#39;id&#39;</span> <span class="k">else</span> <span class="n">varout</span>
+            <span class="n">ds</span><span class="p">[</span><span class="n">varout</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;traj&quot;</span><span class="p">,</span> <span class="s2">&quot;obs&quot;</span><span class="p">],</span> <span class="n">attrs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">varout</span><span class="p">])</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">n_timesteps_once</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">n_timesteps</span><span class="p">:</span>
+                <span class="n">n_timesteps_once</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names_once</span><span class="p">:</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">)[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_from_npy</span><span class="p">(</span><span class="n">global_file_list_once</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_from_npy</span><span class="p">(</span><span class="n">global_file_list_once</span><span class="p">,</span> <span class="n">n_timesteps_once</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+                <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;traj&quot;</span><span class="p">],</span> <span class="n">attrs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">close_netcdf_file</span><span class="p">()</span></div></div>
+        <span class="k">if</span> <span class="s1">&#39;zarr&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputformat</span><span class="p">:</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span></div></div>
 </pre></div>
 
             <div class="clearer"></div>
@@ -215,12 +249,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -234,14 +268,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particlefile.particlefilesoa</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

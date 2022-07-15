@@ -6,13 +6,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.particleset.particlesetsoa &#8212; Parcels 2.2.1 documentation</title>
+    <title>parcels.particleset.particlesetsoa &#8212; Parcels 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -41,7 +42,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particleset.particlesetsoa</a></li> 
       </ul>
@@ -60,6 +61,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 
 <span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="kn">import</span> <span class="n">GridCode</span>
 <span class="kn">from</span> <span class="nn">parcels.grid</span> <span class="kn">import</span> <span class="n">CurvilinearGrid</span>
@@ -135,13 +137,15 @@
 <span class="sd">    :param pid_orig: Optional list of (offsets for) the particle IDs</span>
 <span class="sd">    :param partitions: List of cores on which to distribute the particles for MPI runs. Default: None, in which case particles</span>
 <span class="sd">           are distributed automatically on the processors</span>
+<span class="sd">    :param periodic_domain_zonal: Zonal domain size, used to apply zonally periodic boundaries for particle-particle</span>
+<span class="sd">           interaction. If None, no zonally periodic boundaries are applied</span>
 
 <span class="sd">    Other Variables can be initialised using further arguments (e.g. v=... for a Variable named &#39;v&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">JITParticle</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">pid_orig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interaction_distance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                 <span class="n">pid_orig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interaction_distance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">periodic_domain_zonal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ParticleSetSOA</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="c1"># ==== first: create a new subclass of the pclass that includes the required variables ==== #</span>
@@ -282,7 +286,8 @@
                 <span class="n">inter_dist_horiz</span> <span class="o">=</span> <span class="n">interaction_distance</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_neighbor_tree</span> <span class="o">=</span> <span class="n">interaction_class</span><span class="p">(</span>
                 <span class="n">inter_dist_vert</span><span class="o">=</span><span class="n">inter_dist_vert</span><span class="p">,</span>
-                <span class="n">inter_dist_horiz</span><span class="o">=</span><span class="n">inter_dist_horiz</span><span class="p">)</span>
+                <span class="n">inter_dist_horiz</span><span class="o">=</span><span class="n">inter_dist_horiz</span><span class="p">,</span>
+                <span class="n">periodic_domain_zonal</span><span class="o">=</span><span class="n">periodic_domain_zonal</span><span class="p">)</span>
         <span class="c1"># End of neighbor search data structure initialization.</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span><span class="p">:</span>
@@ -291,12 +296,12 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;All Particle.time should be the same when repeatdt is not None&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">repeatlon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">repeatlat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">repeatdepth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">repeat_starttime</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatlon</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatlat</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatdepth</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">kwvar</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">repeatkwargs</span><span class="p">[</span><span class="n">kwvar</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">kwvar</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">repeatkwargs</span><span class="p">[</span><span class="n">kwvar</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">kwvar</span><span class="p">])</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">MPI</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">pu_indicators</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -651,12 +656,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">field_name</span> <span class="o">=</span> <span class="n">field_name</span> <span class="k">if</span> <span class="n">field_name</span> <span class="k">else</span> <span class="s2">&quot;U&quot;</span>
+        <span class="n">sampling_name</span> <span class="o">=</span> <span class="s2">&quot;UV&quot;</span> <span class="k">if</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;V&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">field_name</span>
         <span class="n">field</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
 
         <span class="n">f_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">def search_kernel(particle, fieldset, time):</span>
 <span class="s2">    x = fieldset.</span><span class="si">{}</span><span class="s2">[time, particle.depth, particle.lat, particle.lon]</span>
-<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">field_name</span><span class="p">)</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sampling_name</span><span class="p">)</span>
 
         <span class="n">k</span> <span class="o">=</span> <span class="n">Kernel</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fieldset</span><span class="p">,</span>
@@ -732,12 +738,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -751,14 +757,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particleset.particlesetsoa</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Michael Lange and Erik van Sebille.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>
