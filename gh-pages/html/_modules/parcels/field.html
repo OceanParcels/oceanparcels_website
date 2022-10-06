@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.field &#8212; Parcels 2.3.0 documentation</title>
+    <title>parcels.field &#8212; Parcels 2.4.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.field</a></li> 
       </ul>
@@ -248,6 +248,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">dataFiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataFiles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataFiles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_field_fb_class</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;FieldFileBuffer&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">netcdf_engine</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;netcdf_engine&#39;</span><span class="p">,</span> <span class="s1">&#39;netcdf4&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netcdf_decodewarning</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;netcdf_decodewarning&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loaded_time_indices</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">creation_log</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;creation_log&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunksize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;chunksize&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -285,7 +286,8 @@
             <span class="k">return</span> <span class="n">filenames</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">collect_timeslices</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">data_filenames</span><span class="p">,</span> <span class="n">_grid_fb_class</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">collect_timeslices</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">data_filenames</span><span class="p">,</span> <span class="n">_grid_fb_class</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">,</span>
+                           <span class="n">netcdf_decodewarning</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">timestamps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">dataFiles</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">findex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_filenames</span><span class="p">)):</span>
@@ -297,13 +299,13 @@
             <span class="n">timeslices</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">dataFiles</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">data_filenames</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">_grid_fb_class</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="o">=</span><span class="n">netcdf_engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">_grid_fb_class</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="o">=</span><span class="n">netcdf_engine</span><span class="p">,</span>
+                                    <span class="n">netcdf_decodewarning</span><span class="o">=</span><span class="n">netcdf_decodewarning</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
                     <span class="n">ftime</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">time</span>
                     <span class="n">timeslices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ftime</span><span class="p">)</span>
                     <span class="n">dataFiles</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">fname</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ftime</span><span class="p">))</span>
-            <span class="n">timeslices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">timeslices</span><span class="p">)</span>
-            <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">timeslices</span><span class="p">)</span>
-            <span class="n">dataFiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataFiles</span><span class="p">))</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">timeslices</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+            <span class="n">dataFiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">dataFiles</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">time_origin</span> <span class="o">=</span> <span class="n">TimeConverter</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -324,7 +326,7 @@
 
 <span class="sd">        :param filenames: list of filenames to read for the field. filenames can be a list [files] or</span>
 <span class="sd">               a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data)</span>
-<span class="sd">               In the latetr case, time values are in filenames[data]</span>
+<span class="sd">               In the latter case, time values are in filenames[data]</span>
 <span class="sd">        :param variable: Tuple mapping field name to variable name in the NetCDF file.</span>
 <span class="sd">        :param dimensions: Dictionary mapping variable names for the relevant dimensions in the NetCDF file</span>
 <span class="sd">        :param indices: dictionary mapping indices for each dimension to read from file.</span>
@@ -350,6 +352,9 @@
 <span class="sd">        :param gridindexingtype: The type of gridindexing. Either &#39;nemo&#39; (default) or &#39;mitgcm&#39; are supported.</span>
 <span class="sd">               See also the Grid indexing documentation on oceanparcels.org</span>
 <span class="sd">        :param chunksize: size of the chunks in dask loading</span>
+<span class="sd">        :param netcdf_decodewarning: boolean whether to show a warning id there is a problem decoding the netcdf files.</span>
+<span class="sd">               Default is True, but in some cases where these warnings are expected, it may be useful to silence them</span>
+<span class="sd">               by setting netcdf_decodewarning=False.</span>
 
 <span class="sd">        For usage examples see the following tutorial:</span>
 
@@ -362,7 +367,7 @@
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">filenames</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">]:</span>
-                        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)),</span> <span class="s1">&#39;Outer dimension of timestamps should correspond to number of files.&#39;</span>
+                        <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)),</span> <span class="s1">&#39;Outer dimension of timestamps should correspond to number of files.&#39;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Filenames type is inconsistent with manual timestamp provision.&quot;</span>
                                 <span class="o">+</span> <span class="s2">&quot;Should be dict or list&quot;</span><span class="p">)</span>
@@ -385,6 +390,7 @@
             <span class="n">depth_filename</span> <span class="o">=</span> <span class="n">depth_filename</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">netcdf_engine</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;netcdf_engine&#39;</span><span class="p">,</span> <span class="s1">&#39;netcdf4&#39;</span><span class="p">)</span>
+        <span class="n">netcdf_decodewarning</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;netcdf_decodewarning&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="n">indices</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">indices</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
@@ -406,7 +412,8 @@
 
         <span class="n">_grid_fb_class</span> <span class="o">=</span> <span class="n">NetcdfFileBuffer</span>
 
-        <span class="k">with</span> <span class="n">_grid_fb_class</span><span class="p">(</span><span class="n">lonlat_filename</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_grid_fb_class</span><span class="p">(</span><span class="n">lonlat_filename</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">,</span>
+                            <span class="n">netcdf_decodewarning</span><span class="o">=</span><span class="n">netcdf_decodewarning</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
             <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">lonlat</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">indices</span>
             <span class="c1"># Check if parcels_mesh has been explicitly set in file</span>
@@ -414,7 +421,8 @@
                 <span class="n">mesh</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;parcels_mesh&#39;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="s1">&#39;depth&#39;</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">_grid_fb_class</span><span class="p">(</span><span class="n">depth_filename</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">,</span> <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">_grid_fb_class</span><span class="p">(</span><span class="n">depth_filename</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">,</span> <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span><span class="p">,</span>
+                                <span class="n">netcdf_decodewarning</span><span class="o">=</span><span class="n">netcdf_decodewarning</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
                 <span class="n">filebuffer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">parse_name</span><span class="p">(</span><span class="n">variable</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;not_yet_set&#39;</span><span class="p">:</span>
                     <span class="n">depth</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">depth_dimensions</span>
@@ -437,7 +445,7 @@
             <span class="c1"># across multiple files</span>
             <span class="n">time</span><span class="p">,</span> <span class="n">time_origin</span><span class="p">,</span> <span class="n">timeslices</span><span class="p">,</span> <span class="n">dataFiles</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">collect_timeslices</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">data_filenames</span><span class="p">,</span>
                                                                               <span class="n">_grid_fb_class</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span>
-                                                                              <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">)</span>
+                                                                              <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">,</span> <span class="n">netcdf_decodewarning</span><span class="p">)</span>
             <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="o">.</span><span class="n">create_grid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">time_origin</span><span class="o">=</span><span class="n">time_origin</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span>
             <span class="n">grid</span><span class="o">.</span><span class="n">timeslices</span> <span class="o">=</span> <span class="n">timeslices</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dataFiles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataFiles</span>
@@ -445,7 +453,7 @@
             <span class="c1"># ==== means: the field has a shared grid, but may have different data files, so we need to collect the</span>
             <span class="c1"># ==== correct file time series again.</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">dataFiles</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">collect_timeslices</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">data_filenames</span><span class="p">,</span> <span class="n">_grid_fb_class</span><span class="p">,</span>
-                                                        <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">)</span>
+                                                        <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">,</span> <span class="n">netcdf_decodewarning</span><span class="p">)</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dataFiles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataFiles</span>
 
         <span class="n">chunksize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;chunksize&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -478,7 +486,7 @@
             <span class="k">for</span> <span class="n">tslice</span><span class="p">,</span> <span class="n">fname</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">timeslices</span><span class="p">,</span> <span class="n">data_filenames</span><span class="p">):</span>
                 <span class="k">with</span> <span class="n">_field_fb_class</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">netcdf_engine</span><span class="p">,</span>
                                      <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span><span class="p">,</span> <span class="n">data_full_zdim</span><span class="o">=</span><span class="n">data_full_zdim</span><span class="p">,</span>
-                                     <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
+                                     <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">,</span> <span class="n">netcdf_decodewarning</span><span class="o">=</span><span class="n">netcdf_decodewarning</span><span class="p">)</span> <span class="k">as</span> <span class="n">filebuffer</span><span class="p">:</span>
                     <span class="c1"># If Field.from_netcdf is called directly, it may not have a &#39;data&#39; dimension</span>
                     <span class="c1"># In that case, assume that &#39;name&#39; is the data dimension</span>
                     <span class="n">filebuffer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">parse_name</span><span class="p">(</span><span class="n">variable</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -519,6 +527,7 @@
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">indices</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time_periodic&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_periodic</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;netcdf_engine&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">netcdf_engine</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;netcdf_decodewarning&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">netcdf_decodewarning</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps</span><span class="p">,</span>
                    <span class="n">allow_time_extrapolation</span><span class="o">=</span><span class="n">allow_time_extrapolation</span><span class="p">,</span> <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
@@ -1291,7 +1300,7 @@
         <span class="sd">&quot;&quot;&quot;Method to &#39;show&#39; a Parcels Field</span>
 
 <span class="sd">        :param animation: Boolean whether result is a single plot, or an animation</span>
-<span class="sd">        :param show_time: Time at which to show the Field (only in single-plot mode)</span>
+<span class="sd">        :param show_time: Time in seconds from start after which to show the Field (only in single-plot mode)</span>
 <span class="sd">        :param domain: dictionary (with keys &#39;N&#39;, &#39;S&#39;, &#39;E&#39;, &#39;W&#39;) defining domain to show</span>
 <span class="sd">        :param depth_level: depth level to be plotted (default 0)</span>
 <span class="sd">        :param projection: type of cartopy projection to use (default PlateCarree)</span>
@@ -1444,7 +1453,8 @@
                                           <span class="n">data_full_zdim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_full_zdim</span><span class="p">,</span>
                                           <span class="n">chunksize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">chunksize</span><span class="p">,</span>
                                           <span class="n">rechunk_callback_fields</span><span class="o">=</span><span class="n">rechunk_callback_fields</span><span class="p">,</span>
-                                          <span class="n">chunkdims_name_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">netcdf_chunkdims_name_map</span><span class="p">)</span>
+                                          <span class="n">chunkdims_name_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">netcdf_chunkdims_name_map</span><span class="p">,</span>
+                                          <span class="n">netcdf_decodewarning</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">netcdf_decodewarning</span><span class="p">)</span>
         <span class="n">filebuffer</span><span class="o">.</span><span class="fm">__enter__</span><span class="p">()</span>
         <span class="n">time_data</span> <span class="o">=</span> <span class="n">filebuffer</span><span class="o">.</span><span class="n">time</span>
         <span class="n">time_data</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">time_origin</span><span class="o">.</span><span class="n">reltime</span><span class="p">(</span><span class="n">time_data</span><span class="p">)</span>
@@ -1943,6 +1953,14 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">VectorField</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">Fi</span><span class="p">,</span> <span class="n">Vi</span><span class="p">,</span> <span class="n">Wi</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">particle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">applyConversion</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">iField</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">list</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iField</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">applyConversion</span><span class="o">=</span><span class="n">applyConversion</span><span class="p">)</span>
+            <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">list</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
@@ -2055,13 +2073,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.field</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+        &#169; Copyright 2022, The OceanParcels Team.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>

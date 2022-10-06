@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.particleset.particlesetaos &#8212; Parcels 2.3.0 documentation</title>
+    <title>parcels.particleset.particlesetaos &#8212; Parcels 2.4.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particleset.particlesetaos</a></li> 
       </ul>
@@ -305,9 +305,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">=</span> <span class="n">repeatdt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">repeatdt</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span> <span class="k">else</span> <span class="n">repeatdt</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatdt</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span><span class="p">(</span><span class="s1">&#39;Repeatdt should be &gt; 0&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="s1">&#39;Repeatdt should be &gt; 0&#39;</span>
             <span class="k">if</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                <span class="k">raise</span> <span class="p">(</span><span class="s1">&#39;All Particle.time should be the same when repeatdt is not None&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="s1">&#39;All Particle.time should be the same when repeatdt is not None&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">repeatpclass</span> <span class="o">=</span> <span class="n">pclass</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">repeatkwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
@@ -563,9 +563,9 @@
 
 <div class="viewcode-block" id="ParticleSetAOS.from_particlefile"><a class="viewcode-back" href="../../../index.html#parcels.particleset.particlesetaos.ParticleSetAOS.from_particlefile">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_particlefile</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet from a netcdf ParticleFile.</span>
-<span class="sd">        This creates a new ParticleSet based on the last locations and time of all particles</span>
-<span class="sd">        in the netcdf ParticleFile. Particle IDs are preserved if restart=True</span>
+        <span class="sd">&quot;&quot;&quot;Initialise the ParticleSet from a zarr ParticleFile.</span>
+<span class="sd">        This creates a new ParticleSet based on locations of all particles written</span>
+<span class="sd">        in a zarr ParticleFile at a certain time. Particle IDs are preserved if restart=True</span>
 
 <span class="sd">        :param fieldset: :mod:`parcels.fieldset.FieldSet` object from which to sample velocity</span>
 <span class="sd">        :param pclass: mod:`parcels.particle.JITParticle` or :mod:`parcels.particle.ScipyParticle`</span>
@@ -573,6 +573,9 @@
 <span class="sd">        :param filename: Name of the particlefile from which to read initial conditions</span>
 <span class="sd">        :param restart: Boolean to signal if pset is used for a restart (default is True).</span>
 <span class="sd">               In that case, Particle IDs are preserved.</span>
+<span class="sd">        :param restarttime: time at which the Particles will be restarted. Default is the last time written.</span>
+<span class="sd">               Alternatively, restarttime could be a time value (including np.datetime64) or</span>
+<span class="sd">               a callable function such as np.nanmin. The last is useful when running with dt &lt; 0.</span>
 <span class="sd">        :param repeatdt: Optional interval (in seconds) on which to repeat the release of the ParticleSet</span>
 <span class="sd">        :param lonlatdepth_dtype: Floating precision for lon, lat, depth particle coordinates.</span>
 <span class="sd">               It is either np.float32 or np.float64. Default is np.float32 if fieldset.U.interp_method is &#39;linear&#39;</span>
@@ -583,7 +586,7 @@
                            <span class="s1">&#39;setting a new repeatdt will start particles from the _new_ particle &#39;</span>
                            <span class="s1">&#39;locations.&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
 
-        <span class="n">pfile</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">decode_cf</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pfile</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
         <span class="n">pfile_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pfile</span><span class="o">.</span><span class="n">data_vars</span><span class="p">]</span>
 
         <span class="nb">vars</span> <span class="o">=</span> <span class="p">{}</span>
@@ -591,7 +594,7 @@
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pclass</span><span class="o">.</span><span class="n">getPType</span><span class="p">()</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pfile_vars</span><span class="p">:</span>
                 <span class="nb">vars</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">pfile</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;xi&#39;</span><span class="p">,</span> <span class="s1">&#39;yi&#39;</span><span class="p">,</span> <span class="s1">&#39;zi&#39;</span><span class="p">,</span> <span class="s1">&#39;ti&#39;</span><span class="p">,</span> <span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="s1">&#39;_next_dt&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;fileid&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">]</span> \
+            <span class="k">elif</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;xi&#39;</span><span class="p">,</span> <span class="s1">&#39;yi&#39;</span><span class="p">,</span> <span class="s1">&#39;zi&#39;</span><span class="p">,</span> <span class="s1">&#39;ti&#39;</span><span class="p">,</span> <span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="s1">&#39;_next_dt&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;once_written&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">]</span> \
                     <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">to_write</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Variable </span><span class="si">%s</span><span class="s1"> is in pclass but not in the particlefile&#39;</span> <span class="o">%</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="n">to_write</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">to_write</span>
@@ -625,17 +628,6 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fieldset</span><span class="o">=</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pclass</span><span class="o">=</span><span class="n">pclass</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="nb">vars</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">lat</span><span class="o">=</span><span class="nb">vars</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span>
                    <span class="n">depth</span><span class="o">=</span><span class="nb">vars</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span> <span class="n">time</span><span class="o">=</span><span class="nb">vars</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">pid_orig</span><span class="o">=</span><span class="nb">vars</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
                    <span class="n">lonlatdepth_dtype</span><span class="o">=</span><span class="n">lonlatdepth_dtype</span><span class="p">,</span> <span class="n">repeatdt</span><span class="o">=</span><span class="n">repeatdt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="ParticleSetAOS.to_dict"><a class="viewcode-back" href="../../../index.html#parcels.particleset.particlesetaos.ParticleSetAOS.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfile</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">deleted_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert all Particle data from one time step to a python dictionary.</span>
-<span class="sd">        :param pfile: ParticleFile object requesting the conversion</span>
-<span class="sd">        :param time: Time at which to write ParticleSet</span>
-<span class="sd">        :param deleted_only: Flag to write only the deleted Particles</span>
-<span class="sd">        returns two dictionaries: one for all variables to be written each outputdt, and one for all variables to be written once</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="o">.</span><span class="n">toDictionary</span><span class="p">(</span><span class="n">pfile</span><span class="o">=</span><span class="n">pfile</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
-                                             <span class="n">deleted_only</span><span class="o">=</span><span class="n">deleted_only</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particles</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add particles to the ParticleSet. Note that this is an</span>
@@ -718,7 +710,7 @@
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>  <span class="c1"># breaks if either p.xi, p.yi, p.zi, p.ti do not exist (in scipy) or field not in fieldset</span>
                 <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">ti</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">igrid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># xi, yi, zi, ti, not initialised</span>
-                    <span class="k">raise</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="s1">&#39;error&#39;</span>
                 <span class="n">xi</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">xi</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">igrid</span><span class="p">]</span>
                 <span class="n">yi</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">yi</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">igrid</span><span class="p">]</span>
             <span class="k">except</span><span class="p">:</span>
@@ -787,13 +779,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particleset.particlesetaos</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+        &#169; Copyright 2022, The OceanParcels Team.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>

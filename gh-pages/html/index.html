@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Parcels documentation &#8212; Parcels 2.3.1 documentation</title>
+    <title>Parcels documentation &#8212; Parcels 2.4.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Parcels 2.3.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">Parcels 2.4.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Parcels documentation</a></li> 
       </ul>
     </div>  
@@ -192,9 +192,9 @@ weight of all particles. Default is False</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="parcels.particleset.particlesetsoa.ParticleSetSOA.from_particlefile">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_particlefile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fieldset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pclass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restarttime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeatdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlatdepth_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset/particlesetsoa.html#ParticleSetSOA.from_particlefile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particleset.particlesetsoa.ParticleSetSOA.from_particlefile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialise the ParticleSet from a netcdf ParticleFile.
+<dd><p>Initialise the ParticleSet from a zarr ParticleFile.
 This creates a new ParticleSet based on locations of all particles written
-in a netcdf ParticleFile at a certain time. Particle IDs are preserved if restart=True</p>
+in a zarr ParticleFile at a certain time. Particle IDs are preserved if restart=True</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -265,16 +265,6 @@ may be quite expensive.</p>
 <dd><p>Method to set the write status of a Variable
 :param var: Name of the variable (string)
 :param write_status: Write status of the variable (True, False or ‘once’)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particleset.particlesetsoa.ParticleSetSOA.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset/particlesetsoa.html#ParticleSetSOA.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particleset.particlesetsoa.ParticleSetSOA.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert all Particle data from one time step to a python dictionary.
-:param pfile: ParticleFile object requesting the conversion
-:param time: Time at which to write ParticleSet
-:param deleted_only: Flag to write only the deleted Particles
-returns two dictionaries: one for all variables to be written each outputdt, and one for all variables to be written once</p>
 </dd></dl>
 
 </dd></dl>
@@ -1149,7 +1139,7 @@ scipy.interpolate to perform spatial interpolation.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filenames</strong> – list of filenames to read for the field. filenames can be a list [files] or
 a dictionary {dim:[files]} (if lon, lat, depth and/or data not stored in same files as data)
-In the latetr case, time values are in filenames[data]</p></li>
+In the latter case, time values are in filenames[data]</p></li>
 <li><p><strong>variable</strong> – Tuple mapping field name to variable name in the NetCDF file.</p></li>
 <li><p><strong>dimensions</strong> – Dictionary mapping variable names for the relevant dimensions in the NetCDF file</p></li>
 <li><p><strong>indices</strong> – dictionary mapping indices for each dimension to read from file.
@@ -1177,6 +1167,9 @@ deferred_load=False is however sometimes necessary for plotting the fields.</p><
 <li><p><strong>gridindexingtype</strong> – The type of gridindexing. Either ‘nemo’ (default) or ‘mitgcm’ are supported.
 See also the Grid indexing documentation on oceanparcels.org</p></li>
 <li><p><strong>chunksize</strong> – size of the chunks in dask loading</p></li>
+<li><p><strong>netcdf_decodewarning</strong> – boolean whether to show a warning id there is a problem decoding the netcdf files.
+Default is True, but in some cases where these warnings are expected, it may be useful to silence them
+by setting netcdf_decodewarning=False.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1245,7 +1238,7 @@ for a detailed explanation on how to set up time-evolving depth dimensions</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>animation</strong> – Boolean whether result is a single plot, or an animation</p></li>
-<li><p><strong>show_time</strong> – Time at which to show the Field (only in single-plot mode)</p></li>
+<li><p><strong>show_time</strong> – Time in seconds from start after which to show the Field (only in single-plot mode)</p></li>
 <li><p><strong>domain</strong> – dictionary (with keys ‘N’, ‘S’, ‘E’, ‘W’) defining domain to show</p></li>
 <li><p><strong>depth_level</strong> – depth level to be plotted (default 0)</p></li>
 <li><p><strong>projection</strong> – type of cartopy projection to use (default PlateCarree)</p></li>
@@ -2340,10 +2333,10 @@ concatenation, the merged AST plus the new header definition is required.</p>
 </section>
 <section id="module-parcels.particlefile.baseparticlefile">
 <span id="parcels-particlefile-baseparticlefile-module"></span><h2>parcels.particlefile.baseparticlefile module<a class="headerlink" href="#module-parcels.particlefile.baseparticlefile" title="Permalink to this heading">¶</a></h2>
-<p>Module controlling the writing of ParticleSets to NetCDF file</p>
+<p>Module controlling the writing of ParticleSets to Zarr file</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parcels.particlefile.baseparticlefile.</span></span><span class="sig-name descname"><span class="pre">BaseParticleFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particleset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_ondelete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_at_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempwritedir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pset_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parcels.particlefile.baseparticlefile.</span></span><span class="sig-name descname"><span class="pre">BaseParticleFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particleset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_ondelete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_new_zarrfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Initialise trajectory output.</p>
 <dl class="field-list simple">
@@ -2354,13 +2347,9 @@ concatenation, the merged AST plus the new header definition is required.</p>
 <li><p><strong>outputdt</strong> – Interval which dictates the update frequency of file output
 while ParticleFile is given as an argument of ParticleSet.execute()
 It is either a timedelta object or a positive double.</p></li>
+<li><p><strong>chunks</strong> – Tuple (trajs, obs) to control the size of chunks in the zarr output.</p></li>
 <li><p><strong>write_ondelete</strong> – Boolean to write particle data only when they are deleted. Default is False</p></li>
-<li><p><strong>convert_at_end</strong> – Boolean to convert npy files to netcdf at end of run. Default is True</p></li>
-<li><p><strong>tempwritedir</strong> – directories to write temporary files to during executing.
-Default is out-XXXXXX where Xs are random capitals. Files for individual
-processors are written to subdirectories 0, 1, 2 etc under tempwritedir</p></li>
-<li><p><strong>pset_info</strong> – dictionary of info on the ParticleSet, stored in tempwritedir/XX/pset_info.npy,
-used to create NetCDF file from npy-files.</p></li>
+<li><p><strong>create_new_zarrfile</strong> – Boolean to create a new file. Default is True</p></li>
 </ul>
 </dd>
 </dl>
@@ -2379,85 +2368,9 @@ used to create NetCDF file from npy-files.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_tempfiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close the ParticleFile object by exporting and then deleting
-the temporary npy files</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.delete_tempwritedir">
-<span class="sig-name descname"><span class="pre">delete_tempwritedir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tempwritedir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.delete_tempwritedir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.delete_tempwritedir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deleted all temporary npy files</p>
-<p>:param tempwritedir Optional path of the directory to delete</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.dump_dict_to_npy">
-<span class="sig-name descname"><span class="pre">dump_dict_to_npy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dict_once</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.dump_dict_to_npy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.dump_dict_to_npy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Buffer data to set of temporary numpy files, using np.save</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.dump_psetinfo_to_npy">
-<span class="sig-name descname"><span class="pre">dump_psetinfo_to_npy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.dump_psetinfo_to_npy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.dump_psetinfo_to_npy" title="Permalink to this definition">¶</a></dt>
-<dd><p>function writes the major attributes and values to a pset information file (<a href="#id25"><span class="problematic" id="id26">*</span></a>.npy).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.export">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.export" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exports outputs in temporary NPY-files to NetCDF file</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.get_pset_info_attributes">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_pset_info_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.get_pset_info_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.get_pset_info_attributes" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the main attributes of the pset_info.npy file.</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.open_output_file">
-<span class="sig-name descname"><span class="pre">open_output_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.open_output_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.open_output_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialise file for trajectory output.
-The output follows the format outlined in the Discrete Sampling Geometries
-section of the CF-conventions:
-<a class="reference external" href="http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#discrete-sampling-geometries">http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#discrete-sampling-geometries</a>
-The current implementation is based on the NCEI template:
-<a class="reference external" href="http://www.nodc.noaa.gov/data/formats/netcdf/v2.0/trajectoryIncomplete.cdl">http://www.nodc.noaa.gov/data/formats/netcdf/v2.0/trajectoryIncomplete.cdl</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data_shape</strong> – shape of the variables in the output file</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.read_from_npy">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_npy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.read_from_npy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.read_from_npy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read NPY-files for one variable using a loop over all files.</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_list</strong> – List that  contains all file names in the output directory</p></li>
-<li><p><strong>time_steps</strong> – Number of time steps that were written in out directory</p></li>
-<li><p><strong>var</strong> – name of the variable to read</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="parcels.particlefile.baseparticlefile.BaseParticleFile.write">
 <span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/baseparticlefile.html#BaseParticleFile.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.baseparticlefile.BaseParticleFile.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write all data from one time step to a temporary npy-file
-using a python dictionary. The data is saved in the folder ‘out’.</p>
+<dd><p>Write all data from one time step to the zarr file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2477,7 +2390,7 @@ using a python dictionary. The data is saved in the folder ‘out’.</p>
 <p>Module controlling the writing of ParticleSets to NetCDF file</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="parcels.particlefile.particlefileaos.ParticleFileAOS">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parcels.particlefile.particlefileaos.</span></span><span class="sig-name descname"><span class="pre">ParticleFileAOS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particleset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_ondelete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_at_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempwritedir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pset_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefileaos.html#ParticleFileAOS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefileaos.ParticleFileAOS" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parcels.particlefile.particlefileaos.</span></span><span class="sig-name descname"><span class="pre">ParticleFileAOS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particleset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_ondelete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefileaos.html#ParticleFileAOS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefileaos.ParticleFileAOS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#parcels.particlefile.baseparticlefile.BaseParticleFile" title="parcels.particlefile.baseparticlefile.BaseParticleFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParticleFile</span></code></a></p>
 <p>Initialise trajectory output.</p>
 <dl class="field-list simple">
@@ -2488,49 +2401,11 @@ using a python dictionary. The data is saved in the folder ‘out’.</p>
 <li><p><strong>outputdt</strong> – Interval which dictates the update frequency of file output
 while ParticleFile is given as an argument of ParticleSet.execute()
 It is either a timedelta object or a positive double.</p></li>
+<li><p><strong>chunks</strong> – Tuple (trajs, obs) to control the size of chunks in the zarr output.</p></li>
 <li><p><strong>write_ondelete</strong> – Boolean to write particle data only when they are deleted. Default is False</p></li>
-<li><p><strong>convert_at_end</strong> – Boolean to convert npy files to netcdf at end of run. Default is True</p></li>
-<li><p><strong>tempwritedir</strong> – directories to write temporary files to during executing.
-Default is out-XXXXXX where Xs are random capitals. Files for individual
-processors are written to subdirectories 0, 1, 2 etc under tempwritedir</p></li>
-<li><p><strong>pset_info</strong> – dictionary of info on the ParticleSet, stored in tempwritedir/XX/pset_info.npy,
-used to create NetCDF file from npy-files.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.particlefileaos.ParticleFileAOS.export">
-<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefileaos.html#ParticleFileAOS.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefileaos.ParticleFileAOS.export" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exports outputs in temporary NPY-files to output file (either netcdf or zarr)</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.particlefileaos.ParticleFileAOS.get_pset_info_attributes">
-<span class="sig-name descname"><span class="pre">get_pset_info_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefileaos.html#ParticleFileAOS.get_pset_info_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefileaos.ParticleFileAOS.get_pset_info_attributes" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the main attributes of the pset_info.npy file.</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.particlefileaos.ParticleFileAOS.read_from_npy">
-<span class="sig-name descname"><span class="pre">read_from_npy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_timesteps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefileaos.html#ParticleFileAOS.read_from_npy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefileaos.ParticleFileAOS.read_from_npy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read NPY-files for one variable using a loop over all files.</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_list</strong> – List that  contains all file names in the output directory</p></li>
-<li><p><strong>n_timesteps</strong> – Dictionary with (for each particle) number of time steps that were written in out directory</p></li>
-<li><p><strong>var</strong> – name of the variable to read</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -2539,7 +2414,7 @@ For ParticleSet structures other than SoA, and structures where ID != index, thi
 <p>Module controlling the writing of ParticleSets to NetCDF file</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="parcels.particlefile.particlefilesoa.ParticleFileSOA">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parcels.particlefile.particlefilesoa.</span></span><span class="sig-name descname"><span class="pre">ParticleFileSOA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particleset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_ondelete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_at_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempwritedir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pset_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefilesoa.html#ParticleFileSOA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefilesoa.ParticleFileSOA" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parcels.particlefile.particlefilesoa.</span></span><span class="sig-name descname"><span class="pre">ParticleFileSOA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particleset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_ondelete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefilesoa.html#ParticleFileSOA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefilesoa.ParticleFileSOA" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#parcels.particlefile.baseparticlefile.BaseParticleFile" title="parcels.particlefile.baseparticlefile.BaseParticleFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParticleFile</span></code></a></p>
 <p>Initialise trajectory output.</p>
 <dl class="field-list simple">
@@ -2550,49 +2425,11 @@ For ParticleSet structures other than SoA, and structures where ID != index, thi
 <li><p><strong>outputdt</strong> – Interval which dictates the update frequency of file output
 while ParticleFile is given as an argument of ParticleSet.execute()
 It is either a timedelta object or a positive double.</p></li>
+<li><p><strong>chunks</strong> – Tuple (trajs, obs) to control the size of chunks in the zarr output.</p></li>
 <li><p><strong>write_ondelete</strong> – Boolean to write particle data only when they are deleted. Default is False</p></li>
-<li><p><strong>convert_at_end</strong> – Boolean to convert npy files to netcdf at end of run. Default is True</p></li>
-<li><p><strong>tempwritedir</strong> – directories to write temporary files to during executing.
-Default is out-XXXXXX where Xs are random capitals. Files for individual
-processors are written to subdirectories 0, 1, 2 etc under tempwritedir</p></li>
-<li><p><strong>pset_info</strong> – dictionary of info on the ParticleSet, stored in tempwritedir/XX/pset_info.npy,
-used to create NetCDF file from npy-files.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.particlefilesoa.ParticleFileSOA.export">
-<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefilesoa.html#ParticleFileSOA.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefilesoa.ParticleFileSOA.export" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exports outputs in temporary NPY-files to output file (either netcdf or zarr)</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.particlefilesoa.ParticleFileSOA.get_pset_info_attributes">
-<span class="sig-name descname"><span class="pre">get_pset_info_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefilesoa.html#ParticleFileSOA.get_pset_info_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefilesoa.ParticleFileSOA.get_pset_info_attributes" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the main attributes of the pset_info.npy file.</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particlefile.particlefilesoa.ParticleFileSOA.read_from_npy">
-<span class="sig-name descname"><span class="pre">read_from_npy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_timesteps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particlefile/particlefilesoa.html#ParticleFileSOA.read_from_npy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particlefile.particlefilesoa.ParticleFileSOA.read_from_npy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read NPY-files for one variable using a loop over all files.</p>
-<p>Attention:
-For ParticleSet structures other than SoA, and structures where ID != index, this has to be overridden.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_list</strong> – List that  contains all file names in the output directory</p></li>
-<li><p><strong>n_timesteps</strong> – Dictionary with (for each particle) number of time steps that were written in out directory</p></li>
-<li><p><strong>var</strong> – name of the variable to read</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -3053,9 +2890,9 @@ weight of all particles. Default is False</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="parcels.particleset.particlesetaos.ParticleSetAOS.from_particlefile">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_particlefile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fieldset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pclass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restarttime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeatdt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlatdepth_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset/particlesetaos.html#ParticleSetAOS.from_particlefile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particleset.particlesetaos.ParticleSetAOS.from_particlefile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialise the ParticleSet from a netcdf ParticleFile.
-This creates a new ParticleSet based on the last locations and time of all particles
-in the netcdf ParticleFile. Particle IDs are preserved if restart=True</p>
+<dd><p>Initialise the ParticleSet from a zarr ParticleFile.
+This creates a new ParticleSet based on locations of all particles written
+in a zarr ParticleFile at a certain time. Particle IDs are preserved if restart=True</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -3065,6 +2902,9 @@ object that defines custom particle</p></li>
 <li><p><strong>filename</strong> – Name of the particlefile from which to read initial conditions</p></li>
 <li><p><strong>restart</strong> – Boolean to signal if pset is used for a restart (default is True).
 In that case, Particle IDs are preserved.</p></li>
+<li><p><strong>restarttime</strong> – time at which the Particles will be restarted. Default is the last time written.
+Alternatively, restarttime could be a time value (including np.datetime64) or
+a callable function such as np.nanmin. The last is useful when running with dt &lt; 0.</p></li>
 <li><p><strong>repeatdt</strong> – Optional interval (in seconds) on which to repeat the release of the ParticleSet</p></li>
 <li><p><strong>lonlatdepth_dtype</strong> – Floating precision for lon, lat, depth particle coordinates.
 It is either np.float32 or np.float64. Default is np.float32 if fieldset.U.interp_method is ‘linear’
@@ -3123,16 +2963,6 @@ may be quite expensive.</p>
 <dd><p>Method to set the write status of a Variable
 :param var: Name of the variable (string)
 :param write_status: Write status of the variable (True, False or ‘once’)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="parcels.particleset.particlesetaos.ParticleSetAOS.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parcels/particleset/particlesetaos.html#ParticleSetAOS.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parcels.particleset.particlesetaos.ParticleSetAOS.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert all Particle data from one time step to a python dictionary.
-:param pfile: ParticleFile object requesting the conversion
-:param time: Time at which to write ParticleSet
-:param deleted_only: Flag to write only the deleted Particles
-returns two dictionaries: one for all variables to be written each outputdt, and one for all variables to be written once</p>
 </dd></dl>
 
 </dd></dl>
@@ -3327,7 +3157,7 @@ If deemed appropriate, the record may be modified in-place.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>show_time</strong> – Time at which to show the Field</p></li>
+<li><p><strong>show_time</strong> – Time in seconds from start after which to show the Field</p></li>
 <li><p><strong>domain</strong> – dictionary (with keys ‘N’, ‘S’, ‘E’, ‘W’) defining domain to show</p></li>
 <li><p><strong>depth_level</strong> – depth level to be plotted (default 0)</p></li>
 <li><p><strong>projection</strong> – type of cartopy projection to use (default PlateCarree)</p></li>
@@ -3348,7 +3178,7 @@ If deemed appropriate, the record may be modified in-place.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>show_time</strong> – Time at which to show the ParticleSet</p></li>
+<li><p><strong>show_time</strong> – Time in seconds from start after which to show the ParticleSet</p></li>
 <li><p><strong>with_particles</strong> – Boolean whether particles are also plotted on Field</p></li>
 <li><p><strong>field</strong> – Field to plot under particles (either None, a Field object, or ‘vector’)</p></li>
 <li><p><strong>domain</strong> – dictionary (with keys ‘N’, ‘S’, ‘E’, ‘W’) defining domain to show</p></li>
@@ -3507,12 +3337,12 @@ from the package directory or from the Parcels website.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Parcels 2.3.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">Parcels 2.4.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Parcels documentation</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+        &#169; Copyright 2022, The OceanParcels Team.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>

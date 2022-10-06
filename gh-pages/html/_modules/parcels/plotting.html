@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.plotting &#8212; Parcels 2.3.0 documentation</title>
+    <title>parcels.plotting &#8212; Parcels 2.4.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.plotting</a></li> 
       </ul>
@@ -73,7 +73,7 @@
                   <span class="n">animation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Function to plot a Parcels ParticleSet</span>
 
-<span class="sd">    :param show_time: Time at which to show the ParticleSet</span>
+<span class="sd">    :param show_time: Time in seconds from start after which to show the ParticleSet</span>
 <span class="sd">    :param with_particles: Boolean whether particles are also plotted on Field</span>
 <span class="sd">    :param field: Field to plot under particles (either None, a Field object, or &#39;vector&#39;)</span>
 <span class="sd">    :param domain: dictionary (with keys &#39;N&#39;, &#39;S&#39;, &#39;E&#39;, &#39;W&#39;) defining domain to show</span>
@@ -152,7 +152,7 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefile</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Plot saved to &#39;</span> <span class="o">+</span> <span class="n">savefile</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Plot saved to </span><span class="si">{</span><span class="n">savefile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
@@ -160,7 +160,7 @@
               <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Function to plot a Parcels Field</span>
 
-<span class="sd">    :param show_time: Time at which to show the Field</span>
+<span class="sd">    :param show_time: Time in seconds from start after which to show the Field</span>
 <span class="sd">    :param domain: dictionary (with keys &#39;N&#39;, &#39;S&#39;, &#39;E&#39;, &#39;W&#39;) defining domain to show</span>
 <span class="sd">    :param depth_level: depth level to be plotted (default 0)</span>
 <span class="sd">    :param projection: type of cartopy projection to use (default PlateCarree)</span>
@@ -430,13 +430,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.plotting</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+        &#169; Copyright 2022, The OceanParcels Team.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>

@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parcels.particleset.baseparticleset &#8212; Parcels 2.3.0 documentation</title>
+    <title>parcels.particleset.baseparticleset &#8212; Parcels 2.4.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particleset.baseparticleset</a></li> 
       </ul>
@@ -492,9 +492,7 @@
             <span class="k">if</span> <span class="n">verbose_progress</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">time_module</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">walltime_start</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
                 <span class="c1"># Showing progressbar if runtime &gt; 10 seconds</span>
                 <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Temporary output files are stored in </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="n">output_file</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">)</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;You can use &quot;parcels_convert_npydir_to_netcdf </span><span class="si">%s</span><span class="s1">&quot; to convert these &#39;</span>
-                                <span class="s1">&#39;to a NetCDF file during the run.&#39;</span> <span class="o">%</span> <span class="n">output_file</span><span class="o">.</span><span class="n">tempwritedir_base</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Output files are stored in </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="n">output_file</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span>
                 <span class="n">pbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__create_progressbar</span><span class="p">(</span><span class="n">_starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)</span>
                 <span class="n">verbose_progress</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -543,7 +541,7 @@
                     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fld</span><span class="p">,</span> <span class="s1">&#39;to_write&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fld</span><span class="o">.</span><span class="n">to_write</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">fld</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">tdim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Field writing during execution only works for Fields with one snapshot in time&#39;</span><span class="p">)</span>
-                        <span class="n">fldfilename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;_</span><span class="si">%.4d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fld</span><span class="o">.</span><span class="n">to_write</span><span class="p">)</span>
+                        <span class="n">fldfilename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_file</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.zarr&#39;</span><span class="p">,</span> <span class="s1">&#39;_</span><span class="si">%.4d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fld</span><span class="o">.</span><span class="n">to_write</span><span class="p">)</span>
                         <span class="n">fld</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fldfilename</span><span class="p">)</span>
                         <span class="n">fld</span><span class="o">.</span><span class="n">to_write</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="n">next_output</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
@@ -624,13 +622,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Parcels 2.4.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">parcels.particleset.baseparticleset</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Michael Lange and Erik van Sebille.
+        &#169; Copyright 2022, The OceanParcels Team.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
