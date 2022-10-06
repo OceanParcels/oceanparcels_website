@@ -168,9 +168,9 @@ fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
 
   <hr>
   <h2 id="outputformat">The output format of ParticleFile</h2>
-  The information on particle trajectories is stored in NetCDF format, when using the <code class="language-python">ParticleFile</code> class. The file contains arrays of at least the <code class="language-python">time</code>, <code class="language-python">lon</code>, <code class="language-python">lat</code> and <code class="language-python">z</code> (depth) of each particle trajectory, plus any extra custom <code class="language-python">Variables</code> defined in the <code class="language-python">pclass</code>.
+  The information on particle trajectories is stored in <a href="https://zarr.dev">zarr</a> format, when using the <code class="language-python">ParticleFile</code> class. The file/directory contains arrays of at least the <code class="language-python">time</code>, <code class="language-python">lon</code>, <code class="language-python">lat</code> and <code class="language-python">z</code> (depth) of each particle trajectory, plus any extra custom <code class="language-python">Variables</code> defined in the <code class="language-python">pclass</code>.
   <p></p>
-  Each row in these arrays corresponds to a particle, and each column is an 'observation'. Note that, when particles are added during runtime, their first position is still stored in the first column, so that not all particles in the same column necessarily share the same <code class="language-python">time</code>. The time of each observation is stored in the <code class="language-python">time</code> array.
+  Each row in these arrays corresponds to a particle, and each column is an 'observation'. Note that, when particles are added during runtime, their first position is still stored in the first column, so that not all particles in the same column necessarily share the same <code class="language-python">time</code>. The time of each observation is stored in the <code class="language-python">time</code> array. See <a href="https://nbviewer.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_output.ipynb">the output tutorial notebook</a> for more information.
 
   <hr>
   <h2 id="performance">Memory Behaviour and Performance</h2>
