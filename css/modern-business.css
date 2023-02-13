@@ -81,6 +81,23 @@ a.tutorialLink:link{color:black}
 a.tutorialLink:visited{color:black}
 a.tutorialLink:hover{color:black; text-decoration: none;}
 
+span.pubnum {
+  float:right;
+  color: #868e96 !important;
+  font-size: x-small;
+  font-style: italic;
+  margin-right: -10pt;
+  margin-top: 10pt;
+  margin-bottom: -10pt;
+}
+span.pubnum::before {
+  content: "Article #";
+}
+/*span.pubnum::after {*/
+/*  content: " using Parcels";*/
+/*}*/
+
+
 ul#footerul {
   list-style-type: none;
   display: table;
