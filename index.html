@@ -903,6 +903,29 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
       <div class="card">
         <div class="card-header" role="tab">
           <h5 class="mb-0">
+            Efficiently simulating Lagrangian particles in large-scale ocean flows — Data structures and their impact on geophysical applications
+          </h5>
+          Kehl, C, PD Nooteboom, MLA Kaandorp, E van Sebille (2023), <i>Computers and Geosciences</i>, <i>in press</i>.<br>
+          <a class="collapsed card-link" data-toggle="collapse" href="#Kehl2023" aria-expanded="true">[ Expand abstract ]</a>
+          <a class="card-link" href="https://doi.org/10.1016/j.cageo.2023.105322"><i class="fa fa-external-link fa-1x"></i> [ Link to article - <i class="ai ai-open-access ai-1x"></i>]</a>
+          <span class="pubnum">110</span>
+        </div>
+        <div id="Kehl2023" class="collapse" role="tabpanel">
+          <div class="card-body">
+            Studying oceanography by using Lagrangian simulations has been adopted for a range of scenarios, such as the determining the fate of microplastics in the ocean, simulating the origin locations of microplankton used for palaeoceanographic reconstructions, for studying the impact of fish aggregation devices on the migration behaviour of tuna. These simulations are complex and represent a considerable runtime effort to obtain trajectory results, which is the prime motivation for enhancing the performance of Lagrangian particle simulators. This paper assesses established performance enhancing techniques from Eulerian simulators in light of computational conditions and demands of Lagrangian simulators. A performance enhancement strategy specifically targeting physics-based Lagrangian particle simulations is outlined to address the performance gaps, and techniques for closing the performance gap are presented and implemented. Realistic experiments are derived from three specific oceanographic application scenarios, and the suggested performance-enhancing techniques are benchmarked in detail, so to allow for a good attribution of speed-up measurements to individual techniques. The impacts and insights of the performance enhancement strategy are further discussed for Lagrangian simulations in other geoscience applications. The experiments show that I/O-enhancing techniques, such as dynamic loading and buffering, lead to considerable speed-up on-par with an idealised parallelisation of the process over 20 nodes. Conversely, while the cache-efficient structure-of-arrays collection yields a visible speed-up, other alternative data structures fail in fulfilling the theoretically-expected performance increase. This insight demonstrates the importance of good data alignment in memory and caches for Lagrangian physics simulations.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p></p>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header" role="tab">
+          <h5 class="mb-0">
             Modeling carbon export mediated by biofouled microplastics in the Mediterranean Sea
           </h5>
           Guerrini, F, D Lobelle, L Mari, R Casagrandi, E van Sebille (2023), <i>Limnology and Oceanography</i>, <i>in press</i>.<br>
