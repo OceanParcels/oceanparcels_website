@@ -68,7 +68,7 @@ INDEX_TEMPLATE = r"""
 </html>
 """
 
-EXCLUDED = ['index.html']
+EXCLUDED = ["index.html"]
 
 import os
 import argparse
@@ -76,29 +76,43 @@ import argparse
 # May need to do "pip install mako"
 from mako.template import Template
 
-def fun(dir,rootdir):
-    print('Processing: '+dir)
-    filenames = [fname for fname in sorted(os.listdir(dir))
-              if fname not in EXCLUDED and os.path.isfile(dir+fname)]
-    dirnames = [fname for fname in sorted(os.listdir(dir))
-            if fname not in EXCLUDED  ]
+
+def fun(dir, rootdir):
+    print("Processing: " + dir)
+    filenames = [
+        fname
+        for fname in sorted(os.listdir(dir))
+        if fname not in EXCLUDED and os.path.isfile(dir + fname)
+    ]
+    dirnames = [fname for fname in sorted(os.listdir(dir)) if fname not in EXCLUDED]
     dirnames = [fname for fname in dirnames if fname not in filenames]
-#    header = os.path.basename(dir)
-    f = open(dir+'/index.html','w')
-    print(Template(INDEX_TEMPLATE).render(dirnames=dirnames,filenames=filenames, header=dir,ROOTDIR=rootdir,time=time.ctime(os.path.getctime(dir))),file=f)
+    #    header = os.path.basename(dir)
+    f = open(dir + "/index.html", "w")
+    print(
+        Template(INDEX_TEMPLATE).render(
+            dirnames=dirnames,
+            filenames=filenames,
+            header=dir,
+            ROOTDIR=rootdir,
+            time=time.ctime(os.path.getctime(dir)),
+        ),
+        file=f,
+    )
     f.close()
     for subdir in dirnames:
         try:
-            fun(dir+subdir+"/",rootdir+'../')
+            fun(dir + subdir + "/", rootdir + "../")
         except:
             pass
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("directory")
     parser.add_argument("--header")
     args = parser.parse_args()
-    fun(args.directory+'/','../')
+    fun(args.directory + "/", "../")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
