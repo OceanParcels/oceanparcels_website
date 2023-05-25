@@ -1,740 +1,1169 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="The Lagrangian Ocean Analysis team at Utrecht University uses and develops the OceanParcels framework to investigate how ocean currents move 'stuff' around">
-    <meta property="og:image" content="http://oceanparcels.org/images/parcelslogo_large.png">
-    <meta property="twitter:image" content="http://oceanparcels.org/images/parcelslogo_large.png">
-    <meta name="author" content="The OceanParcels team">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="The Lagrangian Ocean Analysis team at Utrecht University uses and develops the OceanParcels framework to investigate how ocean currents move 'stuff' around"
+    />
+    <meta
+      property="og:image"
+      content="http://oceanparcels.org/images/parcelslogo_large.png"
+    />
+    <meta
+      property="twitter:image"
+      content="http://oceanparcels.org/images/parcelslogo_large.png"
+    />
+    <meta name="author" content="The OceanParcels team" />
 
     <title>The Lagrangian Ocean Analysis team at Utrecht University</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Font Awesome icons -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="vendor/academicons/css/academicons.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="vendor/academicons/css/academicons.min.css" />
 
     <!-- syntax highlighting for Python and Bash -->
     <link href="vendor/prism/prism.css" rel="stylesheet" />
     <script src="vendor/prism/prism.js"></script>
 
     <!-- Custom styles for this template -->
-    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="css/modern-business.css" rel="stylesheet" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('set', 'anonymizeIp', true)
-        ga('create', 'UA-96368922-1', 'auto');
-        ga('send', 'pageview');
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
+      ga("set", "anonymizeIp", true);
+      ga("create", "UA-96368922-1", "auto");
+      ga("send", "pageview");
     </script>
-</head>
+  </head>
 
-<body>
-<!-- Navigation -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.html"><img src="images/parcelslogo_inverse.png" height="30px">&ensp;Ocean<b>Parcels</b></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+  <body>
+    <!-- Navigation -->
+    <nav
+      class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="index.html"
+          ><img
+            src="images/parcelslogo_inverse.png"
+            height="30px"
+          />&ensp;Ocean<b>Parcels</b></a
+        >
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <!-- <li class="nav-item">
+          <ul class="navbar-nav ml-auto">
+            <!-- <li class="nav-item">
                     <a class="nav-link" href="#positions">Open Positions</a>
                 </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#team">Team</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#prevteam">Previous Team Members</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#socialmedia">Social Media</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#projects">Projects</a>
-                </li>
-            </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="#team">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#prevteam">Previous Team Members</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#socialmedia">Social Media</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+          </ul>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<!-- Page Content -->
-<div class="container">
+    <!-- Page Content -->
+    <div class="container">
+      <hr />
 
-    <hr>
+      <h1 class="display-4" style="text-align: center">
+        Tracking how ocean currents transport plastic, plankton and other
+        materials
+      </h1>
 
-    <h1 class="display-4" style="text-align: center;">Tracking how ocean currents transport plastic, plankton and other materials</h1>
+      <hr />
 
-    <hr>
+      <h2>The Lagrangian Ocean Analysis team at Utrecht University</h2>
+      The Lagrangian Ocean Analysis team within the
+      <a
+        href="https://www.uu.nl/en/research/institute-for-marine-and-atmospheric-research-imau"
+        >Institute for Marine and Atmospheric research</a
+      >
+      at <a href="https://www.uu.nl/en">Utrecht University</a>'s Department of
+      Physics, uses the
+      <a href="http://oceanparcels.org/"><b>Parcels</b></a> framework to create
+      and analyse simulations of the transport of material (plastics, plankton,
+      fish) by ocean currents and its impact on climate and marine ecosystems.
+      Within the group, we adhere to Open Science principles and aim to create a
+      collaborative and inclusive atmosphere.
+      <p></p>
 
-    <h2> The Lagrangian Ocean Analysis team at Utrecht University</h2>
-    The Lagrangian Ocean Analysis team within the <a href="https://www.uu.nl/en/research/institute-for-marine-and-atmospheric-research-imau">Institute for Marine and Atmospheric research</a> at <a href="https://www.uu.nl/en">Utrecht University</a>'s Department of Physics, uses the <a href="http://oceanparcels.org/"><b>Parcels</b></a> framework to create and analyse simulations of the transport of material (plastics, plankton, fish) by ocean currents and its impact on climate and marine ecosystems. Within the group, we adhere to Open Science principles and aim to create a collaborative and inclusive atmosphere.
-    <p></p>
+      <hr />
 
-    <hr>
-
-    <h2 id="team">The team (alphabetical)</h2>
-    <div class="row justify-content-md-center">
-
+      <h2 id="team">The team (alphabetical)</h2>
+      <div class="row justify-content-md-center">
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top  team-photo" src="images/BasAltena.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Bas Altena</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Postdoctoral researcher</h6>
-                    <p class="card-text">Bas works on the valorization of marine litter backtracking.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                    <a class="card-link" href="https://scholar.google.com/citations?user=sIx9EB4AAAAJ">
-                        <i class="ai ai-google-scholar-square ai-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://github.com/dicaearchus">
-                        <i class="fa fa-github fa-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://twitter.com/baasaltena">
-                        <i class="fa fa-twitter fa-2x"></i>
-                    </a>                
-                    <a class="card-link" href="http://space-accountants.eu">
-                        <i class="fa fa-external-link fa-2x"></i>
-                    </a>
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/BasAltena.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Bas Altena</h4>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Postdoctoral researcher
+              </h6>
+              <p class="card-text">
+                Bas works on the valorization of marine litter backtracking.
+              </p>
             </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top  team-photo" src="images/VesnaBertoncelj.png" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Vesna Bertoncelj</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
-                    <p class="card-text">Vesna investigates how polluntants spread around coral reefs on Curacao.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+            <div class="card-footer" style="height: 60px">
+              <a
+                class="card-link"
+                href="https://scholar.google.com/citations?user=sIx9EB4AAAAJ"
+              >
+                <i class="ai ai-google-scholar-square ai-2x"></i>
+              </a>
+              <a class="card-link" href="https://github.com/dicaearchus">
+                <i class="fa fa-github fa-2x"></i>
+              </a>
+              <a class="card-link" href="https://twitter.com/baasaltena">
+                <i class="fa fa-twitter fa-2x"></i>
+              </a>
+              <a class="card-link" href="http://space-accountants.eu">
+                <i class="fa fa-external-link fa-2x"></i>
+              </a>
             </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top  team-photo" src="images/MarkElbertsen.JPG" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Mark Elbertsen</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">MSc student</h6>
-                    <p class="card-text">Mark simulates how and where large icebergs melted in the Eocene Southern Ocean.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
-            </div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top  team-photo" src="images/JenteHeisterborg.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Jente Heisterborg</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">BSc student</h6>
-                    <p class="card-text">Jente simulates how plastics in the Wadden Sea are affected by tides.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/VesnaBertoncelj.png"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Vesna Bertoncelj</h4>
+              <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
+              <p class="card-text">
+                Vesna investigates how polluntants spread around coral reefs on
+                Curacao.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top  team-photo" src="images/LauraGomezNavarro.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Laura Gomez Navarro</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Margarita Salas Fellow</h6>
-                    <p class="card-text">Laura investigates how oceanic fine-scales affect the transport of marine plastic.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                    <a class="card-link" href="https://github.com/LauraGomezNavarro">
-                        <i class="fa fa-github fa-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://twitter.com/LauraGomNav">
-                        <i class="fa fa-twitter fa-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://www.researchgate.net/profile/Laura_Gomez-Navarro">
-                        <i class="ai ai-researchgate-square ai-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://scholar.google.es/citations?user=ML8EsI4AAAAJ&hl=ca">
-                        <i class="ai ai-google-scholar-square ai-2x"></i>
-                    </a>
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/MarkElbertsen.JPG"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Mark Elbertsen</h4>
+              <h6 class="card-subtitle mb-2 text-muted">MSc student</h6>
+              <p class="card-text">
+                Mark simulates how and where large icebergs melted in the Eocene
+                Southern Ocean.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/CleoJongedijk.png" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Cleo Jongedijk</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
-                    <p class="card-text">Cleo investigates how plastic litter ends up on beaches.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/JenteHeisterborg.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Jente Heisterborg</h4>
+              <h6 class="card-subtitle mb-2 text-muted">BSc student</h6>
+              <p class="card-text">
+                Jente simulates how plastics in the Wadden Sea are affected by
+                tides.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/MarcOpDenKamp.JPG" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Marc op den Kamp</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">MSc student</h6>
-                    <p class="card-text">Marc uses machine learning to predict macroplastic beaching events.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/LauraGomezNavarro.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Laura Gomez Navarro</h4>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Margarita Salas Fellow
+              </h6>
+              <p class="card-text">
+                Laura investigates how oceanic fine-scales affect the transport
+                of marine plastic.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px">
+              <a class="card-link" href="https://github.com/LauraGomezNavarro">
+                <i class="fa fa-github fa-2x"></i>
+              </a>
+              <a class="card-link" href="https://twitter.com/LauraGomNav">
+                <i class="fa fa-twitter fa-2x"></i>
+              </a>
+              <a
+                class="card-link"
+                href="https://www.researchgate.net/profile/Laura_Gomez-Navarro"
+              >
+                <i class="ai ai-researchgate-square ai-2x"></i>
+              </a>
+              <a
+                class="card-link"
+                href="https://scholar.google.es/citations?user=ML8EsI4AAAAJ&hl=ca"
+              >
+                <i class="ai ai-google-scholar-square ai-2x"></i>
+              </a>
+            </div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/ClaraKoster.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Clara Koster</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">BSc student</h6>
-                    <p class="card-text">Clara computes the probability to find nanoplastics in samples from the South Atlantic.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/CleoJongedijk.png"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Cleo Jongedijk</h4>
+              <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
+              <p class="card-text">
+                Cleo investigates how plastic litter ends up on beaches.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/DarshikaManral.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Darshika Manral</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
-                    <p class="card-text">Darshika investigates how plankton interact with nutrients and plastic in the Atlantic Ocean.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/MarcOpDenKamp.JPG"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Marc op den Kamp</h4>
+              <h6 class="card-subtitle mb-2 text-muted">MSc student</h6>
+              <p class="card-text">
+                Marc uses machine learning to predict macroplastic beaching
+                events.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/ClaudioPierard.jpeg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Claudio Pierard</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
-                    <p class="card-text">Claudio investigates the origin and fate of nanoplastics in our ocean.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/ClaraKoster.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Clara Koster</h4>
+              <h6 class="card-subtitle mb-2 text-muted">BSc student</h6>
+              <p class="card-text">
+                Clara computes the probability to find nanoplastics in samples
+                from the South Atlantic.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/DaanReijnders.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Daan Reijnders</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
-                    <p class="card-text">Daan investigates how to incorporate diffusion into particle simulations in biogeochemical oceanography.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/DarshikaManral.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Darshika Manral</h4>
+              <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
+              <p class="card-text">
+                Darshika investigates how plankton interact with nutrients and
+                plastic in the Atlantic Ocean.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/MattiaRomero.JPG" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Mattia Romero</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">MSc student</h6>
-                    <p class="card-text">Mattia investigates how fine-scale ocean processes lead to heterogeneity of floating plastic.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/ClaudioPierard.jpeg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Claudio Pierard</h4>
+              <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
+              <p class="card-text">
+                Claudio investigates the origin and fate of nanoplastics in our
+                ocean.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/SirenRuhs.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Siren Rühs</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Postdoctoral researcher</h6>
-                    <p class="card-text">Siren investigates how the latest generation of ocean models can be used to simulate the dispersion of plastic.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a class="card-link" href="https://scholar.google.de/citations?user=Cp2eW6QAAAAJ&hl=en">
-                        <i class="ai ai-google-scholar-square ai-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://www.researchgate.net/profile/Siren_Ruehs">
-                        <i class="ai ai-researchgate-square ai-2x"></i>
-                    </a>
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/DaanReijnders.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Daan Reijnders</h4>
+              <h6 class="card-subtitle mb-2 text-muted">PhD researcher</h6>
+              <p class="card-text">
+                Daan investigates how to incorporate diffusion into particle
+                simulations in biogeochemical oceanography.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top team-photo" src="images/ErikvanSebille.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Erik van Sebille</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Professor</h6>
-                    <p class="card-text">Erik investigates how ocean currents move 'stuff' around, and leads the OceanParcels project.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a class="card-link" href="https://github.com/erikvansebille">
-                        <i class="fa fa-github fa-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://twitter.com/erikvansebille">
-                        <i class="fa fa-twitter fa-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://scholar.google.com.au/citations?user=2Pb1HdUAAAAJ&hl=en">
-                        <i class="ai ai-google-scholar-square ai-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://www.uu.nl/staff/EvanSebille">
-                        <i class="fa fa-external-link fa-2x"></i>
-                    </a>
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/MattiaRomero.JPG"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Mattia Romero</h4>
+              <h6 class="card-subtitle mb-2 text-muted">MSc student</h6>
+              <p class="card-text">
+                Mattia investigates how fine-scale ocean processes lead to
+                heterogeneity of floating plastic.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px"></div>
+          </div>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-            <div class="card h-100 text-center">
-                <img class="card-img-top  team-photo" src="images/SteffieYpma.jpg" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Steffie Ypma</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Postdoctoral researcher</h6>
-                    <p class="card-text">Steffie creates a tool that supports plastic cleanup in the Galapagos.
-                    </p>
-                </div>
-                <div class="card-footer" style="height: 60px">
-                    <a class="card-link" href="https://github.com/SLYpma">
-                        <i class="fa fa-github fa-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://twitter.com/steffieypma">
-                        <i class="fa fa-twitter fa-2x"></i>
-                    </a>
-                    <a class="card-link" href="https://www.researchgate.net/profile/Stefanie_Ypma">
-                        <i class="ai ai-researchgate-square ai-2x"></i>
-                    </a>
-                </div>
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/SirenRuhs.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Siren Rühs</h4>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Postdoctoral researcher
+              </h6>
+              <p class="card-text">
+                Siren investigates how the latest generation of ocean models can
+                be used to simulate the dispersion of plastic.
+              </p>
             </div>
+            <div class="card-footer">
+              <a
+                class="card-link"
+                href="https://scholar.google.de/citations?user=Cp2eW6QAAAAJ&hl=en"
+              >
+                <i class="ai ai-google-scholar-square ai-2x"></i>
+              </a>
+              <a
+                class="card-link"
+                href="https://www.researchgate.net/profile/Siren_Ruehs"
+              >
+                <i class="ai ai-researchgate-square ai-2x"></i>
+              </a>
+            </div>
+          </div>
         </div>
 
-    </div>
-    <hr>
-
-    <h2  id="prevteam">Previous team members</h2>
-    <div class="card-columns">
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Deborah Bassotto</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/38673">thesis</a> ]</small>
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/ErikvanSebille.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Erik van Sebille</h4>
+              <h6 class="card-subtitle mb-2 text-muted">Professor</h6>
+              <p class="card-text">
+                Erik investigates how ocean currents move 'stuff' around, and
+                leads the OceanParcels project.
+              </p>
             </div>
+            <div class="card-footer">
+              <a class="card-link" href="https://github.com/erikvansebille">
+                <i class="fa fa-github fa-2x"></i>
+              </a>
+              <a class="card-link" href="https://twitter.com/erikvansebille">
+                <i class="fa fa-twitter fa-2x"></i>
+              </a>
+              <a
+                class="card-link"
+                href="https://scholar.google.com.au/citations?user=2Pb1HdUAAAAJ&hl=en"
+              >
+                <i class="ai ai-google-scholar-square ai-2x"></i>
+              </a>
+              <a class="card-link" href="https://www.uu.nl/staff/EvanSebille">
+                <i class="fa fa-external-link fa-2x"></i>
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Mariana de Botton Falcon</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/300">thesis</a> ] </small>
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+          <div class="card h-100 text-center">
+            <img
+              class="card-img-top team-photo"
+              src="images/SteffieYpma.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <h4 class="card-title">Steffie Ypma</h4>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Postdoctoral researcher
+              </h6>
+              <p class="card-text">
+                Steffie creates a tool that supports plastic cleanup in the
+                Galapagos.
+              </p>
             </div>
+            <div class="card-footer" style="height: 60px">
+              <a class="card-link" href="https://github.com/SLYpma">
+                <i class="fa fa-github fa-2x"></i>
+              </a>
+              <a class="card-link" href="https://twitter.com/steffieypma">
+                <i class="fa fa-twitter fa-2x"></i>
+              </a>
+              <a
+                class="card-link"
+                href="https://www.researchgate.net/profile/Stefanie_Ypma"
+              >
+                <i class="ai ai-researchgate-square ai-2x"></i>
+              </a>
+            </div>
+          </div>
         </div>
+      </div>
+      <hr />
 
+      <h2 id="prevteam">Previous team members</h2>
+      <div class="card-columns">
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Quinten Bohte</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/4">thesis</a> ]</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Ilse Bos</h5><small>BSc student</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Tycho Bovenschen</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/40938">thesis</a> ]</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Simon Brouwer </h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/29288">thesis</a> ] </small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Laura Chow </h5><small>MSc student</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Philippe Delandmeter</h5><small>Postdoctoral researcher</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Ilja Deurloo </h5><small>BSc student</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Bram van Duinen</h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/39789">thesis</a> ] </small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Raymond Edwards</h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/29930">thesis</a> ] </small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Judith Ewald</h5><small>MSc student</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Reint Fischer</h5><small>Software support & MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/36956">thesis</a> ]</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Philippe Frankemölle</h5><small>MSc student</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Michal Janssen</h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/33642">thesis</a> ]</small>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Mikael Kaandorp</h5><small>PhD researcher [ <a href="https://dspace.library.uu.nl/handle/1874/427259">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Deborah Bassotto</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/38673"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Christian Kehl</h5><small>Postdoctoral researcher </small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Mariana de Botton Falcon</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/300"
+                >thesis</a
+              >
+              ]
+            </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Eliza de Keijzer</h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/37749">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Quinten Bohte</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/4"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Delphine Lobelle</h5><small>Postdoctoral researcher</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Ilse Bos</h5>
+            <small>BSc student</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Sophie van Mil</h5><small>MSc student </small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Tycho Bovenschen</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/40938"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Maarten Muller</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/34860">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Simon Brouwer</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/29288"
+                >thesis</a
+              >
+              ]
+            </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Ina Nagler</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/41778">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Laura Chow</h5>
+            <small>MSc student</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Peter Nooteboom</h5><small>Postdoctoral researcher</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Philippe Delandmeter</h5>
+            <small>Postdoctoral researcher</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Arianna Olivelli</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/33626">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Ilja Deurloo</h5>
+            <small>BSc student</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Victor Onink</h5><small>PhD researcher & MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/30480">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Bram van Duinen</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/39789"
+                >thesis</a
+              >
+              ]
+            </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Bety Pechacova</h5><small>BSc intern</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Raymond Edwards</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/29930"
+                >thesis</a
+              >
+              ]
+            </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Jiongqiu Ren</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/42791">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Judith Ewald</h5>
+            <small>MSc student</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Joey Richardson</h5><small>MSc student </small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Reint Fischer</h5>
+            <small
+              >Software support & MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/36956"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Jeroen van Rijn</h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/29926">thesis</a> ] </small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Philippe Frankemölle</h5>
+            <small>MSc student</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Denise Ruijsch</h5><small>MSc student </small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Michal Janssen</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/33642"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Sophie Schmiz</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/40945">thesis</a> ] </small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Mikael Kaandorp</h5>
+            <small
+              >PhD researcher [
+              <a href="https://dspace.library.uu.nl/handle/1874/427259"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Miriam Sterl</h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/32665">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Christian Kehl</h5>
+            <small>Postdoctoral researcher </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Nicoleta Tsakali</h5><small>BSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/35474">thesis</a> ] </small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Eliza de Keijzer</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/37749"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Aike Vonk</h5><small>MSc student</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Delphine Lobelle</h5>
+            <small>Postdoctoral researcher</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>Anneke Vries</h5><small>MSc student [ <a href="https://studenttheses.uu.nl/handle/20.500.12932/33496">thesis</a> ]</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Sophie van Mil</h5>
+            <small>MSc student </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab">
-                <h5>David Wichmann</h5><small>PhD researcher  [ <a href="https://www.narcis.nl/publication/RecordID/oai:dspace.library.uu.nl:1874%2F402404">thesis</a> ]</small>
-            </div>
-        </div>
-
-    </div>
-    <hr>
-    <h2 id="projects">Current Projects</h2>
-
-    <div class="card-columns">
-
-        <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <h4><a href="http://nanoplastics.org">Nanoplastics: Origin, Structure and Fate</a></h4>
-                <small class="text-muted">Funded by an NWO ENW-Groot project</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Maarten Muller</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/34860"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <h4><a href="https://galapagosplasticfree.nl/">Towards a plastic-free Galapagos: A new model to optimise beach cleanup strategies in complex island regions</a></h4>
-                <small class="text-muted">Funded by the Galapagos Conservation Trust, an UU Pathways to Sustainability Acceleration Grant, and the K.F. Hein Fonds</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Ina Nagler</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/41778"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <h4>Backward Lagrangian Tracking of the Patchiness of Oceanic Nutrients in a Turbulent Ocean</h4>
-                <small class="text-muted">Funded by an NWO ENW-Klein project</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Peter Nooteboom</h5>
+            <small>Postdoctoral researcher</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <a href="https://www.atlanteco.eu/"><img class="card-img-top team-photo" src="images/AtlantECOlogo.png" alt=""></a>
-                <small class="text-muted">Funded by the European Commission's Horizon2020 Programme</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Arianna Olivelli</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/33626"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-
-                <a href="https://immerse-ocean.eu/"><img class="card-img-top team-photo" src="images/IMMERSElogo.png" alt=""></a>
-                <small class="text-muted">Funded by the European Commission's Horizon2020 Programme</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Victor Onink</h5>
+            <small
+              >PhD researcher & MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/30480"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-
-                <h4><a href="https://www.sealinkcaribbean.net">SEALINK</a></h4>
-                <small class="text-muted">Funded by an NWO Caribbean Research project</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Bety Pechacova</h5>
+            <small>BSc intern</small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-
-                <h4>Towards a plastic-free Wadden Sea</h4>
-                <small class="text-muted">Funded by Stichting Pieter Bastiaan <br> (via the Utrecht University Fund)</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Jiongqiu Ren</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/42791"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <a href="https://www.neccton.eu"><img class="card-img-top team-photo" src="images/NECCTONlogo.png" alt=""></a>
-                <small class="text-muted">Funded by the European Commission's Horizon Europe Programme</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Joey Richardson</h5>
+            <small>MSc student </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-
-                <h4>The effect of oceanic fine-scales on the transport of marine plastic</h4>
-                <small class="text-muted">Funded by a Margarita Salas Fellowship</small>
-            </div>
-        </div>
-
-    </div>
-    <hr>
-    <h2>Past Projects</h2>
-
-    <div class="card-columns">
-        <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <h4><a href="http://topios.org">Tracking Of Plastics In Our Seas (TOPIOS)</a></h4>
-                <small class="text-muted">Funded by an ERC Starting Grant from the European Commission's Horizon2020 Programme</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Jeroen van Rijn</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/29926"
+                >thesis</a
+              >
+              ]
+            </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <h4>Dynamics and climatic imprint of the early Antarctic Circumpolar Current</h4>
-                <small class="text-muted">Funded by an NWO Open Competition project</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Denise Ruijsch</h5>
+            <small>MSc student </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <h4>Application of OceanParcels to simulate the spatial and temporal movements of tuna to optimise designs of tuna tagging experiments</h4>
-                <small class="text-muted">Funded by The Pacific Community</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Sophie Schmiz</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/40945"
+                >thesis</a
+              >
+              ]
+            </small>
+          </div>
         </div>
 
         <div class="card">
-            <div class="card-header" role="tab" style="text-align:center">
-                <img class="card-img-top team-photo" src="images/WOClogo.png" alt="">
-                <small class="text-muted">Funded by the European Space Agency</small>
-            </div>
+          <div class="card-header" role="tab">
+            <h5>Miriam Sterl</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/32665"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
         </div>
 
-    </div>
-    <hr>
-    <h2 id="socialmedia">Social Media</h2>
-    <br>
-    <div class="youtube">
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Nicoleta Tsakali</h5>
+            <small
+              >BSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/35474"
+                >thesis</a
+              >
+              ]
+            </small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Aike Vonk</h5>
+            <small>MSc student</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Anneke Vries</h5>
+            <small
+              >MSc student [
+              <a href="https://studenttheses.uu.nl/handle/20.500.12932/33496"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>David Wichmann</h5>
+            <small
+              >PhD researcher [
+              <a
+                href="https://www.narcis.nl/publication/RecordID/oai:dspace.library.uu.nl:1874%2F402404"
+                >thesis</a
+              >
+              ]</small
+            >
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h2 id="projects">Current Projects</h2>
+
+      <div class="card-columns">
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>
+              <a href="http://nanoplastics.org"
+                >Nanoplastics: Origin, Structure and Fate</a
+              >
+            </h4>
+            <small class="text-muted">Funded by an NWO ENW-Groot project</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>
+              <a href="https://galapagosplasticfree.nl/"
+                >Towards a plastic-free Galapagos: A new model to optimise beach
+                cleanup strategies in complex island regions</a
+              >
+            </h4>
+            <small class="text-muted"
+              >Funded by the Galapagos Conservation Trust, an UU Pathways to
+              Sustainability Acceleration Grant, and the K.F. Hein Fonds</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>
+              Backward Lagrangian Tracking of the Patchiness of Oceanic
+              Nutrients in a Turbulent Ocean
+            </h4>
+            <small class="text-muted">Funded by an NWO ENW-Klein project</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <a href="https://www.atlanteco.eu/"
+              ><img
+                class="card-img-top team-photo"
+                src="images/AtlantECOlogo.png"
+                alt=""
+            /></a>
+            <small class="text-muted"
+              >Funded by the European Commission's Horizon2020 Programme</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <a href="https://immerse-ocean.eu/"
+              ><img
+                class="card-img-top team-photo"
+                src="images/IMMERSElogo.png"
+                alt=""
+            /></a>
+            <small class="text-muted"
+              >Funded by the European Commission's Horizon2020 Programme</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4><a href="https://www.sealinkcaribbean.net">SEALINK</a></h4>
+            <small class="text-muted"
+              >Funded by an NWO Caribbean Research project</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>Towards a plastic-free Wadden Sea</h4>
+            <small class="text-muted"
+              >Funded by Stichting Pieter Bastiaan <br />
+              (via the Utrecht University Fund)</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <a href="https://www.neccton.eu"
+              ><img
+                class="card-img-top team-photo"
+                src="images/NECCTONlogo.png"
+                alt=""
+            /></a>
+            <small class="text-muted"
+              >Funded by the European Commission's Horizon Europe
+              Programme</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>
+              The effect of oceanic fine-scales on the transport of marine
+              plastic
+            </h4>
+            <small class="text-muted"
+              >Funded by a Margarita Salas Fellowship</small
+            >
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h2>Past Projects</h2>
+
+      <div class="card-columns">
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>
+              <a href="http://topios.org"
+                >Tracking Of Plastics In Our Seas (TOPIOS)</a
+              >
+            </h4>
+            <small class="text-muted"
+              >Funded by an ERC Starting Grant from the European Commission's
+              Horizon2020 Programme</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>
+              Dynamics and climatic imprint of the early Antarctic Circumpolar
+              Current
+            </h4>
+            <small class="text-muted"
+              >Funded by an NWO Open Competition project</small
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <h4>
+              Application of OceanParcels to simulate the spatial and temporal
+              movements of tuna to optimise designs of tuna tagging experiments
+            </h4>
+            <small class="text-muted">Funded by The Pacific Community</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" style="text-align: center">
+            <img
+              class="card-img-top team-photo"
+              src="images/WOClogo.png"
+              alt=""
+            />
+            <small class="text-muted"
+              >Funded by the European Space Agency</small
+            >
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h2 id="socialmedia">Social Media</h2>
+      <br />
+      <div class="youtube">
         <h3 id="youtube">
-            <a class="tutorialLink" href="https://www.youtube.com/channel/UCUYshAoVNFwxc6LaexRuOVQ">
+          <a
+            class="tutorialLink"
+            href="https://www.youtube.com/channel/UCUYshAoVNFwxc6LaexRuOVQ"
+          >
             Youtube channel
-            </a>
+          </a>
         </h3>
 
-        <br>
+        <br />
 
         <div class="row justify-content-md-center">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                <iframe src="https://www.youtube.com/embed/ojXd20b-2Kg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                <iframe src="https://www.youtube.com/embed/nT0IbkA7nPE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                <iframe src="https://www.youtube.com/embed/3L5lOrYjHn8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+            <iframe
+              src="https://www.youtube.com/embed/ojXd20b-2Kg"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+            <iframe
+              src="https://www.youtube.com/embed/nT0IbkA7nPE"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+            <iframe
+              src="https://www.youtube.com/embed/3L5lOrYjHn8"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="row justify-content-md-center">
+      <div class="row justify-content-md-center">
         <div class="col-lg-6 col-md-12 col-sm-12 mb-3">
-
-            <div class="card">
-
-                <a class="twitter-timeline" href="https://twitter.com/UFollowtheOcean?ref_src=twsrc%5Etfw">Tweets by UFollowtheOcean</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </div>
+          <div class="card">
+            <a
+              class="twitter-timeline"
+              href="https://twitter.com/UFollowtheOcean?ref_src=twsrc%5Etfw"
+              >Tweets by UFollowtheOcean</a
+            >
+            <script
+              async
+              src="https://platform.twitter.com/widgets.js"
+              charset="utf-8"
+            ></script>
+          </div>
         </div>
+      </div>
+      <hr />
     </div>
-    <hr>
-</div>
 
-
-<!-- Footer -->
-<footer class="py-5 bg-dark" id="footer">
-    <div class="container">
+    <!-- Footer -->
+    <footer class="py-5 bg-dark" id="footer">
+      <div class="container">
         <div class="row">
-            <ul id="footerul">
-                <li id="footerli"><a id="footera" href="accessibility.html">Accessibility</a></li>
-                <li id="footerli"><a id="footera" href="cookie-policy.html">Cookie policy</a></li>
-                <li id="footerli"><a id="footera" href="utrechtteam.html">Utrecht Team</a></li>
-            </ul>
+          <ul id="footerul">
+            <li id="footerli">
+              <a id="footera" href="accessibility.html">Accessibility</a>
+            </li>
+            <li id="footerli">
+              <a id="footera" href="cookie-policy.html">Cookie policy</a>
+            </li>
+            <li id="footerli">
+              <a id="footera" href="utrechtteam.html">Utrecht Team</a>
+            </li>
+          </ul>
         </div>
         <p class="m-0 text-center text-white">
-            Copyright &copy; OceanParcels project, 2020<br>
-            <small>Based on the <a href ="https://blackrockdigital.github.io/startbootstrap-modern-business/">Modern Business</a> theme, distributed by <a href="https://startbootstrap.com/template-overviews/modern-business/">Start Bootstrap</a> under an MIT license</small>
+          Copyright &copy; OceanParcels project, 2020<br />
+          <small
+            >Based on the
+            <a
+              href="https://blackrockdigital.github.io/startbootstrap-modern-business/"
+              >Modern Business</a
+            >
+            theme, distributed by
+            <a
+              href="https://startbootstrap.com/template-overviews/modern-business/"
+              >Start Bootstrap</a
+            >
+            under an MIT license</small
+          >
         </p>
-    </div>
-</footer>
+      </div>
+    </footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

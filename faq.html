@@ -1,115 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="The OceanParcels project a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models"
+    />
+    <meta name="author" content="The OceanParcels team" />
 
-<head>
+    <title>OceanParcels - a Lagrangian Ocean Analysis toolbox</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="The OceanParcels project a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models">
-  <meta name="author" content="The OceanParcels team">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
-  <title>OceanParcels - a Lagrangian Ocean Analysis toolbox</title>
+    <!-- Font Awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="vendor/academicons/css/academicons.min.css" />
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- syntax highlighting for Python and Bash -->
+    <link href="vendor/prism/prism.css" rel="stylesheet" />
+    <script src="vendor/prism/prism.js"></script>
 
-  <!-- Font Awesome icons -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="vendor/academicons/css/academicons.min.css"/>
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet" />
 
-  <!-- syntax highlighting for Python and Bash -->
-  <link href="vendor/prism/prism.css" rel="stylesheet" />
-  <script src="vendor/prism/prism.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="text/javascript">
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
+      ga("set", "anonymizeIp", true);
+      ga("create", "UA-96368922-1", "auto");
+      ga("send", "pageview");
+    </script>
+  </head>
 
-  <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
+  <body>
+    <!-- Navigation -->
+    <nav
+      class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="index.html"
+          ><img src="images/parcelslogo_inverse.png" height="30px" />
+          &ensp;Ocean<b>Parcels</b></a
+        >
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#designoverview">Design overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#fieldset_construction"
+                >Constructing FieldSets</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#kernelwriting">Writing Kernels</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#outputformat">Output files</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#performance">Memory and performance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://parcels.readthedocs.io/"
+                >Documentation</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script type="text/javascript">
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('set', 'anonymizeIp', true)
-      ga('create', 'UA-96368922-1', 'auto');
-      ga('send', 'pageview');
-  </script>
-</head>
+    <header></header>
 
-<body>
+    <!-- Page Content -->
+    <div class="container">
+      <hr />
 
-<!-- Navigation -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="index.html"><img src="images/parcelslogo_inverse.png" height="30px"> &ensp;Ocean<b>Parcels</b></a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#designoverview">Design overview</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#fieldset_construction">Constructing FieldSets</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#kernelwriting">Writing Kernels</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#outputformat">Output files</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#performance">Memory and performance</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://parcels.readthedocs.io/">Documentation</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+      <h1>Frequenty Asked Questions and support for Parcels</h1>
 
-<header>
-</header>
+      <hr />
+      <p>
+        <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally
+        <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian
+        <b>S</b>imulator) is a set of Python classes and methods to create
+        customisable particle tracking simulations using output from Ocean
+        Circulation models. Parcels focusses on tracking of passive water
+        parcels, as well as active particulates such as plankton,
+        <a href="https://oceanparcels.github.io/TOPIOS/">plastic</a> and
+        <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
+      </p>
+      <p>
+        The Parcels code is licensed under an open source
+        <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md"
+          >MIT license</a
+        >
+        and can be downloaded from
+        <a href="https://github.com/OceanParcels/parcels"
+          >https://github.com/OceanParcels/parcels</a
+        >.
+      </p>
+      <p>
+        There is also an
+        <a href="https://parcels.readthedocs.io/">extensive documentation</a> of
+        all methods and classes in Parcels.
+      </p>
 
-<!-- Page Content -->
-<div class="container">
-  <hr>
+      <hr />
+      <h2 id="designoverview">Parcels design overview</h2>
 
-  <h1>Frequenty Asked Questions and support for Parcels</h1>
+      <img src="images/parcelsdesign_minimal.png" class="img-fluid" />
+      <p></p>
+      The figure above gives a brief overview of the most important classes and
+      methods in Parcels and how they are related. Classes are in blue, methods
+      are in green. Note that not all classes and methods are shown.
 
-  <hr>
+      <hr />
+      <h2 id="fieldset_construction">Tips on constructing FieldSet objects</h2>
 
-  <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian <b>S</b>imulator) is a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models. Parcels focusses on tracking of passive water parcels, as well as active particulates such as plankton, <a href="https://oceanparcels.github.io/TOPIOS/">plastic</a> and <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
-  </p><p>
-  The Parcels code is licensed under an open source <a href="https://github.com/OceanParcels/parcels/blob/master/LICENSE.md">MIT license</a> and can be downloaded from <a href="https://github.com/OceanParcels/parcels">https://github.com/OceanParcels/parcels</a>.
-  </p><p>
-  There is also an <a href="https://parcels.readthedocs.io/">extensive documentation</a> of all methods and classes in Parcels.
-  
-  <hr>
-  <h2 id="designoverview">Parcels design overview</h2>
-
-  <img src="images/parcelsdesign_minimal.png" class="img-fluid">
-  <p></p>
-  The figure above gives a brief overview of the most important classes and methods in Parcels and how they are related. Classes are in blue, methods are in green. Note that not all classes and methods are shown.
-
-  <hr>
-  <h2 id="fieldset_construction">Tips on constructing FieldSet objects</h2>
-
-  Probably the trickiest bit to get right when starting with Parcels on your own model output is how to construct a <code class="language-python">FieldSet</code> object.
-
-  The general method to use is <code class="language-python">FieldSet.from_netcdf()</code>, which requires <code class="language-python">filenames</code>, <code class="language-python">variables</code> and <code class="language-python">dimensions</code>. Each of these is a dictionary, and <code class="language-python">variables</code> requires at least a <code class="language-python">U</code> and <code class="language-python">V</code>, but any other <code class="language-python">variable</code> can be added too (e.g. temperature, mixedlayerdepth, etc). Note also that <code class="language-python">filenames</code> can contain wildcards.
-
-  For example, the GlobCurrent data that is shipped with Parcels can be read with:
-  <pre><code class="language-python">fname = 'GlobCurrent_example_data/*.nc'
+      Probably the trickiest bit to get right when starting with Parcels on your
+      own model output is how to construct a
+      <code class="language-python">FieldSet</code> object. The general method
+      to use is <code class="language-python">FieldSet.from_netcdf()</code>,
+      which requires <code class="language-python">filenames</code>,
+      <code class="language-python">variables</code> and
+      <code class="language-python">dimensions</code>. Each of these is a
+      dictionary, and <code class="language-python">variables</code> requires at
+      least a <code class="language-python">U</code> and
+      <code class="language-python">V</code>, but any other
+      <code class="language-python">variable</code> can be added too (e.g.
+      temperature, mixedlayerdepth, etc). Note also that
+      <code class="language-python">filenames</code> can contain wildcards. For
+      example, the GlobCurrent data that is shipped with Parcels can be read
+      with:
+      <pre><code class="language-python">fname = 'GlobCurrent_example_data/*.nc'
 filenames = {'U': fname, 'V': fname}
 variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity'}
 dimensions = {'lat': 'lat', 'lon': 'lon', 'depth': 'depth', 'time': 'time'}
 fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
-  Note that <code class="language-python">dimensions</code> can also be a dictionary-of-dictionaries. For example, if you have wind data on a completely different grid (and without <code class="language-python">depth</code> dimension), you can do:
+      Note that <code class="language-python">dimensions</code> can also be a
+      dictionary-of-dictionaries. For example, if you have wind data on a
+      completely different grid (and without
+      <code class="language-python">depth</code> dimension), you can do:
 
-  <pre><code class="language-python">fname = 'GlobCurrent_example_data/*.nc'
+      <pre><code class="language-python">fname = 'GlobCurrent_example_data/*.nc'
 wname = 'path_to_your_windfiles'
 filenames = {'U': fname, 'V': fname, 'wind': wname}
 variables = {'U': 'eastward_eulerian_current_velocity', 'V': 'northward_eulerian_current_velocity', 'wind': 'wind'}
@@ -118,171 +189,484 @@ dimensions['U'] = {'lat': 'lat', 'lon': 'lon', 'depth': 'depth', 'time': 'time'}
 dimensions['V'] = {'lat': 'lat', 'lon': 'lon', 'depth': 'depth', 'time': 'time'}
 dimensions['wind'] = {'lat': 'latw', 'lon': 'lonw', 'time': 'time'}
 fset = FieldSet.from_netcdf(filenames, variables, dimensions)</code></pre>
-  In a similar way, you can add <code class="language-python">U</code> and <code class="language-python">V</code> fields that are on different grids (e.g. Arakawa C-grids). Parcels will take care under the hood that the different grids are dealt with properly.
+      In a similar way, you can add <code class="language-python">U</code> and
+      <code class="language-python">V</code> fields that are on different grids
+      (e.g. Arakawa C-grids). Parcels will take care under the hood that the
+      different grids are dealt with properly.
 
-  <hr>
-  <h2 id="kernelwriting">Writing Parcels Kernels</h2>
+      <hr />
+      <h2 id="kernelwriting">Writing Parcels Kernels</h2>
 
-  One of the most powerful features of Parcels is the ability to write custom Kernels (see e.g. the <a href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Adding-a-custom-behaviour-kernel">Adding-a-custom-behaviour-kernel</a> part of the Tutorial). These Kernels are little snippets of code that get executed by Parcels, giving the ability to add ‘behaviour’ to particles.
-  <p></p>
-  However, there are some key limitations to the Kernels that everyone who wants to write their own should be aware of:
-  <ul>
-    <li>Every Kernel must be a function with the following (and only those) arguments: <code class="language-python">(particle, fieldset, time)</code> <i>(note that before Parcels v2.0, Kernels also required a <code class="language-python">dt</code> argument)</i></li>
-
-    <li>In order to run successfully in JIT mode, Kernel definitions can only contain the following types of commands:</li>
-    <ul>
-      <li>Basic arithmetical operators (<code class="language-python">+</code>, <code class="language-python">-</code>, <code class="language-python">*</code>, <code class="language-python">/</code>, <code class="language-python">**</code>) and assignments (<code class="language-python">=</code>).</li>
-
-      <li>Basic logical operators (<code class="language-python"><</code>, <code class="language-python">==</code>, <code class="language-python">!=</code>, <code class="language-python">></code>, <code class="language-python">&</code>, <code class="language-python">|</code>). Note that you can use a statement like <code class="language-python">particle.lon != particle.lon</code> to check if <code class="language-python">particle.lon</code> is NaN (since <code class="language-python">math.nan != math.nan</code>)</li>
-
-      <li><code class="language-python">if</code> and <code class="language-python">while</code> loops, as well as <code class="language-python">break</code> statements. Note that <code class="language-python">for</code>-loops are not supported in JIT mode</li>
-
-      <li>Interpolation of a <code class="language-python">Field</code> from the <code class="language-python">FieldSet</code> at a <code class="language-python">(time, depth, lat, lon)</code> point, using using square brackets notation. <br><b>Note that from version 2.0, the syntax has changed from the old (time, lon, lat, depth) to the new (time, depth, lat, lon) order</b>.<br> For example, to interpolate the zonal velocity (U) field at the particle location, use the following statement:<br>
-
-        <pre><code class="language-python">value = fieldset.U[time, particle.depth, particle.lat, particle.lon]</code></pre>
-        Also note that it is possible to add the <code class="language-python">particle</code> as an additional argument to the Field Sampling, so
-        <pre><code class="language-python">value = fieldset.U[time, depth, lat, lon, particle]</code></pre>
-        or simply
-        <pre><code class="language-python">value = fieldset.U[particle]</code></pre>
-        Adding the particle to the sampling can dramatically speed up simulations in Scipy-mode on Curvilinear Grids, see als the <a href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_jit_vs_scipy.ipynb">JIT-vs_Scipy tutorial</a>.
-
-      </li>
-
-      <li>Functions from the <code class="language-python">maths</code> standard library.</li>
-      <li>Functions from the custom <code class="language-python">ParcelsRandom</code> library at <code class="language-python">parcels.rng</code>. Note that these have to be used as <code class="language-python">ParcelsRandom.random()</code>, <code class="language-python">ParcelsRandom.uniform()</code> etc for the code to compile.</li>
-
-      <li>Simple <code class="language-python">print</code> statements, such as:</li>
+      One of the most powerful features of Parcels is the ability to write
+      custom Kernels (see e.g. the
+      <a
+        href="http://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/parcels_tutorial.ipynb#Adding-a-custom-behaviour-kernel"
+        >Adding-a-custom-behaviour-kernel</a
+      >
+      part of the Tutorial). These Kernels are little snippets of code that get
+      executed by Parcels, giving the ability to add ‘behaviour’ to particles.
+      <p></p>
+      However, there are some key limitations to the Kernels that everyone who
+      wants to write their own should be aware of:
       <ul>
-        <li><code class="language-python">print("Some print")</code></li>
-        <li><code class="language-python">print(particle.lon)</code></li>
-        <li><code class="language-python">print("particle id: %d" % particle.id)</code></li>
-        <li><code class="language-python">print("lon: %f, lat: %f" % (particle.lon, particle.lat))</code></li>
+        <li>
+          Every Kernel must be a function with the following (and only those)
+          arguments:
+          <code class="language-python">(particle, fieldset, time)</code>
+          <i
+            >(note that before Parcels v2.0, Kernels also required a
+            <code class="language-python">dt</code> argument)</i
+          >
+        </li>
+
+        <li>
+          In order to run successfully in JIT mode, Kernel definitions can only
+          contain the following types of commands:
+        </li>
+        <ul>
+          <li>
+            Basic arithmetical operators (<code class="language-python">+</code
+            >, <code class="language-python">-</code>,
+            <code class="language-python">*</code>,
+            <code class="language-python">/</code>,
+            <code class="language-python">**</code>) and assignments (<code
+              class="language-python"
+              >=</code
+            >).
+          </li>
+
+          <li>
+            Basic logical operators (<code class="language-python"><</code>,
+            <code class="language-python">==</code>,
+            <code class="language-python">!=</code>,
+            <code class="language-python">></code>,
+            <code class="language-python">&</code>,
+            <code class="language-python">|</code>). Note that you can use a
+            statement like
+            <code class="language-python">particle.lon != particle.lon</code> to
+            check if <code class="language-python">particle.lon</code> is NaN
+            (since <code class="language-python">math.nan != math.nan</code>)
+          </li>
+
+          <li>
+            <code class="language-python">if</code> and
+            <code class="language-python">while</code> loops, as well as
+            <code class="language-python">break</code> statements. Note that
+            <code class="language-python">for</code>-loops are not supported in
+            JIT mode
+          </li>
+
+          <li>
+            Interpolation of a <code class="language-python">Field</code> from
+            the <code class="language-python">FieldSet</code> at a
+            <code class="language-python">(time, depth, lat, lon)</code> point,
+            using using square brackets notation. <br /><b
+              >Note that from version 2.0, the syntax has changed from the old
+              (time, lon, lat, depth) to the new (time, depth, lat, lon)
+              order</b
+            >.<br />
+            For example, to interpolate the zonal velocity (U) field at the
+            particle location, use the following statement:<br />
+
+            <pre><code class="language-python">value = fieldset.U[time, particle.depth, particle.lat, particle.lon]</code></pre>
+            Also note that it is possible to add the
+            <code class="language-python">particle</code> as an additional
+            argument to the Field Sampling, so
+            <pre><code class="language-python">value = fieldset.U[time, depth, lat, lon, particle]</code></pre>
+            or simply
+            <pre><code class="language-python">value = fieldset.U[particle]</code></pre>
+            Adding the particle to the sampling can dramatically speed up
+            simulations in Scipy-mode on Curvilinear Grids, see als the
+            <a
+              href="https://nbviewer.jupyter.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_jit_vs_scipy.ipynb"
+              >JIT-vs_Scipy tutorial</a
+            >.
+          </li>
+
+          <li>
+            Functions from the
+            <code class="language-python">maths</code> standard library.
+          </li>
+          <li>
+            Functions from the custom
+            <code class="language-python">ParcelsRandom</code> library at
+            <code class="language-python">parcels.rng</code>. Note that these
+            have to be used as
+            <code class="language-python">ParcelsRandom.random()</code>,
+            <code class="language-python">ParcelsRandom.uniform()</code> etc for
+            the code to compile.
+          </li>
+
+          <li>
+            Simple <code class="language-python">print</code> statements, such
+            as:
+          </li>
+          <ul>
+            <li><code class="language-python">print("Some print")</code></li>
+            <li><code class="language-python">print(particle.lon)</code></li>
+            <li>
+              <code class="language-python"
+                >print("particle id: %d" % particle.id)</code
+              >
+            </li>
+            <li>
+              <code class="language-python"
+                >print("lon: %f, lat: %f" % (particle.lon, particle.lat))</code
+              >
+            </li>
+          </ul>
+        </ul>
+        <li>
+          Local variables can be used in Kernels, and these variables will be
+          accessible in all concatenated Kernels. Note that these local
+          variables are not shared between particles, and also not between time
+          steps.
+        </li>
+
+        <li>
+          Note that one has to be careful with writing kernels for vector fields
+          on Curvilinear grids. While Parcels automatically rotates the U and V
+          field when necessary, this is not the case for for example wind data.
+          In that case, a custom rotation function will have to be written.
+        </li>
       </ul>
-    </ul>
-    <li>Local variables can be used in Kernels, and these variables will be accessible in all concatenated Kernels. Note that these local variables are not shared between particles, and also not between time steps.</li>
 
-    <li>Note that one has to be careful with writing kernels for vector fields on Curvilinear grids. While Parcels automatically rotates the U and V field when necessary, this is not the case for for example wind data. In that case, a custom rotation function will have to be written.</li>
-  </ul>
+      All other functions and methods are not supported yet in Parcels Kernels.
+      If there is a functionality that can not be programmed with this limited
+      set of commands, please create an
+      <a href="https://github.com/OceanParcels/parcels/issues">Issue ticket</a>.
 
-  All other functions and methods are not supported yet in Parcels Kernels. If there is a functionality that can not be programmed with this limited set of commands, please create an <a href="https://github.com/OceanParcels/parcels/issues">Issue ticket</a>.
+      <hr />
+      <h2 id="outputformat">The output format of ParticleFile</h2>
+      The information on particle trajectories is stored in
+      <a href="https://zarr.dev">zarr</a> format, when using the
+      <code class="language-python">ParticleFile</code> class. The
+      file/directory contains arrays of at least the
+      <code class="language-python">time</code>,
+      <code class="language-python">lon</code>,
+      <code class="language-python">lat</code> and
+      <code class="language-python">z</code> (depth) of each particle
+      trajectory, plus any extra custom
+      <code class="language-python">Variables</code> defined in the
+      <code class="language-python">pclass</code>.
+      <p></p>
+      Each row in these arrays corresponds to a particle, and each column is an
+      'observation'. Note that, when particles are added during runtime, their
+      first position is still stored in the first column, so that not all
+      particles in the same column necessarily share the same
+      <code class="language-python">time</code>. The time of each observation is
+      stored in the <code class="language-python">time</code> array. See
+      <a
+        href="https://nbviewer.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_output.ipynb"
+        >the output tutorial notebook</a
+      >
+      for more information.
 
-  <hr>
-  <h2 id="outputformat">The output format of ParticleFile</h2>
-  The information on particle trajectories is stored in <a href="https://zarr.dev">zarr</a> format, when using the <code class="language-python">ParticleFile</code> class. The file/directory contains arrays of at least the <code class="language-python">time</code>, <code class="language-python">lon</code>, <code class="language-python">lat</code> and <code class="language-python">z</code> (depth) of each particle trajectory, plus any extra custom <code class="language-python">Variables</code> defined in the <code class="language-python">pclass</code>.
-  <p></p>
-  Each row in these arrays corresponds to a particle, and each column is an 'observation'. Note that, when particles are added during runtime, their first position is still stored in the first column, so that not all particles in the same column necessarily share the same <code class="language-python">time</code>. The time of each observation is stored in the <code class="language-python">time</code> array. See <a href="https://nbviewer.org/github/OceanParcels/parcels/blob/master/parcels/examples/tutorial_output.ipynb">the output tutorial notebook</a> for more information.
+      <hr />
+      <h2 id="performance">Memory Behaviour and Performance</h2>
 
-  <hr>
-  <h2 id="performance">Memory Behaviour and Performance</h2>
-
-  Parcels, with its Lagrangian simulation approach and the commonly large amount of particles being simulated, is a computationally-demanding application. Global scale, fine-resolution hydronamic input data, such as from CMEMS and NEMO, add to this computational demand as they require large blocks of memory to be available. Despite the continuous improvements in performance and efficiency, it is thus possible to encounter performance- and memory-related problems. The following paragraphs are meant as a guideline to resolve those related issues.
-  <p></p>
-  If you encounter random failures of your particle simulations, the first step is to simplify the simulation in order to make the error reproducible for external persons. Therefore, it is advisable to run the simulations with the simplest type of particles (ideally: common Particle objects) and possibly just a simple AdvectionRK4 kernel. This rules out any errors coming from faulty calculations. In case this simplification resolves your issue, then the failure of your simulation is due to the specific particle or kernel you attempt to execute, and you may want to refine your calculations accordingly.
-  <p></p>
-  When calculation-related cancellations are ruled out as error source, the first step in tracking memory-related issues is a reasonability analysis: can issues that you are experiencing actual stem from memory exhaustion? Get an overview of the models and fields that you are using, consider if you're running the application with- or without depth information, and keep in mind that at each time in the simulation you need at least space for 3 timestamps of all numerical field values in addition to the actual particles. Does this really exhaust the memory? As a safeguard check, you can run a subset of your simulation (e.g the first day or week) locally while tracking the memory consumption with tools such as the <b>Task Manager</b> (Windows), the <b>Activity Monitor</b> (MacOS) or the <b>System Monitor</b> (Linux). If you can, run the simplified simulation over the whole timespan locally on your computer (even though this may be slow).
-  <p></p>
-  Suppose that you have determined that reason for your simulation not finishing <i>can be</i> or <i>is</i> memory exhaustion. Then, the next step is to determine if the cause of memory exhaustion is due to the particles or due to the fields. Fortunately, this is easy to assess:
-  <ul>
-    <li>Initialize your ParcileSet with only few particles, e.g. <code class="language-python">pset = ParticleSet(fieldset=fieldset, pclass=JITParticle, lon=np.random.rand(16,1), lat=np.random.rand(16,1))</code></li>
-    <li>Do not re-add particles periodically via <code class="language-python">repeatdt</code>, e.g. change <code class="language-python">pset = ParticleSet(..., lat=np.random.rand(16,1), repeatdt=timedelta(hours=1))</code> to <code class="language-python">pset = ParticleSet(..., lat=np.random.rand(16,1))</code></li>
-  </ul>
-  Run your simulation again and observe the memory with the tools mentioned above. If your simulation runs through without problems, it is almost certain your real simulation requires too many particles. In that case, an applicable general advice is to reduce the overall particle density (i.e. creating less particles overall), or manually split your simulation in smaller pieces and reduce the particle count accordingly, if you want to preserve the particle density. Apart from this advice, there is no generic solution at this point for the problem of exhaustive particle sets, so: Get in touch with us at <a href="https://github.com/OceanParcels/parcels/issues">the OceanParcels GitHub page</a> via the issue tracker to find an individual solution.
-  <p></p>
-  If the reduction of particles indeed does not solve your issue and your simulation still crashes, then this is likely due to the fields consuming more memory than available. Luckily, there are some solutions to this problem.
-  <p></p>
-
-  <h4 id="field_chunking">Introduce field chunking (i.e. <i>dynamic loading</i> of fields)</h4>
-  <p></p>
-  So, your situation is as follows: you found out that your Parcels simulation consumes more field data than can fit in memory on any system that you tried. Then, it may be that you are not using field chunking.
-  <p></p>
-  Field chunking is introduced in Parcels > 2.1.0. It manages the access and data transfer between your hydrodynamic data (i.e. your NetCDF files), the computer memory, and the kernels, in a way so that only the parts of the data ends up in memory which are directly needed by some particles. This technique is commonly referred to as <i>dynamic loading</i>. In Python, with its numeric backend of Numpy and SciPy, the <a href="https://dask.org/">Dask</a> module implements this data access technique, which is called <i>chunking</i> or <i>lazy loading</i> within Dask. Chunking for field data is activated by <i>default</i> in Parcels > 2.1.0.
-  <p></p>
-  As an example, let us assume we load a field set as such:
-  <br>
-  <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions)</code>
-  <br>
-  then, this is equivalent to
-  <br>
-  <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, deferred_load=True, field_chunksize='auto')</code>
-  <p></p>
-  Hence, if you are using an older version of Parcels (<= 2.1.0), or you have accidentally switched of chunking  via <code class="language-python">fieldset = FieldSet.from_netcdf(..., field_chunksize=False)</code>, then you may exceed your available memory. Try out the latest version of Parcels and <i>activate</i> field chunking.
-  <p></p>
-
-  <h4 id="HPC">Simulations crash on HPC clusters (via job submission systems such as SGE or SLURM), but locally finish without problems</h4>
-  <p></p>
-  The behaviour of simulations crashing on cluster systems whereas running as-expected on local machines can occur because
-  <ul>
-    <li>Python itself does not return memory to the operation system</li>
-    <li>Your (field) data are too large for the memory, but fit comfortably in <i>virtual memory</i> (e.g. swap drive, swap files, page files) =-> job submission systems do not provide access to the <i>swap</i> memory</li>
-    <li>Your (field) data exceed the default memory capacity granted to users of your cluster -> consult tutorials on <b>SGE qsub</b> (e.g. from <a href="http://star.mit.edu/cluster/docs/0.92rc2/guides/sge.html">MIT</a> and <a href="https://wikis.utexas.edu/display/CCBB/sge-tutorial">University of Austin / Texas</a>) or <b>SLURM</b> (e.g. from <a href="https://researchcomputing.princeton.edu/education/online-tutorials/getting-started/introducing-slurm">Princeton University</a> or <a href="https://ubccr.freshdesk.com/support/solutions/articles/5000688140-submitting-a-slurm-job-script">University of Buffalo</a>) to raise the granted memory to your simulation job. In particular, consider submission option parameters such as <i>-l h_vmem=<b>size</b></i> (SGE qsub) and <i>
-      --mem=<b>size</b></i> (SLURM).</li>
-  </ul>
-  <p></p>
-
-  <h4 id="field_chunking_config">Advanced control over chunking and memory - configure Dask</h4>
-  <p></p>
-  In the case that you have field chunking running, your job submission files are all set correctly, but your fields are still too big, then your fields must be either many (in terms of <i>individual</i> fields), or they are complex (i.e. many diverse, hydrological properties), or they are in dense (i.e. <i>fine-resolution</i>) 4D grids (i.e. using time, depth, latitude and longitude).
-  In this case, you may need to tune your environment a bit more directly to your application or scenario.
-  <ol>
-    <p></p>
-    <li> <b>Tune your chunk size configuration manually</b>: Instead of leaving the chunking up to the black-box that is Dask, you can define your chunks yourself. Say you have simulation data of 30 timesteps on a grid with depth=150, lat=2100, lon=1800 (just an example), then you may wanna define the chunks yourself.
+      Parcels, with its Lagrangian simulation approach and the commonly large
+      amount of particles being simulated, is a computationally-demanding
+      application. Global scale, fine-resolution hydronamic input data, such as
+      from CMEMS and NEMO, add to this computational demand as they require
+      large blocks of memory to be available. Despite the continuous
+      improvements in performance and efficiency, it is thus possible to
+      encounter performance- and memory-related problems. The following
+      paragraphs are meant as a guideline to resolve those related issues.
+      <p></p>
+      If you encounter random failures of your particle simulations, the first
+      step is to simplify the simulation in order to make the error reproducible
+      for external persons. Therefore, it is advisable to run the simulations
+      with the simplest type of particles (ideally: common Particle objects) and
+      possibly just a simple AdvectionRK4 kernel. This rules out any errors
+      coming from faulty calculations. In case this simplification resolves your
+      issue, then the failure of your simulation is due to the specific particle
+      or kernel you attempt to execute, and you may want to refine your
+      calculations accordingly.
+      <p></p>
+      When calculation-related cancellations are ruled out as error source, the
+      first step in tracking memory-related issues is a reasonability analysis:
+      can issues that you are experiencing actual stem from memory exhaustion?
+      Get an overview of the models and fields that you are using, consider if
+      you're running the application with- or without depth information, and
+      keep in mind that at each time in the simulation you need at least space
+      for 3 timestamps of all numerical field values in addition to the actual
+      particles. Does this really exhaust the memory? As a safeguard check, you
+      can run a subset of your simulation (e.g the first day or week) locally
+      while tracking the memory consumption with tools such as the
+      <b>Task Manager</b> (Windows), the <b>Activity Monitor</b> (MacOS) or the
+      <b>System Monitor</b> (Linux). If you can, run the simplified simulation
+      over the whole timespan locally on your computer (even though this may be
+      slow).
+      <p></p>
+      Suppose that you have determined that reason for your simulation not
+      finishing <i>can be</i> or <i>is</i> memory exhaustion. Then, the next
+      step is to determine if the cause of memory exhaustion is due to the
+      particles or due to the fields. Fortunately, this is easy to assess:
       <ul>
-        <li>use the parameter <i>field_chunksize</i> of the FieldSet class as a tuple: here, the order is <code class="language-python">(time steps, depth size, latitude size, longitude size)</code>, so e.g. <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, field_chunksize=(1,8,128,128))</code></li>
-        <li>use the parameter <i>field_chunksize</i> of the FieldSet class as a dictionary: here, you define the chunks by name, such that e.g. <code class="language-python">fieldset = FieldSet.from_netcdf(files, variables, dimensions, field_chunksize={'time_counter': 1, 'depth': 8, 'nav_lat': 128, 'nav_lon': 128})</code></li>
+        <li>
+          Initialize your ParcileSet with only few particles, e.g.
+          <code class="language-python"
+            >pset = ParticleSet(fieldset=fieldset, pclass=JITParticle,
+            lon=np.random.rand(16,1), lat=np.random.rand(16,1))</code
+          >
+        </li>
+        <li>
+          Do not re-add particles periodically via
+          <code class="language-python">repeatdt</code>, e.g. change
+          <code class="language-python"
+            >pset = ParticleSet(..., lat=np.random.rand(16,1),
+            repeatdt=timedelta(hours=1))</code
+          >
+          to
+          <code class="language-python"
+            >pset = ParticleSet(..., lat=np.random.rand(16,1))</code
+          >
+        </li>
       </ul>
-    </li>
-    <p></p>
-    <li> <b>Override Dask's chunking procedure</b>: Dask's auto-chunking feature attempts to minimize read-access from the file, hence it will chunk the data so that an individual chunk fits into memory. If you are working with multiple fields (or: multiple cores via MPI), then this assumption doesn't apply to you and, thus, the parameter setting  <code class="language-python">field_chunksize='auto'</code> may not provided you with the expected result. If you want to adapt this behaviour without manually tuning every application and scenario script, then you can configure the auto-chunking function itself.
+      Run your simulation again and observe the memory with the tools mentioned
+      above. If your simulation runs through without problems, it is almost
+      certain your real simulation requires too many particles. In that case, an
+      applicable general advice is to reduce the overall particle density (i.e.
+      creating less particles overall), or manually split your simulation in
+      smaller pieces and reduce the particle count accordingly, if you want to
+      preserve the particle density. Apart from this advice, there is no generic
+      solution at this point for the problem of exhaustive particle sets, so:
+      Get in touch with us at
+      <a href="https://github.com/OceanParcels/parcels/issues"
+        >the OceanParcels GitHub page</a
+      >
+      via the issue tracker to find an individual solution.
       <p></p>
-      Information on how to adapt the auto-chunking can be found in the <a href="https://docs.dask.org/en/latest/array-chunks.html#automatic-chunking">Dask documentation</a>. Dask itself can use a term in the Dask configuration file, which defines a new <i>upper limit</i> for a chunked array. Detailed information and guidance on the configuration file can be found in the <a href="https://docs.dask.org/en/latest/configuration.html">Dask guidelines</a>.
+      If the reduction of particles indeed does not solve your issue and your
+      simulation still crashes, then this is likely due to the fields consuming
+      more memory than available. Luckily, there are some solutions to this
+      problem.
       <p></p>
-      As a short summary: when having installed Dask, there is a (hidden) user-defined folder in your home directory <code>${HOME}/.config/dask</code> that has two files: <code>dask.yaml</code> and <code>distributed.yaml</code>. The second one is of less interest for you unless you have distributed file management (if unsure, contact your system administrator). Under normal conditions, Dask will read configuration parameters from <code>dask.yaml</code>. That file could look like this (<i>default</i> after installation):
+
+      <h4 id="field_chunking">
+        Introduce field chunking (i.e. <i>dynamic loading</i> of fields)
+      </h4>
       <p></p>
-      <pre class="language-yaml">
+      So, your situation is as follows: you found out that your Parcels
+      simulation consumes more field data than can fit in memory on any system
+      that you tried. Then, it may be that you are not using field chunking.
+      <p></p>
+      Field chunking is introduced in Parcels > 2.1.0. It manages the access and
+      data transfer between your hydrodynamic data (i.e. your NetCDF files), the
+      computer memory, and the kernels, in a way so that only the parts of the
+      data ends up in memory which are directly needed by some particles. This
+      technique is commonly referred to as <i>dynamic loading</i>. In Python,
+      with its numeric backend of Numpy and SciPy, the
+      <a href="https://dask.org/">Dask</a> module implements this data access
+      technique, which is called <i>chunking</i> or <i>lazy loading</i> within
+      Dask. Chunking for field data is activated by <i>default</i> in Parcels >
+      2.1.0.
+      <p></p>
+      As an example, let us assume we load a field set as such:
+      <br />
+      <code class="language-python"
+        >fieldset = FieldSet.from_netcdf(files, variables, dimensions)</code
+      >
+      <br />
+      then, this is equivalent to
+      <br />
+      <code class="language-python"
+        >fieldset = FieldSet.from_netcdf(files, variables, dimensions,
+        deferred_load=True, field_chunksize='auto')</code
+      >
+      <p></p>
+      Hence, if you are using an older version of Parcels (<= 2.1.0), or you
+      have accidentally switched of chunking via
+      <code class="language-python"
+        >fieldset = FieldSet.from_netcdf(..., field_chunksize=False)</code
+      >, then you may exceed your available memory. Try out the latest version
+      of Parcels and <i>activate</i> field chunking.
+      <p></p>
+
+      <h4 id="HPC">
+        Simulations crash on HPC clusters (via job submission systems such as
+        SGE or SLURM), but locally finish without problems
+      </h4>
+      <p></p>
+      The behaviour of simulations crashing on cluster systems whereas running
+      as-expected on local machines can occur because
+      <ul>
+        <li>Python itself does not return memory to the operation system</li>
+        <li>
+          Your (field) data are too large for the memory, but fit comfortably in
+          <i>virtual memory</i> (e.g. swap drive, swap files, page files) =->
+          job submission systems do not provide access to the <i>swap</i> memory
+        </li>
+        <li>
+          Your (field) data exceed the default memory capacity granted to users
+          of your cluster -> consult tutorials on <b>SGE qsub</b> (e.g. from
+          <a href="http://star.mit.edu/cluster/docs/0.92rc2/guides/sge.html"
+            >MIT</a
+          >
+          and
+          <a href="https://wikis.utexas.edu/display/CCBB/sge-tutorial"
+            >University of Austin / Texas</a
+          >) or <b>SLURM</b> (e.g. from
+          <a
+            href="https://researchcomputing.princeton.edu/education/online-tutorials/getting-started/introducing-slurm"
+            >Princeton University</a
+          >
+          or
+          <a
+            href="https://ubccr.freshdesk.com/support/solutions/articles/5000688140-submitting-a-slurm-job-script"
+            >University of Buffalo</a
+          >) to raise the granted memory to your simulation job. In particular,
+          consider submission option parameters such as
+          <i>-l h_vmem=<b>size</b></i> (SGE qsub) and
+          <i> --mem=<b>size</b></i> (SLURM).
+        </li>
+      </ul>
+      <p></p>
+
+      <h4 id="field_chunking_config">
+        Advanced control over chunking and memory - configure Dask
+      </h4>
+      <p></p>
+      In the case that you have field chunking running, your job submission
+      files are all set correctly, but your fields are still too big, then your
+      fields must be either many (in terms of <i>individual</i> fields), or they
+      are complex (i.e. many diverse, hydrological properties), or they are in
+      dense (i.e. <i>fine-resolution</i>) 4D grids (i.e. using time, depth,
+      latitude and longitude). In this case, you may need to tune your
+      environment a bit more directly to your application or scenario.
+      <ol>
+        <p></p>
+        <li>
+          <b>Tune your chunk size configuration manually</b>: Instead of leaving
+          the chunking up to the black-box that is Dask, you can define your
+          chunks yourself. Say you have simulation data of 30 timesteps on a
+          grid with depth=150, lat=2100, lon=1800 (just an example), then you
+          may wanna define the chunks yourself.
+          <ul>
+            <li>
+              use the parameter <i>field_chunksize</i> of the FieldSet class as
+              a tuple: here, the order is
+              <code class="language-python"
+                >(time steps, depth size, latitude size, longitude size)</code
+              >, so e.g.
+              <code class="language-python"
+                >fieldset = FieldSet.from_netcdf(files, variables, dimensions,
+                field_chunksize=(1,8,128,128))</code
+              >
+            </li>
+            <li>
+              use the parameter <i>field_chunksize</i> of the FieldSet class as
+              a dictionary: here, you define the chunks by name, such that e.g.
+              <code class="language-python"
+                >fieldset = FieldSet.from_netcdf(files, variables, dimensions,
+                field_chunksize={'time_counter': 1, 'depth': 8, 'nav_lat': 128,
+                'nav_lon': 128})</code
+              >
+            </li>
+          </ul>
+        </li>
+        <p></p>
+        <li>
+          <b>Override Dask's chunking procedure</b>: Dask's auto-chunking
+          feature attempts to minimize read-access from the file, hence it will
+          chunk the data so that an individual chunk fits into memory. If you
+          are working with multiple fields (or: multiple cores via MPI), then
+          this assumption doesn't apply to you and, thus, the parameter setting
+          <code class="language-python">field_chunksize='auto'</code> may not
+          provided you with the expected result. If you want to adapt this
+          behaviour without manually tuning every application and scenario
+          script, then you can configure the auto-chunking function itself.
+          <p></p>
+          Information on how to adapt the auto-chunking can be found in the
+          <a
+            href="https://docs.dask.org/en/latest/array-chunks.html#automatic-chunking"
+            >Dask documentation</a
+          >. Dask itself can use a term in the Dask configuration file, which
+          defines a new <i>upper limit</i> for a chunked array. Detailed
+          information and guidance on the configuration file can be found in the
+          <a href="https://docs.dask.org/en/latest/configuration.html"
+            >Dask guidelines</a
+          >.
+          <p></p>
+          As a short summary: when having installed Dask, there is a (hidden)
+          user-defined folder in your home directory
+          <code>${HOME}/.config/dask</code> that has two files:
+          <code>dask.yaml</code> and <code>distributed.yaml</code>. The second
+          one is of less interest for you unless you have distributed file
+          management (if unsure, contact your system administrator). Under
+          normal conditions, Dask will read configuration parameters from
+          <code>dask.yaml</code>. That file could look like this (<i>default</i>
+          after installation):
+          <p></p>
+          <pre class="language-yaml">
   # temporary-directory: null     # Directory for local disk like /tmp, /scratch, or /local
 
   # array:
   #   svg:
-  #     size: 120  # pixels</pre>
-      You can adapt this so the chunks, for example, are smaller, which improves loading and allows multiple simultaneous fields being accessed without exceeding memory.
-      <pre class="language-yaml">
+  #     size: 120  # pixels</pre
+          >
+          You can adapt this so the chunks, for example, are smaller, which
+          improves loading and allows multiple simultaneous fields being
+          accessed without exceeding memory.
+          <pre class="language-yaml">
   temporary-directory: /tmp
 
   array:
     svg:
       size: 120  # pixels
-    chunk-size: 128 MiB</pre>
-      Another very important change is that we removed the <code class="language-yaml">#</code> from the start of the lines, which transforms them from being <i>comments</i> into actual <i>information</i>. Of course, if you have e.g. 4 fields, then you may want to change <b>128 MiB</b> into <b>32 MiB</b>. Power-of-two sizes here are also advantageous, although not strictly necessary.
-      <p></p>
-    </li>
-  </ol>
-  <hr>
-
-
-</div>
-<!-- /.container -->
-
-<!-- Footer -->
-<footer class="py-5 bg-dark" id="footer">
-  <div class="container">
-    <div class="row">
-      <ul id="footerul">
-        <li id="footerli"><a id="footera" href="accessibility.html">Accessibility</a></li>
-        <li id="footerli"><a id="footera" href="cookie-policy.html">Cookie policy</a></li>
-        <li id="footerli"><a id="footera" href="utrechtteam.html">Utrecht Team</a></li>
-      </ul>
+    chunk-size: 128 MiB</pre
+          >
+          Another very important change is that we removed the
+          <code class="language-yaml">#</code> from the start of the lines,
+          which transforms them from being <i>comments</i> into actual
+          <i>information</i>. Of course, if you have e.g. 4 fields, then you may
+          want to change <b>128 MiB</b> into <b>32 MiB</b>. Power-of-two sizes
+          here are also advantageous, although not strictly necessary.
+          <p></p>
+        </li>
+      </ol>
+      <hr />
     </div>
-    <p class="m-0 text-center text-white">
-      Copyright &copy; OceanParcels project, 2020<br>
-      <small>Based on the <a href ="https://blackrockdigital.github.io/startbootstrap-modern-business/">Modern Business</a> theme, distributed by <a href="https://startbootstrap.com/template-overviews/modern-business/">Start Bootstrap</a> under an MIT license</small>
-    </p>
-  </div>
-</footer>
+    <!-- /.container -->
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark" id="footer">
+      <div class="container">
+        <div class="row">
+          <ul id="footerul">
+            <li id="footerli">
+              <a id="footera" href="accessibility.html">Accessibility</a>
+            </li>
+            <li id="footerli">
+              <a id="footera" href="cookie-policy.html">Cookie policy</a>
+            </li>
+            <li id="footerli">
+              <a id="footera" href="utrechtteam.html">Utrecht Team</a>
+            </li>
+          </ul>
+        </div>
+        <p class="m-0 text-center text-white">
+          Copyright &copy; OceanParcels project, 2020<br />
+          <small
+            >Based on the
+            <a
+              href="https://blackrockdigital.github.io/startbootstrap-modern-business/"
+              >Modern Business</a
+            >
+            theme, distributed by
+            <a
+              href="https://startbootstrap.com/template-overviews/modern-business/"
+              >Start Bootstrap</a
+            >
+            under an MIT license</small
+          >
+        </p>
+      </div>
+    </footer>
 
-</body>
-
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
