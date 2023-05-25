@@ -1,6 +1,6 @@
 *
 
 # Ignore all except...
-# !index.html # Broken for the timebeing
+!index.html
 !utrechtteam.html
 !faq.html
