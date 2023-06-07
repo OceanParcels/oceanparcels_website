@@ -501,24 +501,18 @@ conda create -n py3_parcels -c conda-forge parcels jupyter cartopy ffmpeg</code>
 activate py3_parcels        # Windows</code></pre>
         </li>
         <li>
-          Get a copy of the Parcels tutorials and examples, as well as the data
-          required to run these:
-          <pre><code class="language-bash">parcels_get_examples parcels_examples</code></pre>
+          Get a zipped copy of the Parcels tutorials and examples from
+          <a
+            href="https://docs.oceanparcels.org/en/latest/_downloads/307c382eb1813dc691e8a80d6c0098f7/parcels_tutorials.zip"
+            >here</a
+          >
+          and upzip it.
         </li>
-        <i
-          >*Note that if you are on Windows and you get a
-          <code>Fatal error in launcher</code> error, you can instead download
-          the data with</i
-        >
-        <i>
-          <pre><code class="language-bash">curl https://raw.githubusercontent.com/OceanParcels/parcels/master/parcels/scripts/get_examples.py &gt; parcels_get_examples.py
-python parcels_get_examples.py parcels_examples</code></pre>
-        </i>
+        <p></p>
         <li>
-          Run the simplest of the examples to validate that you have a working
-          Parcels setup:
-          <pre><code class="language-bash">cd parcels_examples
-python example_peninsula.py --fieldset 100 100</code></pre>
+          Go to the unzipped folder and run the simplest of the examples to
+          validate that you have a working Parcels setup:
+          <pre><code class="language-bash">python example_peninsula.py --fieldset 100 100</code></pre>
         </li>
         <i
           >*Note that if you are on macOS and get a compilation error, you may
