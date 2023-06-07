@@ -501,24 +501,18 @@ conda create -n py3_parcels -c conda-forge parcels jupyter cartopy ffmpeg</code>
 activate py3_parcels        # Windows</code></pre>
         </li>
         <li>
-          Get a copy of the Parcels tutorials and examples, as well as the data
-          required to run these:
-          <pre><code class="language-bash">parcels_get_examples parcels_examples</code></pre>
+          Get a zipped copy of the Parcels tutorials and examples from
+          <a
+            href="https://docs.oceanparcels.org/en/latest/_downloads/307c382eb1813dc691e8a80d6c0098f7/parcels_tutorials.zip"
+            >here</a
+          >
+          and upzip it.
         </li>
-        <i
-          >*Note that if you are on Windows and you get a
-          <code>Fatal error in launcher</code> error, you can instead download
-          the data with</i
-        >
-        <i>
-          <pre><code class="language-bash">curl https://raw.githubusercontent.com/OceanParcels/parcels/master/parcels/scripts/get_examples.py &gt; parcels_get_examples.py
-python parcels_get_examples.py parcels_examples</code></pre>
-        </i>
+        <p></p>
         <li>
-          Run the simplest of the examples to validate that you have a working
-          Parcels setup:
-          <pre><code class="language-bash">cd parcels_examples
-python example_peninsula.py --fieldset 100 100</code></pre>
+          Go to the unzipped folder and run the simplest of the examples to
+          validate that you have a working Parcels setup:
+          <pre><code class="language-bash">python example_peninsula.py --fieldset 100 100</code></pre>
         </li>
         <i
           >*Note that if you are on macOS and get a compilation error, you may
@@ -656,18 +650,14 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Applications/Xcode.app/Contents//Develope
       <h2 id="tutorials">Parcels tutorials</h2>
 
       The best way to get started with Parcels is to explore the Jupyter
-      notebooks below. By clicking on the tutorials you can read them on the
-      Jupyter notebook viewer. Due to some issues with the GitHub API some
-      notebooks are temporarily not found, resulting in a 404 Error. Please find
-      the corresponding notebook file by clicking the GitHub tag in the card. If
-      you want to practice by interacting with them, you can either visit
+      notebooks below. If you want to practice by interacting with them, you can
+      either visit
       <a
-        href="https://mybinder.org/v2/gh/OceanParcels/parcels_examples_binder/master?urlpath=lab/tree/parcels_examples/parcels_tutorial.ipynb"
+        href="https://mybinder.org/v2/gh/OceanParcels/parcels/master?labpath=parcels%2Fdocs%2Fexamples"
         >mybinder.org</a
       >
-      or run them on your own device if you have installed them with
-      <code class="language-bash">parcels_get_examples parcels_examples</code>
-      (see 4. in the <a href="#installing"> installation</a>).
+      or run them on your own device by downloading the zip containing the
+      tutorials (see 4. in the <a href="#installing"> installation</a>).
 
       <p></p>
       <div class="row">
