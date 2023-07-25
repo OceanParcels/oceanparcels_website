@@ -485,19 +485,19 @@
           <pre><code class="language-bash">conda activate root  # Linux / macOS
 activate root        # Windows
 
-conda create -n py3_parcels -c conda-forge parcels jupyter cartopy ffmpeg</code></pre>
+conda create -n parcels -c conda-forge parcels cartopy</code></pre>
         </li>
         <i
           >*Note that for some of the examples,
           <code class="language-bash">pytest</code> needs to be installed with
-          <code class="language-bash">conda install -n py3_parcels pytest</code
+          <code class="language-bash">conda install -n parcels pytest</code
           >.</i
         >
         <p></p>
         <li>
           Activate the newly created Parcels environment.
-          <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
-activate py3_parcels        # Windows</code></pre>
+          <pre><code class="language-bash">conda activate parcels  # Linux / macOS
+activate parcels        # Windows</code></pre>
         </li>
         <li>
           Get a zipped copy of the Parcels tutorials and examples from
@@ -540,8 +540,8 @@ activate py3_parcels        # Windows</code></pre>
         <li>
           The next time you start a terminal and want to work with Parcels,
           activate the environment with:
-          <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
-activate py3_parcels        # Windows</code></pre>
+          <pre><code class="language-bash">conda activate parcels  # Linux / macOS
+activate parcels        # Windows</code></pre>
         </li>
       </ol>
       <p></p>
@@ -554,8 +554,8 @@ activate py3_parcels        # Windows</code></pre>
       <a href="#installing">Installing Parcels</a> above, use the following
       commands to remove the conda-forge package again, and use
       <code>pip</code> to install Parcels from Github:
-      <pre><code class="language-bash">conda activate py3_parcels  # Linux / macOS
-activate py3_parcels        # Windows
+      <pre><code class="language-bash">conda activate parcels  # Linux / macOS
+activate parcels        # Windows
 
 conda remove --force parcels
 pip install git+https://github.com/OceanParcels/parcels.git@master
@@ -603,8 +603,8 @@ pip install git+https://github.com/OceanParcels/parcels.git@master
         <li>
           We strongly encourage to create a new environment for Parallel
           Parcels:
-          <pre><code class="language-bash">conda create -n py3_parcels_mpi -c conda-forge parcels mpi4py mpich scikit-learn jupyter cartopy ffmpeg
-conda activate py3_parcels_mpi</code></pre>
+          <pre><code class="language-bash">conda create -n parcels_mpi -c conda-forge parcels mpi4py mpich scikit-learn jupyter cartopy ffmpeg
+conda activate parcels_mpi</code></pre>
         </li>
         <p></p>
         <li>
