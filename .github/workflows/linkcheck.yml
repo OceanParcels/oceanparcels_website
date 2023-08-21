@@ -1,0 +1,61 @@
+name: Check URL Status
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * 0 # run at midnight every Sunday
+
+env:
+  LINK_TRACKING_ISSUE_NUMBER: 85
+
+permissions:
+  issues: write
+
+jobs:
+  check-urls:
+    env:
+      LYCHEE_REPORT_FILE: ./lychee/out.md
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v1.8.0
+
+      - name: Read Lychee report
+        if: env.lychee_exit_code != 0
+        id: readReport
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "FILE_CONTENT<<$EOF" >> $GITHUB_OUTPUT
+          echo "$(cat ${{ env.LYCHEE_REPORT_FILE }})" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+      - run: echo "${{ steps.readReport.outputs.FILE_CONTENT }}"
+      - name: Update link tracking issue (update invalid links)
+        if: env.lychee_exit_code != 0
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "update-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ env.LINK_TRACKING_ISSUE_NUMBER }}
+          state: "open"
+          body: ${{ steps.readReport.outputs.FILE_CONTENT }}
+          update-mode: "replace"
+
+      - name: Update link tracking issue (no invalid links)
+        if: env.lychee_exit_code == 0
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "update-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ env.LINK_TRACKING_ISSUE_NUMBER }}
+          state: "closed"
+          body: "No invalid links found! 🤖"
+          update-mode: "replace"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lychee-report
+          path: ${{ env.LYCHEE_REPORT_FILE }}
