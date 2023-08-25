@@ -1,0 +1,7 @@
+exclude = [
+    '^https://doi\.org.*', # forbidden
+    '^https://twitter\.com.*', # forbidden
+    '^https://www\.researchgate\.net.*', # forbidden
+    '^https://onlinelibrary\.wiley\.com.*', # forbidden
+    '^https://pubs\.acs\.org.*' # forbidden
+    ]
