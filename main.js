@@ -76,8 +76,7 @@ class DrifterApp {
 			target: 'map',
 			controls: controls,
 			overlays: [this.overlay],
-			layers: [new ol.layer.Tile({source: new ol.source.Stamen({layer: 'watercolor'})}),
-					 new ol.layer.Tile({source: new ol.source.Stamen({layer: 'terrain-labels'})}),],
+			layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
 			view: new ol.View({center: center, zoom: zoom})
 		});
 
