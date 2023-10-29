@@ -110,11 +110,11 @@ class DrifterApp {
 			}
 		});
 	}
-	
+
 	readQuery() {
 		this.animating = Number.parseInt(urlParams.get("a"));
 		let selection = urlParams.get("s");
-		
+
 		if (selection)
 		{
 			this.selected = selection.split(",");
@@ -123,7 +123,7 @@ class DrifterApp {
 		{
 			this.selected = [];
 		}
-		
+
 		this.begin = Date.parse(urlParams.get("b")) || 0;
 	}
 
