@@ -142,7 +142,7 @@ class DrifterApp {
 		} else {
 			var options = {year: 'numeric', month: 'long', day: 'numeric'};
 		}
-		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toLocaleDateString("en-UK", options);
+		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toLocaleDateString("en-UK", options) + " GMT";
 	}
 
 	processDrifters(data) {
