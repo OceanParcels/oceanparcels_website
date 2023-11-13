@@ -703,7 +703,7 @@ window.onclick = function(event) {
 };
 
 
-const GALAPAGOS = [ -90.8770522, -0.246927];
+const MAP_CENTER = [ 5, 52];
 
 let referrer = document.referrer;
 let query;
@@ -749,7 +749,7 @@ if (! anim_freq){
 	anim_freq = 12
 }
 
-let app = new DrifterApp(ol.proj.fromLonLat(GALAPAGOS), 7.0);
+let app = new DrifterApp(ol.proj.fromLonLat(MAP_CENTER), 7.0);
 
 app.start();
 
