@@ -106,7 +106,7 @@ class DrifterApp {
 				self.startAnimate();
 			}
 			else {
-				self.drawDrifters(self.data);
+				self.drawDrifters(self.data, Date.now());
 			}
 		});
 	}
@@ -266,10 +266,10 @@ class DrifterApp {
 	redrawDrifters() {
 		this.markers.clear();
 		this.lines.clear();
-		this.drawDrifters(this.data);
+		this.drawDrifters(this.data, Date.now());
 	}
 
-	drawDrifters(data) {
+	drawDrifters(data, drawdate) {
 		this.markers.clear();
 		this.lines.clear();
 
@@ -293,7 +293,7 @@ class DrifterApp {
 				now = t;
 			}
 
-			let hourdiff = Math.floor((Date.now() - t) / (60*60*1000))
+			let hourdiff = Math.floor((drawdate - t) / (60*60*1000))
 			let src = "marker.svg"
 			if (hourdiff > 9) {
 				src = "marker_notx.svg"
@@ -564,7 +564,7 @@ class DrifterApp {
 			}
 
 			this.updateDate(this.anim_t);
-			this.drawDrifters(trimmed);
+			this.drawDrifters(trimmed, this.anim_t);
 
 			if (finished)
 			{
