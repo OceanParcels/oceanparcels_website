@@ -295,7 +295,7 @@ class DrifterApp {
 
 			let hourdiff = Math.floor((drawdate - t) / (60*60*1000))
 			let src = "marker.svg"
-			if (hourdiff > 9) {
+			if (hourdiff > 6) {
 				src = "marker_notx.svg"
 			}
 			let mark = this.createMarker(colour, lat, lng, opacity, zindex, src);
@@ -460,7 +460,7 @@ class DrifterApp {
         if (hourdiff > 24) {
             this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${Math.floor(hourdiff/24)} days ago`;
 		}
-		else  if (hourdiff > 9) {  // nine hours 'grace period'
+		else  if (hourdiff > 6) {  // six hours 'grace period'
 			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${hourdiff} hours ago`;
 		}
 		else {
@@ -527,7 +527,7 @@ class DrifterApp {
 
 	stepAnimate() {
 		const deselectDead = true;
-		const deathTimeout = 2 * this.anim_s;
+		const deathTimeout = 7 * 3600 * 1000;
 
 		if (this.animating) {
 			let trimmed = {};
@@ -630,7 +630,6 @@ class DrifterApp {
 	}
 
 	setupSocialButtons() {
-		$(".twitter")[0].onclick = e => window.open(`https://twitter.com/share?url=${this.generateQueryURL(true)}`);
 		$(".linkedin")[0].onclick = e => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${this.generateQueryURL(true)}`);
 		$(".facebook")[0].onclick = e => window.open(`https://www.facebook.com/sharer.php?u=${this.generateQueryURL(true)}&t=${this.generateQueryURL(true)}`);
 		$(".download")[0].onclick = e => window.open(DATA_URL + data_source);

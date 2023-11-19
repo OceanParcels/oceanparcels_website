@@ -5,6 +5,15 @@
     <meta http-equiv="Cache-Control" content="no-store" />
     <title>Surface Drifter Map</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+           setInterval(function(){ reload_page(); },60*60*1000);
+        });
+        function reload_page()
+        {
+           window.location.reload(true);
+        }
+       </script>
     <style type="text/css">
         body {
             margin: auto; height: 100vh; font-family: 'Merriweather'; pointer-events: none;
@@ -144,19 +153,19 @@
         .correct-modal {
             display: none;
             position: fixed;
-            z-index: 1; 
+            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
         }
-        
+
         .correct-content {
             background-color: #fefefe;
-            margin: 15% auto; 
+            margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 60%;
@@ -198,18 +207,6 @@
 <div class="date" id="date">Drifters on</div>
 <div class="map" id="map"></div>
 <ul class="social links social-share-links__list social-share-links__list--inline">
-    <li class="social-share-links__list-item">
-        <div class="social-link twitter">
-        <a target="_blank" class="social-share-links__link social-share-links__link--twitter js-no-external-icon" title="Deel op Twitter" rel="noopener">
-        <svg aria-hidden="true" focusable="false" class="social-share-links__link-icon">
-            <use xlink:href="drifters/sprite.svg?v=1611727326#twitter"></use>
-        </svg>
-            <svg aria-hidden="true" focusable="false" class="social-share-links__arrow-icon">
-                <use xlink:href="drifters/sprite.svg?v=1611727326#arrow-right"></use>
-            </svg>
-        </a>
-        </div>
-    </li>
     <li class="social-share-links__list-item">
         <div class="social-link linkedin">
             <a target="_blank" class="social-share-links__link social-share-links__link--linkedin js-no-external-icon" title="Deel op LinkedIn" rel="noopener">
