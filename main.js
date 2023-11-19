@@ -460,12 +460,9 @@ class DrifterApp {
         if (hourdiff > 24) {
             this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${Math.floor(hourdiff/24)} days ago`;
 		}
-		else  if (hourdiff > 6) {  // six hours 'grace period'
-			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${hourdiff} hours ago`;
-		}
 		else {
-			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}`;
-        }
+			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${hourdiff} hours ago (${lastTime.toLocaleTimeString()} GMT)`;
+		}
 	    this.overlay.setPosition(coordinate);
 	}
 
