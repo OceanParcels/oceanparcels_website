@@ -572,7 +572,7 @@ class DrifterApp {
 				this.anim_t += this.anim_s;
 			}
 
-			this.anim_h = setTimeout(this.stepAnimate.bind(this), 1000);
+			this.anim_h = setTimeout(this.stepAnimate.bind(this), 100);
 		}
 	}
 
