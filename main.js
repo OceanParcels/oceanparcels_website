@@ -142,15 +142,17 @@ class DrifterApp {
 		} else {
 			var options = {year: 'numeric', month: 'long', day: 'numeric'};
 		}
-		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toLocaleDateString("en-UK", options) + " GMT";
+		document.getElementById("date").innerHTML = TEXT.drifter_date + " " + date.toLocaleDateString("en-UK", options);
 	}
 
 	processDrifters(data) {
+		let timeZoneDiff = new Date().getTimezoneOffset() * 60 * 1000;
 		for (let drifter of Object.values(data))
 		{
 			for (let evt of drifter)
 			{
-				evt[0] = Date.parse(evt[0]);
+				evt[0] = Date.parse(evt[0]) - timeZoneDiff
+				;
 			}
 		}
 
@@ -461,7 +463,7 @@ class DrifterApp {
             this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${Math.floor(hourdiff/24)} days ago`;
 		}
 		else {
-			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${hourdiff} hours ago (${lastTime.toLocaleTimeString()} GMT)`;
+			this.content.innerHTML = `<p><b>Name:</b> ${name}<br><b>Coordinates:</b> ${hdms}<br><b>Last contact:</b> ${hourdiff} hours ago (${lastTime.toLocaleTimeString()})`;
 		}
 	    this.overlay.setPosition(coordinate);
 	}
