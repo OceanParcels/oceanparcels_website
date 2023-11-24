@@ -106,7 +106,7 @@ class DrifterApp {
 				self.startAnimate();
 			}
 			else {
-				self.drawDrifters(self.data, Date.now());
+				self.drawDrifters(self.data, Date.now(), true);
 			}
 		});
 	}
@@ -268,10 +268,10 @@ class DrifterApp {
 	redrawDrifters() {
 		this.markers.clear();
 		this.lines.clear();
-		this.drawDrifters(this.data, Date.now());
+		this.drawDrifters(this.data, Date.now(), true);
 	}
 
-	drawDrifters(data, drawdate) {
+	drawDrifters(data, drawdate, with_tx) {
 		this.markers.clear();
 		this.lines.clear();
 
@@ -297,7 +297,7 @@ class DrifterApp {
 
 			let hourdiff = Math.floor((drawdate - t) / (60*60*1000))
 			let src = "marker.svg"
-			if (hourdiff > 6) {
+			if ((hourdiff > 6) || (with_tx == false)) {
 				src = "marker_notx.svg"
 			}
 			let mark = this.createMarker(colour, lat, lng, opacity, zindex, src);
@@ -563,18 +563,19 @@ class DrifterApp {
 			}
 
 			this.updateDate(this.anim_t);
-			this.drawDrifters(trimmed, this.anim_t);
+			this.drawDrifters(trimmed, this.anim_t, false);
 
 			if (finished)
 			{
 				this.anim_t = this.anim_0;
+				this.setSelected([]);
 			}
 			else
 			{
 				this.anim_t += this.anim_s;
 			}
 
-			this.anim_h = setTimeout(this.stepAnimate.bind(this), 100);
+			this.anim_h = setTimeout(this.stepAnimate.bind(this), 50);
 		}
 	}
 
