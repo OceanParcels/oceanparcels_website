@@ -297,7 +297,7 @@ class DrifterApp {
 
 			let hourdiff = Math.floor((drawdate - t) / (60*60*1000))
 			let src = "marker.svg"
-			if ((hourdiff > 6) || (with_tx == false)) {
+			if ((hourdiff > 24) || (with_tx == false)) {
 				src = "marker_notx.svg"
 			}
 			let mark = this.createMarker(colour, lat, lng, opacity, zindex, src);
