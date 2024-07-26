@@ -3,7 +3,7 @@ repos:
     rev: "23.12.1"
     hooks:
       - id: black
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
+  - repo: https://github.com/rbubley/mirrors-prettier # Update mirror as official mirror is deprecated
+    rev: v3.3.3
     hooks:
       - id: prettier
