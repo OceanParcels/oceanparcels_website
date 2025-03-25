@@ -1,6 +1,5 @@
 export const footerItems = {
   xarray: [
-    { label: 'Dashboard', href: '/dashboard' },
     { label: 'Blog', href: '/blog' },
     { label: 'Team', href: '/team' },
     {
