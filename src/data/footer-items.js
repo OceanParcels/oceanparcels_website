@@ -1,51 +1,34 @@
 export const footerItems = {
-  xarray: [
+  parcels: [
     { label: 'Blog', href: '/blog' },
     { label: 'Team', href: '/team' },
     {
-      label: 'Citing Xarray',
+      label: 'Citing Parcels',
       href: 'https://docs.xarray.dev/en/stable/getting-started-guide/faq.html#how-should-i-cite-xarray',
-    },
-    {
-      label: 'Roadmap',
-      href: 'https://docs.xarray.dev/en/stable/roadmap.html',
     },
     {
       label: 'Brand Assets',
       href: 'https://github.com/xarray-contrib/xarray.dev/tree/main/public/Xarray-assets',
-    },
+    }, // TODO: Add brand assets
   ],
 
   resources: [
-    { label: 'Documentation', href: 'https://docs.xarray.dev/en/stable/' },
+    { label: 'Documentation', href: 'https://docs.oceanparcels.org/en/latest/index.html' },
     {
       label: 'Tutorials',
-      href: 'https://docs.xarray.dev/en/stable/tutorials-and-videos.html',
-    },
-    {
-      label: 'Example Gallery',
-      href: 'https://docs.xarray.dev/en/stable/gallery.html',
-    },
-    { label: 'Compatible Projects', href: 'https://github.com/xarray-contrib' },
+      href: 'https://docs.oceanparcels.org/en/latest/documentation/index.html',
+    }
   ],
 
   community: [
     {
       label: 'Contribute',
-      href: 'https://docs.xarray.dev/en/stable/contributing.html',
+      href: 'https://docs.oceanparcels.org/en/latest/community/index.html',
     },
     {
       label: 'GitHub Discussions',
-      href: 'https://github.com/pydata/xarray/discussions',
+      href: 'https://github.com/OceanParcels/parcels/discussions',
     },
-    { label: 'Issue Tracker', href: 'https://github.com/pydata/xarray/issues' },
-    {
-      label: 'Stack Overflow',
-      href: 'https://stackoverflow.com/questions/tagged/python-xarray',
-    },
-    {
-      label: 'Mailing List',
-      href: 'https://groups.google.com/forum/#!forum/xarray',
-    },
+    { label: 'Issue Tracker', href: 'https://github.com/OceanParcels/parcels/issues' }
   ],
 }

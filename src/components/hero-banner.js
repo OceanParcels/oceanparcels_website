@@ -31,11 +31,11 @@ export const HeroBanner = () => {
                   zIndex: -1,
                 }}
               >
-                Xarray
+                Parcels
               </Text>
               <br />
-              <Text as={'span'} color={'red.400'}>
-                N-D labeled arrays and datasets in Python
+              <Text as={'span'} color={'blue.400'}>
+                Probably A Really Computationally Efficient Lagrangian Simulator
               </Text>
             </Heading>
             <Text fontSize={'lg'}>
@@ -68,17 +68,9 @@ export const HeroBanner = () => {
                 as={Link}
                 variant={'outline'}
                 colorScheme={'blue'}
-                href='https://docs.xarray.dev/en/stable/getting-started-guide/quick-overview.html'
+                href='https://docs.oceanparcels.org'
               >
                 Get Started
-              </Button>
-              <Button
-                useExternalIcon
-                as={Link}
-                variant={'outline'}
-                href='https://docs.xarray.dev/en/stable/getting-started-guide/why-xarray.html'
-              >
-                Why Xarray?
               </Button>
             </Stack>
           </Stack>

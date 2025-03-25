@@ -107,9 +107,9 @@ export const Footer = () => {
             </Stack>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Xarray</ListHeader>
+            <ListHeader>Parcels</ListHeader>
 
-            {footerItems.xarray.map((item) => {
+            {footerItems.parcels.map((item) => {
               return (
                 <Link
                   key={item.label}
