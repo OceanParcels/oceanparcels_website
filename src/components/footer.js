@@ -12,9 +12,7 @@ import {
 
 import { getRootURL } from '@/lib/seo-utils'
 
-import { GitSHA } from '@/components/git-sha'
 import { Image, Link } from '@/components/mdx'
-import { VercelCallout } from '@/components/vercel'
 import { footerItems } from '@/data/footer-items'
 import { FaGithub, FaRss, FaTwitter, FaYoutube } from 'react-icons/fa'
 
@@ -75,7 +73,6 @@ export const Footer = () => {
               © {new Date().getFullYear()}, Xarray core developers. Apache 2.0
               Licensed.
             </Text>
-            <GitSHA />
 
             <Stack direction={'row'} spacing={2}>
               <SocialButton
@@ -153,9 +150,6 @@ export const Footer = () => {
             })}
           </Stack>
         </SimpleGrid>
-        <VStack as='footer' spacing={4} mt={12} textAlign='center'>
-          <VercelCallout />
-        </VStack>
       </Container>
     </Box>
   )

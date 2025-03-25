@@ -10,7 +10,7 @@ export const Layout = ({
   description,
   card,
   children,
-  url = 'https://xarray.dev',
+  url = 'https://oceanparcels.org',
   enableBanner = false,
 }) => {
   const bannerTitle = 'Check out the new blog post on DataTree!'
@@ -22,8 +22,8 @@ export const Layout = ({
   )
 
   // Determine the base URL based on the environment
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  const baseUrl = process.env.NODE_ENV === 'production'
+    ? 'https://oceanparcels.org'
     : 'http://localhost:3000'
 
   // Construct the full card URL

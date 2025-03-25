@@ -87,9 +87,7 @@ export default Card
 export async function getStaticPaths() {
   const paths = getAllPostsIds()
 
-  const isDev =
-    process.env.VERCEL_ENV === 'preview' ||
-    process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === 'development'
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
   return { paths: isDev ? paths : [], fallback: false }
