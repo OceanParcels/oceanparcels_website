@@ -1,4 +1,5 @@
 export const TeamMembers = [
+  // TODO: Update this data
   { name: 'Stephan Hoyer', github: 'shoyer' },
   { name: 'Joe Hamman', github: 'jhamman' },
   { name: 'Ryan Abernathey', github: 'rabernat' },

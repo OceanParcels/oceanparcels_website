@@ -22,9 +22,10 @@ export const Layout = ({
   )
 
   // Determine the base URL based on the environment
-  const baseUrl = process.env.NODE_ENV === 'production'
-    ? 'https://oceanparcels.org'
-    : 'http://localhost:3000'
+  const baseUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://oceanparcels.org'
+      : 'http://localhost:3000'
 
   // Construct the full card URL
   const fullCardUrl = card.startsWith('http') ? card : `${baseUrl}${card}`

@@ -1,7 +1,4 @@
-import {
-  Features,
-  HeroBanner,
-} from '@/components'
+import { Features, HeroBanner } from '@/components'
 
 import { Layout } from '@/components/layout'
 

@@ -1,4 +1,5 @@
 export const Features = [
+  // TODO: Update this data
   {
     title: 'Interoperability',
     text: 'Interoperable with the scientific Python ecosystem including NumPy, Dask, Pandas, and Matplotlib.',

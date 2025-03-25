@@ -35,20 +35,19 @@ export const HeroBanner = () => {
               </Text>
               <br />
               <Text as={'span'} color={'blue.400'}>
-                Probably A Really Computationally Efficient Lagrangian Simulator
+                A highly customisable Lagrangian simulation framework
               </Text>
             </Heading>
             <Text fontSize={'lg'}>
-              <strong>Xarray</strong> is an open source project and Python
-              package that introduces labels in the form of dimensions,
-              coordinates, and attributes on top of raw NumPy-like arrays, which
-              allows for more intuitive, more concise, and less error-prone user
-              experience.
-              <br />
-              <br />
-              Xarray includes a large and growing library of domain-agnostic
-              functions for advanced analytics and visualization with these data
-              structures.
+              The Ocean<strong>Parcels</strong> project develops{' '}
+              <strong>Parcels</strong> (<strong>P</strong>robably{' '}
+              <strong>A</strong> <strong>R</strong>eally <strong>C</strong>
+              omputationally <strong>E</strong>fficient <strong>L</strong>
+              agrangian <strong>S</strong>imulator), a set of Python classes and
+              methods to create customisable particle tracking simulations using
+              output from Ocean Circulation models. Parcels can be used to track
+              passive and active particulates such as water, plankton, plastic
+              and fish.
             </Text>
           </Stack>
           <Stack flex={1} spacing={{ base: 10, md: 20 }}>

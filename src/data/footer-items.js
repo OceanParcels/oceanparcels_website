@@ -3,12 +3,12 @@ export const footerItems = {
     { label: 'Blog', href: '/blog' },
     { label: 'Utrecht Team', href: '/team' },
     {
-      label: 'Citing Parcels',
-      href: 'https://docs.xarray.dev/en/stable/getting-started-guide/faq.html#how-should-i-cite-xarray',
-    },
-    {
       label: 'Papers citing Parcels',
       href: '/papers-citing-parcels',
+    },
+    {
+      label: 'How to cite Parcels',
+      href: 'https://docs.xarray.dev/en/stable/getting-started-guide/faq.html#how-should-i-cite-xarray', // TODO: Update
     },
     {
       label: 'Brand Assets',
@@ -17,11 +17,14 @@ export const footerItems = {
   ],
 
   resources: [
-    { label: 'Documentation', href: 'https://docs.oceanparcels.org/en/latest/index.html' },
+    {
+      label: 'Documentation',
+      href: 'https://docs.oceanparcels.org/en/latest/index.html',
+    },
     {
       label: 'Tutorials',
       href: 'https://docs.oceanparcels.org/en/latest/documentation/index.html',
-    }
+    },
   ],
 
   community: [
@@ -33,6 +36,9 @@ export const footerItems = {
       label: 'GitHub Discussions',
       href: 'https://github.com/OceanParcels/parcels/discussions',
     },
-    { label: 'Issue Tracker', href: 'https://github.com/OceanParcels/parcels/issues' }
+    {
+      label: 'Issue Tracker',
+      href: 'https://github.com/OceanParcels/parcels/issues',
+    },
   ],
 }
