@@ -1,10 +1,14 @@
 export const footerItems = {
   parcels: [
     { label: 'Blog', href: '/blog' },
-    { label: 'Team', href: '/team' },
+    { label: 'Utrecht Team', href: '/team' },
     {
       label: 'Citing Parcels',
       href: 'https://docs.xarray.dev/en/stable/getting-started-guide/faq.html#how-should-i-cite-xarray',
+    },
+    {
+      label: 'Papers citing Parcels',
+      href: '/papers-citing-parcels',
     },
     {
       label: 'Brand Assets',
