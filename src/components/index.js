@@ -1,6 +1,5 @@
 export { Banner } from '@/components/banner'
 export { Features } from '@/components/features'
 export { Footer } from '@/components/footer'
-export { Giscus } from '@/components/giscus'
 export { Header } from '@/components/header'
 export { HeroBanner } from '@/components/hero-banner'

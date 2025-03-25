@@ -19,7 +19,6 @@ updates:
         patterns:
           - '@chakra-ui*'
           - '@emotion*'
-          - '@giscus*'
           - '@mdx-js*'
           - '@next*'
           - 'apexcharts'

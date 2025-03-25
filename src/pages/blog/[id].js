@@ -22,7 +22,6 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 
-import { Giscus } from '@/components'
 import { Layout } from '@/components/layout'
 import { Link, mapping } from '@/components/mdx'
 import { distanceToNow, formatDate } from '@/lib/date-formatting'
@@ -97,7 +96,6 @@ export default function Post({ source, frontmatter, postId }) {
           </Button>
           <Divider my={8} />
           <br />
-          <Giscus />
         </Container>
       </Box>
     </Layout>
