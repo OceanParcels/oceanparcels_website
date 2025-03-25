@@ -61,8 +61,8 @@ export const Footer = () => {
             <Box>
               <Image
                 w={32}
-                src={'/Xarray-assets/RGB/Xarray_Logo_RGB_Final.svg'}
-                alt={'xarray logo'}
+                src={'/parcels-assets/parcelslogo.png'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
+                alt={'parcels logo'}
               />
             </Box>
 

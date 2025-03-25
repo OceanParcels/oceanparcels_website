@@ -10,14 +10,14 @@ export async function generateRssFeed(allPostsData) {
     const blogUrl = `${siteUrl}/blog`
 
 const feed = new Feed({
-    title: 'Xarray Blog Feed',
-    description: 'The latest news, insights, and practices about Xarray from the Xarray team',
+    title: 'OceanParcels Blog Feed',
+    description: 'The latest announcements from the OceanParcels team',
     id: blogUrl,
     link: blogUrl,
     language: 'en',
     image: `${siteUrl}/Xarray-assets/Icon/Xarray_Icon_Final.png`,
     favicon: `${siteUrl}/favicon.ico`,
-    copyright: `© ${new Date().getFullYear()}, Xarray core developers. Apache 2.0 Licensed`,
+    copyright: `© ${new Date().getFullYear()}, Parcels core developers. Apache 2.0 Licensed`,
     feedLinks: {
         rss2: `${siteUrl}/rss.xml`,
         json: `${siteUrl}/rss.json`,
