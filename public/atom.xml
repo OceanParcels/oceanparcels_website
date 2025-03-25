@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://xarray.dev/blog</id>
+    <title>Xarray Blog Feed</title>
+    <updated>2025-03-25T14:19:13.488Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://xarray.dev/blog"/>
+    <link rel="self" href="https://xarray.dev/atom.xml"/>
+    <subtitle>The latest news, insights, and practices about Xarray from the Xarray team</subtitle>
+    <logo>https://xarray.dev/Xarray-assets/Icon/Xarray_Icon_Final.png</logo>
+    <icon>https://xarray.dev/favicon.ico</icon>
+    <rights>© 2025, Xarray core developers. Apache 2.0 Licensed</rights>
+    <entry>
+        <title type="html"><![CDATA[Parcels 10 Year Anniversary]]></title>
+        <id>celebrating-10-years</id>
+        <link href="https://xarray.dev/blog/celebrating-10-years"/>
+        <updated>2023-06-28T00:00:00.000Z</updated>
+        <author>
+            <name>Erik van Sebille</name>
+        </author>
+    </entry>
+</feed>
