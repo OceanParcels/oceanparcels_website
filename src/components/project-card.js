@@ -1,15 +1,7 @@
-import { DomainsTags } from '@/components/domains-tags'
 import { Image, Link } from '@/components/mdx'
 import { Box, LinkBox, LinkOverlay, Stack, Text } from '@chakra-ui/react'
 
-export const ProjectCard = ({
-  name,
-  description,
-  domains,
-  repo,
-  homepage,
-  logo,
-}) => {
+export const ProjectCard = ({ name, description, repo, homepage, logo }) => {
   return (
     <LinkBox
       p={4}
@@ -46,10 +38,6 @@ export const ProjectCard = ({
             <Text my={4} noOfLines={2}>
               {description}
             </Text>
-          </Box>
-
-          <Box>
-            <DomainsTags domains={domains} />
           </Box>
         </LinkOverlay>
       </Stack>
