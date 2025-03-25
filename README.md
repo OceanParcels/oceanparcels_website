@@ -19,7 +19,7 @@ This project is built using the following tools/technologies:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/xarray-contrib/xarray.dev
+git clone https://github.com/OceanParcels/oceanparcels_website
 ```
 
 ### 2. Install dependencies
