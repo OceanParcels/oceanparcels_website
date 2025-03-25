@@ -52,8 +52,8 @@ export const HeroBanner = () => {
           </Stack>
           <Stack flex={1} spacing={{ base: 10, md: 20 }}>
             <Image
-              src={'/xarray-datastructure.png'}
-              alt='xarray data structure'
+              src={'/homepage-animation.gif'}
+              alt='Animation of virtual particles in the global oceans'
               objectFit='contain'
             ></Image>
 

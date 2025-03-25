@@ -22,10 +22,8 @@ export const Features = () => {
           Key Features & Capabilities
         </Heading>
         <Text fontSize={'lg'}>
-          Xarray provides data models for working with labeled arrays and
-          datasets. Its toolkit includes a broad set of domain-agnostic
-          functions for advanced analytics and visualization with these data
-          structures.
+          Parcels provides a model for advecting particles with (if desired)
+          highly custom behaviour on flow datasets.
         </Text>
 
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8} my={8}>
