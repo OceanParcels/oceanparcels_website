@@ -10,11 +10,8 @@ import {
   VStack,
 } from '@chakra-ui/react'
 
-import { getRootURL } from '@/lib/seo-utils'
-
 import { Image, Link } from '@/components/mdx'
 import { footerItems } from '@/data/footer-items'
-import { FaGithub, FaRss, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -73,35 +70,6 @@ export const Footer = () => {
               © {new Date().getFullYear()}, Xarray core developers. Apache 2.0
               Licensed.
             </Text>
-
-            <Stack direction={'row'} spacing={2}>
-              <SocialButton
-                label={'Twitter'}
-                href={'https://twitter.com/xarray_dev'}
-              >
-                <FaTwitter size={70} />
-              </SocialButton>
-              <SocialButton
-                label={'GitHub'}
-                href={'https://github.com/pydata/xarray'}
-              >
-                <FaGithub size={70} />
-              </SocialButton>
-              <SocialButton
-                label={'YouTube'}
-                href={
-                  'https://www.youtube.com/channel/UCBlxVSA6xQXeb-i4GgTlO7g'
-                }
-              >
-                <FaYoutube size={70} />
-              </SocialButton>
-              <SocialButton
-                label={'Blog RSS Feed'}
-                href={`${getRootURL()}/atom.xml`}
-              >
-                <FaRss size={70} />
-              </SocialButton>
-            </Stack>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Parcels</ListHeader>
