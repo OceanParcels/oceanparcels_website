@@ -1,10 +1,6 @@
 import {
-  Donate,
-  Ecosystem,
   Features,
   HeroBanner,
-  Repl,
-  Sponsors,
 } from '@/components'
 
 import { Layout } from '@/components/layout'
@@ -21,10 +17,6 @@ export default function IndexPage() {
     >
       <HeroBanner />
       <Features />
-      <Repl />
-      <Ecosystem />
-      <Sponsors />
-      <Donate />
     </Layout>
   )
 }

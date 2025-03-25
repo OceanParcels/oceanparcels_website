@@ -13,11 +13,11 @@ export const Layout = ({
   url = 'https://oceanparcels.org',
   enableBanner = false,
 }) => {
-  const bannerTitle = 'Check out the new blog post on DataTree!'
+  const bannerTitle = 'Parcels v4 currently in development'
   const bannerDescription = ''
   const bannerChildren = (
-    <Link href='/blog/datatree'>
-      Xarray x NASA: xarray.DataTree for hierarchical data structures
+    <Link href='https://docs.oceanparcels.org/en/v4-dev/v4/'>
+      See our documentation for more details
     </Link>
   )
 
