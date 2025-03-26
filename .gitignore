@@ -39,3 +39,7 @@ yarn-error.log*
 
 .yarn
 .vscode/
+
+public/atom.xml
+public/rss.json
+public/rss.xml
