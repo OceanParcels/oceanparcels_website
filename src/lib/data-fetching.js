@@ -1,5 +1,3 @@
-import useSWR from "swr"
-
 export const fetcher = async (url) => {
   const response = await fetch(url)
   // If the status code is not in the range 200-299,
@@ -13,18 +11,4 @@ export const fetcher = async (url) => {
   }
 
   return response.json()
-}
-
-
-export const useGHUSER = (url) => {
-  const { data, error } = useSWR(
-    url ? `/api/github?url=${url}` : null,
-    fetcher,
-    { dedupingInterval: 120000 },
-  )
-  return {
-    data: data,
-    error: error,
-    isLoading: !data && !error,
-  }
 }

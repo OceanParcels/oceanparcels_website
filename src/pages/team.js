@@ -21,12 +21,24 @@ const Team = () => {
 
           <Box py={4}>
             <Heading as='h2' size='xl' textAlign={'center'} my={16}>
-              Current core maintainers 🤝
+              Utrecht Team
             </Heading>
             <Text>
-              Xarray core maintainers are responsible for the ongoing
-              organizational maintenance and technical direction of the Xarray
-              project. The current core team comprises:
+              The Lagrangian Ocean Analysis team within the{' '}
+              <Link
+                href={
+                  'https://www.uu.nl/en/research/institute-for-marine-and-atmospheric-research-imau'
+                }
+              >
+                Institute for Marine and Atmospheric research
+              </Link>{' '}
+              at <Link href={'https://www.uu.nl/en'}>Utrecht University</Link>'s
+              Department of Physics, uses the Parcels framework to create and
+              analyse simulations of the transport of material (plastics,
+              plankton, fish) by ocean currents and its impact on climate and
+              marine ecosystems. Within the group, we adhere to Open Science
+              principles and aim to create a collaborative and inclusive
+              atmosphere.
             </Text>
           </Box>
 

@@ -1,80 +1,56 @@
 import { Image } from '@/components/mdx'
 import { SocialLink } from '@/components/social-link'
 import { useGHUSER } from '@/lib/data-fetching'
-import { Box, Circle, Flex, Skeleton, Stack, Text } from '@chakra-ui/react'
-import { BsBuilding } from 'react-icons/bs'
+import { Box, Circle, Flex, Button, Stack, Text } from '@chakra-ui/react'
 import { IoIosGlobe, IoLogoGithub, IoLogoTwitter } from 'react-icons/io'
+import { FaResearchgate } from 'react-icons/fa'
+import { FaGoogleScholar } from 'react-icons/fa6'
+const SocialLogos = {
+  github: IoLogoGithub,
+  twitter: IoLogoTwitter,
+  researchgate: FaResearchgate,
+  googlescholar: FaGoogleScholar,
+  website: IoIosGlobe,
+}
 
 export const TeamMember = ({ member }) => {
-  const { data, error, isLoading } = useGHUSER(
-    `https://api.github.com/users/${member.github}`,
-  )
-  if (error)
-    return (
-      <Box>
-        {error.status} - {error.message} - {JSON.stringify(error.info)}
-      </Box>
-    )
-
   return (
     <Stack direction='row' spacing={6} align='flex-start'>
       <Circle overflow='hidden'>
         <Flex w={32} h={32} align={'center'} justify={'center'}>
           {' '}
-          <Image
-            src={`https://github.com/${member.github}.png`}
-            alt={member.name}
-          />
+          <Image src={member.image} alt={member.name} />
         </Flex>
       </Circle>
 
       <Stack spacing={4}>
         <Text fontWeight={'bold'}>{member.name}</Text>
-        <Skeleton isLoaded={!isLoading}>
+        {member.links && (
           <Stack direction={'row'} align='center' spacing={2}>
-            <SocialLink
-              href={`https://github.com/${member.github}`}
-              icon={IoLogoGithub}
-              label={`View ${member.name}'s Github`}
-            />
+            {Object.entries(member.links).map(([key, href]) => {
+              // Check if the link key exists in SocialLogos
+              const LogoComponent = SocialLogos[key]
 
-            {data?.blog && (
-              <SocialLink
-                href={
-                  data.blog.startsWith('http')
-                    ? data.blog
-                    : `https://${data.blog}`
-                }
-                icon={IoIosGlobe}
-                label={`View ${member.name}'s website`}
-              />
-            )}
-
-            {data?.twitter_username && (
-              <SocialLink
-                href={`https://twitter.com/${data.twitter_username}`}
-                icon={IoLogoTwitter}
-                label={`View ${member.name}'s Twitter`}
-              />
-            )}
+              return LogoComponent ? (
+                <SocialLink
+                  key={key}
+                  href={href}
+                  icon={LogoComponent}
+                  label={`View ${member.name}'s ${key}`}
+                />
+              ) : (
+                <Button
+                  key={key}
+                  rounded='full'
+                  variant='outline'
+                  onClick={() => window.open(href, '_blank')}
+                >
+                  {key}
+                </Button>
+              )
+            })}
           </Stack>
-        </Skeleton>
-        <Skeleton isLoaded={!isLoading}>
-          {data?.bio && (
-            <Text fontSize='sm' color='fg-muted' noOfLines={2}>
-              {data.bio}
-            </Text>
-          )}
-
-          {data?.company && (
-            <Stack direction={'row'} align='center' spacing={2} my={2}>
-              <BsBuilding />
-              <Text fontSize='sm' color='fg-muted'>
-                {data.company}
-              </Text>
-            </Stack>
-          )}
-        </Skeleton>
+        )}
       </Stack>
     </Stack>
   )
