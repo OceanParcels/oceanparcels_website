@@ -8,7 +8,7 @@ export const footerItems = {
     },
     {
       label: 'How to cite Parcels',
-      href: 'https://docs.xarray.dev/en/stable/getting-started-guide/faq.html#how-should-i-cite-xarray', // TODO: Update
+      href: '/papers-citing-parcels#how-to-cite-parcels',
     },
     {
       label: 'Brand Assets',
