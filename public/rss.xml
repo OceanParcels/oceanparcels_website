@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
     <channel>
-        <title>Xarray Blog Feed</title>
-        <link>https://xarray.dev/blog</link>
-        <description>The latest news, insights, and practices about Xarray from the Xarray team</description>
-        <lastBuildDate>Tue, 25 Mar 2025 14:19:13 GMT</lastBuildDate>
+        <title>OceanParcels Blog Feed</title>
+        <link>https://docs.oceanparcels.org/blog</link>
+        <description>The latest announcements from the OceanParcels team</description>
+        <lastBuildDate>Wed, 26 Mar 2025 15:24:57 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <image>
-            <title>Xarray Blog Feed</title>
-            <url>https://xarray.dev/Xarray-assets/Icon/Xarray_Icon_Final.png</url>
-            <link>https://xarray.dev/blog</link>
+            <title>OceanParcels Blog Feed</title>
+            <url>https://docs.oceanparcels.org/parcels-assets/logo-no-text.png</url>
+            <link>https://docs.oceanparcels.org/blog</link>
         </image>
-        <copyright>© 2025, Xarray core developers. Apache 2.0 Licensed</copyright>
+        <copyright>© 2025, Parcels core developers. Apache 2.0 Licensed</copyright>
         <item>
             <title><![CDATA[Parcels 10 Year Anniversary]]></title>
-            <link>https://xarray.dev/blog/celebrating-10-years</link>
+            <link>https://docs.oceanparcels.org/blog/celebrating-10-years</link>
             <guid>celebrating-10-years</guid>
             <pubDate>Wed, 28 Jun 2023 00:00:00 GMT</pubDate>
         </item>
