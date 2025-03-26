@@ -9,14 +9,14 @@ const Team = () => {
     <Layout
       title={'Utrecht Team'}
       card={
-        'https://raw.githubusercontent.com/xarray-contrib/xarray.dev/main/public/Xarray-assets/Icon/Xarray_Icon_Final.png'
+        'https://raw.githubusercontent.com/OceanParcels/oceanparcels_website/main/public/parcels-assets/logo-no-text.png'
       }
       url={`/team`}
     >
       <Box as='section' py={20}>
         <Container maxW='container.lg'>
           <Heading as='h1' size='2xl' textAlign={'center'}>
-            Team
+            Utrecht Team
           </Heading>
 
           <Box py={4}>
@@ -52,30 +52,6 @@ const Team = () => {
               <TeamMember key={member.name} member={member} />
             ))}
           </SimpleGrid>
-          <Heading as='h2' size='xl' textAlign={'center'} my={16}>
-            Our valuable contributors 💖
-          </Heading>
-          <Text>
-            Xarray is made with love by more than{' '}
-            <Link
-              href={'https://github.com/pydata/xarray/graphs/contributors'}
-              useExternalIcon
-            >
-              370 volunteer contributors
-            </Link>
-            . We appreciate all contributions from community to make Xarray
-            thrive.
-          </Text>
-          <Box
-            as={Link}
-            href={'https://github.com/pydata/xarray/graphs/contributors'}
-          >
-            <Image
-              my={8}
-              src={'https://contrib.rocks/image?repo=pydata/xarray'}
-              alt={'Xarray Contributors'}
-            />
-          </Box>
         </Container>
       </Box>
     </Layout>
