@@ -4,17 +4,20 @@ export const TeamMembers = [
     position: 'PhD candidate',
     description:
       'Vesna investigates how pollutants spread around coral reefs on Curacao.',
+    image: 'utrecht-team/VesnaBertoncelj',
   },
   {
     name: 'Meike Bos',
     position: 'Postdoctoral researcher',
     description:
       'Meike develops parameterisations for the dynamics of macroplastic items in oceanic flows.',
+    image: 'utrecht-team/MeikeBos',
   },
   {
     name: 'Emma Daniëls',
     position: 'Postdoctoral researcher',
     description: 'Emma develops a virtual ship learning experience.',
+    image: 'utrecht-team/EmmaDaniels',
   },
   {
     name: 'Michael Denes',
@@ -27,6 +30,7 @@ export const TeamMembers = [
       'google-scholar':
         'https://scholar.google.com/citations?user=KIx5ROoAAAAJ',
     },
+    image: 'utrecht-team/MichaelDenes',
   },
   {
     name: 'Nick Hodgskin',
@@ -35,6 +39,7 @@ export const TeamMembers = [
     links: {
       github: 'https://github.com/veckothegecko/',
     },
+    image: 'utrecht-team/NickHodgskin',
   },
   {
     name: 'Laura Gomez Navarro',
@@ -48,24 +53,28 @@ export const TeamMembers = [
       'google-scholar':
         'https://scholar.google.es/citations?user=ML8EsI4AAAAJ&hl=ca',
     },
+    image: 'utrecht-team/LauraGomezNavarro',
   },
   {
     name: 'Jimena Medina Rubio',
     position: 'PhD candidate',
     description:
       'Jimena investigates how ocean currents transport plastic in the North Sea.',
+    image: 'utrecht-team/JimenaMedinaRubio',
   },
   {
     name: 'Isabelle Pelster José',
     position: 'BSc student',
     description:
       'Isabelle analyses how drifters track Sargassum in the Tropical Atlantic Ocean.',
+    image: 'utrecht-team/IsabellePelsterJose.jpeg',
   },
   {
     name: 'Marc Schneiter',
     position: 'PhD candidate',
     description:
       'Marc develops new drifter tracking technology to investigate beaching of large plastic items.',
+    image: 'utrecht-team/MarcSchneiter',
   },
   {
     name: 'Erik van Sebille',
@@ -78,5 +87,6 @@ export const TeamMembers = [
         'https://scholar.google.com.au/citations?user=2Pb1HdUAAAAJ&hl=en',
       'UU profile': 'https://www.uu.nl/staff/EvanSebille',
     },
+    image: 'utrecht-team/ErikvanSebille',
   },
 ]
