@@ -26,9 +26,8 @@ export const TeamMembers = [
       'Michael investigates how marine pollution can be computed in the Copernicus Marine Service.',
     links: {
       github: 'https://github.com/michaeldenes',
-      'research-gate': 'https://www.researchgate.net/profile/Michael-Denes',
-      'google-scholar':
-        'https://scholar.google.com/citations?user=KIx5ROoAAAAJ',
+      researchgate: 'https://www.researchgate.net/profile/Michael-Denes',
+      googlescholar: 'https://scholar.google.com/citations?user=KIx5ROoAAAAJ',
     },
     image: 'utrecht-team/MichaelDenes',
   },
@@ -48,9 +47,8 @@ export const TeamMembers = [
       'Laura investigates how oceanic fine-scales affect the transport of marine plastic.',
     links: {
       github: 'https://github.com/LauraGomezNavarro',
-      'research-gate':
-        'https://www.researchgate.net/profile/Laura-Gomez-Navarro',
-      'google-scholar':
+      researchgate: 'https://www.researchgate.net/profile/Laura-Gomez-Navarro',
+      googlescholar:
         'https://scholar.google.es/citations?user=ML8EsI4AAAAJ&hl=ca',
     },
     image: 'utrecht-team/LauraGomezNavarro',
@@ -83,7 +81,7 @@ export const TeamMembers = [
       "Erik investigates how ocean currents move 'stuff' around, and leads the OceanParcels project.",
     links: {
       github: 'https://github.com/erikvansebille',
-      'google-scholar':
+      googlescholar:
         'https://scholar.google.com.au/citations?user=2Pb1HdUAAAAJ&hl=en',
       'UU profile': 'https://www.uu.nl/staff/EvanSebille',
     },
