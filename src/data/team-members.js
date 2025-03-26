@@ -4,20 +4,20 @@ export const TeamMembers = [
     position: 'PhD candidate',
     description:
       'Vesna investigates how pollutants spread around coral reefs on Curacao.',
-    image: 'utrecht-team/VesnaBertoncelj',
+    image: 'utrecht-team/VesnaBertoncelj.png',
   },
   {
     name: 'Meike Bos',
     position: 'Postdoctoral researcher',
     description:
       'Meike develops parameterisations for the dynamics of macroplastic items in oceanic flows.',
-    image: 'utrecht-team/MeikeBos',
+    image: 'utrecht-team/MeikeBos.jpg',
   },
   {
     name: 'Emma Daniëls',
     position: 'Postdoctoral researcher',
     description: 'Emma develops a virtual ship learning experience.',
-    image: 'utrecht-team/EmmaDaniels',
+    image: 'utrecht-team/EmmaDaniels.jpg',
   },
   {
     name: 'Michael Denes',
@@ -29,7 +29,7 @@ export const TeamMembers = [
       researchgate: 'https://www.researchgate.net/profile/Michael-Denes',
       googlescholar: 'https://scholar.google.com/citations?user=KIx5ROoAAAAJ',
     },
-    image: 'utrecht-team/MichaelDenes',
+    image: 'utrecht-team/MichaelDenes.jpg',
   },
   {
     name: 'Nick Hodgskin',
@@ -38,7 +38,7 @@ export const TeamMembers = [
     links: {
       github: 'https://github.com/veckothegecko/',
     },
-    image: 'utrecht-team/NickHodgskin',
+    image: 'utrecht-team/NickHodgskin.jpg',
   },
   {
     name: 'Laura Gomez Navarro',
@@ -51,14 +51,14 @@ export const TeamMembers = [
       googlescholar:
         'https://scholar.google.es/citations?user=ML8EsI4AAAAJ&hl=ca',
     },
-    image: 'utrecht-team/LauraGomezNavarro',
+    image: 'utrecht-team/LauraGomezNavarro.jpg',
   },
   {
     name: 'Jimena Medina Rubio',
     position: 'PhD candidate',
     description:
       'Jimena investigates how ocean currents transport plastic in the North Sea.',
-    image: 'utrecht-team/JimenaMedinaRubio',
+    image: 'utrecht-team/JimenaMedinaRubio.jpeg',
   },
   {
     name: 'Isabelle Pelster José',
@@ -72,7 +72,7 @@ export const TeamMembers = [
     position: 'PhD candidate',
     description:
       'Marc develops new drifter tracking technology to investigate beaching of large plastic items.',
-    image: 'utrecht-team/MarcSchneiter',
+    image: 'utrecht-team/MarcSchneiter.png',
   },
   {
     name: 'Erik van Sebille',
@@ -85,6 +85,6 @@ export const TeamMembers = [
         'https://scholar.google.com.au/citations?user=2Pb1HdUAAAAJ&hl=en',
       'UU profile': 'https://www.uu.nl/staff/EvanSebille',
     },
-    image: 'utrecht-team/ErikvanSebille',
+    image: 'utrecht-team/ErikvanSebille.jpg',
   },
 ]
