@@ -75,8 +75,8 @@ export const Header = () => {
               spacing={{ base: 2, sm: 4 }}
             >
               <Image
-                w={32}
-                src={'/parcels-assets/parcelslogo.png'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
+                w={48}
+                src={'/parcels-assets/logo-horo.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
                 alt={'parcels logo'}
               />
             </Stack>
