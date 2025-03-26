@@ -122,7 +122,7 @@ const PapersCitingParcels = () => {
               {/* TODO: Copy edit this text */}
             </Text>
           </Box>
-          <Accordion allowMultiple allowToggle>
+          <Accordion allowMultiple>
             {papersCitingParcels.reverse().map((paper, index, array) => (
               <Paper
                 key={paper.title}

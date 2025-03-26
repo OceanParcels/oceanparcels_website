@@ -9,7 +9,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 
-export const Paper = ({ title, authors, link, description, number }) => {
+export const Paper = ({ title, authors, link, abstract, number }) => {
   return (
     <AccordionItem
       my={4}
@@ -33,7 +33,7 @@ export const Paper = ({ title, authors, link, description, number }) => {
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
-        <Text>{description}</Text>
+        <Text>{abstract}</Text>
         <Link href={link} color='blue.500' isExternal>
           View paper
         </Link>
