@@ -47,7 +47,7 @@ export const Layout = ({
           rel='icon'
           type='image/png'
           sizes='96x96'
-          href='/Xarray-assets/Icon/Xarray_Icon_final.svg'
+          href='/parcels-assets/logo-no-text.svg'
         />
         <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
         <link rel='icon' type='image/png' href='/favicon.png' />

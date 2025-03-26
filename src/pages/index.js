@@ -6,9 +6,9 @@ export default function IndexPage() {
   return (
     <Layout
       url={`/`}
-      title={'Xarray: N-D labeled arrays and datasets in Python'}
+      title={'Parcels: A highly customisable Lagrangian simulation framework'}
       card={
-        'https://raw.githubusercontent.com/xarray-contrib/xarray.dev/main/public/Xarray-assets/Icon/Xarray_Icon_Final.png'
+        'https://raw.githubusercontent.com/OceanParcels/oceanparcels_website/main/public/parcels-assets/logo-no-text.png'
       }
       enableBanner
     >

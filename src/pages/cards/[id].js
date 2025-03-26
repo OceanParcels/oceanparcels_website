@@ -26,14 +26,14 @@ const Card = ({ frontmatter, id }) => {
         <Flex direction='column' h='100%' justify='center'>
           <Flex justifyContent='space-between' alignItems='flex-start' mb={6}>
             <Text fontSize='xl' color='gray.700' fontWeight='medium'>
-              xarray.dev / blog
+              Parcels / blog
             </Text>
             <Image
               w='150px'
               h='auto'
               objectFit='contain'
-              src='/Xarray-assets/RGB/Xarray_Logo_RGB_Final.svg'
-              alt='xarray logo'
+              src='/parcels-assets/logo-no-text.svg'
+              alt='Parcels logo'
             />
           </Flex>
 

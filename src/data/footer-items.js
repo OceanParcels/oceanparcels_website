@@ -12,8 +12,8 @@ export const footerItems = {
     },
     {
       label: 'Brand Assets',
-      href: 'https://github.com/xarray-contrib/xarray.dev/tree/main/public/Xarray-assets',
-    }, // TODO: Add brand assets
+      href: 'https://github.com/OceanParcels/oceanparcels_website/tree/main/public/parcels-assets',
+    },
   ],
 
   resources: [

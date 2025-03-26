@@ -71,10 +71,10 @@ const SinglePost = ({ page }) => {
 export default function Blog({ allPostsData }) {
   return (
     <Layout
-      title={'Blog | Xarray'}
+      title={'Blog | Parcels'}
       url={`/blog`}
       card={
-        'https://raw.githubusercontent.com/xarray-contrib/xarray.dev/main/public/Xarray-assets/Icon/Xarray_Icon_Final.png'
+        'https://raw.githubusercontent.com/OceanParcels/oceanparcels_website/main/public/parcels-assets/logo-no-text.png'
       }
     >
       <Box as='section'>
@@ -87,8 +87,7 @@ export default function Blog({ allPostsData }) {
             fontSize={'lg'}
             textAlign={'center'}
           >
-            All the latest news, insights, and practices about Xarray from the
-            Xarray team.
+            Announcements, and news from the Parcels team.
           </Text>
 
           <Divider my={4} borderColor='gray.200' />

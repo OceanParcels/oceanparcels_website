@@ -15,7 +15,7 @@ const feed = new Feed({
     id: blogUrl,
     link: blogUrl,
     language: 'en',
-    image: `${siteUrl}/Xarray-assets/Icon/Xarray_Icon_Final.png`,
+    image: `${siteUrl}/parcels-assets/logo-no-text.png`,
     favicon: `${siteUrl}/favicon.ico`,
     copyright: `© ${new Date().getFullYear()}, Parcels core developers. Apache 2.0 Licensed`,
     feedLinks: {
