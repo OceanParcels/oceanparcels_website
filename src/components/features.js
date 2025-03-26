@@ -19,7 +19,7 @@ export const Features = () => {
     <Box id={'features'} as='section'>
       <Container maxW='container.lg' centerContent>
         <Heading as='h1' size='2xl'>
-          Key Features & Capabilities
+          Features
         </Heading>
         <Text fontSize={'lg'}>
           Parcels provides a model for advecting particles with (if desired)
