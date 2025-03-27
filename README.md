@@ -12,7 +12,7 @@ This project is built using the following tools/technologies:
 ## Requirements
 
 1. [Node.js](https://nodejs.org/)
-2. [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
+2. [npm](https://www.npmjs.com/)
 
 ## Installation for local development
 
