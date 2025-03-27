@@ -3,12 +3,12 @@ import numpy as np
 import math
 
 
-def moving_eddies_fieldset(xdim=200, ydim=350, mesh="flat"):
+def moving_eddies_fieldset(xdim=200, ydim=350, mesh='flat'):
     # Set Parcels FieldSet variables
     time = np.arange(0.0, 8.0 * 86400.0, 86400.0, dtype=np.float64)
 
     # Coordinates of the test fieldset (on A-grid in m)
-    if mesh is "spherical":
+    if mesh is 'spherical':
         lon = np.linspace(0, 4, xdim, dtype=np.float32)
         lat = np.linspace(45, 52, ydim, dtype=np.float32)
     else:
@@ -21,10 +21,10 @@ def moving_eddies_fieldset(xdim=200, ydim=350, mesh="flat"):
 
     dx = (
         (lon[1] - lon[0]) * 1852 * 60 * cosd(lat.mean())
-        if mesh is "spherical"
+        if mesh is 'spherical'
         else lon[1] - lon[0]
     )
-    dy = (lat[1] - lat[0]) * 1852 * 60 if mesh is "spherical" else lat[1] - lat[0]
+    dy = (lat[1] - lat[0]) * 1852 * 60 if mesh is 'spherical' else lat[1] - lat[0]
 
     # Define arrays U (zonal), V (meridional), and P (sea surface height) on A-grid
     U = np.zeros((lon.size, lat.size, time.size), dtype=np.float32)
@@ -62,12 +62,12 @@ def moving_eddies_fieldset(xdim=200, ydim=350, mesh="flat"):
         U[:, :-1, t] = np.diff(P[:, :, t], axis=1) / dy / corio_0 * g
         U[:, -1, t] = U[:, -2, t]  # Fill in the last row
 
-    data = {"U": U, "V": V, "P": P}
-    dimensions = {"lon": lon, "lat": lat, "time": time}
+    data = {'U': U, 'V': V, 'P': P}
+    dimensions = {'lon': lon, 'lat': lat, 'time': time}
     return FieldSet.from_data(data, dimensions, transpose=True, mesh=mesh)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     fieldset = moving_eddies_fieldset()
-    filename = "moving_eddies"
+    filename = 'moving_eddies'
     fieldset.write(filename)
