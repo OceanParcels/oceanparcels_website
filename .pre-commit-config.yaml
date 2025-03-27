@@ -1,9 +1,0 @@
-repos:
-  - repo: https://github.com/psf/black
-    rev: "25.1.0"
-    hooks:
-      - id: black
-  - repo: https://github.com/rbubley/mirrors-prettier # Update mirror as official mirror is deprecated
-    rev: v3.5.3
-    hooks:
-      - id: prettier
