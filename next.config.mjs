@@ -12,10 +12,15 @@ const withMDX = nextMDX({
   },
 })
 
-export default withMDX({
+const nextConfig = {
   // Append the default value with md extensions
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   images: {
-    domains: ["raw.githubusercontent.com", "numpy.org", "dask.org", "chainer.org", ],
+    domains: ["raw.githubusercontent.com", "numpy.org", "dask.org", "chainer.org"],
   },
-})
+  output: 'export',
+  basePath: process.env.NODE_ENV === 'production' ? '/oceanparcels_website' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/oceanparcels_website/' : '',
+}
+
+export default withMDX(nextConfig)
