@@ -1,4 +1,4 @@
 {
-  "ignoredFiles": ["public/Xarray-assets/*", "public/cards/*"],
+  "ignoredFiles": ["public/parcels-assets/*", "public/cards/*"],
   "schedule": "monthly"
 }
