@@ -20,9 +20,6 @@ const Team = () => {
           </Heading>
 
           <Box py={4}>
-            <Heading as='h2' size='xl' textAlign={'center'} my={16}>
-              Utrecht Team
-            </Heading>
             <Text>
               The Lagrangian Ocean Analysis team within the{' '}
               <Link
