@@ -120,15 +120,9 @@ const PapersCitingParcels = () => {
           <Box id='papers-citing-parcels' />
 
           <Heading as='h1' size='2xl' textAlign={'center'} mt={32}>
-            Papers Citing Parcels
+            Peer-reviewed papers using Parcels
           </Heading>
 
-          <Box py={4}>
-            <Text>
-              Peer-reviewed articles using Parcels.
-              {/* TODO: Copy edit this text */}
-            </Text>
-          </Box>
           <Accordion allowMultiple>
             {papersCitingParcels.reverse().map((paper, index, array) => (
               <Paper
