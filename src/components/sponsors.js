@@ -151,7 +151,6 @@ export const Sponsors = () => {
             Parcels development has been supported by the following
             organisations:
           </Text>
-          <Image src={'funderlogos.png'} alt={'Collage of funder logos.'} />
 
           <SimpleGrid
             columns={{ base: 1, sm: 2, md: 2, lg: 4 }}
