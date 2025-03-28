@@ -1,6 +1,5 @@
 export const footerItems = {
   parcels: [
-    { label: 'Blog', href: '/blog' },
     {
       label: 'How to cite Parcels',
       href: '/papers-citing-parcels',
@@ -9,6 +8,7 @@ export const footerItems = {
       label: 'Papers citing Parcels',
       href: '/papers-citing-parcels#papers-citing-parcels',
     },
+    { label: 'Blog', href: '/blog' },
     {
       label: 'Brand Assets',
       href: 'https://github.com/OceanParcels/oceanparcels_website/tree/main/public/parcels-assets',
