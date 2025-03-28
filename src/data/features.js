@@ -1,35 +1,34 @@
 export const Features = [
-  // TODO: Update this data
   {
-    title: 'Feature 1',
-    text: 'Laboris incididunt proident pariatur eiusmod sunt aliquip.',
+    title: 'Use data from any rectilinear or curvilinear horizontal grid',
+    text: 'Parcels works on model outputs including NEMO, POP, MITgcm, and more.',
   },
   {
-    title: 'Feature 1',
-    text: 'Sit elit excepteur non dolor elit excepteur reprehenderit nisi.',
+    title: 'Combine data on different grids',
+    text: 'Create a single Parcels FieldSet from multiple different model outputs.',
   },
   {
-    title: 'Feature 1',
-    text: 'Quis ea reprehenderit tempor Lorem in ut labore amet adipisicing deserunt ad est.',
+    title: 'Define and execute custom kernels',
+    text: 'Encode custom advection, diffusion, and other particle operations.',
   },
   {
-    title: 'Feature 1',
-    text: 'Tempor velit velit dolore qui incididunt Lorem pariatur laborum magna qui magna in tempor.',
+    title: 'Advection of particles in 2D and 3D',
+    text: 'Using built-in kernels for Runge-Kutta4 and Runge-Kutta45.',
   },
   {
-    title: 'Feature 1',
-    text: 'Irure laboris nostrud irure quis irure ex id fugiat magna.',
+    title: 'Horizontal diffusion of particles',
+    text: 'Through built-in kernels using the Milstein and Euler-Maruyama schemes.',
   },
   {
-    title: 'Feature 1',
-    text: 'Laboris cupidatat in duis eiusmod nulla et deserunt anim labore amet.',
+    title: 'Start and remove Particles during execution',
+    text: 'For example, to simulate oil spills or fish spawning.',
   },
   {
-    title: 'Feature 1',
-    text: 'Reprehenderit pariatur eu magna commodo cupidatat consectetur est irure laborum amet sunt.',
+    title: 'Particle-particle interactions',
+    text: 'Simulate particle-particle interactions, such as aggregation and mortality.',
   },
   {
-    title: 'Feature 1',
-    text: 'Occaecat culpa nulla magna aliqua nostrud duis reprehenderit laborum duis quis laborum magna sunt in.',
+    title: 'Output particle data in zarr format',
+    text: 'For highly efficient output of particle data.',
   },
 ]
