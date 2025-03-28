@@ -7,7 +7,7 @@ authors:
 summary: 'In 2023 and 2024, we deployed drifters in the Dutch Wadden Sea to track the movement of plastic pollution. In this post, we give background and show how the can be tracked.'
 ---
 
-![A Stokes drifter on the beach](/projects/waddendrifter.jpg)
+![A Stokes drifter on the beach](/posts/waddendrifters/waddendrifter.jpg)
 
 # What are the drifters?
 
@@ -41,7 +41,7 @@ We deployed the second batch of 12 drifters from just north of [Moddergat](https
 
 The deployment was at low tide on the mudflats just north of Moddergat, as shown in the photo below (photo by Daan Reijnders).
 
-![The team deploying the drifters on the mudflats](/projects/moddergat_deployment.png)
+![The team deploying the drifters on the mudflats](/posts/waddendrifters/moddergat_deployment.png)
 
 # Project funding
 
@@ -51,4 +51,4 @@ Funding for this project comes from the [Pay-it-forward campaign](https://www.uu
 
 The article below (in Dutch), from [Noordhollands Dagblad](https://www.noordhollandsdagblad.nl/cnt/dmf20231122_38615721) on 22 November 2023, provides some background on the project. Or check out [this interview on NPO Radio1's Langs de Lijn en Omstreken](https://www.nporadio1.nl/fragmenten/langs-de-lijn-en-omstreken/9bc2030a-bd88-49bd-b0f1-be100753b63f/2024-04-08-wetenschapper-erik-van-sebille-voorspelt-waar-plastic-in-zee-drijft) (also in Dutch).
 
-![Newspaper article from Noordhollands Dagblad about the project](/projects/noordhollands_dagblad.png)
+![Newspaper article from Noordhollands Dagblad about the project](/posts/waddendrifters/noordhollands_dagblad.png)
