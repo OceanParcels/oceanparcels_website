@@ -16,7 +16,7 @@ export const Projects = () => {
 
         <Box my={8}>
           <Text fontSize={'lg'}>
-            This section lists some of the standalone packages, projects
+            This section lists some of the standalone packages and projects
             developed with Parcels.
           </Text>
 
