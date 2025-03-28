@@ -1,0 +1,4 @@
+{
+  "ignoredFiles": ["public/parcels-assets/*", "public/cards/*"],
+  "schedule": "monthly"
+}

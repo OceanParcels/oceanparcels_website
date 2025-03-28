@@ -37,23 +37,23 @@ jobs:
         if: env.lychee_exit_code != 0
         uses: actions-cool/issues-helper@v3
         with:
-          actions: "update-issue"
+          actions: 'update-issue'
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ env.LINK_TRACKING_ISSUE_NUMBER }}
-          state: "open"
+          state: 'open'
           body: ${{ steps.readReport.outputs.FILE_CONTENT }}
-          update-mode: "replace"
+          update-mode: 'replace'
 
       - name: Update link tracking issue (no invalid links)
         if: env.lychee_exit_code == 0
         uses: actions-cool/issues-helper@v3
         with:
-          actions: "update-issue"
+          actions: 'update-issue'
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ env.LINK_TRACKING_ISSUE_NUMBER }}
-          state: "closed"
-          body: "No invalid links found! 🤖"
-          update-mode: "replace"
+          state: 'closed'
+          body: 'No invalid links found! 🤖'
+          update-mode: 'replace'
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
