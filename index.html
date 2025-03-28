@@ -1,0 +1,1077 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta
+      content="Parcels is a set of Python classes and methods to create customisable particle tracking simulations using output from Ocean Circulation models"
+      name="description"
+    />
+    <meta
+      content="http://oceanparcels.org/images/parcelslogo_large.png"
+      property="og:image"
+    />
+    <meta
+      content="http://oceanparcels.org/images/parcelslogo_large.png"
+      property="twitter:image"
+    />
+    <meta content="The OceanParcels team" name="author" />
+    <title>Parcels - a Lagrangian Ocean Analysis toolbox</title>
+    <link href="images/favicon.ico" rel="icon" type="image/x-icon" />
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome icons -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link href="vendor/academicons/css/academicons.min.css" rel="stylesheet" />
+    <!-- syntax highlighting for Python and Bash -->
+    <link href="vendor/prism/prism.css" rel="stylesheet" />
+    <script src="vendor/prism/prism.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="text/javascript">
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga",
+      );
+      ga("set", "anonymizeIp", true);
+      ga("create", "UA-96368922-1", "auto");
+      ga("send", "pageview");
+    </script>
+    <script>
+      /**
+       * Function that records clicks on tutorial links
+       * The function takes the tutorial link as an argument and sends it to Google Analytics as an event
+       * These clicks can be seen under Behaviour -> Events
+       * The hit is sent when 'navigator.sendBeacon' is used in a compatible browser
+       */
+      var captureTutorialLink = function (url) {
+        ga("send", "event", "tutorial", "click", url, {
+          transport: "beacon",
+          hitCallback: function () {
+            document.location = url;
+          },
+        });
+      };
+
+      var captureGalleryLink = function (url) {
+        ga("send", "event", "tutorial", "click", url, {
+          transport: "beacon",
+          hitCallback: function () {
+            prefix =
+              "https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/";
+            extension = "ipynb";
+            document.location = prefix + url + "." + extension;
+          },
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav
+      class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="index.html"
+          ><img height="30px" src="images/parcelslogo_inverse.png" />  Ocean<b
+            >Parcels</b
+          ></a
+        >
+        <button
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler navbar-toggler-right"
+          data-target="#navbarResponsive"
+          data-toggle="collapse"
+          type="button"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#whatisparcels">What is Parcels?</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://docs.oceanparcels.org/en/latest/installation.html"
+                >Installation</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://docs.oceanparcels.org/en/latest/documentation.html"
+                >Tutorials</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#developmentstatus">Development</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://docs.oceanparcels.org/en/latest/reference.html"
+                >Documentation</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="articles.html">Articles</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header>
+      <div
+        class="carousel slide"
+        data-ride="carousel"
+        id="carouselExampleIndicators"
+      >
+        <!--<ol class="carousel-indicators">-->
+        <!--<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
+        <!--<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
+        <!--</ol>-->
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide One - Set the background image for this slide in the line below -->
+          <div
+            class="carousel-item active"
+            style="background-image: url(&quot;images/homepage.gif&quot;)"
+          >
+            <div class="carousel-caption d-none d-md-block">
+              <h4>Animation of virtual particles in the global oceans</h4>
+              <p>
+                Particles are advected with Parcels in data from the NEMO Ocean
+                Model
+                <a href="https://www.nemo-ocean.eu/"
+                  ><i
+                    class="fa fa-external-link fa-1x"
+                    style="color: white"
+                  ></i></a
+                ><br />
+                See
+                <a
+                  href="https://docs.oceanparcels.org/en/latest/examples/documentation_homepage_animation.html"
+                  style="color: white"
+                  >this tutorial
+                  <i class="fa fa-external-link fa-1x" style="color: white"></i
+                ></a>
+                for the code to animate this gif.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+        <!--<span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+        <!--<span class="sr-only">Previous</span>-->
+        <!--</a>-->
+        <!--<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+        <!--<span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+        <!--<span class="sr-only">Next</span>-->
+        <!--</a>-->
+      </div>
+    </header>
+    <!-- Page Content -->
+    <div class="container">
+      <hr />
+      <h2 id="whatisparcels">What is Ocean<b>Parcels</b>?</h2>
+      <div class="row">
+        <div class="col align-self-center">
+          <p class="card-text">
+            The Ocean<b>Parcels</b> project develops
+            <b>Parcels</b> (<b>P</b>robably <b>A</b> <b>R</b>eally
+            <b>C</b>omputationally <b>E</b>fficient <b>L</b>agrangian
+            <b>S</b>imulator), a set of Python classes and methods to create
+            customisable particle tracking simulations using output from Ocean
+            Circulation models. Parcels can be used to track passive and active
+            particulates such as water, plankton,
+            <a href="http://www.topios.org/">plastic</a> and
+            <a href="https://github.com/Jacketless/IKAMOANA">fish</a>.
+          </p>
+          <p>
+            The code from the Ocean<b>Parcels</b> project is licensed under an
+            open source
+            <a
+              href="https://github.com/OceanParcels/parcels/blob/main/LICENSE.md"
+              >MIT license</a
+            >
+            and can be downloaded from
+            <a href="https://github.com/OceanParcels/parcels"
+              >github.com/OceanParcels/parcels</a
+            >
+            or installed via
+            <a href="https://anaconda.org/conda-forge/parcels"
+              >anaconda.org/conda-forge/parcels</a
+            >:
+          </p>
+          <p>
+            <a
+              href="https://mybinder.org/v2/gh/OceanParcels/parcels/main?labpath=docs%2Fexamples%2Fparcels_tutorial.ipynb"
+              ><img src="https://mybinder.org/badge_logo.svg"
+            /></a>
+            <a href="https://github.com/oceanparcels/parcels/"
+              ><img
+                src="https://github.com/OceanParcels/parcels/actions/workflows/unit-tests.yml/badge.svg"
+            /></a>
+            <a href="https://codecov.io/gh/OceanParcels/parcels"
+              ><img
+                src="https://codecov.io/gh/OceanParcels/parcels/branch/main/graph/badge.svg"
+            /></a>
+            <a href="https://anaconda.org/conda-forge/parcels/"
+              ><img
+                src="https://anaconda.org/conda-forge/parcels/badges/version.svg"
+            /></a>
+            <a href="https://anaconda.org/conda-forge/parcels/"
+              ><img
+                src="https://anaconda.org/conda-forge/parcels/badges/latest_release_date.svg"
+            /></a>
+            <a href="https://doi.org/10.5281/zenodo.823561"
+              ><img
+                src="https://zenodo.org/badge/DOI/10.5281/zenodo.823561.svg"
+            /></a>
+            <a href="https://bestpractices.coreinfrastructure.org/projects/5353"
+              ><img
+                src="https://bestpractices.coreinfrastructure.org/projects/5353/badge"
+            /></a>
+          </p>
+          <p>
+            The manuscript detailing this first release of Parcels, version 0.9,
+            has been published in
+            <a
+              href="https://www.geosci-model-dev.net/10/4175/2017/gmd-10-4175-2017.html"
+              >Geoscientific Model Development</a
+            >
+            and can be cited as:
+          </p>
+          <p></p>
+          <div class="card">
+            <div class="card-header" role="tab">
+              <h5 class="mb-0">
+                Parcels v0.9: prototyping a Lagrangian Ocean Analysis framework
+                for the petascale age
+              </h5>
+              Lange, M and E van Sebille (2017),
+              <i>Geoscientific Model Development</i>, <i>10</i>, 4175-4186
+              <br />
+              <a
+                aria-expanded="true"
+                class="collapsed card-link"
+                data-toggle="collaps5"
+                href="#LangeVanSebille1"
+                >[ Expand abstract]</a
+              >
+              <a
+                class="card-link"
+                href="https://doi.org/10.5194/gmd-10-4175-2017"
+                ><i class="fa fa-external-link fa-1x"></i> [ Link to article -
+                <i class="ai ai-open-access ai-1x"></i> ]</a
+              >
+            </div>
+            <div class="collapse" id="LangeVanSebille1" role="tabpanel">
+              <div class="card-body">
+                As ocean general circulation models (OGCMs) move into the
+                petascale age, where the output of single simulations exceeds
+                petabytes of storage space, tools to analyse the output of these
+                models will need to scale up too. Lagrangian ocean analysis,
+                where virtual particles are tracked through hydrodynamic fields,
+                is an increasingly popular way to analyse OGCM output, by
+                mapping pathways and connectivity of biotic and abiotic
+                particulates. However, the current software stack of Lagrangian
+                ocean analysis codes is not dynamic enough to cope with the
+                increasing complexity, scale and need for customization of
+                use-cases. Furthermore, most community codes are developed for
+                stand-alone use, making it a nontrivial task to integrate
+                virtual particles at runtime of the OGCM. Here, we introduce the
+                new Parcels code, which was designed from the ground up to be
+                sufficiently scalable to cope with petascale computing. We
+                highlight its API design that combines flexibility and
+                customization with the ability to optimize for HPC workflows,
+                following the paradigm of domain-specific languages. Parcels is
+                primarily written in Python, utilizing the wide range of tools
+                available in the scientific Python ecosystem, while generating
+                low-level C code and using just-in-time compilation for
+                performance-critical computation. We show a worked-out example
+                of its API, and validate the accuracy of the code against seven
+                idealized test cases. This version 0.9 of Parcels is focused on
+                laying out the API, with future work concentrating on support
+                for curvilinear grids, optimization, efficiency and at-runtime
+                coupling with OGCMs.
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <p>
+            The manuscript detailing version 2.0 of Parcels is available at
+            <a href="https://doi.org/10.5194/gmd-2018-339"
+              >Geoscientific Model Development</a
+            >
+            and can be cited as:
+          </p>
+          <div class="card">
+            <div class="card-header" role="tab">
+              <h5 class="mb-0">
+                The Parcels v2.0 Lagrangian framework: new field interpolation
+                schemes
+              </h5>
+              Delandmeter, P and E van Sebille (2019),
+              <i>Geoscientific Model Development</i>, <i>12</i>, 3571–3584<br />
+              <a
+                aria-expanded="true"
+                class="collapsed card-link"
+                data-toggle="collapse"
+                href="#DelandmeterVanSebille1"
+                >[ Expand abstract]</a
+              >
+              <a
+                class="card-link"
+                href="https://www.geosci-model-dev.net/12/3571/2019/gmd-12-3571-2019.html"
+                ><i class="fa fa-external-link fa-1x"></i> [ Link to article -
+                <i class="ai ai-open-access ai-1x"></i> ]</a
+              >
+            </div>
+            <div class="collapse" id="DelandmeterVanSebille1" role="tabpanel">
+              <div class="card-body">
+                With the increasing amount of data produced by numerical ocean
+                models, so increases the need for efficient tools to analyse
+                these data. One of these tools is Lagrangian ocean analysis,
+                where a set of virtual particles are released and their dynamics
+                is integrated in time based on fields defining the ocean state,
+                including the hydrodynamics and biogeochemistry if available.
+                This popular methodology needs to adapt to the large variety of
+                models producing these fields at different formats. This is
+                precisely the aim of Parcels, a Lagrangian ocean analysis
+                framework designed to combine (1) a wide flexibility to model
+                particles of different natures and (2) an efficient
+                implementation in accordance with modern computing
+                infrastructure. In the new Parcels v2.0, we implement a set of
+                interpolation schemes to read various types of discretised
+                fields, from rectilinear to curvilinear grids in the horizontal
+                direction, from z- to s- levels in the vertical and different
+                variable distributions such as the Arakawa's A-, B- and C-
+                grids. In particular, we develop a new interpolation scheme for
+                a three-dimensional curvilinear C-grid and analyse its
+                properties. Parcels v2.0 capabilities, including a suite of
+                meta-field objects, are then illustrated in a brief study of the
+                distribution of floating microplastic in the North West European
+                continental shelf and its sensitivity to different physical
+                processes.
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <p>
+            The manuscript detailing the performance of Parcels is available at
+            <a href="https://doi.org/10.1016/j.cageo.2023.105322"
+              >Computers and Geosciences</a
+            >
+            and can be cited as:
+          </p>
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-header" role="tab">
+                  <h5 class="mb-0">
+                    Efficiently simulating Lagrangian particles in large-scale
+                    ocean flows — Data structures and their impact on
+                    geophysical applications
+                  </h5>
+                  Kehl, C, PD Nooteboom, MLA Kaandorp, E van Sebille (2023),
+                  <i>Computers and Geosciences</i>, <i>175</i>, 105322.<br />
+                  <a
+                    aria-expanded="true"
+                    class="collapsed card-link"
+                    data-toggle="collapse"
+                    href="#Kehl2023_top"
+                    >[ Expand abstract ]</a
+                  >
+                  <a
+                    class="card-link"
+                    href="https://doi.org/10.1016/j.cageo.2023.105322"
+                    ><i class="fa fa-external-link fa-1x"></i> [ Link to article
+                    - <i class="ai ai-open-access ai-1x"></i>]</a
+                  >
+                </div>
+                <div class="collapse" id="Kehl2023_top" role="tabpanel">
+                  <div class="card-body">
+                    Studying oceanography by using Lagrangian simulations has
+                    been adopted for a range of scenarios, such as the
+                    determining the fate of microplastics in the ocean,
+                    simulating the origin locations of microplankton used for
+                    palaeoceanographic reconstructions, for studying the impact
+                    of fish aggregation devices on the migration behaviour of
+                    tuna. These simulations are complex and represent a
+                    considerable runtime effort to obtain trajectory results,
+                    which is the prime motivation for enhancing the performance
+                    of Lagrangian particle simulators. This paper assesses
+                    established performance enhancing techniques from Eulerian
+                    simulators in light of computational conditions and demands
+                    of Lagrangian simulators. A performance enhancement strategy
+                    specifically targeting physics-based Lagrangian particle
+                    simulations is outlined to address the performance gaps, and
+                    techniques for closing the performance gap are presented and
+                    implemented. Realistic experiments are derived from three
+                    specific oceanographic application scenarios, and the
+                    suggested performance-enhancing techniques are benchmarked
+                    in detail, so to allow for a good attribution of speed-up
+                    measurements to individual techniques. The impacts and
+                    insights of the performance enhancement strategy are further
+                    discussed for Lagrangian simulations in other geoscience
+                    applications. The experiments show that I/O-enhancing
+                    techniques, such as dynamic loading and buffering, lead to
+                    considerable speed-up on-par with an idealised
+                    parallelisation of the process over 20 nodes. Conversely,
+                    while the cache-efficient structure-of-arrays collection
+                    yields a visible speed-up, other alternative data structures
+                    fail in fulfilling the theoretically-expected performance
+                    increase. This insight demonstrates the importance of good
+                    data alignment in memory and caches for Lagrangian physics
+                    simulations.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h2 id="installing">Installing Parcels</h2>
+
+      See
+      <a href="https://docs.oceanparcels.org/en/latest/installation.html"
+        >the Installation page</a
+      >
+      for a step-by-step guide on how to install Parcels through Miniconda.
+
+      <hr />
+      <h2 id="tutorials">Parcels tutorials</h2>
+
+      See
+      <a href="https://docs.oceanparcels.org/en/latest/documentation.html"
+        >the Documentation and Tutorials page</a
+      >
+      for links to a set of tutorials and examples that will help you get
+      started with Parcels.
+
+      <hr />
+      <h2 id="developmentstatus">Parcels development status</h2>
+      The current release of Parcels, version 3.1, is a fully-functional,
+      feature-complete code for offline Lagrangian ocean analysis. See below for
+      a list of features, or keep an eye on the
+      <a href="https://github.com/OceanParcels/parcels/projects/1"
+        >Github Development Timeline page</a
+      >
+      <p></p>
+      <h4>Major features</h4>
+      <div class="card-columns">
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Advection of particles in 2D and 3D</h5>
+            <small class="text-muted"
+              >Using built-in kernels for
+              <code class="language-python">Runge-Kutta4</code>,
+              <code class="language-python">Runge-Kutta45</code> and
+              <code class="language-python">Euler Forward</code></small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Horizontal diffusion of particles</h5>
+            <small class="text-muted"
+              >Through built-in advection-diffusion kernels using the
+              <code class="language-python">Milstein</code> and
+              <code class="language-python">Euler-Maruyama</code> schemes. See
+              the
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_diffusion.html"
+                >diffusion tutorial</a
+              >.</small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Define and execute custom kernels</h5>
+            <small class="text-muted"
+              >See the
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/parcels_tutorial.html#Adding-a-custom-behaviour-kernel"
+                >Adding-a-custom-behaviour-kernel</a
+              >
+              part of the Parcels tutorial</small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Add custom Variables to Particles</h5>
+            <small class="text-muted"
+              >See the
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/parcels_tutorial.html#Sampling-a-Field-with-Particles"
+                >sampling a Field with Particles</a
+              >
+              part of the Parcels tutorial</small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Combine Fields on different grids for advection</h5>
+            <small class="text-muted"
+              >See the
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_NestedFields.html"
+                >NestedFields</a
+              >
+              tutorial</small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Start and remove Particles during execution.</h5>
+            <small class="text-muted">
+              See the
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_delaystart.html"
+                >delayed start tutorial</a
+              ></small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>
+              Read in hydrodynamic data from any rectilinear or curvilinear
+              horizontal grid
+            </h5>
+            <small class="text-muted"
+              >see the
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/parcels_tutorial.html#Reading-in-data-from-arbritrary-NetCDF-files"
+                >reading in data from arbitrary NetCDF files</a
+              >
+              part of the Parcels tutorial</small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>
+              Output particle data in <a href="https://zarr.dev">zarr</a> format
+            </h5>
+            <small class="text-muted"></small>
+          </div>
+        </div>
+      </div>
+      <p></p>
+      <h4>Experimental features</h4>
+      <div class="card-columns">
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Parallel execution</h5>
+            <small class="text-muted"
+              >Implementing advanced load balancing techniques. See
+              <a href="#parallel_install">here for installation instructions</a>
+              and
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/documentation_MPI.html"
+                >here for further documentation</a
+              ></small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Compute particles in any vertical coordinate model</h5>
+            <small class="text-muted"
+              >z-level, sigma-level (terrain-following; e.g. CROCO, see
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_croco_3D.html"
+                >here </a
+              >for further documentation), or rho-level (density-following). The
+              latter either in time-fixed or
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_timevaryingdepthdimensions.html"
+                >time-varying coordinates</a
+              ></small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Particle-Particle interaction</h5>
+            <small class="text-muted"
+              >Support for rudimentary particle-particle interaction, see
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_interaction.html"
+                >this tutorial</a
+              >
+            </small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Particle-Field interaction</h5>
+            <small class="text-muted"
+              >Support for particles that change a Field (in
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_jit_vs_scipy.html"
+                >Scipy-mode</a
+              >
+              only), see
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_particle_field_interaction.html"
+                >this tutorial</a
+              >
+            </small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Advection in 2D and 3D using Analytical Advection</h5>
+            <small class="text-muted"
+              >Using
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/tutorial_analyticaladvection.html"
+                >inbuilt kernel</a
+              >
+              for
+              <code class="language-python">AdvectionAnalytical</code></small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Advanced control of particles near land boundaries</h5>
+            <small class="text-muted"
+              >By for example implementing
+              <a
+                href="https://docs.oceanparcels.org/en/latest/examples/documentation_unstuck_Agrid.html"
+                >free- and partial-slip boundary conditions</a
+              ></small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Complex three-dimensional particle diffusion</h5>
+            <small class="text-muted"
+              ><a href="https://public.yoda.uu.nl/science/UU01/RXA2PB.html"
+                >Kernels</a
+              >
+              for particle diffusion in three dimensions for nontrivial
+              diffusivity tensors.</small
+            >
+          </div>
+        </div>
+      </div>
+      <p></p>
+      <h4>Future development goals</h4>
+      <div class="card-columns">
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Support for unstructured grids</h5>
+            <small class="text-muted"
+              >Support data from hydrodynamic models with fully unstructured
+              grids</small
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5>Dynamic adding of particles</h5>
+            <small class="text-muted"
+              >Create new particles during runtime from within a kernel</small
+            >
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h2 id="gallery">Gallery</h2>
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h5 class="card-header">
+              <a
+                class="tutorialLink"
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/bathymetry_plot_cartopy.ipynb"
+                onclick="captureGalleryLink('bathymetry_plot_cartopy');"
+              >
+                Plot bathymetric data
+              </a>
+            </h5>
+            <div class="card-body">
+              <a
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/bathymetry_plot_cartopy.ipynb"
+                onclick="captureGalleryLink('bathymetry_plot_cartopy');"
+                ><img
+                  alt=""
+                  class="card-img-top team-photo"
+                  src="https://github.com/OceanParcels/parcels_gallery/raw/main/images/bathymetry_plot_cartopy.png"
+              /></a>
+              <p class="card-text">
+                A notebook to plot bathymetry with continental
+                contoured-geometries. The used colour map is 'cmo.ice'. Created
+                by <a href="https://github.com/cpierard">Claudio Pierard</a>.
+              </p>
+            </div>
+            <div class="card-footer">
+              <a
+                href="https://github.com/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/bathymetry_plot_cartopy.ipynb"
+                ><img
+                  src="https://img.shields.io/static/v1?label=&amp;message=GitHub&amp;color=blue&amp;logo=github"
+              /></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h5 class="card-header">
+              <a
+                class="tutorialLink"
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/parcels_trails.ipynb"
+                onclick="captureGalleryLink('parcels_trails');"
+              >
+                Animating particles with trails
+              </a>
+            </h5>
+            <div class="card-body">
+              <a
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/parcels_trails.ipynb"
+                onclick="captureGalleryLink('parcels_trails');"
+                ><img
+                  alt=""
+                  class="card-img-top team-photo"
+                  src="https://github.com/OceanParcels/parcels_gallery/raw/main/images/parcels_trails.png"
+              /></a>
+              <p class="card-text">
+                A notebook to animate particles with their vanishing trails over
+                past timesteps in an unsteady doublegyre fluid. The background
+                shows the absolute velocity magnitude. Created by
+                <a href="https://github.com/CKehl">Christian Kehl</a>.
+              </p>
+            </div>
+            <div class="card-footer">
+              <a
+                href="https://github.com/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/parcels_trails.ipynb"
+                ><img
+                  src="https://img.shields.io/static/v1?label=&amp;message=GitHub&amp;color=blue&amp;logo=github"
+              /></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h5 class="card-header">
+              <a
+                class="tutorialLink"
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/Animation_example_Laura.ipynb"
+                onclick="captureGalleryLink('Animation_example_Laura');"
+              >
+                Animating particles with tidal background flow
+              </a>
+            </h5>
+            <div class="card-body">
+              <a
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/Animation_example_Laura.ipynb"
+                onclick="captureGalleryLink('Animation_example_Laura');"
+                ><img
+                  alt=""
+                  class="card-img-top team-photo"
+                  src="https://github.com/OceanParcels/parcels_gallery/raw/main/images/Animation_example_Laura.png"
+              /></a>
+              <p class="card-text">
+                A notebook animating particles with a tidally-influenced flow
+                field, animated with continental contoured-geometries using
+                cartopy. Created by
+                <a href="https://github.com/LauraGomezNavarro"
+                  >Laura Navarro Gomez</a
+                >.
+              </p>
+            </div>
+            <div class="card-footer">
+              <a
+                href="https://github.com/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/Animation_example_Laura.ipynb"
+                ><img
+                  src="https://img.shields.io/static/v1?label=&amp;message=GitHub&amp;color=blue&amp;logo=github"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h5 class="card-header">
+              <a
+                class="tutorialLink"
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/Animation_RotatingEarth.ipynb"
+                onclick="captureGalleryLink('Animation_RotatingEarth');"
+              >
+                Animating data on a rotating sphere
+              </a>
+            </h5>
+            <div class="card-body">
+              <a
+                href="https://nbviewer.org/github/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/Animation_RotatingEarth.ipynb"
+                onclick="captureGalleryLink('Animation_RotatingEarth');"
+                ><img
+                  alt=""
+                  class="card-img-top team-photo"
+                  src="https://github.com/OceanParcels/parcels_gallery/raw/main/images/RotatingEarth.png"
+              /></a>
+              <p class="card-text">
+                A notebook animating data on a rotating Earth using cartopy.
+                Created by
+                <a href="https://github.com/pdnooteboom">Peter Nooteboom</a>.
+              </p>
+            </div>
+            <div class="card-footer">
+              <a
+                href="https://github.com/OceanParcels/parcels_gallery/blob/main/scripts_ipynb/Animation_RotatingEarth.ipynb"
+                ><img
+                  src="https://img.shields.io/static/v1?label=&amp;message=GitHub&amp;color=blue&amp;logo=github"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+      <h2 id="peerreviewedarticles">Peer-reviewed articles using Parcels</h2>
+
+      See <a href="articles.html">the Articles page</a> for a list of
+      peer-reviewed articles using Parcels.
+
+      <hr />
+      <h2 id="projects">Projects using Parcels</h2>
+      <div class="card-deck align-items-center">
+        <div class="col-lg-3 col-md-4 col-6" style="margin-top: 20px">
+          <div class="card">
+            <a href="http://plastic.oceanparcels.org">
+              <img
+                alt=""
+                class="card-img-top"
+                src="images/plasticparcelslogo.png"
+              />
+              <div class="card-footer">
+                <p class="card-text text-center">
+                  Plastic<strong>Parcels</strong> uses the Ocean<strong
+                    >Parcels</strong
+                  >
+                  framework to simulate the transport and dispersion of plastics
+                  in the ocean.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6" style="margin-top: 20px">
+          <div class="card">
+            <a href="http://topios.org/">
+              <img
+                alt=""
+                class="card-img-top"
+                src="images/reservoirschematic_forB2.png"
+              />
+              <div class="card-footer">
+                <p class="card-text text-center">
+                  The TOPIOS project uses the Ocean<strong>Parcels</strong>
+                  framework to create a 3D map of the plastic polluting our
+                  oceans
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6" style="margin-top: 20px">
+          <div class="card">
+            <a href="http://adrift-project.com/">
+              <img
+                alt=""
+                class="card-img-top"
+                src="images/Adrift_v1_darkbackground.png"
+              />
+              <div class="card-footer">
+                <p class="card-text text-center">
+                  The Adrift Project uses the Ocean<strong>Parcels</strong>
+                  framework to simulate microbe transport in the ocean
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6" style="margin-top: 20px">
+          <div class="card">
+            <a href="https://planktondrift.science.uu.nl/">
+              <img alt="" class="card-img-top" src="images/planktondrift.png" />
+              <div class="card-footer">
+                <p class="card-text text-center">
+                  Planktondrift.org uses the Ocean<strong>Parcels</strong>
+                  framework to simulate sinking plankton in the ocean
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h2 id="funding">Parcels funding and support</h2>
+      <p>
+        Parcels development has been supported by the following organisations:
+      </p>
+      <img class="img-fluid" src="images/funderlogos.png" />
+      <p></p>
+      <ul>
+        <li>
+          The European Research Council under the H2020 Starting Grant
+          <a href="http://topios.org">TOPIOS</a> project (grant agreement No
+          715386).
+        </li>
+        <li>
+          The European Union's Horizon 2020 research and innovation programme
+          <a href="https://immerse-ocean.eu/">IMMERSE</a> project (grant
+          agreement No 821926)
+        </li>
+        <li>
+          The European Union's Horizon 2020 research and innovation programme
+          <a href="https://www.atlanteco.eu/">AtlantECO</a> project (grant
+          agreement No 862923)
+        </li>
+        <li>
+          The Dutch Research Council (NWO) through the Backward Lagrangian
+          Tracking of the Patchiness of Oceanic Nutrients in a Turbulent Ocean
+          project (grant agreement OCENW.KLEIN.085)
+        </li>
+        <li>
+          The Dutch Research Council (NWO) through the Dynamics and climatic
+          imprint of the early Antarctic Circumpolar Current project (grant
+          agreement ALWOP.207)
+        </li>
+        <li>
+          The Dutch Research Council (NWO) through the Tracing Marine
+          Macroplastics by Unravelling the Ocean's Multiscale Dispersion
+          Patterns project (grant agreement VI.C.222.025)
+        </li>
+        <li>
+          The European Space Agency (ESA) through the
+          <a href="https://www.skim-ee9.org/"
+            >Sea surface KInematics Multiscale monitoring (SKIM) Mission Science
+            (SciSoc) Study</a
+          >
+          (Contract 4000124734/18/NL/CT/gp)
+        </li>
+        <li>
+          The Pacific Community through the
+          <a
+            href="https://www.uu.nl/en/news/rdm-support-added-a-unique-feature-to-the-oceanparcels-code-thats-how-we-reeled-in-funding-for-a-new"
+            >Application of Parcels to simulate the spatial and temporal
+            movements of tuna to optimise designs of tuna tagging
+            experiments"</a
+          >
+          project.
+        </li>
+        <li>
+          The Galapagos Conservation Trust through the
+          <a href="https://galapagosplasticfree.nl/"
+            >Towards a plastic-free Galapagos: A new model to optimise beach
+            cleanup strategies in complex island regions</a
+          >
+          project.
+        </li>
+        <li>
+          The <a href="https://www.ukri.org/councils/epsrc/">EPSRC</a> through
+          an Institutional Sponsorship grant to Erik van Sebille under reference
+          number EP/N50869X/1.
+        </li>
+        <li>
+          <a href="https://www.imperial.ac.uk/">Imperial College London</a> and
+          specifically the
+          <a href="https://www.imperial.ac.uk/grantham/">Grantham Institute</a>.
+        </li>
+        <li>
+          <a href="https://www.uu.nl/">Utrecht University</a> and specifically
+          the
+          <a
+            href="https://www.uu.nl/en/research/institute-for-marine-and-atmospheric-research-imau"
+            >Institute for Marine and Atmospheric Research</a
+          >
+          and the
+          <a
+            href="https://www.uu.nl/en/news/rdm-support-added-a-unique-feature-to-the-oceanparcels-code-thats-how-we-reeled-in-funding-for-a-new"
+            >Research Data Management Support</a
+          >.
+        </li>
+      </ul>
+      <hr />
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <div class="row">
+          <ul id="footerul">
+            <li id="footerli">
+              <a href="accessibility.html" id="footera">Accessibility</a>
+            </li>
+            <li id="footerli">
+              <a href="cookie-policy.html" id="footera">Cookie policy</a>
+            </li>
+            <li id="footerli">
+              <a href="utrechtteam.html" id="footera">Utrecht Team</a>
+            </li>
+          </ul>
+        </div>
+        <p class="m-0 text-center text-white">
+          Copyright © OceanParcels project, 2023<br />
+          <small
+            >Based on the
+            <a
+              href="https://github.com/StartBootstrap/startbootstrap-modern-business/tree/master"
+              >Modern Business</a
+            >
+            theme, distributed by
+            <a
+              href="https://startbootstrap.com/template-overviews/modern-business/"
+              >Start Bootstrap</a
+            >
+            under an MIT license</small
+          >
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
