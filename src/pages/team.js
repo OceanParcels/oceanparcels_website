@@ -1,7 +1,7 @@
 import { Layout } from '@/components/layout'
 import { Image, Link } from '@/components/mdx'
 import { TeamMember } from '@/components/team-member'
-import { TeamMembers } from '@/data/team-members'
+import { CurrentTeamMembers } from '@/data/team-members'
 import { Box, Container, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 
 const Team = () => {
@@ -48,7 +48,7 @@ const Team = () => {
             my={4}
             align={'left'}
           >
-            {TeamMembers.map((member) => (
+            {CurrentTeamMembers.map((member) => (
               <TeamMember key={member.name} member={member} />
             ))}
           </SimpleGrid>
