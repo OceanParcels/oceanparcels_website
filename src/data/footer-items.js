@@ -3,12 +3,12 @@ export const footerItems = {
     { label: 'Blog', href: '/blog' },
     { label: 'Utrecht Team', href: '/team' },
     {
-      label: 'Papers citing Parcels',
-      href: '/papers-citing-parcels',
-    },
-    {
       label: 'How to cite Parcels',
       href: '/papers-citing-parcels#how-to-cite-parcels',
+    },
+    {
+      label: 'Papers citing Parcels',
+      href: '/papers-citing-parcels',
     },
     {
       label: 'Brand Assets',

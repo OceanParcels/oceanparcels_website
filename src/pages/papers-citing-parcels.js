@@ -112,6 +112,17 @@ const PapersCitingParcels = () => {
     >
       <Box as='section' py={20}>
         <Container maxW='container.lg'>
+          <Heading
+            as='h1'
+            size='2xl'
+            textAlign={'center'}
+            id='how-to-cite-parcels'
+          >
+            How to cite Parcels
+          </Heading>
+
+          <HowToCite />
+
           <Heading as='h1' size='2xl' textAlign={'center'}>
             Papers Citing Parcels
           </Heading>
@@ -134,17 +145,6 @@ const PapersCitingParcels = () => {
               />
             ))}
           </Accordion>
-
-          <Heading
-            as='h1'
-            size='2xl'
-            textAlign={'center'}
-            id='how-to-cite-parcels'
-          >
-            How to cite Parcels
-          </Heading>
-
-          <HowToCite />
         </Container>
       </Box>
     </Layout>
