@@ -39,15 +39,9 @@ export const HeroBanner = () => {
               </Text>
             </Heading>
             <Text fontSize={'lg'}>
-              The Ocean<strong>Parcels</strong> project develops{' '}
-              <strong>Parcels</strong> (<strong>P</strong>robably{' '}
-              <strong>A</strong> <strong>R</strong>eally <strong>C</strong>
-              omputationally <strong>E</strong>fficient <strong>L</strong>
-              agrangian <strong>S</strong>imulator), a set of Python classes and
+              <strong>Parcels</strong> provides a set of Python classes and
               methods to create customisable particle tracking simulations using
-              output from Ocean Circulation models. Parcels can be used to track
-              passive and active particulates such as water, plankton, plastic
-              and fish.
+              gridded output from (ocean) circulation models.
             </Text>
           </Stack>
           <Stack flex={1} spacing={{ base: 10, md: 20 }}>
