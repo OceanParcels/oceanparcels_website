@@ -13,6 +13,7 @@ export const footerItems = {
       label: 'Brand Assets',
       href: 'https://github.com/OceanParcels/oceanparcels_website/tree/main/public/parcels-assets',
     },
+    { label: 'Accessibility', href: '/accessibility' },
   ],
 
   resources: [
