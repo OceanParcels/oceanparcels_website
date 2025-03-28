@@ -127,6 +127,7 @@ const PapersCitingParcels = () => {
             {papersCitingParcels.reverse().map((paper, index, array) => (
               <Paper
                 key={paper.title}
+                published_info={paper.published_info}
                 title={paper.title}
                 authors={paper.authors}
                 doi={paper.doi}

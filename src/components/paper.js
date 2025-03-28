@@ -9,7 +9,14 @@ import {
   Stack,
 } from '@chakra-ui/react'
 
-export const Paper = ({ title, authors, link, abstract, number }) => {
+export const Paper = ({
+  title,
+  published_info,
+  authors,
+  link,
+  abstract,
+  number,
+}) => {
   return (
     <AccordionItem
       my={4}
@@ -26,6 +33,9 @@ export const Paper = ({ title, authors, link, abstract, number }) => {
               {title}
             </Box>
             <Box textAlign='left'>{authors}</Box>
+            <Box as='i' textAlign='left'>
+              {published_info}
+            </Box>
             <Link textAlign='left' href={link} color='blue.500' isExternal>
               View paper
             </Link>
