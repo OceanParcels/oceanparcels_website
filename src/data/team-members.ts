@@ -1,4 +1,4 @@
-import { CurrentTeamMember } from '../types/team'
+import { CurrentTeamMember, PriorTeamMember } from '../types/team'
 
 export const CurrentTeamMembers: CurrentTeamMember[] = [
   {
