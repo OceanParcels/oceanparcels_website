@@ -9,6 +9,8 @@ This project is built using the following tools/technologies:
 1. [Next.js](https://nextjs.org/)
 2. [Chakra UI](https://chakra-ui.com/)
 
+This project uses a combination of Javascript and Typescript (Javascript - as that was the language of the original website, and Typescript - to enforce typing for the data files).
+
 ## Requirements
 
 1. [Node.js](https://nodejs.org/)
