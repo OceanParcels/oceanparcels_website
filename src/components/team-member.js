@@ -27,11 +27,13 @@ export const TeamMember = ({ member }) => {
   return (
     <Card maxW='sm'>
       <CardBody>
-        <Image src={member.image} alt={member.name} borderRadius='lg' />
+        {member.image && (
+          <Image src={member.image} alt={member.name} borderRadius='lg' />
+        )}
         <Stack mt='6' spacing='3'>
           <Heading size='md'>{member.name}</Heading>
           <Heading size='sm'>{member.position}</Heading>
-          <Text>{member.description}</Text>
+          {member.description && <Text>{member.description}</Text>}
         </Stack>
       </CardBody>
       <CardFooter>
