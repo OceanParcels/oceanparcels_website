@@ -47,7 +47,7 @@ export const Sponsors = () => {
                 justify={'center'}
                 rounded={'full'}
               >
-                <Image w={36} h={36} src={sponsor.logo} alt={sponsor.name} />
+                <Image maxH={36} src={sponsor.logo} alt={sponsor.name} />
               </Flex>
             ))}
           </SimpleGrid>
