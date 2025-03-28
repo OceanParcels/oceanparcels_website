@@ -26,6 +26,9 @@ export const Paper = ({ title, authors, link, abstract, number }) => {
               {title}
             </Box>
             <Box textAlign='left'>{authors}</Box>
+            <Link textAlign='left' href={link} color='blue.500' isExternal>
+              View paper
+            </Link>
             <Box as='i' color='gray.500' textAlign='left'>
               Article #{number}
             </Box>
@@ -34,9 +37,6 @@ export const Paper = ({ title, authors, link, abstract, number }) => {
       </h2>
       <AccordionPanel pb={4}>
         <Text>{abstract}</Text>
-        <Link href={link} color='blue.500' isExternal>
-          View paper
-        </Link>
       </AccordionPanel>
     </AccordionItem>
   )
