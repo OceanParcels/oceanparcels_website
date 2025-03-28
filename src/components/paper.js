@@ -13,7 +13,7 @@ export const Paper = ({
   title,
   published_info,
   authors,
-  link,
+  doi,
   abstract,
   number,
 }) => {
@@ -38,7 +38,7 @@ export const Paper = ({
             </Box>
             <Link
               textAlign='left'
-              href={link}
+              href={doi}
               color='blue.500'
               isExternal
               onClick={(e) => {
