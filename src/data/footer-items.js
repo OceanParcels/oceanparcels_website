@@ -1,7 +1,6 @@
 export const footerItems = {
   parcels: [
     { label: 'Blog', href: '/blog' },
-    { label: 'Utrecht Team', href: '/team' },
     {
       label: 'How to cite Parcels',
       href: '/papers-citing-parcels#how-to-cite-parcels',
@@ -40,5 +39,6 @@ export const footerItems = {
       label: 'Issue Tracker',
       href: 'https://github.com/OceanParcels/parcels/issues',
     },
+    { label: 'Utrecht Team', href: '/team' },
   ],
 }
