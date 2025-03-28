@@ -22,9 +22,9 @@ export const Features = () => {
           Key Features & Capabilities
         </Heading>
         <Text fontSize={'lg'}>
-          Parcels can be used to track passive and active particulates
-          such as water, plankton, plastic, icebergs, and fish
-          using data from flow datasets.
+          Parcels can be used to track passive and active particulates such as
+          water, plankton, plastic, icebergs, and fish using data from flow
+          datasets.
         </Text>
 
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8} my={8}>
