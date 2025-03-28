@@ -28,7 +28,7 @@ export const ProjectCard = ({ name, description, repo, homepage, logo }) => {
         >
           <Box>
             <Image
-              h={'55'}
+              h={'128'}
               w={'full'}
               src={logo}
               alt={name}
@@ -36,7 +36,7 @@ export const ProjectCard = ({ name, description, repo, homepage, logo }) => {
               objectFit='contain'
             />
 
-            <Text my={4} noOfLines={2}>
+            <Text my={4} noOfLines={4}>
               {description}
             </Text>
           </Box>
