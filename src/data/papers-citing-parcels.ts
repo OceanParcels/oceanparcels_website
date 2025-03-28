@@ -1,4 +1,6 @@
-export const papersCitingParcels = [
+import { Paper } from '../types/papers'
+
+export const papersCitingParcels: Paper[] = [
   {
     title:
       'Parcels v0.9: prototyping a Lagrangian Ocean Analysis framework for the petascale age',
