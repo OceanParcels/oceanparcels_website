@@ -36,7 +36,15 @@ export const Paper = ({
             <Box as='i' textAlign='left'>
               {published_info}
             </Box>
-            <Link textAlign='left' href={link} color='blue.500' isExternal>
+            <Link
+              textAlign='left'
+              href={link}
+              color='blue.500'
+              isExternal
+              onClick={(e) => {
+                e.stopPropagation()
+              }}
+            >
               View paper
             </Link>
             <Box as='i' color='gray.500' textAlign='left'>
