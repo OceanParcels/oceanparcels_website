@@ -11,7 +11,7 @@ export async function generateRssFeed(allPostsData) {
 
 const feed = new Feed({
     title: 'OceanParcels Blog Feed',
-    description: 'The latest announcements from the OceanParcels team',
+    description: 'The latest announcements and news from the Parcels team',
     id: blogUrl,
     link: blogUrl,
     language: 'en',
