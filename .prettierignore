@@ -1,5 +1,4 @@
-*
-
-# Ignore all except...
-!index.html
-!utrechtteam.html
+node_modules
+**/node_modules
+**/lib
+.next/

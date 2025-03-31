@@ -1,0 +1,7 @@
+export { Banner } from '@/components/banner'
+export { Projects } from '@/components/projects'
+export { Funders } from '@/components/funders'
+export { Features } from '@/components/features'
+export { Footer } from '@/components/footer'
+export { Header } from '@/components/header'
+export { HeroBanner } from '@/components/hero-banner'
