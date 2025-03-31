@@ -15,6 +15,11 @@ export const Funders = [
     url: 'https://www.ukri.org/councils/epsrc/',
   },
   {
+    name: 'BMBF via the Warmworld project',
+    logo: '/funders-logos/BMBFlogo.png',
+    url: 'https://www.warmworld.de',
+  },
+  {
     name: 'Utrecht University',
     logo: '/funders-logos/UUlogo.png',
     url: 'https://www.uu.nl/en',
