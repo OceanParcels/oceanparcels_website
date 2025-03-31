@@ -4,6 +4,11 @@ import { Header } from '@/components/header'
 import { Link } from '@/components/mdx'
 import { Box, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
+import ReactGA from 'react-ga4'
+import { useEffect } from 'react'
+
+// Google Analytics
+ReactGA.initialize('G-62W42QPRQC')
 
 export const Layout = ({
   title,
@@ -13,6 +18,11 @@ export const Layout = ({
   url = 'https://oceanparcels.org',
   enableBanner = false,
 }) => {
+  // Track page views
+  useEffect(() => {
+    ReactGA.send({ hitType: 'pageview' })
+  }, [])
+
   const bannerTitle = 'Parcels v4 currently in development'
   const bannerDescription = ''
   const bannerChildren = (
