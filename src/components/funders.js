@@ -42,12 +42,11 @@ export const Funders = () => {
                 href={funders.url}
                 key={index}
                 w={64}
-                h={64}
                 align={'center'}
                 justify={'center'}
                 rounded={'full'}
               >
-                <Image maxH={36} src={funders.logo} alt={funders.name} />
+                <Image maxH={20} src={funders.logo} alt={funders.name} />
               </Flex>
             ))}
           </SimpleGrid>
