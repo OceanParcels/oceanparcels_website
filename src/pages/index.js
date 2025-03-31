@@ -1,4 +1,4 @@
-import { Projects, Features, HeroBanner, Sponsors } from '@/components'
+import { Projects, Features, HeroBanner, Funders } from '@/components'
 
 import { Layout } from '@/components/layout'
 
@@ -15,7 +15,7 @@ export default function IndexPage() {
       <HeroBanner />
       <Features />
       <Projects />
-      <Sponsors />
+      <Funders />
     </Layout>
   )
 }
