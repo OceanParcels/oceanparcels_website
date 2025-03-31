@@ -30,7 +30,7 @@ export const Funders = () => {
           </Text>
 
           <Grid
-            templateColumns='repeat(5, minmax(auto, max-content))'
+            templateColumns={`repeat(${funders.length}, minmax(auto, max-content))`}
             gap={6}
             my={4}
             justifyContent='center'
