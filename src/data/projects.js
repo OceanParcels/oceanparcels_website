@@ -15,14 +15,14 @@ export const Projects = [
     homepage: 'https://virtualship.oceanparcels.org/en/latest/',
     logo: '/projects/virtual_ship_logo.png',
   },
-  {
-    // TODO fix planktondrift website
-    name: 'Planktondrift',
-    description:
-      'Planktondrift is a web-based platform to simulate the transport of plankton in the ocean.',
-    homepage: 'https://planktondrift.science.uu.nl/',
-    logo: '/projects/planktondrift.png',
-  },
+  // {
+  //   // TODO fix planktondrift website
+  //   name: 'Planktondrift',
+  //   description:
+  //     'Planktondrift is a web-based platform to simulate the transport of plankton in the ocean.',
+  //   homepage: 'https://planktondrift.science.uu.nl/',
+  //   logo: '/projects/planktondrift.png',
+  // },
   {
     name: 'VirtualFleet',
     description:

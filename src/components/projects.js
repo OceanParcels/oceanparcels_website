@@ -26,18 +26,16 @@ export const Projects = () => {
             spacing={8}
             justifyContent={'space-between'}
           >
-            {projects
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((project, index) => (
-                <ProjectCard
-                  key={index}
-                  name={project.name}
-                  logo={project.logo}
-                  description={project.description}
-                  repo={project.repo}
-                  homepage={project.homepage}
-                ></ProjectCard>
-              ))}
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={index}
+                name={project.name}
+                logo={project.logo}
+                description={project.description}
+                repo={project.repo}
+                homepage={project.homepage}
+              ></ProjectCard>
+            ))}
           </SimpleGrid>
         </Box>
       </Container>
