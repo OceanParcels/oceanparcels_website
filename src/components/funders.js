@@ -6,8 +6,8 @@ import {
   UnorderedList,
   ListItem,
   Link,
-  SimpleGrid,
-  Flex,
+  Grid,
+  GridItem,
 } from '@chakra-ui/react'
 import React from 'react'
 import { Funders as data } from '@/data/funders'
@@ -29,27 +29,25 @@ export const Funders = () => {
             organisations:
           </Text>
 
-          <SimpleGrid
-            columns={{ base: 1, sm: 2, md: 2, lg: 4 }}
-            my={4}
-            spacing={'space-between'}
-            align={'center'}
-            justify={'center'}
-          >
+          <Grid templateColumns='repeat(5, 1fr)' gap={6} my={4}>
             {funders.map((funders, index) => (
-              <Flex
+              <GridItem
                 as={Link}
                 href={funders.url}
                 key={index}
-                w={64}
-                align={'center'}
-                justify={'center'}
-                rounded={'full'}
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
               >
-                <Image maxH={20} src={funders.logo} alt={funders.name} />
-              </Flex>
+                <Image
+                  maxH={20}
+                  w={'auto'}
+                  src={funders.logo}
+                  alt={funders.name}
+                />
+              </GridItem>
             ))}
-          </SimpleGrid>
+          </Grid>
         </Box>
       </Container>
     </Box>
