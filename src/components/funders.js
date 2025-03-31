@@ -29,22 +29,26 @@ export const Funders = () => {
             organisations:
           </Text>
 
-          <Grid templateColumns='repeat(5, 1fr)' gap={6} my={4}>
-            {funders.map((funders, index) => (
+          <Grid
+            templateColumns='repeat(5, minmax(auto, max-content))'
+            gap={6}
+            my={4}
+            justifyContent='center'
+          >
+            {funders.map((funder, index) => (
               <GridItem
                 as={Link}
-                href={funders.url}
+                href={funder.url}
                 key={index}
                 display='flex'
                 alignItems='center'
                 justifyContent='center'
+                borderRight={
+                  index < funders.length - 1 ? '1px solid #ccc' : 'none'
+                }
+                pr={4}
               >
-                <Image
-                  maxH={20}
-                  w={'auto'}
-                  src={funders.logo}
-                  alt={funders.name}
-                />
+                <Image maxH={20} src={funder.logo} alt={funder.name} />
               </GridItem>
             ))}
           </Grid>
