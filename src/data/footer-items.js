@@ -22,6 +22,10 @@ export const footerItems = {
       href: 'https://docs.oceanparcels.org/en/latest/index.html',
     },
     {
+      label: 'Installation',
+      href: 'https://docs.oceanparcels.org/en/latest/installation.html',
+    },
+    {
       label: 'Tutorials',
       href: 'https://docs.oceanparcels.org/en/latest/documentation/index.html',
     },
