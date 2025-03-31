@@ -1,6 +1,6 @@
 export { Banner } from '@/components/banner'
 export { Projects } from '@/components/projects'
-export { Sponsors } from '@/components/sponsors'
+export { Funders } from '@/components/funders'
 export { Features } from '@/components/features'
 export { Footer } from '@/components/footer'
 export { Header } from '@/components/header'
