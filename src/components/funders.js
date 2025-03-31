@@ -10,17 +10,17 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import React from 'react'
-import { Sponsors as data } from '@/data/sponsors'
+import { Funders as data } from '@/data/funders'
 
 import { Heading } from '@/components/mdx'
 
-export const Sponsors = () => {
-  const sponsors = React.useMemo(() => data, [])
+export const Funders = () => {
+  const funders = React.useMemo(() => data, [])
   return (
-    <Box id={'sponsors'} as='section'>
+    <Box id={'funders'} as='section'>
       <Container maxW='container.lg' centerContent>
         <Heading as='h1' size='2xl'>
-          Sponsors
+          Funders
         </Heading>
 
         <Box my={8}>
@@ -36,10 +36,10 @@ export const Sponsors = () => {
             align={'center'}
             justify={'center'}
           >
-            {sponsors.map((sponsor, index) => (
+            {funders.map((funders, index) => (
               <Flex
                 as={Link}
-                href={sponsor.url}
+                href={funders.url}
                 key={index}
                 w={64}
                 h={64}
@@ -47,7 +47,7 @@ export const Sponsors = () => {
                 justify={'center'}
                 rounded={'full'}
               >
-                <Image maxH={36} src={sponsor.logo} alt={sponsor.name} />
+                <Image maxH={36} src={funders.logo} alt={funders.name} />
               </Flex>
             ))}
           </SimpleGrid>
