@@ -46,7 +46,7 @@ export const HeroBanner = () => {
           </Stack>
           <Stack flex={1} spacing={{ base: 10, md: 20 }}>
             <Image
-              src={'/homepage-animation.gif'}
+              src={'/homepage-animation_SH.gif'}
               alt='Animation of virtual particles in the global oceans'
               objectFit='contain'
             ></Image>
