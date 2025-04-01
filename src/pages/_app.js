@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { useEffect } from 'react'
+import { ColorModeToggle } from '@/components/ColorModeToggle'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
@@ -41,6 +42,7 @@ function MyApp({ Component, pageProps }) {
         }}
       />
 
+      <ColorModeToggle />
       <Component {...pageProps} />
     </ChakraProvider>
   )

@@ -4,6 +4,7 @@ import '@fontsource-variable/inter'
 
 // color mode config
 const config = {
+  // TODO: Change default color mode to system?
   initialColorMode: 'light',
   useSystemColorMode: false,
 }
