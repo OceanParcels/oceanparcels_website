@@ -130,7 +130,7 @@ const PapersCitingParcels = () => {
                 published_info={paper.published_info}
                 title={paper.title}
                 authors={paper.authors}
-                link={paper.doi}
+                doi={paper.doi}
                 abstract={paper.abstract}
                 number={array.length - index}
               />
