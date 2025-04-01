@@ -1,13 +1,11 @@
 ---
-title: 'Parcels 10 year anniversary event'
+title: 'Parcels 10 year anniversary event  🎉'
 date: '2025-04-01'
 authors:
   - name: Erik van Sebille
     github: erikvansebille
 summary: 'On October 1-3 2025, we will celebrate the 10 year anniversary of Parcels in Utrecht, Netherlands, with a workshop-conference-hackathon-party.'
 ---
-
-# Parcels 10 year anniversary event 🎉
 
 **In 2025, Parcels will be 10 years old! To celebrate this milestone, we are planning a workshop-conference-hackathon-party in Utrecht, Netherlands, from October 1-3, 2025. We like to invite you to join us for this event!**
 
