@@ -47,9 +47,11 @@ export const Paper = ({
             >
               View paper
             </Link>
-            <Box as='i' color='gray.500' textAlign='left'>
-              Article #{number}
-            </Box>
+            {number && (
+              <Box as='i' color='gray.500' textAlign='left'>
+                Article #{number}
+              </Box>
+            )}
           </Stack>
         </AccordionButton>
       </h2>
