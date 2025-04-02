@@ -6,8 +6,9 @@ import { Paper } from '@/components/paper'
 const HowToCite = () => {
   return (
     <Box>
-      <Text>
-        The main way to cite Parcels is to use the following reference:
+      <Text mt={8}>
+        The preferred way to cite the latest version of Parcels in your
+        publications is to use the following reference:
       </Text>
       <Accordion allowMultiple>
         <Paper
@@ -19,7 +20,7 @@ const HowToCite = () => {
           abstract="With the increasing amount of data produced by numerical ocean models, so increases the need for efficient tools to analyse these data. One of these tools is Lagrangian ocean analysis, where a set of virtual particles are released and their dynamics is integrated in time based on fields defining the ocean state, including the hydrodynamics and biogeochemistry if available. This popular methodology needs to adapt to the large variety of models producing these fields at different formats. This is precisely the aim of Parcels, a Lagrangian ocean analysis framework designed to combine (1) a wide flexibility to model particles of different natures and (2) an efficient implementation in accordance with modern computing infrastructure. In the new Parcels v2.0, we implement a set of interpolation schemes to read various types of discretised fields, from rectilinear to curvilinear grids in the horizontal direction, from z- to s- levels in the vertical and different variable distributions such as the Arakawa's A-, B- and C- grids. In particular, we develop a new interpolation scheme for a three-dimensional curvilinear C-grid and analyse its properties. Parcels v2.0 capabilities, including a suite of meta-field objects, are then illustrated in a brief study of the distribution of floating microplastic in the North West European continental shelf and its sensitivity to different physical processes."
         />
       </Accordion>
-      <Text>Other papers detailing Parcels are:</Text>
+      <Text mt={8}>Other papers that provide details about Parcels are:</Text>
       <Accordion allowMultiple>
         <Paper
           key='Parcels v0.9: prototyping a Lagrangian Ocean Analysis framework for the petascale age'
