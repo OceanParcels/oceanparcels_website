@@ -14,7 +14,7 @@ export const Funders = [
   {
     name: 'ESPRC',
     logo_light: '/funders-logos/EPSRlogo.png',
-    logo_dark: '/funders-logos/EPSRlogo.png',
+    logo_dark: '/funders-logos/EPSRlogo_dia.png',
     url: 'https://www.ukri.org/councils/epsrc/',
   },
   {
