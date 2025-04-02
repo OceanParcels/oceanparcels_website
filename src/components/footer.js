@@ -10,6 +10,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 
+import { ColorModeImage } from '@/components/ColorModeImage'
 import { Image, Link } from '@/components/mdx'
 import { footerItems } from '@/data/footer-items'
 
@@ -59,9 +60,10 @@ export const Footer = () => {
         >
           <Stack spacing={6}>
             <Box>
-              <Image
+              <ColorModeImage
                 w={32}
-                src={'/parcels-assets/logo-horo.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
+                lightSrc={'/parcels-assets/logo-horo.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
+                darkSrc={'/parcels-assets/logo-horo_dia.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
                 alt={'parcels logo'}
               />
             </Box>
