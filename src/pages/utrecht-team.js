@@ -4,14 +4,14 @@ import { TeamMember } from '@/components/team-member'
 import { CurrentTeamMembers, PriorTeamMembers } from '@/data/team-members'
 import { Box, Container, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 
-const Team = () => {
+const UtrechtTeam = () => {
   return (
     <Layout
       title={'Utrecht Team'}
       card={
         'https://raw.githubusercontent.com/OceanParcels/oceanparcels_website/main/public/parcels-assets/logo-no-text.png'
       }
-      url={`/team`}
+      url={`/utrechtteam`}
     >
       <Box as='section' py={20}>
         <Container maxW='container.lg'>
@@ -77,4 +77,4 @@ const Team = () => {
   )
 }
 
-export default Team
+export default UtrechtTeam
