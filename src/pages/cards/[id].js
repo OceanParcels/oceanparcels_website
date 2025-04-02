@@ -6,7 +6,6 @@ import {
   AvatarGroup,
   Box,
   Container,
-  Image,
   Flex,
   Heading,
   Icon,
