@@ -44,6 +44,6 @@ export const footerItems = {
       label: 'Issue Tracker',
       href: 'https://github.com/OceanParcels/parcels/issues',
     },
-    { label: 'Utrecht Team', href: '/team' },
+    { label: 'Utrecht Team', href: '/utrechtteam' },
   ],
 }
