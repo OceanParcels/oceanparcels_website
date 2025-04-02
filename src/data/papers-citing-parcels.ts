@@ -1,5 +1,6 @@
 import { Paper } from '../types/papers'
 
+// Which papers cite Parcels (NOTE: Add new elements to the bottom of the list)
 export const papersCitingParcels: Paper[] = [
   {
     title:
