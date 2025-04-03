@@ -23,12 +23,11 @@ export const Layout = ({
     ReactGA.send({ hitType: 'pageview' })
   }, [])
 
-  const bannerTitle = 'Parcels v4 currently in development'
+  const bannerTitle =
+    'Join the Parcels 10 year anniversary event 🎉 on 1-3 Oct 2025!'
   const bannerDescription = ''
   const bannerChildren = (
-    <Link href='https://docs.oceanparcels.org/en/v4-dev/v4/'>
-      See our documentation for more details
-    </Link>
+    <Link href='https://oceanparcels.org/10year-event'>Learn more</Link>
   )
 
   // Determine the base URL based on the environment
