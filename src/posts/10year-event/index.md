@@ -13,9 +13,9 @@ Michael Lange committed [b2ae2fd](https://github.com/OceanParcels/Parcels/commit
 
 We’ve also started work on a major, radical overhaul of the Parcels codebase (what we call [v4](https://docs.oceanparcels.org/en/v4-dev/v4/)). The next major release of Parcels will be even more powerful and versatile - including support for unstructured grids!
 
-From Wednesday 1 to Friday 3 October 2025, we will organise a _free_ event , which can be attended both in-person in Utrecht and virtually online. The goal is to showcase how Parcels is used by different researchers, and learn from each other. This can include presentations, tutorials and hackathons. Our hope is that we then also have the first (pre)release of the new Parcels v4 to test-drive then.
+From Wednesday 1 to Friday 3 October 2025, we will organise a _free_ event, which can be attended both in-person in Utrecht and virtually online. The goal is to showcase how Parcels is used by different researchers, and learn from each other. This can include presentations, tutorials and hackathons. Our hope is that we then also have the first (pre)release of the new Parcels v4 to test-drive then.
 
-We then hold a party on Friday evening 3 October 2025, in Utrecht. This is to celebrate how far we’ve come, and to thank you all for your contributions and engagement over the years.
+We will also hold a party on Friday evening 3 October 2025, in Utrecht. This is to celebrate how far we’ve come, and to thank you all for your contributions and engagement over the years.
 
 ## Interested to join? 👉 [Sign up via this form!](https://forms.office.com/e/5Nug5tjM5Z) 👈
 
