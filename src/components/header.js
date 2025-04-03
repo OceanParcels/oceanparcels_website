@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
+import { ColorModeImage } from '@/components/ColorModeImage'
 import React from 'react'
 
 export const Header = () => {
@@ -74,9 +75,10 @@ export const Header = () => {
               alignItems={'center'}
               spacing={{ base: 2, sm: 4 }}
             >
-              <Image
+              <ColorModeImage
                 w={48}
-                src={'/parcels-assets/logo-horo.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
+                lightSrc={'/parcels-assets/logo-horo.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
+                darkSrc={'/parcels-assets/logo-horo_dia.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
                 alt={'parcels logo'}
               />
             </Stack>

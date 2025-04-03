@@ -1,7 +1,15 @@
-import { Image, Link } from '@/components/mdx'
+import { Link } from '@/components/mdx'
 import { Box, Card, CardBody, Stack, Text } from '@chakra-ui/react'
+import { ColorModeImage } from '@/components/ColorModeImage'
 
-export const ProjectCard = ({ name, description, repo, homepage, logo }) => {
+export const ProjectCard = ({
+  name,
+  description,
+  repo,
+  homepage,
+  logo_light,
+  logo_dark,
+}) => {
   return (
     <Card
       as={Link}
@@ -27,10 +35,11 @@ export const ProjectCard = ({ name, description, repo, homepage, logo }) => {
           gap={0}
         >
           <Box>
-            <Image
+            <ColorModeImage
               h={'128'}
               w={'full'}
-              src={logo}
+              lightSrc={logo_light}
+              darkSrc={logo_dark}
               alt={name}
               layout='fill'
               objectFit='contain'

@@ -11,6 +11,7 @@ import {
   Text,
   useColorModeValue,
   VStack,
+  useColorMode,
 } from '@chakra-ui/react'
 
 import { motion } from 'framer-motion'
@@ -41,7 +42,13 @@ const SinglePost = ({ page }) => {
             {page.title}
           </Link>
 
-          <Text fontSize={'sm'} color={'gray.600'} py={4}>
+          <Text
+            fontSize={'sm'}
+            color={
+              useColorMode().colorMode === 'dark' ? 'gray.300' : 'gray.600'
+            }
+            py={4}
+          >
             {formatDate(date)} ({distanceToNow(date)})
           </Text>
 
