@@ -1,5 +1,6 @@
 import { Paper } from '../types/papers'
 
+// Which papers cite Parcels (NOTE: Add new elements to the bottom of the list)
 export const papersCitingParcels: Paper[] = [
   {
     title:
@@ -2245,5 +2246,15 @@ export const papersCitingParcels: Paper[] = [
     doi: 'https://doi.org/10.5194/os-21-643-2025',
     abstract:
       'The response of a coastal ocean model, simulating a typical eastern boundary system, to downwelling-favorable winds with and without the presence of a submarine canyon is studied. Three contrasting bathymetric configurations, considering shelves with different depths and slopes, are evaluated. Experiments without a submarine canyon represent the well-known downwelling circulation and cross-shore structure with a downwelling front and the development of frontal instabilities generating density anomalies in the bottom layer. The presence of the submarine canyon drives important changes in cross-shore flows, with opposing velocities on either side of the canyon. Onshore (offshore) and downward (upward) velocities develop in the upstream (downstream) side of the canyon in the time-dependent and advective phases. Instabilities develop and are modified principally downstream of the canyon. Overall, the net impact of the canyon is to enhance offshore and downward transport. However, particle tracking experiments reveal that particles can become trapped inside the canyon in an anticyclonic circulation when the particles pass the canyon over the continental slope or when particles inside the canyon are affected by downwelling conditions. Overall, ∼20 %–23 % (∼15 %–18 %) of particles released directly upstream (in the canyon) at depths below the continental shelf become trapped inside the canyon until the end of the simulations (15 d).',
+  },
+  {
+    title:
+      'Combining surface drifters and high resolution global simulations enables the mapping of internal tide surface energy',
+    published_info: 'Scientific Reports, 15, 10672',
+    authors:
+      'Caspar-Cohen, Z, A Ponte, N Lahaye, ED Zaron, BK Arbic, X Yu, S LeGentil, D Menemenlis (2025)',
+    doi: 'https://doi.org/10.1038/s41598-025-92662-w',
+    abstract:
+      'By dissipating energy and generating mixing, internal tides (ITs) are important for the climatological evolution of the ocean. Our understanding of this class of ocean variability is however hindered by the rarity of observations capable of capturing ITs with global coverage. The data provided by the Global Drifter Program (GDP) offer high temporal resolution and quasi-global coverage, thus bringing promising perspectives. However, due to their inherent drifting nature, these instruments provide a distorted view of the IT signal. By theoretically rationalizing this distortion and leveraging a massive synthetic drifter numerical simulation, we propose a global metric converting semi-diurnal IT energy levels from GDP data to levels comparable to Eulerian datasets (two numerical simulations, and a satellite altimetry IT atlas). We find that the simulation with a dedicated focus on IT representation is the one where the converted Lagrangian levels perform best. This supports renewed efforts in the concurrent numerical modeling of ITs/ocean circulation. The substantial deficit of energy in the IT atlas highlights the inability for altimetric estimates to measure incoherent and fine-scale ITs and strongly supports the need to isolate ITs signature in the data collected by the new wide-swath altimetry mission SWOT.',
   },
 ]

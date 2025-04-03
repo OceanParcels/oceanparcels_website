@@ -5,7 +5,8 @@ export const Projects = [
       'PlasticParcels is a Python package to simulate the transport and dispersion of plastics in the ocean.',
     repo: 'https://github.com/OceanParcels/plasticparcels',
     homepage: 'https://plastic.oceanparcels.org/en/latest/',
-    logo: '/projects/plasticparcelslogo.png',
+    logo_light: '/projects/plasticparcelslogo.png',
+    logo_dark: '/projects/plasticparcelslogo_dia.png',
   },
   {
     name: 'VirtualShip Parcels',
@@ -13,7 +14,8 @@ export const Projects = [
       'VirtualShipParcels is a command-line simulator to plan and conduct a virtual research expedition.',
     repo: 'https://github.com/OceanParcels/virtualship',
     homepage: 'https://virtualship.oceanparcels.org/en/latest/',
-    logo: '/projects/virtual_ship_logo.png',
+    logo_light: '/projects/virtual_ship_logo.png',
+    logo_dark: '/projects/virtual_ship_logo_dia.png',
   },
   // {
   //   // TODO fix planktondrift website
@@ -28,6 +30,7 @@ export const Projects = [
     description:
       'Virtual Fleet is a Python tool that simulates Argo floats trajectories and measurement.',
     homepage: 'https://github.com/euroargodev/VirtualFleet',
-    logo: '/projects/virtualfleet_logo.png',
+    logo_light: '/projects/virtualfleet_logo.png',
+    logo_dark: '/projects/virtualfleet_logo_dia.png',
   },
 ]

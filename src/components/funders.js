@@ -3,12 +3,12 @@ import {
   Container,
   Image,
   Text,
-  UnorderedList,
-  ListItem,
   Link,
-  SimpleGrid,
-  Flex,
+  Grid,
+  GridItem,
+  Tooltip,
 } from '@chakra-ui/react'
+import { ColorModeImage } from '@/components/ColorModeImage'
 import React from 'react'
 import { Funders as data } from '@/data/funders'
 
@@ -29,28 +29,35 @@ export const Funders = () => {
             organisations:
           </Text>
 
-          <SimpleGrid
-            columns={{ base: 1, sm: 2, md: 2, lg: 4 }}
+          <Grid
+            templateColumns={`repeat(${funders.length}, minmax(auto, max-content))`}
+            gap={6}
             my={4}
-            spacing={'space-between'}
-            align={'center'}
-            justify={'center'}
+            justifyContent='center'
           >
-            {funders.map((funders, index) => (
-              <Flex
-                as={Link}
-                href={funders.url}
-                key={index}
-                w={64}
-                h={64}
-                align={'center'}
-                justify={'center'}
-                rounded={'full'}
-              >
-                <Image maxH={36} src={funders.logo} alt={funders.name} />
-              </Flex>
+            {funders.map((funder, index) => (
+              <Tooltip key={index} label={funder.name}>
+                <GridItem
+                  as={Link}
+                  href={funder.url}
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='center'
+                  borderRight={
+                    index < funders.length - 1 ? '1px solid #ccc' : 'none'
+                  }
+                  pr={4}
+                >
+                  <ColorModeImage
+                    lightSrc={funder.logo_light}
+                    darkSrc={funder.logo_dark}
+                    maxH={20}
+                    alt={funder.name}
+                  />
+                </GridItem>
+              </Tooltip>
             ))}
-          </SimpleGrid>
+          </Grid>
         </Box>
       </Container>
     </Box>

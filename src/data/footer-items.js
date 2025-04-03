@@ -22,6 +22,10 @@ export const footerItems = {
       href: 'https://docs.oceanparcels.org/en/latest/index.html',
     },
     {
+      label: 'Installation',
+      href: 'https://docs.oceanparcels.org/en/latest/installation.html',
+    },
+    {
       label: 'Tutorials',
       href: 'https://docs.oceanparcels.org/en/latest/documentation/index.html',
     },
@@ -40,6 +44,6 @@ export const footerItems = {
       label: 'Issue Tracker',
       href: 'https://github.com/OceanParcels/parcels/issues',
     },
-    { label: 'Utrecht Team', href: '/team' },
+    { label: 'Utrecht Team', href: '/utrechtteam' },
   ],
 }
