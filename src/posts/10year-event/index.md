@@ -23,76 +23,20 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 
 ## Preliminary schedule:
 
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Event</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Wednesday 1 October</td>
-      <td>Workshop, tutorials and/or hackathons (in Utrecht and online)</td>
-    </tr>
-    <tr>
-      <td>Thursday 2 October</td>
-      <td>Workshop, tutorials and/or hackathons (in Utrecht and online)</td>
-    </tr>
-    <tr>
-      <td>Friday 3 October</td>
-      <td>
-        Scientific conference with presentations from Parcels users (in Utrecht
-        and online)
-      </td>
-    </tr>
-    <tr>
-      <td>Friday evening 3 October</td>
-      <td>Party (in Utrecht)</td>
-    </tr>
-  </tbody>
-</table>
+- Wednesday 1 October: Workshop, tutorials and/or hackathons (in Utrecht and online)
+- Thursday 2 October: Workshop, tutorials and/or hackathons (in Utrecht and online)
+- Friday 3 October: Scientific conference with presentations from Parcels users (in Utrecht and online)
+- Friday evening 3 October: Party (in Utrecht)
 
 ## Deadlines:
 
-<table>
-  <thead>
-    <tr>
-      <th>Deadline</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Submission of request for travel funding</td>
-      <td>1 July 2025</td>
-    </tr>
-    <tr>
-      <td>Travel funding notification</td>
-      <td>15 July 2025</td>
-    </tr>
-    <tr>
-      <td>Submission of abstracts for presentations</td>
-      <td>1 August 2025</td>
-    </tr>
-    <tr>
-      <td>Notification of acceptance</td>
-      <td>15 August 2025</td>
-    </tr>
-    <tr>
-      <td>Final program</td>
-      <td>1 September 2025</td>
-    </tr>
-    <tr>
-      <td>Registration deadline</td>
-      <td>15 September 2025</td>
-    </tr>
-    <tr>
-      <td>Event</td>
-      <td>1-3 October 2025</td>
-    </tr>
-  </tbody>
-</table>
+- 1 July 2025: Submission of request for travel funding
+- 15 July 2025: Travel funding notification
+- 1 August 2025: Submission of abstracts for presentations
+- 15 August 2025: Notification of acceptance
+- 1 September 2025: Final program available
+- 15 September 2025: Registration deadline
+- 1-3 October 2025: Event
 
 ## Travel funding
 
