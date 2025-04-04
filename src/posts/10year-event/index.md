@@ -23,10 +23,14 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 
 ## Preliminary schedule:
 
-- Wednesday 1 October: Workshop, tutorials and/or hackathons (in Utrecht and online)
-- Thursday 2 October: Workshop, tutorials and/or hackathons (in Utrecht and online)
-- Friday 3 October: Scientific conference with presentations from Parcels users (in Utrecht and online)
-- Friday evening 3 October: Party (in Utrecht)
+- Wednesday 1 October
+  - Workshop, tutorials and/or hackathons (in Utrecht and online)
+- Thursday 2 October
+  - Workshop, tutorials and/or hackathons (in Utrecht and online)
+- Friday 3 October
+  - Scientific conference with presentations from Parcels users (in Utrecht and online)
+- Friday evening 3 October
+  - Party (in Utrecht)
 
 ## Deadlines:
 
