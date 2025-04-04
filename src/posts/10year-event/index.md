@@ -26,21 +26,25 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 <table>
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Event</th>
+      <th style={{ textAlign: 'left' }}>Date</th>
+      <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+      <th style={{ textAlign: 'left' }}>Event</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Wednesday 1 October</td>
+      <td></td>
       <td>Workshop, tutorials and/or hackathons (in Utrecht and online)</td>
     </tr>
     <tr>
       <td>Thursday 2 October</td>
+      <td></td>
       <td>Workshop, tutorials and/or hackathons (in Utrecht and online)</td>
     </tr>
     <tr>
       <td>Friday 3 October</td>
+      <td></td>
       <td>
         Scientific conference with presentations from Parcels users (in Utrecht
         and online)
@@ -48,6 +52,7 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
     </tr>
     <tr>
       <td>Friday evening 3 October</td>
+      <td></td>
       <td>Party (in Utrecht)</td>
     </tr>
   </tbody>
@@ -58,37 +63,45 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 <table>
   <thead>
     <tr>
-      <th>Deadline</th>
-      <th>Date</th>
+      <th style={{ textAlign: 'left' }}>Deadline</th>
+      <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+      <th style={{ textAlign: 'left' }}>Date</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Submission of request for travel funding</td>
+      <td></td>
       <td>1 July 2025</td>
     </tr>
     <tr>
       <td>Travel funding notification</td>
+      <td></td>
       <td>15 July 2025</td>
     </tr>
     <tr>
       <td>Submission of abstracts for presentations</td>
+      <td></td>
       <td>1 August 2025</td>
     </tr>
     <tr>
       <td>Notification of acceptance</td>
+      <td></td>
       <td>15 August 2025</td>
     </tr>
     <tr>
       <td>Final program</td>
+      <td></td>
       <td>1 September 2025</td>
     </tr>
     <tr>
       <td>Registration deadline</td>
+      <td></td>
       <td>15 September 2025</td>
     </tr>
     <tr>
       <td>Event</td>
+      <td></td>
       <td>1-3 October 2025</td>
     </tr>
   </tbody>
