@@ -45,7 +45,7 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
     position: 'MSc student',
     description:
       'Elena creates a model to simulate the dispersion of Sargassum.',
-    image: 'utrecht-team/ElenaGianotten.jpg',
+    image: 'utrecht-team/ElenaGianotten.JPG',
   },
   {
     name: 'Nick Hodgskin',
