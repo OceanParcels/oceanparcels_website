@@ -2,6 +2,13 @@ import { CurrentTeamMember, PriorTeamMember } from '../types/team'
 
 export const CurrentTeamMembers: CurrentTeamMember[] = [
   {
+    name: 'Jamie Atkins',
+    position: 'Postdoctoral researcher',
+    description:
+      'Jamie develops biogeochemical sampling in the Virtual Ship Classroom.',
+    image: 'utrecht-team/JamieAtkins.jpg',
+  },
+  {
     name: 'Vesna Bertoncelj',
     position: 'PhD candidate',
     description:
@@ -18,7 +25,7 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
   {
     name: 'Emma Daniëls',
     position: 'Postdoctoral researcher',
-    description: 'Emma develops a virtual ship learning experience.',
+    description: 'Emma leads the development of the Virtual Ship Classroom.',
     image: 'utrecht-team/EmmaDaniels.jpg',
   },
   {
@@ -41,19 +48,6 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
       github: 'https://github.com/veckothegecko/',
     },
     image: 'utrecht-team/NickHodgskin.jpg',
-  },
-  {
-    name: 'Laura Gomez Navarro',
-    position: 'Margarita Salas Fellow',
-    description:
-      'Laura investigates how oceanic fine-scales affect the transport of marine plastic.',
-    links: {
-      github: 'https://github.com/LauraGomezNavarro',
-      researchgate: 'https://www.researchgate.net/profile/Laura-Gomez-Navarro',
-      googlescholar:
-        'https://scholar.google.es/citations?user=ML8EsI4AAAAJ&hl=ca',
-    },
-    image: 'utrecht-team/LauraGomezNavarro.jpg',
   },
   {
     name: 'Jimena Medina Rubio',
@@ -195,6 +189,10 @@ export const PriorTeamMembers: PriorTeamMember[] = [
   {
     name: 'Rebeca De La Fuente',
     position: 'PhD exchange researcher from University of Balearic Islands',
+  },
+  {
+    name: 'Laura Gomez Navarro',
+    position: 'Postdoctoral researcher and Margarita Salas Fellow',
   },
   {
     name: 'Federica Guerrini',
