@@ -77,8 +77,8 @@ export const Header = () => {
             >
               <ColorModeImage
                 w={48}
-                lightSrc={'/parcels-assets/logo-horo.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
-                darkSrc={'/parcels-assets/logo-horo_dia.svg'} //TODO: Update to svg in roughly 1h*3w (internal) and 1h*2w external (as was before)
+                lightSrc={'/parcels-assets/logo-horo.svg'}
+                darkSrc={'/parcels-assets/logo-horo_dia.svg'}
                 alt={'parcels logo'}
               />
             </Stack>
