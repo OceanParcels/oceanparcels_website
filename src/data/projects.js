@@ -13,7 +13,7 @@ export const Projects = [
     description:
       'VirtualShipParcels is a command-line simulator to plan and conduct a virtual research expedition.',
     repo: 'https://github.com/OceanParcels/virtualship',
-    homepage: 'https://virtualship.oceanparcels.org/en/latest/',
+    homepage: 'https://virtualship.oceanparcels.org',
     logo_light: '/projects/virtual_ship_logo.png',
     logo_dark: '/projects/virtual_ship_logo_dia.png',
   },
