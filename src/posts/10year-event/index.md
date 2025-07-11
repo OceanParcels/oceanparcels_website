@@ -36,7 +36,7 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 
 - 1 July 2025: Submission of request for travel funding
 - 15 July 2025: Travel funding notification
-- 1 August 2025: Submission of abstracts for presentations
+- 13 August 2025: Submission of abstracts for presentations
 - 15 August 2025: Notification of acceptance
 - 1 September 2025: Final program available
 - 15 September 2025: Registration deadline
