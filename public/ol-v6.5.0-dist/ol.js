@@ -12,7 +12,7 @@
     function r(n) {
       if (e[n]) return e[n].exports
       var i = (e[n] = { i: n, l: !1, exports: {} })
-      return t[n].call(i.exports, i, i.exports, r), (i.l = !0), i.exports
+      return (t[n].call(i.exports, i, i.exports, r), (i.l = !0), i.exports)
     }
     return (
       (r.m = t),
@@ -21,10 +21,10 @@
         r.o(t, e) || Object.defineProperty(t, e, { enumerable: !0, get: n })
       }),
       (r.r = function (t) {
-        'undefined' != typeof Symbol &&
+        ;('undefined' != typeof Symbol &&
           Symbol.toStringTag &&
           Object.defineProperty(t, Symbol.toStringTag, { value: 'Module' }),
-          Object.defineProperty(t, '__esModule', { value: !0 })
+          Object.defineProperty(t, '__esModule', { value: !0 }))
       }),
       (r.t = function (t, e) {
         if ((1 & e && (t = r(t)), 8 & e)) return t
@@ -54,7 +54,7 @@
             : function () {
                 return t
               }
-        return r.d(e, 'a', e), e
+        return (r.d(e, 'a', e), e)
       }),
       (r.o = function (t, e) {
         return Object.prototype.hasOwnProperty.call(t, e)
@@ -66,7 +66,7 @@
     function (t, e, r) {
       'use strict'
       ;(function (t, n) {
-        r.d(e, 'a', function () {
+        ;(r.d(e, 'a', function () {
           return J
         }),
           r.d(e, 'b', function () {
@@ -83,7 +83,7 @@
           }),
           r.d(e, 'f', function () {
             return i
-          })
+          }))
         var i = {
           $version: 8,
           $root: {
@@ -5130,7 +5130,7 @@
           )
         }
         function s(t, e) {
-          return t((e = { exports: {} }), e.exports), e.exports
+          return (t((e = { exports: {} }), e.exports), e.exports)
         }
         var l = s(function (t, e) {
             !(function (r) {
@@ -5217,8 +5217,8 @@
                   v = 128,
                   _ = 72
                 for ((r = t.lastIndexOf('-')) < 0 && (r = 0), n = 0; n < r; ++n)
-                  t.charCodeAt(n) >= 128 && y('not-basic'),
-                    f.push(t.charCodeAt(n))
+                  (t.charCodeAt(n) >= 128 && y('not-basic'),
+                    f.push(t.charCodeAt(n)))
                 for (i = r > 0 ? r + 1 : 0; i < g; ) {
                   for (
                     o = m, a = 1, s = 36;
@@ -5237,12 +5237,12 @@
                       !(l < (c = s <= _ ? 1 : s >= _ + 26 ? 26 : s - _));
                     s += 36
                   )
-                    a > d(u / (h = 36 - c)) && y('overflow'), (a *= h)
-                  ;(_ = w(m - o, (e = f.length + 1), 0 == o)),
+                    (a > d(u / (h = 36 - c)) && y('overflow'), (a *= h))
+                  ;((_ = w(m - o, (e = f.length + 1), 0 == o)),
                     d(m / e) > u - v && y('overflow'),
                     (v += d(m / e)),
                     (m %= e),
-                    f.splice(m++, 0, v)
+                    f.splice(m++, 0, v))
                 }
                 return b(f)
               }
@@ -5286,13 +5286,13 @@
                         !(l < (h = c <= o ? 1 : c >= o + 26 ? 26 : c - o));
                         c += 36
                       )
-                        (b = l - h),
+                        ((b = l - h),
                           (v = 36 - h),
                           S.push(g(x(h + (b % v), 0))),
-                          (l = d(b / v))
-                      S.push(g(x(l, 0))), (o = w(r, m, n == i)), (r = 0), ++n
+                          (l = d(b / v)))
+                      ;(S.push(g(x(l, 0))), (o = w(r, m, n == i)), (r = 0), ++n)
                     }
-                  ++r, ++e
+                  ;(++r, ++e)
                 }
                 return S.join('')
               }
@@ -5336,7 +5336,7 @@
           return Object.prototype.hasOwnProperty.call(t, e)
         }
         var d = function (t, e, r, n) {
-            ;(e = e || '&'), (r = r || '=')
+            ;((e = e || '&'), (r = r || '='))
             var i = {}
             if ('string' != typeof t || 0 === t.length) return i
             var o = /\+/g
@@ -5352,7 +5352,7 @@
                 p,
                 d = t[l].replace(o, '%20'),
                 g = d.indexOf(r)
-              g >= 0
+              ;(g >= 0
                 ? ((u = d.substr(0, g)), (c = d.substr(g + 1)))
                 : ((u = d), (c = '')),
                 (h = decodeURIComponent(u)),
@@ -5361,7 +5361,7 @@
                   ? Array.isArray(i[h])
                     ? i[h].push(p)
                     : (i[h] = [i[h], p])
-                  : (i[h] = p)
+                  : (i[h] = p))
             }
             return i
           },
@@ -5401,11 +5401,11 @@
             )
           },
           m = s(function (t, e) {
-            ;(e.decode = e.parse = d), (e.encode = e.stringify = y)
+            ;((e.decode = e.parse = d), (e.encode = e.stringify = y))
           })
-        m.decode, m.parse, m.encode, m.stringify
+        ;(m.decode, m.parse, m.encode, m.stringify)
         function v() {
-          ;(this.protocol = null),
+          ;((this.protocol = null),
             (this.slashes = null),
             (this.auth = null),
             (this.host = null),
@@ -5416,7 +5416,7 @@
             (this.query = null),
             (this.pathname = null),
             (this.path = null),
-            (this.href = null)
+            (this.href = null))
         }
         var _ = /^([a-z0-9.+-]+:)/i,
           b = /:[0-9]*$/,
@@ -5453,9 +5453,9 @@
         function L(t, e, r) {
           if (t && c(t) && t instanceof v) return t
           var n = new v()
-          return n.parse(t, e, r), n
+          return (n.parse(t, e, r), n)
         }
-        ;(v.prototype.parse = function (t, e, r) {
+        ;((v.prototype.parse = function (t, e, r) {
           if (!u(t))
             throw new TypeError(
               "Parameter 'url' must be a string, not " + typeof t,
@@ -5484,7 +5484,7 @@
           var c = _.exec(a)
           if (c) {
             var h = (c = c[0]).toLowerCase()
-            ;(this.protocol = h), (a = a.substr(c.length))
+            ;((this.protocol = h), (a = a.substr(c.length)))
           }
           if (r || c || a.match(/^\/\/[^@\/]+@[^@\/]+/)) {
             var p = '//' === a.substr(0, 2)
@@ -5494,21 +5494,21 @@
             for (var f, d, g = -1, y = 0; y < T.length; y++) {
               ;-1 !== (v = a.indexOf(T[y])) && (-1 === g || v < g) && (g = v)
             }
-            ;-1 !==
+            ;(-1 !==
               (d = -1 === g ? a.lastIndexOf('@') : a.lastIndexOf('@', g)) &&
               ((f = a.slice(0, d)),
               (a = a.slice(d + 1)),
               (this.auth = decodeURIComponent(f))),
-              (g = -1)
+              (g = -1))
             for (y = 0; y < E.length; y++) {
               var v
               ;-1 !== (v = a.indexOf(E[y])) && (-1 === g || v < g) && (g = v)
             }
-            ;-1 === g && (g = a.length),
+            ;(-1 === g && (g = a.length),
               (this.host = a.slice(0, g)),
               (a = a.slice(g)),
               this.parseHost(),
-              (this.hostname = this.hostname || '')
+              (this.hostname = this.hostname || ''))
             var b =
               '[' === this.hostname[0] &&
               ']' === this.hostname[this.hostname.length - 1]
@@ -5526,34 +5526,34 @@
                     var j = w.slice(0, y),
                       N = w.slice(y + 1),
                       D = M.match(O)
-                    D && (j.push(D[1]), N.unshift(D[2])),
+                    ;(D && (j.push(D[1]), N.unshift(D[2])),
                       N.length && (a = '/' + N.join('.') + a),
-                      (this.hostname = j.join('.'))
+                      (this.hostname = j.join('.')))
                     break
                   }
                 }
               }
-            this.hostname.length > 255
+            ;(this.hostname.length > 255
               ? (this.hostname = '')
               : (this.hostname = this.hostname.toLowerCase()),
-              b || (this.hostname = l.toASCII(this.hostname))
+              b || (this.hostname = l.toASCII(this.hostname)))
             var G = this.port ? ':' + this.port : '',
               z = this.hostname || ''
-            ;(this.host = z + G),
+            ;((this.host = z + G),
               (this.href += this.host),
               b &&
                 ((this.hostname = this.hostname.substr(
                   1,
                   this.hostname.length - 2,
                 )),
-                '/' !== a[0] && (a = '/' + a))
+                '/' !== a[0] && (a = '/' + a)))
           }
           if (!P[h])
             for (y = 0, L = S.length; y < L; y++) {
               var U = S[y]
               if (-1 !== a.indexOf(U)) {
                 var B = encodeURIComponent(U)
-                B === U && (B = escape(U)), (a = a.split(U).join(B))
+                ;(B === U && (B = escape(U)), (a = a.split(U).join(B)))
               }
             }
           var V = a.indexOf('#')
@@ -5574,7 +5574,7 @@
             var W = this.search || ''
             this.path = G + W
           }
-          return (this.href = this.format()), this
+          return ((this.href = this.format()), this)
         }),
           (v.prototype.format = function () {
             var t = this.auth || ''
@@ -5586,7 +5586,7 @@
               n = this.hash || '',
               i = !1,
               o = ''
-            this.host
+            ;(this.host
               ? (i = t + this.host)
               : this.hostname &&
                 ((i =
@@ -5598,7 +5598,7 @@
               this.query &&
                 c(this.query) &&
                 Object.keys(this.query).length &&
-                (o = m.stringify(this.query))
+                (o = m.stringify(this.query)))
             var a = this.search || (o && '?' + o) || ''
             return (
               e && ':' !== e.substr(-1) && (e += ':'),
@@ -5623,7 +5623,7 @@
           (v.prototype.resolveObject = function (t) {
             if (u(t)) {
               var e = new v()
-              e.parse(t, !1, !0), (t = e)
+              ;(e.parse(t, !1, !0), (t = e))
             }
             for (
               var r = new v(), n = Object.keys(this), i = 0;
@@ -5634,7 +5634,7 @@
               r[o] = this[o]
             }
             if (((r.hash = t.hash), '' === t.href))
-              return (r.href = r.format()), r
+              return ((r.href = r.format()), r)
             if (t.slashes && !t.protocol) {
               for (var a = Object.keys(t), s = 0; s < a.length; s++) {
                 var l = a[s]
@@ -5655,7 +5655,7 @@
                   var d = c[f]
                   r[d] = t[d]
                 }
-                return (r.href = r.format()), r
+                return ((r.href = r.format()), r)
               }
               if (((r.protocol = t.protocol), t.host || R[t.protocol]))
                 r.pathname = t.pathname
@@ -5665,11 +5665,11 @@
                   g.length && !(t.host = g.shift());
 
                 );
-                t.host || (t.host = ''),
+                ;(t.host || (t.host = ''),
                   t.hostname || (t.hostname = ''),
                   '' !== g[0] && g.unshift(''),
                   g.length < 2 && g.unshift(''),
-                  (r.pathname = g.join('/'))
+                  (r.pathname = g.join('/')))
               }
               if (
                 ((r.search = t.search),
@@ -5685,7 +5685,9 @@
                 r.path = y + m
               }
               return (
-                (r.slashes = r.slashes || t.slashes), (r.href = r.format()), r
+                (r.slashes = r.slashes || t.slashes),
+                (r.href = r.format()),
+                r
               )
             }
             var _ = r.pathname && '/' === r.pathname.charAt(0),
@@ -5710,25 +5712,25 @@
                 (x = x && ('' === g[0] || '' === S[0]))),
               b)
             )
-              (r.host = t.host || '' === t.host ? t.host : r.host),
+              ((r.host = t.host || '' === t.host ? t.host : r.host),
                 (r.hostname =
                   t.hostname || '' === t.hostname ? t.hostname : r.hostname),
                 (r.search = t.search),
                 (r.query = t.query),
-                (S = g)
+                (S = g))
             else if (g.length)
-              S || (S = []),
+              (S || (S = []),
                 S.pop(),
                 (S = S.concat(g)),
                 (r.search = t.search),
-                (r.query = t.query)
+                (r.query = t.query))
             else if (!p(t.search)) {
               if (E)
-                (r.hostname = r.host = S.shift()),
+                ((r.hostname = r.host = S.shift()),
                   (L =
                     !!(r.host && r.host.indexOf('@') > 0) &&
                     r.host.split('@')) &&
-                    ((r.auth = L.shift()), (r.host = r.hostname = L.shift()))
+                    ((r.auth = L.shift()), (r.host = r.hostname = L.shift())))
               return (
                 (r.search = t.search),
                 (r.query = t.query),
@@ -5764,11 +5766,11 @@
                   ? (S.splice(P, 1), O++)
                   : O && (S.splice(P, 1), O--)
             if (!x && !w) for (; O--; O) S.unshift('..')
-            !x ||
+            ;(!x ||
               '' === S[0] ||
               (S[0] && '/' === S[0].charAt(0)) ||
               S.unshift(''),
-              C && '/' !== S.join('/').substr(-1) && S.push('')
+              C && '/' !== S.join('/').substr(-1) && S.push(''))
             var L,
               M = '' === S[0] || (S[0] && '/' === S[0].charAt(0))
             E &&
@@ -5793,23 +5795,23 @@
           (v.prototype.parseHost = function () {
             var t = this.host,
               e = b.exec(t)
-            e &&
+            ;(e &&
               (':' !== (e = e[0]) && (this.port = e.substr(1)),
               (t = t.substr(0, t.length - e.length))),
-              t && (this.hostname = t)
-          })
+              t && (this.hostname = t))
+          }))
         function M(t, ...e) {
           for (const r of e) for (const e in r) t[e] = r[e]
           return t
         }
         class F extends Error {
           constructor(t, e) {
-            super(e), (this.message = e), (this.key = t)
+            ;(super(e), (this.message = e), (this.key = t))
           }
         }
         class A {
           constructor(t, e = []) {
-            ;(this.parent = t), (this.bindings = {})
+            ;((this.parent = t), (this.bindings = {}))
             for (const [t, r] of e) this.bindings[t] = r
           }
           concat(t) {
@@ -6119,7 +6121,7 @@
         }).parseCSSColor
         class J {
           constructor(t, e, r, n = 1) {
-            ;(this.r = t), (this.g = e), (this.b = r), (this.a = n)
+            ;((this.r = t), (this.g = e), (this.b = r), (this.a = n))
           }
           static parse(t) {
             if (!t) return
@@ -6146,14 +6148,14 @@
               : [(255 * t) / n, (255 * e) / n, (255 * r) / n, n]
           }
         }
-        ;(J.black = new J(0, 0, 0, 1)),
+        ;((J.black = new J(0, 0, 0, 1)),
           (J.white = new J(1, 1, 1, 1)),
           (J.transparent = new J(0, 0, 0, 0)),
           (J.red = new J(1, 0, 0, 1)),
-          (J.blue = new J(0, 0, 1, 1))
+          (J.blue = new J(0, 0, 1, 1)))
         class Q {
           constructor(t, e, r) {
-            ;(this.sensitivity = t
+            ;((this.sensitivity = t
               ? e
                 ? 'variant'
                 : 'case'
@@ -6164,7 +6166,7 @@
               (this.collator = new Intl.Collator(
                 this.locale ? this.locale : [],
                 { sensitivity: this.sensitivity, usage: 'search' },
-              ))
+              )))
           }
           compare(t, e) {
             return this.collator.compare(t, e)
@@ -6177,11 +6179,11 @@
         }
         class tt {
           constructor(t, e, r, n, i) {
-            ;(this.text = t),
+            ;((this.text = t),
               (this.image = e),
               (this.scale = r),
               (this.fontStack = n),
-              (this.textColor = i)
+              (this.textColor = i))
           }
         }
         class et {
@@ -6217,19 +6219,19 @@
               }
               t.push(e.text)
               const r = {}
-              e.fontStack &&
+              ;(e.fontStack &&
                 (r['text-font'] = ['literal', e.fontStack.split(',')]),
                 e.scale && (r['font-scale'] = e.scale),
                 e.textColor &&
                   (r['text-color'] = ['rgba'].concat(e.textColor.toArray())),
-                t.push(r)
+                t.push(r))
             }
             return t
           }
         }
         class rt {
           constructor(t) {
-            ;(this.name = t.name), (this.available = t.available)
+            ;((this.name = t.name), (this.available = t.available))
           }
           toString() {
             return this.name
@@ -6317,7 +6319,7 @@
         }
         class st {
           constructor(t, e) {
-            ;(this.type = t), (this.value = e)
+            ;((this.type = t), (this.value = e))
           }
           static parse(t, e) {
             if (2 !== t.length)
@@ -6357,7 +6359,7 @@
         }
         class lt {
           constructor(t) {
-            ;(this.name = 'ExpressionEvaluationError'), (this.message = t)
+            ;((this.name = 'ExpressionEvaluationError'), (this.message = t))
           }
           toJSON() {
             return this.message
@@ -6366,7 +6368,7 @@
         const ut = { string: N, number: j, boolean: D, object: z }
         class ct {
           constructor(t, e) {
-            ;(this.type = t), (this.args = e)
+            ;((this.type = t), (this.args = e))
           }
           static parse(t, e) {
             if (t.length < 2) return e.error('Expected at least one argument.')
@@ -6382,7 +6384,7 @@
                     'The item type argument of "array" must be one of string, number, boolean',
                     1,
                   )
-                ;(i = ut[r]), n++
+                ;((i = ut[r]), n++)
               } else i = U
               if (t.length > 3) {
                 if (
@@ -6395,7 +6397,7 @@
                     'The length argument to "array" must be a positive integer literal',
                     2,
                   )
-                ;(o = t[2]), n++
+                ;((o = t[2]), n++)
               }
               r = W(i, o)
             } else r = ut[i]
@@ -6444,7 +6446,7 @@
         }
         class ht {
           constructor(t) {
-            ;(this.type = V), (this.sections = t)
+            ;((this.type = V), (this.sections = t))
           }
           static parse(t, e) {
             if (t.length < 2) return e.error('Expected at least one argument.')
@@ -6476,7 +6478,7 @@
                 )
                   return null
                 const s = n[n.length - 1]
-                ;(s.scale = t), (s.font = r), (s.textColor = a)
+                ;((s.scale = t), (s.font = r), (s.textColor = a))
               } else {
                 const o = e.parse(t[r], 1, U)
                 if (!o) return null
@@ -6490,13 +6492,13 @@
                   return e.error(
                     "Formatted text type must be 'string', 'value', 'image' or 'null'.",
                   )
-                ;(i = !0),
+                ;((i = !0),
                   n.push({
                     content: o,
                     scale: null,
                     font: null,
                     textColor: null,
-                  })
+                  }))
               }
             }
             return new ht(n)
@@ -6519,10 +6521,10 @@
           }
           eachChild(t) {
             for (const e of this.sections)
-              t(e.content),
+              (t(e.content),
                 e.scale && t(e.scale),
                 e.font && t(e.font),
-                e.textColor && t(e.textColor)
+                e.textColor && t(e.textColor))
           }
           outputDefined() {
             return !1
@@ -6532,17 +6534,17 @@
             for (const e of this.sections) {
               t.push(e.content.serialize())
               const r = {}
-              e.scale && (r['font-scale'] = e.scale.serialize()),
+              ;(e.scale && (r['font-scale'] = e.scale.serialize()),
                 e.font && (r['text-font'] = e.font.serialize()),
                 e.textColor && (r['text-color'] = e.textColor.serialize()),
-                t.push(r)
+                t.push(r))
             }
             return t
           }
         }
         class pt {
           constructor(t) {
-            ;(this.type = Y), (this.input = t)
+            ;((this.type = Y), (this.input = t))
           }
           static parse(t, e) {
             if (2 !== t.length) return e.error('Expected two arguments.')
@@ -6577,7 +6579,7 @@
         }
         class dt {
           constructor(t, e) {
-            ;(this.type = t), (this.args = e)
+            ;((this.type = t), (this.args = e))
           }
           static parse(t, e) {
             if (t.length < 2) return e.error('Expected at least one argument.')
@@ -6663,13 +6665,13 @@
         const gt = ['Unknown', 'Point', 'LineString', 'Polygon']
         class yt {
           constructor() {
-            ;(this.globals = null),
+            ;((this.globals = null),
               (this.feature = null),
               (this.featureState = null),
               (this.formattedSection = null),
               (this._parseColorCache = {}),
               (this.availableImages = null),
-              (this.canonical = null)
+              (this.canonical = null))
           }
           id() {
             return this.feature && 'id' in this.feature ? this.feature.id : null
@@ -6694,15 +6696,15 @@
           }
           parseColor(t) {
             let e = this._parseColorCache[t]
-            return e || (e = this._parseColorCache[t] = J.parse(t)), e
+            return (e || (e = this._parseColorCache[t] = J.parse(t)), e)
           }
         }
         class mt {
           constructor(t, e, r, n) {
-            ;(this.name = t),
+            ;((this.name = t),
               (this.type = e),
               (this._evaluate = r),
-              (this.args = n)
+              (this.args = n))
           }
           evaluate(t) {
             return this._evaluate(t, this.args)
@@ -6790,10 +6792,10 @@
         }
         class vt {
           constructor(t, e, r) {
-            ;(this.type = B),
+            ;((this.type = B),
               (this.locale = r),
               (this.caseSensitive = t),
-              (this.diacriticSensitive = e)
+              (this.diacriticSensitive = e))
           }
           static parse(t, e) {
             if (2 !== t.length) return e.error('Expected one argument.')
@@ -6825,9 +6827,9 @@
             )
           }
           eachChild(t) {
-            t(this.caseSensitive),
+            ;(t(this.caseSensitive),
               t(this.diacriticSensitive),
-              this.locale && t(this.locale)
+              this.locale && t(this.locale))
           }
           outputDefined() {
             return !1
@@ -6843,10 +6845,10 @@
           }
         }
         function _t(t, e) {
-          ;(t[0] = Math.min(t[0], e[0])),
+          ;((t[0] = Math.min(t[0], e[0])),
             (t[1] = Math.min(t[1], e[1])),
             (t[2] = Math.max(t[2], e[0])),
-            (t[3] = Math.max(t[3], e[1]))
+            (t[3] = Math.max(t[3], e[1])))
         }
         function bt(t, e) {
           return (
@@ -6881,13 +6883,13 @@
             const s = e[a]
             for (let e = 0, a = s.length; e < a - 1; e++) {
               if (wt(t, s[e], s[e + 1])) return !1
-              ;(n = t),
+              ;((n = t),
                 (i = s[e]),
                 (o = s[e + 1]),
                 i[1] > n[1] != o[1] > n[1] &&
                   n[0] <
                     ((o[0] - i[0]) * (n[1] - i[1])) / (o[1] - i[1]) + i[0] &&
-                  (r = !r)
+                  (r = !r))
             }
           }
           var n, i, o
@@ -6939,7 +6941,7 @@
             const o = []
             for (let n = 0; n < t[i].length; n++) {
               const a = xt(t[i][n], r)
-              _t(e, a), o.push(a)
+              ;(_t(e, a), o.push(a))
             }
             n.push(o)
           }
@@ -6957,8 +6959,8 @@
           if (t[0] < r[0] || t[0] > r[2]) {
             const e = 0.5 * n
             let i = t[0] - r[0] > e ? -n : r[0] - t[0] > e ? n : 0
-            0 === i && (i = t[0] - r[2] > e ? -n : r[2] - t[0] > e ? n : 0),
-              (t[0] += i)
+            ;(0 === i && (i = t[0] - r[2] > e ? -n : r[2] - t[0] > e ? n : 0),
+              (t[0] += i))
           }
           _t(e, t)
         }
@@ -6969,7 +6971,7 @@
           for (const n of t)
             for (const t of n) {
               const n = [t.x + o[0], t.y + o[1]]
-              Mt(n, e, r, i), a.push(n)
+              ;(Mt(n, e, r, i), a.push(n))
             }
           return a
         }
@@ -6981,12 +6983,12 @@
             const t = []
             for (const n of r) {
               const r = [n.x + o[0], n.y + o[1]]
-              _t(e, r), t.push(r)
+              ;(_t(e, r), t.push(r))
             }
             a.push(t)
           }
           if (e[2] - e[0] <= i / 2) {
-            ;((s = e)[0] = s[1] = 1 / 0), (s[2] = s[3] = -1 / 0)
+            ;(((s = e)[0] = s[1] = 1 / 0), (s[2] = s[3] = -1 / 0))
             for (const t of a) for (const n of t) Mt(n, e, r, i)
           }
           var s
@@ -6994,7 +6996,7 @@
         }
         class kt {
           constructor(t, e) {
-            ;(this.type = D), (this.geojson = t), (this.geometries = e)
+            ;((this.type = D), (this.geojson = t), (this.geometries = e))
           }
           static parse(t, e) {
             if (2 !== t.length)
@@ -7115,7 +7117,7 @@
         }
         class Gt {
           constructor(t, e) {
-            ;(this.type = e.type), (this.name = t), (this.boundExpression = e)
+            ;((this.type = e.type), (this.name = t), (this.boundExpression = e))
           }
           static parse(t, e) {
             if (2 !== t.length || 'string' != typeof t[1])
@@ -7143,12 +7145,12 @@
         }
         class zt {
           constructor(t, e = [], r, n = new A(), i = []) {
-            ;(this.registry = t),
+            ;((this.registry = t),
               (this.path = e),
               (this.key = e.map((t) => `[${t}]`).join('')),
               (this.scope = n),
               (this.errors = i),
-              (this.expectedType = r)
+              (this.expectedType = r))
           }
           parse(t, e, r, n, i = {}) {
             return e ? this.concat(e, r, n)._parse(t, i) : this._parse(t, i)
@@ -7241,7 +7243,7 @@
                   try {
                     n = new st(n.type, n.evaluate(t))
                   } catch (t) {
-                    return this.error(t.message), null
+                    return (this.error(t.message), null)
                   }
                 }
                 return n
@@ -7272,7 +7274,7 @@
           }
           checkSubtype(t, e) {
             const r = Z(t, e)
-            return r && this.error(r), r
+            return (r && this.error(r), r)
           }
         }
         function Ut(t, e) {
@@ -7299,11 +7301,11 @@
         }
         class Bt {
           constructor(t, e, r) {
-            ;(this.type = t),
+            ;((this.type = t),
               (this.input = e),
               (this.labels = []),
-              (this.outputs = [])
-            for (const [t, e] of r) this.labels.push(t), this.outputs.push(e)
+              (this.outputs = []))
+            for (const [t, e] of r) (this.labels.push(t), this.outputs.push(e))
           }
           static parse(t, e) {
             if (t.length - 1 < 4)
@@ -7336,7 +7338,7 @@
                 )
               const u = e.parse(a, l, i)
               if (!u) return null
-              ;(i = i || u.type), n.push([o, u])
+              ;((i = i || u.type), n.push([o, u]))
             }
             return new Bt(i, r, n)
           }
@@ -7360,14 +7362,14 @@
           serialize() {
             const t = ['step', this.input.serialize()]
             for (let e = 0; e < this.labels.length; e++)
-              e > 0 && t.push(this.labels[e]),
-                t.push(this.outputs[e].serialize())
+              (e > 0 && t.push(this.labels[e]),
+                t.push(this.outputs[e].serialize()))
             return t
           }
         }
         var Vt = Yt
         function Yt(t, e, r, n) {
-          ;(this.cx = 3 * t),
+          ;((this.cx = 3 * t),
             (this.bx = 3 * (r - t) - this.cx),
             (this.ax = 1 - this.cx - this.bx),
             (this.cy = 3 * e),
@@ -7376,12 +7378,12 @@
             (this.p1x = t),
             (this.p1y = n),
             (this.p2x = r),
-            (this.p2y = n)
+            (this.p2y = n))
         }
         function Wt(t, e, r) {
           return t * (1 - r) + e * r
         }
-        ;(Yt.prototype.sampleCurveX = function (t) {
+        ;((Yt.prototype.sampleCurveX = function (t) {
           return ((this.ax * t + this.bx) * t + this.cx) * t
         }),
           (Yt.prototype.sampleCurveY = function (t) {
@@ -7402,13 +7404,13 @@
             if (i > (n = 1)) return n
             for (; r < n; ) {
               if (((o = this.sampleCurveX(i)), Math.abs(o - t) < e)) return i
-              t > o ? (r = i) : (n = i), (i = 0.5 * (n - r) + r)
+              ;(t > o ? (r = i) : (n = i), (i = 0.5 * (n - r) + r))
             }
             return i
           }),
           (Yt.prototype.solve = function (t, e) {
             return this.sampleCurveY(this.solveCurveX(t, e))
-          })
+          }))
         var qt = Object.freeze({
           __proto__: null,
           number: Wt,
@@ -7528,13 +7530,13 @@
         var ae = Object.freeze({ __proto__: null, lab: ie, hcl: oe })
         class se {
           constructor(t, e, r, n, i) {
-            ;(this.type = t),
+            ;((this.type = t),
               (this.operator = e),
               (this.interpolation = r),
               (this.input = n),
               (this.labels = []),
-              (this.outputs = [])
-            for (const [t, e] of i) this.labels.push(t), this.outputs.push(e)
+              (this.outputs = []))
+            for (const [t, e] of i) (this.labels.push(t), this.outputs.push(e))
           }
           static interpolationFactor(t, e, r, n) {
             let i = 0
@@ -7611,7 +7613,7 @@
                 )
               const u = e.parse(n, l, s)
               if (!u) return null
-              ;(s = s || u.type), a.push([r, u])
+              ;((s = s || u.type), a.push([r, u]))
             }
             return 'number' === s.kind ||
               'color' === s.kind ||
@@ -7675,7 +7677,7 @@
         }
         class ue {
           constructor(t, e) {
-            ;(this.type = t), (this.args = e)
+            ;((this.type = t), (this.args = e))
           }
           static parse(t, e) {
             if (t.length < 2)
@@ -7689,7 +7691,7 @@
                 typeAnnotation: 'omit',
               })
               if (!t) return null
-              ;(r = r || t.type), i.push(t)
+              ;((r = r || t.type), i.push(t))
             }
             const o = n && i.some((t) => Z(n, t.type))
             return new ue(o ? U : r, i)
@@ -7731,9 +7733,9 @@
         }
         class ce {
           constructor(t, e) {
-            ;(this.type = e.type),
+            ;((this.type = e.type),
               (this.bindings = [].concat(t)),
-              (this.result = e)
+              (this.result = e))
           }
           evaluate(t) {
             return this.result.evaluate(t)
@@ -7773,12 +7775,12 @@
           serialize() {
             const t = ['let']
             for (const [e, r] of this.bindings) t.push(e, r.serialize())
-            return t.push(this.result.serialize()), t
+            return (t.push(this.result.serialize()), t)
           }
         }
         class he {
           constructor(t, e, r) {
-            ;(this.type = t), (this.index = e), (this.input = r)
+            ;((this.type = t), (this.index = e), (this.input = r))
           }
           static parse(t, e) {
             if (3 !== t.length)
@@ -7804,7 +7806,7 @@
             return r[e]
           }
           eachChild(t) {
-            t(this.index), t(this.input)
+            ;(t(this.index), t(this.input))
           }
           outputDefined() {
             return !1
@@ -7815,7 +7817,7 @@
         }
         class pe {
           constructor(t, e) {
-            ;(this.type = D), (this.needle = t), (this.haystack = e)
+            ;((this.type = D), (this.needle = t), (this.haystack = e))
           }
           static parse(t, e) {
             if (3 !== t.length)
@@ -7847,7 +7849,7 @@
             return r.indexOf(e) >= 0
           }
           eachChild(t) {
-            t(this.needle), t(this.haystack)
+            ;(t(this.needle), t(this.haystack))
           }
           outputDefined() {
             return !0
@@ -7858,10 +7860,10 @@
         }
         class fe {
           constructor(t, e, r) {
-            ;(this.type = j),
+            ;((this.type = j),
               (this.needle = t),
               (this.haystack = e),
-              (this.fromIndex = r)
+              (this.fromIndex = r))
           }
           static parse(t, e) {
             if (t.length <= 2 || t.length >= 5)
@@ -7899,9 +7901,9 @@
             return r.indexOf(e)
           }
           eachChild(t) {
-            t(this.needle),
+            ;(t(this.needle),
               t(this.haystack),
-              this.fromIndex && t(this.fromIndex)
+              this.fromIndex && t(this.fromIndex))
           }
           outputDefined() {
             return !1
@@ -7925,12 +7927,12 @@
         }
         class de {
           constructor(t, e, r, n, i, o) {
-            ;(this.inputType = t),
+            ;((this.inputType = t),
               (this.type = e),
               (this.input = r),
               (this.cases = n),
               (this.outputs = i),
-              (this.otherwise = o)
+              (this.otherwise = o))
           }
           static parse(t, e) {
             if (t.length < 5)
@@ -7975,7 +7977,7 @@
               }
               const c = e.parse(l, a, n)
               if (!c) return null
-              ;(n = n || c.type), o.push(c)
+              ;((n = n || c.type), o.push(c))
             }
             const a = e.parse(t[1], 1, U)
             if (!a) return null
@@ -7994,7 +7996,7 @@
             ).evaluate(t)
           }
           eachChild(t) {
-            t(this.input), this.outputs.forEach(t), t(this.otherwise)
+            ;(t(this.input), this.outputs.forEach(t), t(this.otherwise))
           }
           outputDefined() {
             return (
@@ -8015,14 +8017,14 @@
             }
             const i = (t) => ('number' === this.inputType.kind ? Number(t) : t)
             for (const [e, n] of r)
-              1 === n.length ? t.push(i(n[0])) : t.push(n.map(i)),
-                t.push(this.outputs[e].serialize())
-            return t.push(this.otherwise.serialize()), t
+              (1 === n.length ? t.push(i(n[0])) : t.push(n.map(i)),
+                t.push(this.outputs[e].serialize()))
+            return (t.push(this.otherwise.serialize()), t)
           }
         }
         class ge {
           constructor(t, e, r) {
-            ;(this.type = t), (this.branches = e), (this.otherwise = r)
+            ;((this.type = t), (this.branches = e), (this.otherwise = r))
           }
           static parse(t, e) {
             if (t.length < 4)
@@ -8041,7 +8043,7 @@
               if (!o) return null
               const a = e.parse(t[i + 1], i + 1, r)
               if (!a) return null
-              n.push([o, a]), (r = r || a.type)
+              ;(n.push([o, a]), (r = r || a.type))
             }
             const i = e.parse(t[t.length - 1], t.length - 1, r)
             return i ? new ge(r, n, i) : null
@@ -8052,7 +8054,7 @@
             return this.otherwise.evaluate(t)
           }
           eachChild(t) {
-            for (const [e, r] of this.branches) t(e), t(r)
+            for (const [e, r] of this.branches) (t(e), t(r))
             t(this.otherwise)
           }
           outputDefined() {
@@ -8073,10 +8075,10 @@
         }
         class ye {
           constructor(t, e, r, n) {
-            ;(this.type = t),
+            ;((this.type = t),
               (this.input = e),
               (this.beginIndex = r),
-              (this.endIndex = n)
+              (this.endIndex = n))
           }
           static parse(t, e) {
             if (t.length <= 2 || t.length >= 5)
@@ -8110,7 +8112,9 @@
             return e.slice(r)
           }
           eachChild(t) {
-            t(this.input), t(this.beginIndex), this.endIndex && t(this.endIndex)
+            ;(t(this.input),
+              t(this.beginIndex),
+              this.endIndex && t(this.endIndex))
           }
           outputDefined() {
             return !1
@@ -8148,12 +8152,12 @@
           const n = '==' !== t && '!=' !== t
           return class i {
             constructor(t, e, r) {
-              ;(this.type = D),
+              ;((this.type = D),
                 (this.lhs = t),
                 (this.rhs = e),
                 (this.collator = r),
                 (this.hasUntypedArgument =
-                  'value' === t.type.kind || 'value' === e.type.kind)
+                  'value' === t.type.kind || 'value' === e.type.kind))
             }
             static parse(t, e) {
               if (3 !== t.length && 4 !== t.length)
@@ -8229,7 +8233,7 @@
                 : e(i, o, a)
             }
             eachChild(t) {
-              t(this.lhs), t(this.rhs), this.collator && t(this.collator)
+              ;(t(this.lhs), t(this.rhs), this.collator && t(this.collator))
             }
             outputDefined() {
               return !0
@@ -8299,12 +8303,12 @@
           )
         class Ce {
           constructor(t, e, r, n, i) {
-            ;(this.type = N),
+            ;((this.type = N),
               (this.number = t),
               (this.locale = e),
               (this.currency = r),
               (this.minFractionDigits = n),
-              (this.maxFractionDigits = i)
+              (this.maxFractionDigits = i))
           }
           static parse(t, e) {
             if (3 !== t.length) return e.error('Expected two arguments.')
@@ -8345,11 +8349,11 @@
             ).format(this.number.evaluate(t))
           }
           eachChild(t) {
-            t(this.number),
+            ;(t(this.number),
               this.locale && t(this.locale),
               this.currency && t(this.currency),
               this.minFractionDigits && t(this.minFractionDigits),
-              this.maxFractionDigits && t(this.maxFractionDigits)
+              this.maxFractionDigits && t(this.maxFractionDigits))
           }
           outputDefined() {
             return !1
@@ -8369,7 +8373,7 @@
         }
         class Oe {
           constructor(t) {
-            ;(this.type = j), (this.input = t)
+            ;((this.type = j), (this.input = t))
           }
           static parse(t, e) {
             if (2 !== t.length)
@@ -8449,7 +8453,7 @@
           within: kt,
         }
         function Re(t, [e, r, n, i]) {
-          ;(e = e.evaluate(t)), (r = r.evaluate(t)), (n = n.evaluate(t))
+          ;((e = e.evaluate(t)), (r = r.evaluate(t)), (n = n.evaluate(t)))
           const o = i ? i.evaluate(t) : 1,
             a = nt(e, r, n, o)
           if (a) throw new lt(a)
@@ -8522,7 +8526,7 @@
           if ('exponential' === a) s = We
           else if ('interval' === a) s = Ye
           else if ('categorical' === a) {
-            ;(s = Ve), (l = Object.create(null))
+            ;((s = Ve), (l = Object.create(null)))
             for (const e of t.stops) l[e[0]] = e[1]
             u = typeof t.stops[0][0]
           } else {
@@ -8536,7 +8540,7 @@
             for (let e = 0; e < t.stops.length; e++) {
               const i = t.stops[e],
                 o = i[0].zoom
-              void 0 === r[o] &&
+              ;(void 0 === r[o] &&
                 ((r[o] = {
                   zoom: o,
                   type: t.type,
@@ -8545,7 +8549,7 @@
                   stops: [],
                 }),
                 n.push(o)),
-                r[o].stops.push([i[0].value, i[1]])
+                r[o].stops.push([i[0].value, i[1]]))
             }
             const i = []
             for (const t of n) i.push([r[t].zoom, Ue(r[t], e)])
@@ -8912,7 +8916,7 @@
         class Xe {
           constructor(t, e) {
             var r
-            ;(this.expression = t),
+            ;((this.expression = t),
               (this._warningHistory = {}),
               (this._evaluator = new yt()),
               (this._defaultValue = e
@@ -8924,7 +8928,7 @@
                       ? null
                       : r.default
                 : null),
-              (this._enumValues = e && 'enum' === e.type ? e.values : null)
+              (this._enumValues = e && 'enum' === e.type ? e.values : null))
           }
           evaluateWithoutErrorHandling(t, e, r, n, i, o) {
             return (
@@ -8938,12 +8942,12 @@
             )
           }
           evaluate(t, e, r, n, i, o) {
-            ;(this._evaluator.globals = t),
+            ;((this._evaluator.globals = t),
               (this._evaluator.feature = e || null),
               (this._evaluator.featureState = r || null),
               (this._evaluator.canonical = n),
               (this._evaluator.availableImages = i || null),
-              (this._evaluator.formattedSection = o || null)
+              (this._evaluator.formattedSection = o || null))
             try {
               const t = this.expression.evaluate(this._evaluator)
               if (null == t || ('number' == typeof t && t != t))
@@ -9004,9 +9008,9 @@
         }
         class He {
           constructor(t, e) {
-            ;(this.kind = t),
+            ;((this.kind = t),
               (this._styleExpression = e),
-              (this.isStateDependent = 'constant' !== t && !Nt(e.expression))
+              (this.isStateDependent = 'constant' !== t && !Nt(e.expression)))
           }
           evaluateWithoutErrorHandling(t, e, r, n, i, o) {
             return this._styleExpression.evaluateWithoutErrorHandling(
@@ -9024,11 +9028,11 @@
         }
         class $e {
           constructor(t, e, r, n) {
-            ;(this.kind = t),
+            ;((this.kind = t),
               (this.zoomStops = r),
               (this._styleExpression = e),
               (this.isStateDependent = 'camera' !== t && !Nt(e.expression)),
-              (this.interpolationType = n)
+              (this.interpolationType = n))
           }
           evaluateWithoutErrorHandling(t, e, r, n, i, o) {
             return this._styleExpression.evaluateWithoutErrorHandling(
@@ -9111,9 +9115,9 @@
         }
         class Qe {
           constructor(t, e) {
-            ;(this._parameters = t),
+            ;((this._parameters = t),
               (this._specification = e),
-              M(this, Ue(this._parameters, this._specification))
+              M(this, Ue(this._parameters, this._specification)))
           }
           static deserialize(t) {
             return new Qe(t._parameters, t._specification)
@@ -9167,7 +9171,7 @@
                   for (let e = 0; e < r.length; e++) {
                     const a = r[e],
                       s = a[0].zoom
-                    void 0 === n[s] &&
+                    ;(void 0 === n[s] &&
                       ((n[s] = {
                         zoom: s,
                         type: t.type,
@@ -9176,7 +9180,7 @@
                       }),
                       (i[s] = []),
                       o.push(s)),
-                      i[s].push([a[0].value, a[1]])
+                      i[s].push([a[0].value, a[1]]))
                   }
                   if ('exponential' === sr({}, e)) {
                     const r = [rr(t), ['linear'], ['zoom']]
@@ -9192,7 +9196,7 @@
                       const o = ir(n[r], e, i[r])
                       ar(t, r, o, !0)
                     }
-                    return or(t), t
+                    return (or(t), t)
                   }
                 })(t, e, r)
               : o
@@ -9200,7 +9204,7 @@
                     const i = sr(t, e)
                     let o,
                       a = !1
-                    if ('interval' === i) (o = ['step', n]), (a = !0)
+                    if ('interval' === i) ((o = ['step', n]), (a = !0))
                     else {
                       if ('exponential' !== i)
                         throw new Error(`Unknown zoom function type "${i}"`)
@@ -9214,7 +9218,7 @@
                       }
                     }
                     for (const t of r) ar(o, t[0], t[1], a)
-                    return or(o), o
+                    return (or(o), o)
                   })(t, e, r)
                 : ir(t, e, r)
           )
@@ -9244,12 +9248,12 @@
           if ('categorical' === n && 'boolean' == typeof r[0][0]) {
             const n = ['case']
             for (const t of r) n.push(['==', i, t[0]], t[1])
-            return n.push(nr(t, e)), n
+            return (n.push(nr(t, e)), n)
           }
           if ('categorical' === n) {
             const n = ['match', i]
             for (const t of r) ar(n, t[0], t[1], !1)
-            return n.push(nr(t, e)), n
+            return (n.push(nr(t, e)), n)
           }
           if ('interval' === n) {
             const e = ['step', ['number', i]]
@@ -9295,7 +9299,9 @@
           let n = 0
           for (let i = r.exec(t); null !== i; i = r.exec(t)) {
             const o = t.slice(n, r.lastIndex - i[0].length)
-            ;(n = r.lastIndex), o.length > 0 && e.push(o), e.push(['get', i[1]])
+            ;((n = r.lastIndex),
+              o.length > 0 && e.push(o),
+              e.push(['get', i[1]]))
           }
           if (1 === e.length) return t
           if (n < t.length) e.push(t.slice(n))
@@ -9455,14 +9461,14 @@
         }
         class xr {
           constructor(t, e, r, n) {
-            ;(this.message = (t ? t + ': ' : '') + r),
+            ;((this.message = (t ? t + ': ' : '') + r),
               n && (this.identifier = n),
-              null != e && e.__line__ && (this.line = e.__line__)
+              null != e && e.__line__ && (this.line = e.__line__))
           }
         }
         class wr {
           constructor(t) {
-            ;(this.error = t), (this.message = t.message)
+            ;((this.error = t), (this.message = t.message))
             const e = t.message.match(/line (\d+)/)
             this.line = e ? parseInt(e[1], 10) : 0
           }
@@ -9571,8 +9577,8 @@
               ),
             ]
           let s = { type: r.value, values: r.values }
-          i.$version < 7 && (s.function = r.function),
-            'object' === De(r.value) && (s = r.value)
+          ;(i.$version < 7 && (s.function = r.function),
+            'object' === De(r.value) && (s = r.value))
           let l = []
           for (let t = 0; t < e.length; t++)
             l = l.concat(
@@ -9647,7 +9653,7 @@
                     ]
                   let e = []
                   const n = t.value
-                  ;(e = e.concat(
+                  ;((e = e.concat(
                     Or({
                       key: t.key,
                       value: n,
@@ -9661,7 +9667,7 @@
                       0 === n.length &&
                       e.push(
                         new xr(t.key, n, 'array must have at least one stop'),
-                      )
+                      ))
                   return e
                 },
                 default: function (t) {
@@ -9736,7 +9742,7 @@
                     'stop zoom values must appear in ascending order',
                   ),
                 ]
-              Er(n[0].zoom) !== o &&
+              ;(Er(n[0].zoom) !== o &&
                 ((o = Er(n[0].zoom)), (i = void 0), (a = {})),
                 (r = r.concat(
                   Cr({
@@ -9747,7 +9753,7 @@
                     styleSpec: t.styleSpec,
                     objectElementValidators: { zoom: Pr, value: p },
                   }),
-                ))
+                )))
             } else
               r = r.concat(
                 p(
@@ -9988,7 +9994,7 @@
                           ),
                         ))
                     for (let t = 2; t < r.length; t++)
-                      (o = De(r[t])),
+                      ((o = De(r[t])),
                         '$type' === Er(r[1])
                           ? (a = a.concat(
                               Lr({
@@ -10008,7 +10014,7 @@
                                 r[t],
                                 `string, number, or boolean expected, ${o} found`,
                               ),
-                            )
+                            ))
                     break
                   case 'any':
                   case 'all':
@@ -10025,7 +10031,7 @@
                     break
                   case 'has':
                   case '!has':
-                    ;(o = De(r[1])),
+                    ;((o = De(r[1])),
                       2 !== r.length
                         ? a.push(
                             new xr(
@@ -10041,10 +10047,10 @@
                               r[1],
                               `string expected, ${o} found`,
                             ),
-                          )
+                          ))
                     break
                   case 'within':
-                    ;(o = De(r[1])),
+                    ;((o = De(r[1])),
                       2 !== r.length
                         ? a.push(
                             new xr(
@@ -10060,7 +10066,7 @@
                               r[1],
                               `object expected, ${o} found`,
                             ),
-                          )
+                          ))
                 }
                 return a
               })(t)
@@ -10168,7 +10174,7 @@
           }
           if ('ref' in r) {
             let t
-            ;['type', 'source', 'source-layer', 'filter', 'layout'].forEach(
+            ;(['type', 'source', 'source-layer', 'filter', 'layout'].forEach(
               (t) => {
                 t in r &&
                   e.push(new xr(n, r[t], `"${t}" is prohibited for ref layers`))
@@ -10187,7 +10193,7 @@
                       ),
                     )
                   : (a = Er(t.type))
-                : e.push(new xr(n, r.ref, `ref layer "${s}" not found`))
+                : e.push(new xr(n, r.ref, `ref layer "${s}" not found`)))
           } else if ('background' !== a && 'sky' !== a)
             if (r.source) {
               const t = i.sources && i.sources[r.source],
@@ -10347,7 +10353,7 @@
                       'string' == typeof n
                         ? [n, ['accumulated'], ['get', t]]
                         : n
-                  a.push(
+                  ;(a.push(
                     ...Ir({
                       key: `${r}.${t}.map`,
                       value: i,
@@ -10360,7 +10366,7 @@
                         value: o,
                         expressionContext: 'cluster-reduce',
                       }),
-                    )
+                    ))
                 }
               return a
             case 'video':
@@ -10611,13 +10617,13 @@
             return qr(t.apply(this, e))
           }
         }
-        ;(Wr.source = Xr(Gr)),
+        ;((Wr.source = Xr(Gr)),
           (Wr.light = Xr(zr)),
           (Wr.terrain = Xr(Ur)),
           (Wr.layer = Xr(jr)),
           (Wr.filter = Xr(Mr)),
           (Wr.paintProperty = Xr(Ar)),
-          (Wr.layoutProperty = Xr(kr))
+          (Wr.layoutProperty = Xr(kr)))
         var Zr = s(function (t, e) {
           var r = (function () {
             var t = function (t, e, r, n) {
@@ -10708,7 +10714,7 @@
                   var s = o.length - 1
                   switch (i) {
                     case 1:
-                      ;(this.$ = new String(
+                      ;((this.$ = new String(
                         t
                           .replace(/\\(\\|")/g, '$1')
                           .replace(/\\n/g, '\n')
@@ -10718,61 +10724,61 @@
                           .replace(/\\f/g, '\f')
                           .replace(/\\b/g, '\b'),
                       )),
-                        (this.$.__line__ = this._$.first_line)
+                        (this.$.__line__ = this._$.first_line))
                       break
                     case 2:
-                      ;(this.$ = new Number(t)),
-                        (this.$.__line__ = this._$.first_line)
+                      ;((this.$ = new Number(t)),
+                        (this.$.__line__ = this._$.first_line))
                       break
                     case 3:
                       this.$ = null
                       break
                     case 4:
-                      ;(this.$ = new Boolean(!0)),
-                        (this.$.__line__ = this._$.first_line)
+                      ;((this.$ = new Boolean(!0)),
+                        (this.$.__line__ = this._$.first_line))
                       break
                     case 5:
-                      ;(this.$ = new Boolean(!1)),
-                        (this.$.__line__ = this._$.first_line)
+                      ;((this.$ = new Boolean(!1)),
+                        (this.$.__line__ = this._$.first_line))
                       break
                     case 6:
                       return (this.$ = o[s - 1])
                     case 13:
-                      ;(this.$ = {}),
+                      ;((this.$ = {}),
                         Object.defineProperty(this.$, '__line__', {
                           value: this._$.first_line,
                           enumerable: !1,
-                        })
+                        }))
                       break
                     case 14:
                     case 19:
-                      ;(this.$ = o[s - 1]),
+                      ;((this.$ = o[s - 1]),
                         Object.defineProperty(this.$, '__line__', {
                           value: this._$.first_line,
                           enumerable: !1,
-                        })
+                        }))
                       break
                     case 15:
                       this.$ = [o[s - 2], o[s]]
                       break
                     case 16:
-                      ;(this.$ = {}), (this.$[o[s][0]] = o[s][1])
+                      ;((this.$ = {}), (this.$[o[s][0]] = o[s][1]))
                       break
                     case 17:
-                      ;(this.$ = o[s - 2]), (o[s - 2][o[s][0]] = o[s][1])
+                      ;((this.$ = o[s - 2]), (o[s - 2][o[s][0]] = o[s][1]))
                       break
                     case 18:
-                      ;(this.$ = []),
+                      ;((this.$ = []),
                         Object.defineProperty(this.$, '__line__', {
                           value: this._$.first_line,
                           enumerable: !1,
-                        })
+                        }))
                       break
                     case 20:
                       this.$ = [o[s]]
                       break
                     case 21:
-                      ;(this.$ = o[s - 2]), o[s - 2].push(o[s])
+                      ;((this.$ = o[s - 2]), o[s - 2].push(o[s]))
                   }
                 },
                 table: [
@@ -10894,10 +10900,10 @@
                   for (var d in this.yy)
                     Object.prototype.hasOwnProperty.call(this.yy, d) &&
                       (f.yy[d] = this.yy[d])
-                  p.setInput(t, f.yy),
+                  ;(p.setInput(t, f.yy),
                     (f.yy.lexer = p),
                     (f.yy.parser = this),
-                    void 0 === p.yylloc && (p.yylloc = {})
+                    void 0 === p.yylloc && (p.yylloc = {}))
                   var g = p.yylloc
                   i.push(g)
                   var y = p.options && p.options.ranges
@@ -10925,7 +10931,7 @@
                         this.terminals_[w] &&
                           w > u &&
                           T.push("'" + this.terminals_[w] + "'")
-                      ;(O = p.showPosition
+                      ;((O = p.showPosition
                         ? 'Parse error on line ' +
                           (s + 1) +
                           ':\n' +
@@ -10947,7 +10953,7 @@
                           line: p.yylineno,
                           loc: g,
                           expected: T,
-                        })
+                        }))
                     }
                     if (b[0] instanceof Array && b.length > 1)
                       throw new Error(
@@ -10958,7 +10964,7 @@
                       )
                     switch (b[0]) {
                       case 1:
-                        r.push(v),
+                        ;(r.push(v),
                           n.push(p.yytext),
                           i.push(p.yylloc),
                           r.push(b[1]),
@@ -10966,7 +10972,7 @@
                           (l = p.yyleng),
                           (a = p.yytext),
                           (s = p.yylineno),
-                          (g = p.yylloc)
+                          (g = p.yylloc))
                         break
                       case 2:
                         if (
@@ -10990,7 +10996,7 @@
                             )))
                         )
                           return x
-                        S &&
+                        ;(S &&
                           ((r = r.slice(0, -1 * S * 2)),
                           (n = n.slice(0, -1 * S)),
                           (i = i.slice(0, -1 * S))),
@@ -10998,7 +11004,7 @@
                           n.push(C.$),
                           i.push(C._$),
                           (E = o[r[r.length - 2]][r[r.length - 1]]),
-                          r.push(E)
+                          r.push(E))
                         break
                       case 3:
                         return !0
@@ -11051,19 +11057,19 @@
                 unput: function (t) {
                   var e = t.length,
                     r = t.split(/(?:\r\n?|\n)/g)
-                  ;(this._input = t + this._input),
+                  ;((this._input = t + this._input),
                     (this.yytext = this.yytext.substr(
                       0,
                       this.yytext.length - e,
                     )),
-                    (this.offset -= e)
+                    (this.offset -= e))
                   var n = this.match.split(/(?:\r\n?|\n)/g)
-                  ;(this.match = this.match.substr(0, this.match.length - 1)),
+                  ;((this.match = this.match.substr(0, this.match.length - 1)),
                     (this.matched = this.matched.substr(
                       0,
                       this.matched.length - 1,
                     )),
-                    r.length - 1 && (this.yylineno -= r.length - 1)
+                    r.length - 1 && (this.yylineno -= r.length - 1))
                   var i = this.yylloc.range
                   return (
                     (this.yylloc = {
@@ -11085,7 +11091,7 @@
                   )
                 },
                 more: function () {
-                  return (this._more = !0), this
+                  return ((this._more = !0), this)
                 },
                 reject: function () {
                   return this.options.backtrack_lexer
@@ -11197,8 +11203,8 @@
                 next: function () {
                   if (this.done) return this.EOF
                   var t, e, r, n
-                  this._input || (this.done = !0),
-                    this._more || ((this.yytext = ''), (this.match = ''))
+                  ;(this._input || (this.done = !0),
+                    this._more || ((this.yytext = ''), (this.match = '')))
                   for (var i = this._currentRules(), o = 0; o < i.length; o++)
                     if (
                       (r = this._input.match(this.rules[i[o]])) &&
@@ -11266,7 +11272,7 @@
                     case 1:
                       return 6
                     case 2:
-                      return (e.yytext = e.yytext.substr(1, e.yyleng - 2)), 4
+                      return ((e.yytext = e.yytext.substr(1, e.yyleng - 2)), 4)
                     case 3:
                       return 17
                     case 4:
@@ -11317,7 +11323,7 @@
             function f() {
               this.yy = {}
             }
-            return (h.lexer = p), (f.prototype = h), (h.Parser = f), new f()
+            return ((h.lexer = p), (f.prototype = h), (h.Parser = f), new f())
           })()
           void 0 !== a &&
             ((e.parser = r),
@@ -11326,7 +11332,7 @@
               return r.parse.apply(r, arguments)
             }))
         })
-        Zr.parser, Zr.Parser, Zr.parse
+        ;(Zr.parser, Zr.Parser, Zr.parse)
         function Kr(t) {
           if (t instanceof String || 'string' == typeof t || t instanceof n)
             try {
@@ -11376,7 +11382,7 @@
             StylePropertyFunction: Qe,
           },
           Jr = { convertFunction: er, createFunction: Ue, isFunction: Ge }
-        ;(Hr.parsed = Hr), (Hr.latest = Hr)
+        ;((Hr.parsed = Hr), (Hr.latest = Hr))
       }).call(this, r(4), r(7).Buffer)
     },
     function (t, e, r) {
@@ -11409,24 +11415,24 @@
                 for (e(r, f, d), f++, d--; a(r[f], p) < 0; ) f++
                 for (; a(r[d], p) > 0; ) d--
               }
-              0 === a(r[i], p) ? e(r, i, d) : e(r, ++d, o),
+              ;(0 === a(r[i], p) ? e(r, i, d) : e(r, ++d, o),
                 d <= n && (i = d + 1),
-                n <= d && (o = d - 1)
+                n <= d && (o = d - 1))
             }
           })(t, n, i || 0, o || t.length - 1, a || r)
         }
         function e(t, e, r) {
           var n = t[e]
-          ;(t[e] = t[r]), (t[r] = n)
+          ;((t[e] = t[r]), (t[r] = n))
         }
         function r(t, e) {
           return t < e ? -1 : t > e ? 1 : 0
         }
         var n = function (t) {
-          void 0 === t && (t = 9),
+          ;(void 0 === t && (t = 9),
             (this._maxEntries = Math.max(4, t)),
             (this._minEntries = Math.max(2, Math.ceil(0.4 * this._maxEntries))),
-            this.clear()
+            this.clear())
         }
         function i(t, e, r) {
           if (!r) return e.indexOf(t)
@@ -11437,11 +11443,11 @@
           a(t, 0, t.children.length, e, t)
         }
         function a(t, e, r, n, i) {
-          i || (i = d(null)),
+          ;(i || (i = d(null)),
             (i.minX = 1 / 0),
             (i.minY = 1 / 0),
             (i.maxX = -1 / 0),
-            (i.maxY = -1 / 0)
+            (i.maxY = -1 / 0))
           for (var o = e; o < r; o++) {
             var a = t.children[o]
             s(i, t.leaf ? n(a) : a)
@@ -11500,7 +11506,7 @@
           for (var a = [r, n]; a.length; )
             if (!((n = a.pop()) - (r = a.pop()) <= i)) {
               var s = r + Math.ceil((n - r) / i / 2) * i
-              t(e, s, r, n, o), a.push(r, s, s, n)
+              ;(t(e, s, r, n, o), a.push(r, s, s, n))
             }
         }
         return (
@@ -11550,7 +11556,7 @@
               else {
                 if (this.data.height < r.height) {
                   var n = this.data
-                  ;(this.data = r), (r = n)
+                  ;((this.data = r), (r = n))
                 }
                 this._insert(r, this.data.height - r.height - 1, !0)
               }
@@ -11558,10 +11564,10 @@
             return this
           }),
           (n.prototype.insert = function (t) {
-            return t && this._insert(t, this.data.height - 1), this
+            return (t && this._insert(t, this.data.height - 1), this)
           }),
           (n.prototype.clear = function () {
-            return (this.data = d([])), this
+            return ((this.data = d([])), this)
           }),
           (n.prototype.remove = function (t, e) {
             if (!t) return this
@@ -11581,7 +11587,10 @@
                 var c = i(t, a.children, e)
                 if (-1 !== c)
                   return (
-                    a.children.splice(c, 1), l.push(a), this._condense(l), this
+                    a.children.splice(c, 1),
+                    l.push(a),
+                    this._condense(l),
+                    this
                   )
               }
               o || a.leaf || !p(a, s)
@@ -11605,26 +11614,26 @@
             return this.data
           }),
           (n.prototype.fromJSON = function (t) {
-            return (this.data = t), this
+            return ((this.data = t), this)
           }),
           (n.prototype._all = function (t, e) {
             for (var r = []; t; )
-              t.leaf
+              (t.leaf
                 ? e.push.apply(e, t.children)
                 : r.push.apply(r, t.children),
-                (t = r.pop())
+                (t = r.pop()))
             return e
           }),
           (n.prototype._build = function (t, e, r, n) {
             var i,
               a = r - e + 1,
               s = this._maxEntries
-            if (a <= s) return o((i = d(t.slice(e, r + 1))), this.toBBox), i
-            n ||
+            if (a <= s) return (o((i = d(t.slice(e, r + 1))), this.toBBox), i)
+            ;(n ||
               ((n = Math.ceil(Math.log(a) / Math.log(s))),
               (s = Math.ceil(a / Math.pow(s, n - 1)))),
               ((i = d([])).leaf = !1),
-              (i.height = n)
+              (i.height = n))
             var l = Math.ceil(a / s),
               u = l * Math.ceil(Math.sqrt(s))
             g(t, e, r, u, this.compareMinX)
@@ -11636,7 +11645,7 @@
                 i.children.push(this._build(t, p, f, n - 1))
               }
             }
-            return o(i, this.toBBox), i
+            return (o(i, this.toBBox), i)
           }),
           (n.prototype._chooseSubtree = function (t, e, r, n) {
             for (; n.push(e), !e.leaf && n.length - 1 !== r; ) {
@@ -11671,7 +11680,7 @@
               e >= 0 && i[e].children.length > this._maxEntries;
 
             )
-              this._split(i, e), e--
+              (this._split(i, e), e--)
             this._adjustParentBBoxes(n, i, e)
           }),
           (n.prototype._split = function (t, e) {
@@ -11681,17 +11690,17 @@
             this._chooseSplitAxis(r, i, n)
             var a = this._chooseSplitIndex(r, i, n),
               s = d(r.children.splice(a, r.children.length - a))
-            ;(s.height = r.height),
+            ;((s.height = r.height),
               (s.leaf = r.leaf),
               o(r, this.toBBox),
               o(s, this.toBBox),
-              e ? t[e - 1].children.push(s) : this._splitRoot(r, s)
+              e ? t[e - 1].children.push(s) : this._splitRoot(r, s))
           }),
           (n.prototype._splitRoot = function (t, e) {
-            ;(this.data = d([t, e])),
+            ;((this.data = d([t, e])),
               (this.data.height = t.height + 1),
               (this.data.leaf = !1),
-              o(this.data, this.toBBox)
+              o(this.data, this.toBBox))
           }),
           (n.prototype._chooseSplitIndex = function (t, e, r) {
             for (
@@ -11734,11 +11743,11 @@
               c++
             ) {
               var p = t.children[c]
-              s(o, t.leaf ? i(p) : p), (u += h(o))
+              ;(s(o, t.leaf ? i(p) : p), (u += h(o)))
             }
             for (var f = r - e - 1; f >= e; f--) {
               var d = t.children[f]
-              s(l, t.leaf ? i(d) : d), (u += h(l))
+              ;(s(l, t.leaf ? i(d) : d), (u += h(l)))
             }
             return u
           }),
@@ -11807,12 +11816,12 @@
                 f == d.replace('-', '') ||
                 f == d.replace('-', ' ')
               ) {
-                ;(s = r[d]), p.pop()
+                ;((s = r[d]), p.pop())
                 break
               }
             'number' == typeof f && (s = f)
             var g = p.join(' ').replace('Klokantech Noto Sans', 'Noto Sans')
-            ;-1 !== g.indexOf(' ') && (g = '"' + g + '"'), u.push(g)
+            ;(-1 !== g.indexOf(' ') && (g = '"' + g + '"'), u.push(g))
           }
           a = i[t] = [l, s, u]
         }
@@ -11822,7 +11831,7 @@
       }
     },
     function (t, e) {
-      ;(e.read = function (t, e, r, n, i) {
+      ;((e.read = function (t, e, r, n, i) {
         var o,
           a,
           s = 8 * i - n - 1,
@@ -11845,7 +11854,7 @@
         if (0 === o) o = 1 - u
         else {
           if (o === l) return a ? NaN : (1 / 0) * (f ? -1 : 1)
-          ;(a += Math.pow(2, n)), (o -= u)
+          ;((a += Math.pow(2, n)), (o -= u))
         }
         return (f ? -1 : 1) * a * Math.pow(2, o - n)
       }),
@@ -11883,7 +11892,7 @@
             t[r + f] = 255 & a, f += d, a /= 256, u -= 8
           );
           t[r + f - d] |= 128 * g
-        })
+        }))
     },
     function (t, e) {
       var r
@@ -11902,15 +11911,15 @@
       t.exports = i
       var n = r(3)
       function i(t) {
-        ;(this.buf =
+        ;((this.buf =
           ArrayBuffer.isView && ArrayBuffer.isView(t)
             ? t
             : new Uint8Array(t || 0)),
           (this.pos = 0),
           (this.type = 0),
-          (this.length = this.buf.length)
+          (this.length = this.buf.length))
       }
-      ;(i.Varint = 0), (i.Fixed64 = 1), (i.Bytes = 2), (i.Fixed32 = 5)
+      ;((i.Varint = 0), (i.Fixed64 = 1), (i.Bytes = 2), (i.Fixed32 = 5))
       var o = 'undefined' == typeof TextDecoder ? null : new TextDecoder('utf8')
       function a(t) {
         return t.type === i.Bytes ? t.readVarint() + t.pos : t.pos + 1
@@ -11963,10 +11972,10 @@
         return (t[e] | (t[e + 1] << 8) | (t[e + 2] << 16)) + 16777216 * t[e + 3]
       }
       function _(t, e, r) {
-        ;(t[r] = e),
+        ;((t[r] = e),
           (t[r + 1] = e >>> 8),
           (t[r + 2] = e >>> 16),
-          (t[r + 3] = e >>> 24)
+          (t[r + 3] = e >>> 24))
       }
       function b(t, e) {
         return (t[e] | (t[e + 1] << 8) | (t[e + 2] << 16)) + (t[e + 3] << 24)
@@ -11980,7 +11989,9 @@
             var n = this.readVarint(),
               i = n >> 3,
               o = this.pos
-            ;(this.type = 7 & n), t(i, e, this), this.pos === o && this.skip(n)
+            ;((this.type = 7 & n),
+              t(i, e, this),
+              this.pos === o && this.skip(n))
           }
           return e
         },
@@ -11989,27 +12000,27 @@
         },
         readFixed32: function () {
           var t = v(this.buf, this.pos)
-          return (this.pos += 4), t
+          return ((this.pos += 4), t)
         },
         readSFixed32: function () {
           var t = b(this.buf, this.pos)
-          return (this.pos += 4), t
+          return ((this.pos += 4), t)
         },
         readFixed64: function () {
           var t = v(this.buf, this.pos) + 4294967296 * v(this.buf, this.pos + 4)
-          return (this.pos += 8), t
+          return ((this.pos += 8), t)
         },
         readSFixed64: function () {
           var t = v(this.buf, this.pos) + 4294967296 * b(this.buf, this.pos + 4)
-          return (this.pos += 8), t
+          return ((this.pos += 8), t)
         },
         readFloat: function () {
           var t = n.read(this.buf, this.pos, !0, 23, 4)
-          return (this.pos += 4), t
+          return ((this.pos += 4), t)
         },
         readDouble: function () {
           var t = n.read(this.buf, this.pos, !0, 52, 8)
-          return (this.pos += 8), t
+          return ((this.pos += 8), t)
         },
         readVarint: function (t) {
           var e,
@@ -12108,7 +12119,7 @@
                       u = null,
                       c = l > 239 ? 4 : l > 223 ? 3 : l > 191 ? 2 : 1
                     if (i + c > r) break
-                    1 === c
+                    ;(1 === c
                       ? l < 128 && (u = l)
                       : 2 === c
                         ? 128 == (192 & (o = t[i + 1])) &&
@@ -12148,7 +12159,7 @@
                           )),
                           (u = 56320 | (1023 & u))),
                       (n += String.fromCharCode(u)),
-                      (i += c)
+                      (i += c))
                   }
                   return n
                 })(this.buf, e, t)
@@ -12157,7 +12168,7 @@
         readBytes: function () {
           var t = this.readVarint() + this.pos,
             e = this.buf.subarray(this.pos, t)
-          return (this.pos = t), e
+          return ((this.pos = t), e)
         },
         readPackedVarint: function (t, e) {
           if (this.type !== i.Bytes) return t.push(this.readVarint(e))
@@ -12230,7 +12241,7 @@
           for (var e = this.length || 16; e < this.pos + t; ) e *= 2
           if (e !== this.length) {
             var r = new Uint8Array(e)
-            r.set(this.buf), (this.buf = r), (this.length = e)
+            ;(r.set(this.buf), (this.buf = r), (this.length = e))
           }
         },
         finish: function () {
@@ -12241,22 +12252,22 @@
           )
         },
         writeFixed32: function (t) {
-          this.realloc(4), _(this.buf, t, this.pos), (this.pos += 4)
+          ;(this.realloc(4), _(this.buf, t, this.pos), (this.pos += 4))
         },
         writeSFixed32: function (t) {
-          this.realloc(4), _(this.buf, t, this.pos), (this.pos += 4)
+          ;(this.realloc(4), _(this.buf, t, this.pos), (this.pos += 4))
         },
         writeFixed64: function (t) {
-          this.realloc(8),
+          ;(this.realloc(8),
             _(this.buf, -1 & t, this.pos),
             _(this.buf, Math.floor(t * (1 / 4294967296)), this.pos + 4),
-            (this.pos += 8)
+            (this.pos += 8))
         },
         writeSFixed64: function (t) {
-          this.realloc(8),
+          ;(this.realloc(8),
             _(this.buf, -1 & t, this.pos),
             _(this.buf, Math.floor(t * (1 / 4294967296)), this.pos + 4),
-            (this.pos += 8)
+            (this.pos += 8))
         },
         writeVarint: function (t) {
           ;(t = +t || 0) > 268435455 || t < 0
@@ -12270,9 +12281,9 @@
                       : ((r = 0), (n = (n + 1) | 0)))
                 if (t >= 0x10000000000000000 || t < -0x10000000000000000)
                   throw new Error("Given varint doesn't fit into 10 bytes")
-                e.realloc(10),
+                ;(e.realloc(10),
                   (function (t, e, r) {
-                    ;(r.buf[r.pos++] = (127 & t) | 128),
+                    ;((r.buf[r.pos++] = (127 & t) | 128),
                       (t >>>= 7),
                       (r.buf[r.pos++] = (127 & t) | 128),
                       (t >>>= 7),
@@ -12280,7 +12291,7 @@
                       (t >>>= 7),
                       (r.buf[r.pos++] = (127 & t) | 128),
                       (t >>>= 7),
-                      (r.buf[r.pos] = 127 & t)
+                      (r.buf[r.pos] = 127 & t))
                   })(r, 0, e),
                   (function (t, e) {
                     var r = (7 & t) << 4
@@ -12307,7 +12318,7 @@
                     )
                       return
                     e.buf[e.pos++] = 127 & t
-                  })(n, e)
+                  })(n, e))
               })(t, this)
             : (this.realloc(4),
               (this.buf[this.pos++] = (127 & t) | (t > 127 ? 128 : 0)),
@@ -12326,7 +12337,7 @@
           this.writeVarint(Boolean(t))
         },
         writeString: function (t) {
-          ;(t = String(t)), this.realloc(4 * t.length), this.pos++
+          ;((t = String(t)), this.realloc(4 * t.length), this.pos++)
           var e = this.pos
           this.pos = (function (t, e, r) {
             for (var n, i, o = 0; o < e.length; o++) {
@@ -12338,10 +12349,10 @@
                   continue
                 }
                 if (n < 56320) {
-                  ;(t[r++] = 239), (t[r++] = 191), (t[r++] = 189), (i = n)
+                  ;((t[r++] = 239), (t[r++] = 191), (t[r++] = 189), (i = n))
                   continue
                 }
-                ;(n = ((i - 55296) << 10) | (n - 56320) | 65536), (i = null)
+                ;((n = ((i - 55296) << 10) | (n - 56320) | 65536), (i = null))
               } else
                 i &&
                   ((t[r++] = 239), (t[r++] = 191), (t[r++] = 189), (i = null))
@@ -12359,24 +12370,24 @@
             return r
           })(this.buf, t, this.pos)
           var r = this.pos - e
-          r >= 128 && l(e, r, this),
+          ;(r >= 128 && l(e, r, this),
             (this.pos = e - 1),
             this.writeVarint(r),
-            (this.pos += r)
+            (this.pos += r))
         },
         writeFloat: function (t) {
-          this.realloc(4),
+          ;(this.realloc(4),
             n.write(this.buf, t, this.pos, !0, 23, 4),
-            (this.pos += 4)
+            (this.pos += 4))
         },
         writeDouble: function (t) {
-          this.realloc(8),
+          ;(this.realloc(8),
             n.write(this.buf, t, this.pos, !0, 52, 8),
-            (this.pos += 8)
+            (this.pos += 8))
         },
         writeBytes: function (t) {
           var e = t.length
-          this.writeVarint(e), this.realloc(e)
+          ;(this.writeVarint(e), this.realloc(e))
           for (var r = 0; r < e; r++) this.buf[this.pos++] = t[r]
         },
         writeRawMessage: function (t, e) {
@@ -12384,13 +12395,13 @@
           var r = this.pos
           t(e, this)
           var n = this.pos - r
-          n >= 128 && l(r, n, this),
+          ;(n >= 128 && l(r, n, this),
             (this.pos = r - 1),
             this.writeVarint(n),
-            (this.pos += n)
+            (this.pos += n))
         },
         writeMessage: function (t, e, r) {
-          this.writeTag(t, i.Bytes), this.writeRawMessage(e, r)
+          ;(this.writeTag(t, i.Bytes), this.writeRawMessage(e, r))
         },
         writePackedVarint: function (t, e) {
           e.length && this.writeMessage(t, u, e)
@@ -12420,34 +12431,34 @@
           e.length && this.writeMessage(t, m, e)
         },
         writeBytesField: function (t, e) {
-          this.writeTag(t, i.Bytes), this.writeBytes(e)
+          ;(this.writeTag(t, i.Bytes), this.writeBytes(e))
         },
         writeFixed32Field: function (t, e) {
-          this.writeTag(t, i.Fixed32), this.writeFixed32(e)
+          ;(this.writeTag(t, i.Fixed32), this.writeFixed32(e))
         },
         writeSFixed32Field: function (t, e) {
-          this.writeTag(t, i.Fixed32), this.writeSFixed32(e)
+          ;(this.writeTag(t, i.Fixed32), this.writeSFixed32(e))
         },
         writeFixed64Field: function (t, e) {
-          this.writeTag(t, i.Fixed64), this.writeFixed64(e)
+          ;(this.writeTag(t, i.Fixed64), this.writeFixed64(e))
         },
         writeSFixed64Field: function (t, e) {
-          this.writeTag(t, i.Fixed64), this.writeSFixed64(e)
+          ;(this.writeTag(t, i.Fixed64), this.writeSFixed64(e))
         },
         writeVarintField: function (t, e) {
-          this.writeTag(t, i.Varint), this.writeVarint(e)
+          ;(this.writeTag(t, i.Varint), this.writeVarint(e))
         },
         writeSVarintField: function (t, e) {
-          this.writeTag(t, i.Varint), this.writeSVarint(e)
+          ;(this.writeTag(t, i.Varint), this.writeSVarint(e))
         },
         writeStringField: function (t, e) {
-          this.writeTag(t, i.Bytes), this.writeString(e)
+          ;(this.writeTag(t, i.Bytes), this.writeString(e))
         },
         writeFloatField: function (t, e) {
-          this.writeTag(t, i.Fixed32), this.writeFloat(e)
+          ;(this.writeTag(t, i.Fixed32), this.writeFloat(e))
         },
         writeDoubleField: function (t, e) {
-          this.writeTag(t, i.Fixed64), this.writeDouble(e)
+          ;(this.writeTag(t, i.Fixed64), this.writeDouble(e))
         },
         writeBooleanField: function (t, e) {
           this.writeVarintField(t, Boolean(e))
@@ -12457,7 +12468,7 @@
     function (t, e) {
       ;(function () {
         var e
-        ;(t.exports = {
+        ;((t.exports = {
           icon: 'icons/google.svg',
           name: 'google',
           title: 'Google Fonts',
@@ -13205,7 +13216,7 @@
             'Yeseva One',
             'Yesteryear',
             'Zeyada',
-          ])
+          ]))
       }).call(this)
     },
     function (t, e, r) {
@@ -13279,7 +13290,7 @@
               : (function (t, e) {
                   if (l.isBuffer(e)) {
                     var r = 0 | f(e.length)
-                    return 0 === (t = s(t, r)).length || e.copy(t, 0, 0, r), t
+                    return (0 === (t = s(t, r)).length || e.copy(t, 0, 0, r), t)
                   }
                   if (e) {
                     if (
@@ -13356,7 +13367,7 @@
                 return U(t).length
               default:
                 if (n) return z(t).length
-                ;(e = ('' + e).toLowerCase()), (n = !0)
+                ;((e = ('' + e).toLowerCase()), (n = !0))
             }
         }
         function g(t, e, r) {
@@ -13386,12 +13397,12 @@
                 return I(this, e, r)
               default:
                 if (n) throw new TypeError('Unknown encoding: ' + t)
-                ;(t = (t + '').toLowerCase()), (n = !0)
+                ;((t = (t + '').toLowerCase()), (n = !0))
             }
         }
         function y(t, e, r) {
           var n = t[e]
-          ;(t[e] = t[r]), (t[r] = n)
+          ;((t[e] = t[r]), (t[r] = n))
         }
         function m(t, e, r, n, i) {
           if (0 === t.length) return -1
@@ -13439,7 +13450,7 @@
               'utf-16le' === n)
           ) {
             if (t.length < 2 || e.length < 2) return -1
-            ;(a = 2), (s /= 2), (l /= 2), (r /= 2)
+            ;((a = 2), (s /= 2), (l /= 2), (r /= 2))
           }
           function u(t, e) {
             return 1 === a ? t[e] : t.readUInt16BE(e * a)
@@ -13449,7 +13460,7 @@
             for (o = r; o < s; o++)
               if (u(t, o) === u(e, -1 === c ? 0 : o - c)) {
                 if ((-1 === c && (c = o), o - c + 1 === l)) return c * a
-              } else -1 !== c && (o -= o - c), (c = -1)
+              } else (-1 !== c && (o -= o - c), (c = -1))
           } else
             for (r + l > s && (r = s - l), o = r; o >= 0; o--) {
               for (var h = !0, p = 0; p < l; p++)
@@ -13504,11 +13515,11 @@
                 a < t.length && !((e -= 2) < 0);
                 ++a
               )
-                (r = t.charCodeAt(a)),
+                ((r = t.charCodeAt(a)),
                   (n = r >> 8),
                   (i = r % 256),
                   o.push(i),
-                  o.push(n)
+                  o.push(n))
               return o
             })(e, t.length - r),
             t,
@@ -13542,17 +13553,17 @@
                     (c = l)
                   break
                 case 3:
-                  ;(o = t[i + 1]),
+                  ;((o = t[i + 1]),
                     (a = t[i + 2]),
                     128 == (192 & o) &&
                       128 == (192 & a) &&
                       (l = ((15 & u) << 12) | ((63 & o) << 6) | (63 & a)) >
                         2047 &&
                       (l < 55296 || l > 57343) &&
-                      (c = l)
+                      (c = l))
                   break
                 case 4:
-                  ;(o = t[i + 1]),
+                  ;((o = t[i + 1]),
                     (a = t[i + 2]),
                     (s = t[i + 3]),
                     128 == (192 & o) &&
@@ -13564,16 +13575,16 @@
                         ((63 & a) << 6) |
                         (63 & s)) > 65535 &&
                       l < 1114112 &&
-                      (c = l)
+                      (c = l))
               }
-            null === c
+            ;(null === c
               ? ((c = 65533), (h = 1))
               : c > 65535 &&
                 ((c -= 65536),
                 n.push(((c >>> 10) & 1023) | 55296),
                 (c = 56320 | (1023 & c))),
               n.push(c),
-              (i += h)
+              (i += h))
           }
           return (function (t) {
             var e = t.length
@@ -13585,7 +13596,7 @@
             return r
           })(n)
         }
-        ;(e.Buffer = l),
+        ;((e.Buffer = l),
           (e.SlowBuffer = function (t) {
             ;+t != t && (t = 0)
             return l.alloc(+t)
@@ -13615,7 +13626,7 @@
           (e.kMaxLength = a()),
           (l.poolSize = 8192),
           (l._augment = function (t) {
-            return (t.__proto__ = l.prototype), t
+            return ((t.__proto__ = l.prototype), t)
           }),
           (l.from = function (t, e, r) {
             return u(null, t, e, r)
@@ -13663,7 +13674,7 @@
               ++i
             )
               if (t[i] !== e[i]) {
-                ;(r = t[i]), (n = e[i])
+                ;((r = t[i]), (n = e[i]))
                 break
               }
             return r < n ? -1 : n < r ? 1 : 0
@@ -13701,7 +13712,7 @@
                 throw new TypeError(
                   '"list" argument must be an Array of Buffers',
                 )
-              a.copy(n, i), (i += a.length)
+              ;(a.copy(n, i), (i += a.length))
             }
             return n
           }),
@@ -13719,7 +13730,7 @@
             if (t % 4 != 0)
               throw new RangeError('Buffer size must be a multiple of 32-bits')
             for (var e = 0; e < t; e += 4)
-              y(this, e, e + 3), y(this, e + 1, e + 2)
+              (y(this, e, e + 3), y(this, e + 1, e + 2))
             return this
           }),
           (l.prototype.swap64 = function () {
@@ -13727,10 +13738,10 @@
             if (t % 8 != 0)
               throw new RangeError('Buffer size must be a multiple of 64-bits')
             for (var e = 0; e < t; e += 8)
-              y(this, e, e + 7),
+              (y(this, e, e + 7),
                 y(this, e + 1, e + 6),
                 y(this, e + 2, e + 5),
-                y(this, e + 3, e + 4)
+                y(this, e + 3, e + 4))
             return this
           }),
           (l.prototype.toString = function () {
@@ -13780,7 +13791,7 @@
               ++h
             )
               if (u[h] !== c[h]) {
-                ;(o = u[h]), (a = c[h])
+                ;((o = u[h]), (a = c[h]))
                 break
               }
             return o < a ? -1 : a < o ? 1 : 0
@@ -13795,18 +13806,18 @@
             return m(this, t, e, r, !1)
           }),
           (l.prototype.write = function (t, e, r, n) {
-            if (void 0 === e) (n = 'utf8'), (r = this.length), (e = 0)
+            if (void 0 === e) ((n = 'utf8'), (r = this.length), (e = 0))
             else if (void 0 === r && 'string' == typeof e)
-              (n = e), (r = this.length), (e = 0)
+              ((n = e), (r = this.length), (e = 0))
             else {
               if (!isFinite(e))
                 throw new Error(
                   'Buffer.write(string, encoding, offset[, length]) is no longer supported',
                 )
-              ;(e |= 0),
+              ;((e |= 0),
                 isFinite(r)
                   ? ((r |= 0), void 0 === n && (n = 'utf8'))
-                  : ((n = r), (r = void 0))
+                  : ((n = r), (r = void 0)))
             }
             var i = this.length - e
             if (
@@ -13836,7 +13847,7 @@
                   return E(this, t, e, r)
                 default:
                   if (o) throw new TypeError('Unknown encoding: ' + n)
-                  ;(n = ('' + n).toLowerCase()), (o = !0)
+                  ;((n = ('' + n).toLowerCase()), (o = !0))
               }
           }),
           (l.prototype.toJSON = function () {
@@ -13844,7 +13855,7 @@
               type: 'Buffer',
               data: Array.prototype.slice.call(this._arr || this, 0),
             }
-          })
+          }))
         function O(t, e, r) {
           var n = ''
           r = Math.min(t.length, r)
@@ -13859,7 +13870,7 @@
         }
         function R(t, e, r) {
           var n = t.length
-          ;(!e || e < 0) && (e = 0), (!r || r < 0 || r > n) && (r = n)
+          ;((!e || e < 0) && (e = 0), (!r || r < 0 || r > n) && (r = n))
           for (var i = '', o = e; o < r; ++o) i += G(t[o])
           return i
         }
@@ -13896,12 +13907,12 @@
           if (r < 0) throw new RangeError('Index out of range')
         }
         function j(t, e, r, n, o) {
-          return o || k(t, 0, r, 4), i.write(t, e, r, n, 23, 4), r + 4
+          return (o || k(t, 0, r, 4), i.write(t, e, r, n, 23, 4), r + 4)
         }
         function N(t, e, r, n, o) {
-          return o || k(t, 0, r, 8), i.write(t, e, r, n, 52, 8), r + 8
+          return (o || k(t, 0, r, 8), i.write(t, e, r, n, 52, 8), r + 8)
         }
-        ;(l.prototype.slice = function (t, e) {
+        ;((l.prototype.slice = function (t, e) {
           var r,
             n = this.length
           if (
@@ -13921,25 +13932,25 @@
           return r
         }),
           (l.prototype.readUIntLE = function (t, e, r) {
-            ;(t |= 0), (e |= 0), r || L(t, e, this.length)
+            ;((t |= 0), (e |= 0), r || L(t, e, this.length))
             for (var n = this[t], i = 1, o = 0; ++o < e && (i *= 256); )
               n += this[t + o] * i
             return n
           }),
           (l.prototype.readUIntBE = function (t, e, r) {
-            ;(t |= 0), (e |= 0), r || L(t, e, this.length)
+            ;((t |= 0), (e |= 0), r || L(t, e, this.length))
             for (var n = this[t + --e], i = 1; e > 0 && (i *= 256); )
               n += this[t + --e] * i
             return n
           }),
           (l.prototype.readUInt8 = function (t, e) {
-            return e || L(t, 1, this.length), this[t]
+            return (e || L(t, 1, this.length), this[t])
           }),
           (l.prototype.readUInt16LE = function (t, e) {
-            return e || L(t, 2, this.length), this[t] | (this[t + 1] << 8)
+            return (e || L(t, 2, this.length), this[t] | (this[t + 1] << 8))
           }),
           (l.prototype.readUInt16BE = function (t, e) {
-            return e || L(t, 2, this.length), (this[t] << 8) | this[t + 1]
+            return (e || L(t, 2, this.length), (this[t] << 8) | this[t + 1])
           }),
           (l.prototype.readUInt32LE = function (t, e) {
             return (
@@ -13956,16 +13967,16 @@
             )
           }),
           (l.prototype.readIntLE = function (t, e, r) {
-            ;(t |= 0), (e |= 0), r || L(t, e, this.length)
+            ;((t |= 0), (e |= 0), r || L(t, e, this.length))
             for (var n = this[t], i = 1, o = 0; ++o < e && (i *= 256); )
               n += this[t + o] * i
-            return n >= (i *= 128) && (n -= Math.pow(2, 8 * e)), n
+            return (n >= (i *= 128) && (n -= Math.pow(2, 8 * e)), n)
           }),
           (l.prototype.readIntBE = function (t, e, r) {
-            ;(t |= 0), (e |= 0), r || L(t, e, this.length)
+            ;((t |= 0), (e |= 0), r || L(t, e, this.length))
             for (var n = e, i = 1, o = this[t + --n]; n > 0 && (i *= 256); )
               o += this[t + --n] * i
-            return o >= (i *= 128) && (o -= Math.pow(2, 8 * e)), o
+            return (o >= (i *= 128) && (o -= Math.pow(2, 8 * e)), o)
           }),
           (l.prototype.readInt8 = function (t, e) {
             return (
@@ -14002,16 +14013,16 @@
             )
           }),
           (l.prototype.readFloatLE = function (t, e) {
-            return e || L(t, 4, this.length), i.read(this, t, !0, 23, 4)
+            return (e || L(t, 4, this.length), i.read(this, t, !0, 23, 4))
           }),
           (l.prototype.readFloatBE = function (t, e) {
-            return e || L(t, 4, this.length), i.read(this, t, !1, 23, 4)
+            return (e || L(t, 4, this.length), i.read(this, t, !1, 23, 4))
           }),
           (l.prototype.readDoubleLE = function (t, e) {
-            return e || L(t, 8, this.length), i.read(this, t, !0, 52, 8)
+            return (e || L(t, 8, this.length), i.read(this, t, !0, 52, 8))
           }),
           (l.prototype.readDoubleBE = function (t, e) {
-            return e || L(t, 8, this.length), i.read(this, t, !1, 52, 8)
+            return (e || L(t, 8, this.length), i.read(this, t, !1, 52, 8))
           }),
           (l.prototype.writeUIntLE = function (t, e, r, n) {
             ;((t = +t), (e |= 0), (r |= 0), n) ||
@@ -14100,8 +14111,8 @@
               a = 1,
               s = 0
             for (this[e] = 255 & t; ++o < r && (a *= 256); )
-              t < 0 && 0 === s && 0 !== this[e + o - 1] && (s = 1),
-                (this[e + o] = (((t / a) >> 0) - s) & 255)
+              (t < 0 && 0 === s && 0 !== this[e + o - 1] && (s = 1),
+                (this[e + o] = (((t / a) >> 0) - s) & 255))
             return e + r
           }),
           (l.prototype.writeIntBE = function (t, e, r, n) {
@@ -14113,8 +14124,8 @@
               a = 1,
               s = 0
             for (this[e + o] = 255 & t; --o >= 0 && (a *= 256); )
-              t < 0 && 0 === s && 0 !== this[e + o + 1] && (s = 1),
-                (this[e + o] = (((t / a) >> 0) - s) & 255)
+              (t < 0 && 0 === s && 0 !== this[e + o + 1] && (s = 1),
+                (this[e + o] = (((t / a) >> 0) - s) & 255))
             return e + r
           }),
           (l.prototype.writeInt8 = function (t, e, r) {
@@ -14206,8 +14217,8 @@
             if (r < 0 || r >= this.length)
               throw new RangeError('sourceStart out of bounds')
             if (n < 0) throw new RangeError('sourceEnd out of bounds')
-            n > this.length && (n = this.length),
-              t.length - e < n - r && (n = t.length - e + r)
+            ;(n > this.length && (n = this.length),
+              t.length - e < n - r && (n = t.length - e + r))
             var i,
               o = n - r
             if (this === t && r < e && e < n)
@@ -14250,7 +14261,7 @@
               for (o = 0; o < r - e; ++o) this[o + e] = a[o % s]
             }
             return this
-          })
+          }))
         var D = /[^+\/0-9A-Za-z-_]/g
         function G(t) {
           return t < 16 ? '0' + t.toString(16) : t.toString(16)
@@ -14273,7 +14284,7 @@
                 continue
               }
               if (r < 56320) {
-                ;(e -= 3) > -1 && o.push(239, 191, 189), (i = r)
+                ;((e -= 3) > -1 && o.push(239, 191, 189), (i = r))
                 continue
               }
               r = 65536 + (((i - 55296) << 10) | (r - 56320))
@@ -14323,7 +14334,7 @@
     },
     function (t, e, r) {
       'use strict'
-      ;(e.byteLength = function (t) {
+      ;((e.byteLength = function (t) {
         var e = u(t),
           r = e[0],
           n = e[1]
@@ -14343,14 +14354,14 @@
             c = 0,
             h = s > 0 ? a - 4 : a
           for (r = 0; r < h; r += 4)
-            (e =
+            ((e =
               (i[t.charCodeAt(r)] << 18) |
               (i[t.charCodeAt(r + 1)] << 12) |
               (i[t.charCodeAt(r + 2)] << 6) |
               i[t.charCodeAt(r + 3)]),
               (l[c++] = (e >> 16) & 255),
               (l[c++] = (e >> 8) & 255),
-              (l[c++] = 255 & e)
+              (l[c++] = 255 & e))
           2 === s &&
             ((e = (i[t.charCodeAt(r)] << 2) | (i[t.charCodeAt(r + 1)] >> 4)),
             (l[c++] = 255 & e))
@@ -14376,7 +14387,7 @@
               ((e = (t[r - 2] << 8) + t[r - 1]),
               o.push(n[e >> 10] + n[(e >> 4) & 63] + n[(e << 2) & 63] + '='))
           return o.join('')
-        })
+        }))
       for (
         var n = [],
           i = [],
@@ -14388,17 +14399,17 @@
         s < l;
         ++s
       )
-        (n[s] = a[s]), (i[a.charCodeAt(s)] = s)
+        ((n[s] = a[s]), (i[a.charCodeAt(s)] = s))
       function u(t) {
         var e = t.length
         if (e % 4 > 0)
           throw new Error('Invalid string. Length must be a multiple of 4')
         var r = t.indexOf('=')
-        return -1 === r && (r = e), [r, r === e ? 0 : 4 - (r % 4)]
+        return (-1 === r && (r = e), [r, r === e ? 0 : 4 - (r % 4)])
       }
       function c(t, e, r) {
         for (var i, o, a = [], s = e; s < r; s += 3)
-          (i =
+          ((i =
             ((t[s] << 16) & 16711680) +
             ((t[s + 1] << 8) & 65280) +
             (255 & t[s + 2])),
@@ -14407,10 +14418,10 @@
                 n[(o >> 12) & 63] +
                 n[(o >> 6) & 63] +
                 n[63 & o],
-            )
+            ))
         return a.join('')
       }
-      ;(i['-'.charCodeAt(0)] = 62), (i['_'.charCodeAt(0)] = 63)
+      ;((i['-'.charCodeAt(0)] = 62), (i['_'.charCodeAt(0)] = 63))
     },
     function (t, e) {
       var r = {}.toString
@@ -14450,11 +14461,11 @@
             function r() {
               this.constructor = t
             }
-            a(t, e),
+            ;(a(t, e),
               (t.prototype =
                 null === e
                   ? Object.create(e)
-                  : ((r.prototype = e.prototype), new r()))
+                  : ((r.prototype = e.prototype), new r())))
           }),
         l = (function (t) {
           function e(e) {
@@ -14472,14 +14483,14 @@
               r
             )
           }
-          return s(e, t), e
+          return (s(e, t), e)
         })(Error)
       function u(t) {
         t.stopPropagation()
       }
       var c = (function () {
           function t(t) {
-            this.propagationStopped, (this.type = t), (this.target = null)
+            ;(this.propagationStopped, (this.type = t), (this.target = null))
           }
           return (
             (t.prototype.preventDefault = function () {
@@ -14536,7 +14547,7 @@
       function m(t, e, r) {
         for (; e < r; ) {
           var n = t[e]
-          ;(t[e] = t[r]), (t[r] = n), ++e, --r
+          ;((t[e] = t[r]), (t[r] = n), ++e, --r)
         }
       }
       function v(t, e) {
@@ -14561,7 +14572,7 @@
       function x(t, e) {
         var r
         return !t.every(function (n, i) {
-          return (r = i), !e(n, i, t)
+          return ((r = i), !e(n, i, t))
         })
           ? r
           : -1
@@ -14643,11 +14654,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         M = (function (t) {
@@ -14679,7 +14690,7 @@
               if (i) {
                 var o = this.dispatching_ || (this.dispatching_ = {}),
                   a = this.pendingRemovals_ || (this.pendingRemovals_ = {})
-                r in o || ((o[r] = 0), (a[r] = 0)), ++o[r]
+                ;(r in o || ((o[r] = 0), (a[r] = 0)), ++o[r])
                 for (var s = 0, l = i.length; s < l; ++s)
                   if (
                     !1 ===
@@ -14747,11 +14758,11 @@
         if ((n && n !== t && (r = r.bind(n)), i)) {
           var o = r
           r = function () {
-            t.removeEventListener(e, r), o.apply(this, arguments)
+            ;(t.removeEventListener(e, r), o.apply(this, arguments))
           }
         }
         var a = { target: t, type: e, listener: r }
-        return t.addEventListener(e, r), a
+        return (t.addEventListener(e, r), a)
       }
       function K(t, e, r, n) {
         return Z(t, e, r, n, !0)
@@ -14778,11 +14789,11 @@
           function n() {
             this.constructor = e
           }
-          t(e, r),
+          ;(t(e, r),
             (e.prototype =
               null === r
                 ? Object.create(r)
-                : ((n.prototype = r.prototype), new n()))
+                : ((n.prototype = r.prototype), new n())))
         }
       })()
       function J(t) {
@@ -14792,12 +14803,12 @@
       var Q = (function (t) {
           function e() {
             var e = t.call(this) || this
-            return (e.revision_ = 0), e
+            return ((e.revision_ = 0), e)
           }
           return (
             $(e, t),
             (e.prototype.changed = function () {
-              ++this.revision_, this.dispatchEvent(F)
+              ;(++this.revision_, this.dispatchEvent(F))
             }),
             (e.prototype.getRevision = function () {
               return this.revision_
@@ -14817,7 +14828,7 @@
                 r = new Array(n)
                 for (var i = 0; i < n; ++i) r[i] = K(this, t[i], e)
               } else r = K(this, t, e)
-              return (e.ol_key = r), r
+              return ((e.ol_key = r), r)
             }),
             (e.prototype.un = function (t, e) {
               var r = e.ol_key
@@ -14847,25 +14858,28 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         et = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, e) || this
-            return (i.key = r), (i.oldValue = n), i
+            return ((i.key = r), (i.oldValue = n), i)
           }
-          return tt(e, t), e
+          return (tt(e, t), e)
         })(c),
         rt = (function (t) {
           function e(e) {
             var r = t.call(this) || this
             return (
-              o(r), (r.values_ = null), void 0 !== e && r.setProperties(e), r
+              o(r),
+              (r.values_ = null),
+              void 0 !== e && r.setProperties(e),
+              r
             )
           }
           return (
@@ -14890,17 +14904,17 @@
             }),
             (e.prototype.notify = function (t, e) {
               var r
-              ;(r = it(t)),
+              ;((r = it(t)),
                 this.dispatchEvent(new et(r, t, e)),
                 (r = h),
-                this.dispatchEvent(new et(r, t, e))
+                this.dispatchEvent(new et(r, t, e)))
             }),
             (e.prototype.set = function (t, e, r) {
               var n = this.values_ || (this.values_ = {})
               if (r) n[t] = e
               else {
                 var i = n[t]
-                ;(n[t] = e), i !== e && this.notify(t, i)
+                ;((n[t] = e), i !== e && this.notify(t, i))
               }
             }),
             (e.prototype.setProperties = function (t, e) {
@@ -14912,9 +14926,9 @@
             (e.prototype.unset = function (t, e) {
               if (this.values_ && t in this.values_) {
                 var r = this.values_[t]
-                delete this.values_[t],
+                ;(delete this.values_[t],
                   I(this.values_) && (this.values_ = null),
-                  e || this.notify(t, r)
+                  e || this.notify(t, r))
               }
             }),
             e
@@ -14944,20 +14958,20 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ut = 'length',
         ct = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, e) || this
-            return (i.element = r), (i.index = n), i
+            return ((i.element = r), (i.index = n), i)
           }
-          return lt(e, t), e
+          return (lt(e, t), e)
         })(c),
         ht = (function (t) {
           function e(e, r) {
@@ -14966,7 +14980,7 @@
             if (((n.unique_ = !!i.unique), (n.array_ = e || []), n.unique_))
               for (var o = 0, a = n.array_.length; o < a; ++o)
                 n.assertUnique_(n.array_[o], o)
-            return n.updateLength_(), n
+            return (n.updateLength_(), n)
           }
           return (
             lt(e, t),
@@ -14991,10 +15005,10 @@
               return this.get(ut)
             }),
             (e.prototype.insertAt = function (t, e) {
-              this.unique_ && this.assertUnique_(e),
+              ;(this.unique_ && this.assertUnique_(e),
                 this.array_.splice(t, 0, e),
                 this.updateLength_(),
-                this.dispatchEvent(new ct(at, e, t))
+                this.dispatchEvent(new ct(at, e, t)))
             }),
             (e.prototype.pop = function () {
               return this.removeAt(this.getLength() - 1)
@@ -15002,7 +15016,7 @@
             (e.prototype.push = function (t) {
               this.unique_ && this.assertUnique_(t)
               var e = this.getLength()
-              return this.insertAt(e, t), this.getLength()
+              return (this.insertAt(e, t), this.getLength())
             }),
             (e.prototype.remove = function (t) {
               for (var e = this.array_, r = 0, n = e.length; r < n; ++r)
@@ -15022,9 +15036,9 @@
               if (t < r) {
                 this.unique_ && this.assertUnique_(e, t)
                 var n = this.array_[t]
-                ;(this.array_[t] = e),
+                ;((this.array_[t] = e),
                   this.dispatchEvent(new ct(st, n, t)),
-                  this.dispatchEvent(new ct(at, e, t))
+                  this.dispatchEvent(new ct(at, e, t)))
               } else {
                 for (var i = r; i < t; ++i) this.insertAt(i, void 0)
                 this.insertAt(t, e)
@@ -15060,11 +15074,11 @@
           function n() {
             this.constructor = e
           }
-          t(e, r),
+          ;(t(e, r),
             (e.prototype =
               null === r
                 ? Object.create(r)
-                : ((n.prototype = r.prototype), new n()))
+                : ((n.prototype = r.prototype), new n())))
         }
       })()
       function dt(t) {
@@ -15107,7 +15121,7 @@
               var r = this.getGeometry()
               r && t.setGeometry(r.clone())
               var n = this.getStyle()
-              return n && t.setStyle(n), t
+              return (n && t.setStyle(n), t)
             }),
             (e.prototype.getGeometry = function () {
               return this.get(this.geometryName_)
@@ -15131,28 +15145,28 @@
               this.geometryChangeKey_ &&
                 (H(this.geometryChangeKey_), (this.geometryChangeKey_ = null))
               var t = this.getGeometry()
-              t &&
+              ;(t &&
                 (this.geometryChangeKey_ = Z(
                   t,
                   F,
                   this.handleGeometryChange_,
                   this,
                 )),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.setGeometry = function (t) {
               this.set(this.geometryName_, t)
             }),
             (e.prototype.setStyle = function (t) {
-              ;(this.style_ = t),
+              ;((this.style_ = t),
                 (this.styleFunction_ = t ? dt(t) : void 0),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.setId = function (t) {
-              ;(this.id_ = t), this.changed()
+              ;((this.id_ = t), this.changed())
             }),
             (e.prototype.setGeometryName = function (t) {
-              this.removeEventListener(
+              ;(this.removeEventListener(
                 it(this.geometryName_),
                 this.handleGeometryChanged_,
               ),
@@ -15161,7 +15175,7 @@
                   it(this.geometryName_),
                   this.handleGeometryChanged_,
                 ),
-                this.handleGeometryChanged_()
+                this.handleGeometryChanged_())
             }),
             e
           )
@@ -15190,10 +15204,10 @@
           USFEET: 'us-ft',
         },
         wt = {}
-      ;(wt[xt.DEGREES] = (2 * Math.PI * 6370997) / 360),
+      ;((wt[xt.DEGREES] = (2 * Math.PI * 6370997) / 360),
         (wt[xt.FEET] = 0.3048),
         (wt[xt.METERS] = 1),
-        (wt[xt.USFEET] = 1200 / 3937)
+        (wt[xt.USFEET] = 1200 / 3937))
       var St = xt,
         Et = new Array(6)
       function Tt() {
@@ -15410,10 +15424,10 @@
         )
       }
       function pe(t, e) {
-        e[0] < t[0] && (t[0] = e[0]),
+        ;(e[0] < t[0] && (t[0] = e[0]),
           e[0] > t[2] && (t[2] = e[0]),
           e[1] < t[1] && (t[1] = e[1]),
-          e[1] > t[3] && (t[3] = e[1])
+          e[1] > t[3] && (t[3] = e[1]))
       }
       function fe(t, e) {
         for (var r = 0, n = e.length; r < n; ++r) pe(t, e[r])
@@ -15428,10 +15442,10 @@
         return t
       }
       function ye(t, e, r) {
-        ;(t[0] = Math.min(t[0], e)),
+        ;((t[0] = Math.min(t[0], e)),
           (t[1] = Math.min(t[1], r)),
           (t[2] = Math.max(t[2], e)),
-          (t[3] = Math.max(t[3], r))
+          (t[3] = Math.max(t[3], r)))
       }
       function me(t, e) {
         var r
@@ -15441,7 +15455,7 @@
       }
       function ve(t) {
         var e = 0
-        return Ie(t) || (e = Pe(t) * Ee(t)), e
+        return (Ie(t) || (e = Pe(t) * Ee(t)), e)
       }
       function _e(t) {
         return [t[0], t[1]]
@@ -15532,7 +15546,7 @@
       function Me(t, e) {
         var r = ((t[2] - t[0]) / 2) * (e - 1),
           n = ((t[3] - t[1]) / 2) * (e - 1)
-        ;(t[0] -= r), (t[2] += r), (t[1] -= n), (t[3] += n)
+        ;((t[0] -= r), (t[2] += r), (t[1] -= n), (t[3] += n))
       }
       function Fe(t, e, r) {
         var n = !1,
@@ -15551,7 +15565,7 @@
             d = (f - h) / (p - c),
             g = void 0,
             y = void 0
-          o & Wt && !(i & Wt) && (n = (g = p - (f - u) / d) >= a && g <= l),
+          ;(o & Wt && !(i & Wt) && (n = (g = p - (f - u) / d) >= a && g <= l),
             n ||
               !(o & qt) ||
               i & qt ||
@@ -15563,7 +15577,7 @@
             n ||
               !(o & Zt) ||
               i & Zt ||
-              (n = (y = f - (p - a) * d) >= s && y <= u)
+              (n = (y = f - (p - a) * d) >= s && y <= u))
         }
         return n
       }
@@ -15584,7 +15598,7 @@
         else i = [t[0], t[1], t[2], t[1], t[2], t[3], t[0], t[3]]
         e(i, i, 2)
         for (var l = [], u = [], c = ((s = 0), i.length); s < c; s += 2)
-          l.push(i[s]), u.push(i[s + 1])
+          (l.push(i[s]), u.push(i[s + 1]))
         return (function (t, e, r) {
           return ie(
             Math.min.apply(null, t),
@@ -15601,13 +15615,13 @@
         if (e.canWrapX() && (n[0] < r[0] || n[0] >= r[2])) {
           var i = Pe(r),
             o = Math.floor((n[0] - r[0]) / i) * i
-          ;(t[0] -= o), (t[2] -= o)
+          ;((t[0] -= o), (t[2] -= o))
         }
         return t
       }
       var je = (function () {
         function t(t) {
-          ;(this.code_ = t.code),
+          ;((this.code_ = t.code),
             (this.units_ = t.units),
             (this.extent_ = void 0 !== t.extent ? t.extent : null),
             (this.worldExtent_ =
@@ -15618,7 +15632,7 @@
             (this.canWrapX_ = !(!this.global_ || !this.extent_)),
             (this.getPointResolutionFunc_ = t.getPointResolution),
             (this.defaultTileGrid_ = null),
-            (this.metersPerUnit_ = t.metersPerUnit)
+            (this.metersPerUnit_ = t.metersPerUnit))
         }
         return (
           (t.prototype.canWrapX = function () {
@@ -15646,7 +15660,7 @@
             return this.global_
           }),
           (t.prototype.setGlobal = function (t) {
-            ;(this.global_ = t), (this.canWrapX_ = !(!t || !this.extent_))
+            ;((this.global_ = t), (this.canWrapX_ = !(!t || !this.extent_)))
           }),
           (t.prototype.getDefaultTileGrid = function () {
             return this.defaultTileGrid_
@@ -15655,7 +15669,7 @@
             this.defaultTileGrid_ = t
           }),
           (t.prototype.setExtent = function (t) {
-            ;(this.extent_ = t), (this.canWrapX_ = !(!this.global_ || !t))
+            ;((this.extent_ = t), (this.canWrapX_ = !(!this.global_ || !t)))
           }),
           (t.prototype.setWorldExtent = function (t) {
             this.worldExtent_ = t
@@ -15707,7 +15721,7 @@
           }
           if (0 === i) return null
           var s = t[n]
-          ;(t[n] = t[r]), (t[r] = s)
+          ;((t[n] = t[r]), (t[r] = s))
           for (var l = r + 1; l < e; l++)
             for (var u = -t[l][r] / t[r][r], c = r; c < e + 1; c++)
               r == c ? (t[l][c] = 0) : (t[l][c] += u * t[r][c])
@@ -15748,11 +15762,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Ze = 6378137 * Math.PI,
@@ -15774,7 +15788,7 @@
               }) || this
             )
           }
-          return Xe(e, t), e
+          return (Xe(e, t), e)
         })(je),
         Qe = [
           new Je('EPSG:3857'),
@@ -15792,7 +15806,7 @@
           o[a] = (Ze * t[a]) / 180
           var s =
             6378137 * Math.log(Math.tan((Math.PI * (+t[a + 1] + 90)) / 360))
-          s > $e ? (s = $e) : s < -$e && (s = -$e), (o[a + 1] = s)
+          ;(s > $e ? (s = $e) : s < -$e && (s = -$e), (o[a + 1] = s))
         }
         return o
       }
@@ -15802,9 +15816,9 @@
           o = e
         void 0 === o && (o = i > 2 ? t.slice() : new Array(n))
         for (var a = 0; a < n; a += i)
-          (o[a] = (180 * t[a]) / Ze),
+          ((o[a] = (180 * t[a]) / Ze),
             (o[a + 1] =
-              (360 * Math.atan(Math.exp(t[a + 1] / 6378137))) / Math.PI - 90)
+              (360 * Math.atan(Math.exp(t[a + 1] / 6378137))) / Math.PI - 90))
         return o
       }
       var rr = (function () {
@@ -15824,11 +15838,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         nr = [-180, -90, 180, 90],
@@ -15847,7 +15861,7 @@
               }) || this
             )
           }
-          return rr(e, t), e
+          return (rr(e, t), e)
         })(je),
         ar = [
           new or('CRS:84'),
@@ -15877,11 +15891,11 @@
       function fr(t, e, r) {
         var n = t.getCode(),
           i = e.getCode()
-        n in hr || (hr[n] = {}), (hr[n][i] = r)
+        ;(n in hr || (hr[n] = {}), (hr[n][i] = r))
       }
       function dr(t, e) {
         var r
-        return t in hr && e in hr[t] && (r = hr[t][e]), r
+        return (t in hr && e in hr[t] && (r = hr[t][e]), r)
       }
       function gr(t, e, r) {
         var n = r || 6371008.8,
@@ -15907,9 +15921,9 @@
         ) {
           var s = t[a][0],
             l = t[a][1]
-          ;(r += Ye(s - i) * (2 + Math.sin(Ye(o)) + Math.sin(Ye(l)))),
+          ;((r += Ye(s - i) * (2 + Math.sin(Ye(o)) + Math.sin(Ye(l)))),
             (i = s),
-            (o = l)
+            (o = l))
         }
         return (r * e * e) / 2
       }
@@ -15953,7 +15967,7 @@
         return 0
       }
       function xr(t, e) {
-        return (t[0] += +e[0]), (t[1] += +e[1]), t
+        return ((t[0] += +e[0]), (t[1] += +e[1]), t)
       }
       function wr(t, e) {
         var r = e.getRadius(),
@@ -16030,10 +16044,10 @@
           n = Math.sin(e),
           i = t[0] * r - t[1] * n,
           o = t[1] * r + t[0] * n
-        return (t[0] = i), (t[1] = o), t
+        return ((t[0] = i), (t[1] = o), t)
       }
       function Pr(t, e) {
-        return (t[0] *= e), (t[1] *= e), t
+        return ((t[0] *= e), (t[1] *= e), t)
       }
       function Rr(t, e) {
         var r = t[0] - e[0],
@@ -16082,7 +16096,7 @@
         return t
       }
       function Nr(t) {
-        cr(t.getCode(), t), fr(t, t, kr)
+        ;(cr(t.getCode(), t), fr(t, t, kr))
       }
       function Dr(t) {
         t.forEach(Nr)
@@ -16125,17 +16139,17 @@
         return i
       }
       function Ur(t) {
-        Dr(t),
+        ;(Dr(t),
           t.forEach(function (e) {
             t.forEach(function (t) {
               e !== t && fr(e, t, kr)
             })
-          })
+          }))
       }
       function Br(t, e, r, n) {
         t.forEach(function (t) {
           e.forEach(function (e) {
-            fr(t, e, r), fr(e, t, n)
+            ;(fr(t, e, r), fr(e, t, n))
           })
         })
       }
@@ -16153,7 +16167,7 @@
             s += o
           ) {
             var l = t([e[s], e[s + 1]])
-            ;(a[s] = l[0]), (a[s + 1] = l[1])
+            ;((a[s] = l[0]), (a[s + 1] = l[1]))
             for (var u = o - 1; u >= 2; --u) a[s + u] = e[s + u]
           }
           return a
@@ -16162,7 +16176,7 @@
       function Wr(t, e, r, n) {
         var i = Gr(t),
           o = Gr(e)
-        fr(i, o, Yr(r)), fr(o, i, Yr(n))
+        ;(fr(i, o, Yr(r)), fr(o, i, Yr(n)))
       }
       function qr(t, e) {
         return Hr(t, 'EPSG:4326', void 0 !== e ? e : 'EPSG:3857')
@@ -16174,7 +16188,7 @@
       }
       function Zr(t, e) {
         var r = dr(t.getCode(), e.getCode())
-        return r || (r = jr), r
+        return (r || (r = jr), r)
       }
       function Kr(t, e) {
         return Zr(Gr(t), Gr(e))
@@ -16213,25 +16227,25 @@
           if (t.canWrapX()) {
             var l = t.getExtent(),
               u = Pe(l)
-            ;(o = Ar(n, t, u)) && (a -= o * u),
+            ;((o = Ar(n, t, u)) && (a -= o * u),
               (a = Ne(a, l[0], l[2])),
               (s = Ne(s, l[1], l[3])),
-              (i = r([a, s]))
+              (i = r([a, s])))
           } else i = r(n)
-          return o && e.canWrapX() && (i[0] += o * Pe(e.getExtent())), i
+          return (o && e.canWrapX() && (i[0] += o * Pe(e.getExtent())), i)
         }
       }
       function sn() {
-        Ur(Qe), Ur(ar), Br(ar, Qe, tr, er)
+        ;(Ur(Qe), Ur(ar), Br(ar, Qe, tr, er))
       }
       function ln(t, e, r, n, i, o) {
         for (var a = o || [], s = 0, l = e; l < r; l += n) {
           var u = t[l],
             c = t[l + 1]
-          ;(a[s++] = i[0] * u + i[2] * c + i[4]),
-            (a[s++] = i[1] * u + i[3] * c + i[5])
+          ;((a[s++] = i[0] * u + i[2] * c + i[4]),
+            (a[s++] = i[1] * u + i[3] * c + i[5]))
         }
-        return o && a.length != s && (a.length = s), a
+        return (o && a.length != s && (a.length = s), a)
       }
       function un(t, e, r, n, i, o, a) {
         for (
@@ -16247,26 +16261,26 @@
         ) {
           var d = t[f] - c,
             g = t[f + 1] - h
-          ;(s[p++] = c + d * l - g * u), (s[p++] = h + d * u + g * l)
+          ;((s[p++] = c + d * l - g * u), (s[p++] = h + d * u + g * l))
           for (var y = f + 2; y < f + n; ++y) s[p++] = t[y]
         }
-        return a && s.length != p && (s.length = p), s
+        return (a && s.length != p && (s.length = p), s)
       }
       function cn(t, e, r, n, i, o, a, s) {
         for (var l = s || [], u = a[0], c = a[1], h = 0, p = e; p < r; p += n) {
           var f = t[p] - u,
             d = t[p + 1] - c
-          ;(l[h++] = u + i * f), (l[h++] = c + o * d)
+          ;((l[h++] = u + i * f), (l[h++] = c + o * d))
           for (var g = p + 2; g < p + n; ++g) l[h++] = t[g]
         }
-        return s && l.length != h && (l.length = h), l
+        return (s && l.length != h && (l.length = h), l)
       }
       function hn(t, e, r, n, i, o, a) {
         for (var s = a || [], l = 0, u = e; u < r; u += n) {
-          ;(s[l++] = t[u] + i), (s[l++] = t[u + 1] + o)
+          ;((s[l++] = t[u] + i), (s[l++] = t[u + 1] + o))
           for (var c = u + 2; c < u + n; ++c) s[l++] = t[c]
         }
-        return a && s.length != l && (s.length = l), s
+        return (a && s.length != l && (s.length = l), s)
       }
       sn()
       var pn = (function () {
@@ -16286,11 +16300,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         fn = [1, 0, 0, 1, 0, 0],
@@ -16305,7 +16319,7 @@
               (e.simplifyTransformedInternal = C(function (t, e, r) {
                 if (!r) return this.getSimplifiedGeometry(e)
                 var n = this.clone()
-                return n.applyTransform(r), n.getSimplifiedGeometry(e)
+                return (n.applyTransform(r), n.getSimplifiedGeometry(e))
               })),
               e
             )
@@ -16327,7 +16341,7 @@
             }),
             (e.prototype.getClosestPoint = function (t, e) {
               var r = e || [NaN, NaN]
-              return this.closestPointXY(t[0], t[1], r, 1 / 0), r
+              return (this.closestPointXY(t[0], t[1], r, 1 / 0), r)
             }),
             (e.prototype.intersectsCoordinate = function (t) {
               return this.containsXY(t[0], t[1])
@@ -16338,8 +16352,8 @@
             (e.prototype.getExtent = function (t) {
               if (this.extentRevision_ != this.getRevision()) {
                 var e = this.computeExtent(this.extent_)
-                ;(isNaN(e[0]) || isNaN(e[1])) && oe(e),
-                  (this.extentRevision_ = this.getRevision())
+                ;((isNaN(e[0]) || isNaN(e[1])) && oe(e),
+                  (this.extentRevision_ = this.getRevision()))
               }
               return Le(this.extent_, t)
             }),
@@ -16382,7 +16396,7 @@
                         )
                       }
                     : Kr(r, e)
-              return this.applyTransform(n), this
+              return (this.applyTransform(n), this)
             }),
             e
           )
@@ -16404,11 +16418,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function yn(t) {
@@ -16429,7 +16443,12 @@
       var vn = (function (t) {
         function e() {
           var e = t.call(this) || this
-          return (e.layout = yt), (e.stride = 2), (e.flatCoordinates = null), e
+          return (
+            (e.layout = yt),
+            (e.stride = 2),
+            (e.flatCoordinates = null),
+            e
+          )
         }
         return (
           gn(e, t),
@@ -16481,9 +16500,9 @@
             return this.stride
           }),
           (e.prototype.setFlatCoordinates = function (t, e) {
-            ;(this.stride = yn(t)),
+            ;((this.stride = yn(t)),
               (this.layout = t),
-              (this.flatCoordinates = e)
+              (this.flatCoordinates = e))
           }),
           (e.prototype.setCoordinates = function (t, e) {
             n()
@@ -16494,7 +16513,7 @@
             else {
               for (var i = 0; i < r; ++i) {
                 if (0 === e.length)
-                  return (this.layout = yt), void (this.stride = 2)
+                  return ((this.layout = yt), void (this.stride = 2))
                 e = e[0]
               }
               t = (function (t) {
@@ -16503,7 +16522,7 @@
                 return e
               })((n = e.length))
             }
-            ;(this.layout = t), (this.stride = n)
+            ;((this.layout = t), (this.stride = n))
           }),
           (e.prototype.applyTransform = function (t) {
             this.flatCoordinates &&
@@ -16514,7 +16533,7 @@
             var r = this.getFlatCoordinates()
             if (r) {
               var n = this.getStride()
-              un(r, 0, r.length, n, t, e, r), this.changed()
+              ;(un(r, 0, r.length, n, t, e, r), this.changed())
             }
           }),
           (e.prototype.scale = function (t, e, r) {
@@ -16525,14 +16544,14 @@
             var o = this.getFlatCoordinates()
             if (o) {
               var a = this.getStride()
-              cn(o, 0, o.length, a, t, n, i, o), this.changed()
+              ;(cn(o, 0, o.length, a, t, n, i, o), this.changed())
             }
           }),
           (e.prototype.translate = function (t, e) {
             var r = this.getFlatCoordinates()
             if (r) {
               var n = this.getStride()
-              hn(r, 0, r.length, n, t, e, r), this.changed()
+              ;(hn(r, 0, r.length, n, t, e, r), this.changed())
             }
           }),
           e
@@ -16566,21 +16585,21 @@
           var s = t[e],
             l = t[e + 1],
             u = Ue(o, a, s, l)
-          u > i && (i = u), (o = s), (a = l)
+          ;(u > i && (i = u), (o = s), (a = l))
         }
         return i
       }
       function xn(t, e, r, n, i) {
         for (var o = 0, a = r.length; o < a; ++o) {
           var s = r[o]
-          ;(i = bn(t, e, s, n, i)), (e = s)
+          ;((i = bn(t, e, s, n, i)), (e = s))
         }
         return i
       }
       function wn(t, e, r, n, i) {
         for (var o = 0, a = r.length; o < a; ++o) {
           var s = r[o]
-          ;(i = xn(t, e, s, n, i)), (e = s[s.length - 1])
+          ;((i = xn(t, e, s, n, i)), (e = s[s.length - 1]))
         }
         return i
       }
@@ -16590,14 +16609,14 @@
         if (0 === i) {
           if ((p = Ue(a, s, t[e], t[e + 1])) < u) {
             for (h = 0; h < n; ++h) l[h] = t[e + h]
-            return (l.length = n), p
+            return ((l.length = n), p)
           }
           return u
         }
         for (var f = c || [NaN, NaN], d = e + n; d < r; )
           if ((_n(t, d - n, d, n, a, s, f), (p = Ue(a, s, f[0], f[1])) < u)) {
             for (u = p, h = 0; h < n; ++h) l[h] = f[h]
-            ;(l.length = n), (d += n)
+            ;((l.length = n), (d += n))
           } else d += n * Math.max(((Math.sqrt(p) - Math.sqrt(u)) / i) | 0, 1)
         if (
           o &&
@@ -16611,14 +16630,14 @@
       function En(t, e, r, n, i, o, a, s, l, u, c) {
         for (var h = c || [NaN, NaN], p = 0, f = r.length; p < f; ++p) {
           var d = r[p]
-          ;(u = Sn(t, e, d, n, i, o, a, s, l, u, h)), (e = d)
+          ;((u = Sn(t, e, d, n, i, o, a, s, l, u, h)), (e = d))
         }
         return u
       }
       function Tn(t, e, r, n, i, o, a, s, l, u, c) {
         for (var h = c || [NaN, NaN], p = 0, f = r.length; p < f; ++p) {
           var d = r[p]
-          ;(u = En(t, e, d, n, i, o, a, s, l, u, h)), (e = d[d.length - 1])
+          ;((u = En(t, e, d, n, i, o, a, s, l, u, h)), (e = d[d.length - 1]))
         }
         return u
       }
@@ -16634,25 +16653,25 @@
       function Pn(t, e, r, n, i) {
         for (var o = i || [], a = 0, s = 0, l = r.length; s < l; ++s) {
           var u = On(t, e, r[s], n)
-          ;(o[a++] = u), (e = u)
+          ;((o[a++] = u), (e = u))
         }
-        return (o.length = a), o
+        return ((o.length = a), o)
       }
       function Rn(t, e, r, n, i) {
         for (var o = i || [], a = 0, s = 0, l = r.length; s < l; ++s) {
           var u = Pn(t, e, r[s], n, o[a])
-          ;(o[a++] = u), (e = u[u.length - 1])
+          ;((o[a++] = u), (e = u[u.length - 1]))
         }
-        return (o.length = a), o
+        return ((o.length = a), o)
       }
       function In(t, e, r, n, i, o, a) {
         var s = (r - e) / n
         if (s < 3) {
-          for (; e < r; e += n) (o[a++] = t[e]), (o[a++] = t[e + 1])
+          for (; e < r; e += n) ((o[a++] = t[e]), (o[a++] = t[e + 1]))
           return a
         }
         var l = new Array(s)
-        ;(l[0] = 1), (l[s - 1] = 1)
+        ;((l[0] = 1), (l[s - 1] = 1))
         for (var u = [e, r - n], c = 0; u.length > 0; ) {
           for (
             var h = u.pop(),
@@ -16681,24 +16700,24 @@
       function Ln(t, e, r, n, i, o, a, s) {
         for (var l = 0, u = r.length; l < u; ++l) {
           var c = r[l]
-          ;(a = In(t, e, c, n, i, o, a)), s.push(a), (e = c)
+          ;((a = In(t, e, c, n, i, o, a)), s.push(a), (e = c))
         }
         return a
       }
       function Mn(t, e, r, n, i, o, a) {
         if (r <= e + n) {
-          for (; e < r; e += n) (o[a++] = t[e]), (o[a++] = t[e + 1])
+          for (; e < r; e += n) ((o[a++] = t[e]), (o[a++] = t[e + 1]))
           return a
         }
         var s = t[e],
           l = t[e + 1]
-        ;(o[a++] = s), (o[a++] = l)
+        ;((o[a++] = s), (o[a++] = l))
         var u = s,
           c = l
         for (e += n; e < r; e += n)
           Ue(s, l, (u = t[e]), (c = t[e + 1])) > i &&
             ((o[a++] = u), (o[a++] = c), (s = u), (l = c))
-        return (u == s && c == l) || ((o[a++] = u), (o[a++] = c)), a
+        return ((u == s && c == l) || ((o[a++] = u), (o[a++] = c)), a)
       }
       function Fn(t, e) {
         return e * Math.round(t / e)
@@ -16709,10 +16728,10 @@
           l,
           u = Fn(t[e], i),
           c = Fn(t[e + 1], i)
-        ;(e += n), (o[a++] = u), (o[a++] = c)
+        ;((e += n), (o[a++] = u), (o[a++] = c))
         do {
           if (((s = Fn(t[e], i)), (l = Fn(t[e + 1], i)), (e += n) == r))
-            return (o[a++] = s), (o[a++] = l), a
+            return ((o[a++] = s), (o[a++] = l), a)
         } while (s == u && l == c)
         for (; e < r; ) {
           var h = Fn(t[e], i),
@@ -16729,12 +16748,12 @@
               : ((o[a++] = s), (o[a++] = l), (u = s), (c = l), (s = h), (l = p))
           }
         }
-        return (o[a++] = s), (o[a++] = l), a
+        return ((o[a++] = s), (o[a++] = l), a)
       }
       function kn(t, e, r, n, i, o, a, s) {
         for (var l = 0, u = r.length; l < u; ++l) {
           var c = r[l]
-          ;(a = An(t, e, c, n, i, o, a)), s.push(a), (e = c)
+          ;((a = An(t, e, c, n, i, o, a)), s.push(a), (e = c))
         }
         return a
       }
@@ -16742,14 +16761,14 @@
         for (var l = 0, u = r.length; l < u; ++l) {
           var c = r[l],
             h = []
-          ;(a = kn(t, e, c, n, i, o, a, h)), s.push(h), (e = c[c.length - 1])
+          ;((a = kn(t, e, c, n, i, o, a, h)), s.push(h), (e = c[c.length - 1]))
         }
         return a
       }
       function Nn(t, e, r, n, i) {
         for (var o = void 0 !== i ? i : [], a = 0, s = e; s < r; s += n)
           o[a++] = t.slice(s, s + n)
-        return (o.length = a), o
+        return ((o.length = a), o)
       }
       function Dn(t, e, r, n, i) {
         for (
@@ -16758,9 +16777,9 @@
           ++s
         ) {
           var u = r[s]
-          ;(o[a++] = Nn(t, e, u, n, o[a])), (e = u)
+          ;((o[a++] = Nn(t, e, u, n, o[a])), (e = u))
         }
-        return (o.length = a), o
+        return ((o.length = a), o)
       }
       function Gn(t, e, r, n, i) {
         for (
@@ -16769,29 +16788,29 @@
           ++s
         ) {
           var u = r[s]
-          ;(o[a++] = Dn(t, e, u, n, o[a])), (e = u[u.length - 1])
+          ;((o[a++] = Dn(t, e, u, n, o[a])), (e = u[u.length - 1]))
         }
-        return (o.length = a), o
+        return ((o.length = a), o)
       }
       function zn(t, e, r, n) {
         for (var i = 0, o = t[r - n], a = t[r - n + 1]; e < r; e += n) {
           var s = t[e],
             l = t[e + 1]
-          ;(i += a * s - o * l), (o = s), (a = l)
+          ;((i += a * s - o * l), (o = s), (a = l))
         }
         return i / 2
       }
       function Un(t, e, r, n) {
         for (var i = 0, o = 0, a = r.length; o < a; ++o) {
           var s = r[o]
-          ;(i += zn(t, e, s, n)), (e = s)
+          ;((i += zn(t, e, s, n)), (e = s))
         }
         return i
       }
       function Bn(t, e, r, n) {
         for (var i = 0, o = 0, a = r.length; o < a; ++o) {
           var s = r[o]
-          ;(i += Un(t, e, s, n)), (e = s[s.length - 1])
+          ;((i += Un(t, e, s, n)), (e = s[s.length - 1]))
         }
         return i
       }
@@ -16812,11 +16831,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Yn = (function (t) {
@@ -16901,7 +16920,7 @@
               return !1
             }),
             (e.prototype.setCoordinates = function (t, e) {
-              this.setLayout(e, t, 1),
+              ;(this.setLayout(e, t, 1),
                 this.flatCoordinates || (this.flatCoordinates = []),
                 (this.flatCoordinates.length = On(
                   this.flatCoordinates,
@@ -16909,7 +16928,7 @@
                   t,
                   this.stride,
                 )),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -16931,30 +16950,30 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         qn = (function (t) {
           function e(e, r) {
             var n = t.call(this) || this
-            return n.setCoordinates(e, r), n
+            return (n.setCoordinates(e, r), n)
           }
           return (
             Wn(e, t),
             (e.prototype.clone = function () {
               var t = new e(this.flatCoordinates.slice(), this.layout)
-              return t.applyProperties(this), t
+              return (t.applyProperties(this), t)
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
               var i = this.flatCoordinates,
                 o = Ue(t, e, i[0], i[1])
               if (o < n) {
                 for (var a = this.stride, s = 0; s < a; ++s) r[s] = i[s]
-                return (r.length = a), o
+                return ((r.length = a), o)
               }
               return n
             }),
@@ -16971,7 +16990,7 @@
               return ee(t, this.flatCoordinates[0], this.flatCoordinates[1])
             }),
             (e.prototype.setCoordinates = function (t, e) {
-              this.setLayout(e, t, 0),
+              ;(this.setLayout(e, t, 0),
                 this.flatCoordinates || (this.flatCoordinates = []),
                 (this.flatCoordinates.length = Cn(
                   this.flatCoordinates,
@@ -16979,7 +16998,7 @@
                   t,
                   this.stride,
                 )),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -16993,11 +17012,11 @@
         for (var a = 0, s = t[r - n], l = t[r - n + 1]; e < r; e += n) {
           var u = t[e],
             c = t[e + 1]
-          l <= o
+          ;(l <= o
             ? c > o && (u - s) * (o - l) - (i - s) * (c - l) > 0 && a++
             : c <= o && (u - s) * (o - l) - (i - s) * (c - l) < 0 && a--,
             (s = u),
-            (l = c)
+            (l = c))
         }
         return 0 !== a
       }
@@ -17025,27 +17044,27 @@
         ) {
           var _ = r[m]
           for (c = t[_ - n], p = t[_ - n + 1], s = e; s < _; s += n)
-            (h = t[s]),
+            ((h = t[s]),
               (f = t[s + 1]),
               ((g <= p && f <= g) || (p <= g && g <= f)) &&
                 ((u = ((g - p) / (f - p)) * (h - c) + c), y.push(u)),
               (c = h),
-              (p = f)
+              (p = f))
         }
         var b = NaN,
           x = -1 / 0
         for (y.sort(d), c = y[0], s = 1, l = y.length; s < l; ++s) {
           h = y[s]
           var w = Math.abs(h - c)
-          w > x && Kn(t, e, r, n, (u = (c + h) / 2), g) && ((b = u), (x = w)),
-            (c = h)
+          ;(w > x && Kn(t, e, r, n, (u = (c + h) / 2), g) && ((b = u), (x = w)),
+            (c = h))
         }
-        return isNaN(b) && (b = i[o]), a ? (a.push(b, g, x), a) : [b, g, x]
+        return (isNaN(b) && (b = i[o]), a ? (a.push(b, g, x), a) : [b, g, x])
       }
       function Jn(t, e, r, n, i) {
         for (var o = [], a = 0, s = r.length; a < s; ++a) {
           var l = r[a]
-          ;(o = $n(t, e, l, n, i, 2 * a, o)), (e = l[l.length - 1])
+          ;((o = $n(t, e, l, n, i, 2 * a, o)), (e = l[l.length - 1]))
         }
         return o
       }
@@ -17053,7 +17072,7 @@
         for (var o, a = [t[e], t[e + 1]], s = []; e + n < r; e += n) {
           if (((s[0] = t[e + n]), (s[1] = t[e + n + 1]), (o = i(a, s))))
             return o
-          ;(a[0] = s[0]), (a[1] = s[1])
+          ;((a[0] = s[0]), (a[1] = s[1]))
         }
         return !1
       }
@@ -17105,16 +17124,16 @@
         for (; e < r - n; ) {
           for (var i = 0; i < n; ++i) {
             var o = t[e + i]
-            ;(t[e + i] = t[r - n + i]), (t[r - n + i] = o)
+            ;((t[e + i] = t[r - n + i]), (t[r - n + i] = o))
           }
-          ;(e += n), (r -= n)
+          ;((e += n), (r -= n))
         }
       }
       function ai(t, e, r, n) {
         for (var i = 0, o = t[r - n], a = t[r - n + 1]; e < r; e += n) {
           var s = t[e],
             l = t[e + 1]
-          ;(i += (s - o) * (l + a)), (o = s), (a = l)
+          ;((i += (s - o) * (l + a)), (o = s), (a = l))
         }
         return 0 === i ? void 0 : i > 0
       }
@@ -17141,9 +17160,9 @@
         for (var o = void 0 !== i && i, a = 0, s = r.length; a < s; ++a) {
           var l = r[a],
             u = ai(t, e, l, n)
-          ;(0 === a ? (o && u) || (!o && !u) : (o && !u) || (!o && u)) &&
+          ;((0 === a ? (o && u) || (!o && !u) : (o && !u) || (!o && u)) &&
             oi(t, e, l, n),
-            (e = l)
+            (e = l))
         }
         return e
       }
@@ -17168,11 +17187,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         pi = (function (t) {
@@ -17195,11 +17214,11 @@
           return (
             hi(e, t),
             (e.prototype.appendLinearRing = function (t) {
-              this.flatCoordinates
+              ;(this.flatCoordinates
                 ? v(this.flatCoordinates, t.getFlatCoordinates())
                 : (this.flatCoordinates = t.getFlatCoordinates().slice()),
                 this.ends_.push(this.flatCoordinates.length),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.clone = function () {
               var t = new e(
@@ -17207,7 +17226,7 @@
                 this.layout,
                 this.ends_.slice(),
               )
-              return t.applyProperties(this), t
+              return (t.applyProperties(this), t)
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
               return n < Jt(this.getExtent(), t, e)
@@ -17269,7 +17288,7 @@
             (e.prototype.getFlatInteriorPoint = function () {
               if (this.flatInteriorPointRevision_ != this.getRevision()) {
                 var t = xe(this.getExtent())
-                ;(this.flatInteriorPoint_ = $n(
+                ;((this.flatInteriorPoint_ = $n(
                   this.getOrientedFlatCoordinates(),
                   0,
                   this.ends_,
@@ -17277,7 +17296,7 @@
                   t,
                   0,
                 )),
-                  (this.flatInteriorPointRevision_ = this.getRevision())
+                  (this.flatInteriorPointRevision_ = this.getRevision()))
               }
               return this.flatInteriorPoint_
             }),
@@ -17312,14 +17331,14 @@
               ) {
                 var s = r[o],
                   l = new Yn(e.slice(i, s), t)
-                n.push(l), (i = s)
+                ;(n.push(l), (i = s))
               }
               return n
             }),
             (e.prototype.getOrientedFlatCoordinates = function () {
               if (this.orientedRevision_ != this.getRevision()) {
                 var t = this.flatCoordinates
-                si(t, 0, this.ends_, this.stride)
+                ;(si(t, 0, this.ends_, this.stride)
                   ? (this.orientedFlatCoordinates_ = t)
                   : ((this.orientedFlatCoordinates_ = t.slice()),
                     (this.orientedFlatCoordinates_.length = ui(
@@ -17328,7 +17347,7 @@
                       this.ends_,
                       this.stride,
                     ))),
-                  (this.orientedRevision_ = this.getRevision())
+                  (this.orientedRevision_ = this.getRevision()))
               }
               return this.orientedFlatCoordinates_
             }),
@@ -17362,12 +17381,12 @@
               )
             }),
             (e.prototype.setCoordinates = function (t, e) {
-              this.setLayout(e, t, 2),
-                this.flatCoordinates || (this.flatCoordinates = [])
+              ;(this.setLayout(e, t, 2),
+                this.flatCoordinates || (this.flatCoordinates = []))
               var r = Pn(this.flatCoordinates, 0, t, this.stride, this.ends_)
-              ;(this.flatCoordinates.length =
+              ;((this.flatCoordinates.length =
                 0 === r.length ? 0 : r[r.length - 1]),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -17376,7 +17395,7 @@
       function di(t, e, r, n) {
         for (var i = r || 32, o = [], a = 0; a < i; ++a)
           v(o, vr(t, e, (2 * Math.PI * a) / i, n))
-        return o.push(o[0], o[1]), new pi(o, yt, [o.length])
+        return (o.push(o[0], o[1]), new pi(o, yt, [o.length]))
       }
       function gi(t) {
         var e = t[0],
@@ -17398,12 +17417,12 @@
           u < s;
           u += i
         ) {
-          ;(l[u] = 0), (l[u + 1] = 0)
+          ;((l[u] = 0), (l[u + 1] = 0))
           for (var c = 2; c < i; c++) l[u + c] = a[c]
         }
         var h = [l.length],
           p = new pi(l, o, h)
-        return mi(p, a, t.getRadius(), r), p
+        return (mi(p, a, t.getRadius(), r), p)
       }
       function mi(t, e, r, n) {
         for (
@@ -17417,7 +17436,8 @@
         ) {
           var u = l * o,
             c = s + (2 * We(l, a) * Math.PI) / a
-          ;(i[u] = e[0] + r * Math.cos(c)), (i[u + 1] = e[1] + r * Math.sin(c))
+          ;((i[u] = e[0] + r * Math.cos(c)),
+            (i[u + 1] = e[1] + r * Math.sin(c)))
         }
         t.changed()
       }
@@ -17438,11 +17458,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         _i = 'accuracy',
@@ -17458,9 +17478,9 @@
         Ri = (function (t) {
           function e(e) {
             var r = t.call(this, A) || this
-            return (r.code = e.code), (r.message = e.message), r
+            return ((r.code = e.code), (r.message = e.message), r)
           }
-          return vi(e, t), e
+          return (vi(e, t), e)
         })(c),
         Ii = (function (t) {
           function e(e) {
@@ -17482,7 +17502,7 @@
           return (
             vi(e, t),
             (e.prototype.disposeInternal = function () {
-              this.setTracking(!1), t.prototype.disposeInternal.call(this)
+              ;(this.setTracking(!1), t.prototype.disposeInternal.call(this))
             }),
             (e.prototype.handleProjectionChanged_ = function () {
               var t = this.getProjection()
@@ -17507,7 +17527,7 @@
             }),
             (e.prototype.positionChange_ = function (t) {
               var e = t.coords
-              this.set(_i, e.accuracy),
+              ;(this.set(_i, e.accuracy),
                 this.set(xi, null === e.altitude ? void 0 : e.altitude),
                 this.set(
                   wi,
@@ -17517,11 +17537,14 @@
                 this.position_
                   ? ((this.position_[0] = e.longitude),
                     (this.position_[1] = e.latitude))
-                  : (this.position_ = [e.longitude, e.latitude])
+                  : (this.position_ = [e.longitude, e.latitude]))
               var r = this.transform_(this.position_)
-              this.set(Ei, r), this.set(Ci, null === e.speed ? void 0 : e.speed)
+              ;(this.set(Ei, r),
+                this.set(Ci, null === e.speed ? void 0 : e.speed))
               var n = di(this.position_, e.accuracy)
-              n.applyTransform(this.transform_), this.set(bi, n), this.changed()
+              ;(n.applyTransform(this.transform_),
+                this.set(bi, n),
+                this.changed())
             }),
             (e.prototype.positionError_ = function (t) {
               this.dispatchEvent(new Ri(t))
@@ -17585,11 +17608,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Mi = (function (t) {
@@ -17656,8 +17679,8 @@
                 t = !0
               },
             })
-            window.addEventListener('_', null, e),
-              window.removeEventListener('_', null, e)
+            ;(window.addEventListener('_', null, e),
+              window.removeEventListener('_', null, e))
           } catch (t) {}
           return t
         })(),
@@ -17678,11 +17701,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Zi(t, e, r) {
@@ -17731,14 +17754,14 @@
               return this.image_
             }),
             (e.prototype.handleImageError_ = function () {
-              ;(this.state = ji), this.unlistenImage_(), this.changed()
+              ;((this.state = ji), this.unlistenImage_(), this.changed())
             }),
             (e.prototype.handleImageLoad_ = function () {
-              void 0 === this.resolution &&
+              ;(void 0 === this.resolution &&
                 (this.resolution = Ee(this.extent) / this.image_.height),
                 (this.state = ki),
                 this.unlistenImage_(),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.load = function () {
               ;(this.state != Fi && this.state != ji) ||
@@ -17777,11 +17800,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         $i = (function (t) {
@@ -17802,8 +17825,8 @@
               return this.error_
             }),
             (e.prototype.handleLoad_ = function (t) {
-              t ? ((this.error_ = t), (this.state = ji)) : (this.state = ki),
-                this.changed()
+              ;(t ? ((this.error_ = t), (this.state = ji)) : (this.state = ki),
+                this.changed())
             }),
             (e.prototype.load = function () {
               this.state == Fi &&
@@ -17851,11 +17874,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         lo = (function (t) {
@@ -17886,7 +17909,7 @@
               if (!this.interimTile) return this
               var t = this.interimTile
               do {
-                if (t.getState() == to) return (this.transition_ = 0), t
+                if (t.getState() == to) return ((this.transition_ = 0), t)
                 t = t.interimTile
               } while (t)
               return this
@@ -17900,12 +17923,12 @@
                     t.interimTile = null
                     break
                   }
-                  t.getState() == Qi
+                  ;(t.getState() == Qi
                     ? (e = t)
                     : t.getState() == Ji
                       ? (e.interimTile = t.interimTile)
                       : (e = t),
-                    (t = e.interimTile)
+                    (t = e.interimTile))
                 } while (t)
               }
             }),
@@ -17918,7 +17941,7 @@
             (e.prototype.setState = function (t) {
               if (this.state !== eo && this.state > t)
                 throw new Error('Tile load sequence violation')
-              ;(this.state = t), this.changed()
+              ;((this.state = t), this.changed())
             }),
             (e.prototype.load = function () {
               n()
@@ -17928,7 +17951,7 @@
               var r = this.transitionStarts_[t]
               if (r) {
                 if (-1 === r) return 1
-              } else (r = e), (this.transitionStarts_[t] = r)
+              } else ((r = e), (this.transitionStarts_[t] = r))
               var n = e - r + 1e3 / 60
               return n >= this.transition_ ? 1 : no(n / this.transition_)
             }),
@@ -17948,7 +17971,7 @@
             : Yi
               ? new OffscreenCanvas(t || 300, e || 300)
               : document.createElement('canvas')
-        return t && (n.width = t), e && (n.height = e), n.getContext('2d')
+        return (t && (n.width = t), e && (n.height = e), n.getContext('2d'))
       }
       function co(t) {
         var e = t.offsetWidth,
@@ -18000,11 +18023,11 @@
           function n() {
             this.constructor = e
           }
-          t(e, r),
+          ;(t(e, r),
             (e.prototype =
               null === r
                 ? Object.create(r)
-                : ((n.prototype = r.prototype), new n()))
+                : ((n.prototype = r.prototype), new n())))
         }
       })()
       var vo = (function (t) {
@@ -18028,24 +18051,24 @@
             }),
             (e.prototype.handleImageError_ = function () {
               var t
-              ;(this.state = eo),
+              ;((this.state = eo),
                 this.unlistenImage_(),
                 (this.image_ =
                   (((t = uo(1, 1)).fillStyle = 'rgba(0,0,0,0)'),
                   t.fillRect(0, 0, 1, 1),
                   t.canvas)),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.handleImageLoad_ = function () {
               var t = this.image_
-              t.naturalWidth && t.naturalHeight
+              ;(t.naturalWidth && t.naturalHeight
                 ? (this.state = to)
                 : (this.state = ro),
                 this.unlistenImage_(),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.load = function () {
-              this.state == eo &&
+              ;(this.state == eo &&
                 ((this.state = Ji),
                 (this.image_ = new Image()),
                 null !== this.crossOrigin_ &&
@@ -18058,7 +18081,7 @@
                     this.image_,
                     this.handleImageLoad_.bind(this),
                     this.handleImageError_.bind(this),
-                  )))
+                  ))))
             }),
             (e.prototype.unlistenImage_ = function () {
               this.unlisten_ && (this.unlisten_(), (this.unlisten_ = null))
@@ -18068,18 +18091,18 @@
         })(lo),
         _o = (function () {
           function t(t, e, r) {
-            ;(this.decay_ = t),
+            ;((this.decay_ = t),
               (this.minVelocity_ = e),
               (this.delay_ = r),
               (this.points_ = []),
               (this.angle_ = 0),
-              (this.initialVelocity_ = 0)
+              (this.initialVelocity_ = 0))
           }
           return (
             (t.prototype.begin = function () {
-              ;(this.points_.length = 0),
+              ;((this.points_.length = 0),
                 (this.angle_ = 0),
-                (this.initialVelocity_ = 0)
+                (this.initialVelocity_ = 0))
             }),
             (t.prototype.update = function (t, e) {
               this.points_.push(t, e, Date.now())
@@ -18119,7 +18142,7 @@
         if (((e.style.color = t), '' !== e.style.color)) {
           document.body.appendChild(e)
           var r = getComputedStyle(e).color
-          return document.body.removeChild(e), r
+          return (document.body.removeChild(e), r)
         }
         return ''
       }
@@ -18136,14 +18159,14 @@
                 var r = 0
                 for (var n in Eo) 0 == (3 & r++) && (delete Eo[n], --To)
               }
-              ;(e = (function (t) {
+              ;((e = (function (t) {
                 var e, r, n, i, o
                 if ((xo.exec(t) && (t = So(t)), bo.exec(t))) {
                   var a = t.length - 1,
                     s = void 0
                   s = a <= 4 ? 1 : 2
                   var l = 4 === a || 8 === a
-                  ;(e = parseInt(t.substr(1 + 0 * s, s), 16)),
+                  ;((e = parseInt(t.substr(1 + 0 * s, s), 16)),
                     (r = parseInt(t.substr(1 + 1 * s, s), 16)),
                     (n = parseInt(t.substr(1 + 2 * s, s), 16)),
                     (i = l ? parseInt(t.substr(1 + 3 * s, s), 16) : 255),
@@ -18152,7 +18175,7 @@
                       (r = (r << 4) + r),
                       (n = (n << 4) + n),
                       l && (i = (i << 4) + i)),
-                    (o = [e, r, n, i / 255])
+                    (o = [e, r, n, i / 255]))
                 } else
                   0 == t.indexOf('rgba(')
                     ? Po((o = t.slice(5, -1).split(',').map(Number)))
@@ -18163,7 +18186,7 @@
                 return o
               })(t)),
                 (Eo[t] = e),
-                ++To
+                ++To)
             }
             return e
           })
@@ -18206,11 +18229,13 @@
       }
       var Lo = (function () {
         function t() {
-          ;(this.cache_ = {}), (this.cacheSize_ = 0), (this.maxCacheSize_ = 32)
+          ;((this.cache_ = {}),
+            (this.cacheSize_ = 0),
+            (this.maxCacheSize_ = 32))
         }
         return (
           (t.prototype.clear = function () {
-            ;(this.cache_ = {}), (this.cacheSize_ = 0)
+            ;((this.cache_ = {}), (this.cacheSize_ = 0))
           }),
           (t.prototype.canExpireCache = function () {
             return this.cacheSize_ > this.maxCacheSize_
@@ -18232,10 +18257,10 @@
           }),
           (t.prototype.set = function (t, e, r, n) {
             var i = Mo(t, e, r)
-            ;(this.cache_[i] = n), ++this.cacheSize_
+            ;((this.cache_[i] = n), ++this.cacheSize_)
           }),
           (t.prototype.setSize = function (t) {
-            ;(this.maxCacheSize_ = t), this.expire()
+            ;((this.maxCacheSize_ = t), this.expire())
           }),
           t
         )
@@ -18271,11 +18296,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Wo = (function (t) {
@@ -18377,7 +18402,7 @@
               this.set(Bo, t)
             }),
             (e.prototype.setOpacity = function (t) {
-              pt('number' == typeof t, 64), this.set(ko, t)
+              ;(pt('number' == typeof t, 64), this.set(ko, t))
             }),
             (e.prototype.setVisible = function (t) {
               this.set(jo, t)
@@ -18386,8 +18411,9 @@
               this.set(Do, t)
             }),
             (e.prototype.disposeInternal = function () {
-              this.state_ && ((this.state_.layer = null), (this.state_ = null)),
-                t.prototype.disposeInternal.call(this)
+              ;(this.state_ &&
+                ((this.state_.layer = null), (this.state_ = null)),
+                t.prototype.disposeInternal.call(this))
             }),
             e
           )
@@ -18418,11 +18444,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function ra(t, e) {
@@ -18436,26 +18462,26 @@
           function e(e) {
             var r = this,
               n = O({}, e)
-            delete n.source,
+            ;(delete n.source,
               ((r = t.call(this, n) || this).mapPrecomposeKey_ = null),
               (r.mapRenderKey_ = null),
               (r.sourceChangeKey_ = null),
               (r.renderer_ = null),
               e.render && (r.render = e.render),
               e.map && r.setMap(e.map),
-              r.addEventListener(it(Vo), r.handleSourcePropertyChange_)
+              r.addEventListener(it(Vo), r.handleSourcePropertyChange_))
             var i = e.source ? e.source : null
-            return r.setSource(i), r
+            return (r.setSource(i), r)
           }
           return (
             ea(e, t),
             (e.prototype.getLayersArray = function (t) {
               var e = t || []
-              return e.push(this), e
+              return (e.push(this), e)
             }),
             (e.prototype.getLayerStatesArray = function (t) {
               var e = t || []
-              return e.push(this.getLayerState()), e
+              return (e.push(this.getLayerState()), e)
             }),
             (e.prototype.getSource = function () {
               return this.get(Vo) || null
@@ -18471,14 +18497,14 @@
               this.sourceChangeKey_ &&
                 (H(this.sourceChangeKey_), (this.sourceChangeKey_ = null))
               var t = this.getSource()
-              t &&
+              ;(t &&
                 (this.sourceChangeKey_ = Z(
                   t,
                   F,
                   this.handleSourceChange_,
                   this,
                 )),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.getFeatures = function (t) {
               return this.renderer_.getFeatures(t)
@@ -18488,7 +18514,7 @@
               if (r.prepareFrame(t)) return r.renderFrame(t, e)
             }),
             (e.prototype.setMap = function (t) {
-              this.mapPrecomposeKey_ &&
+              ;(this.mapPrecomposeKey_ &&
                 (H(this.mapPrecomposeKey_), (this.mapPrecomposeKey_ = null)),
                 t || this.changed(),
                 this.mapRenderKey_ &&
@@ -18500,18 +18526,18 @@
                     function (t) {
                       var e = t.frameState.layerStatesArray,
                         r = this.getLayerState(!1)
-                      pt(
+                      ;(pt(
                         !e.some(function (t) {
                           return t.layer === r.layer
                         }),
                         67,
                       ),
-                        e.push(r)
+                        e.push(r))
                     },
                     this,
                   )),
                   (this.mapRenderKey_ = Z(this, F, t.render, t)),
-                  this.changed())
+                  this.changed()))
             }),
             (e.prototype.setSource = function (t) {
               this.set(Vo, t)
@@ -18529,7 +18555,7 @@
               return null
             }),
             (e.prototype.disposeInternal = function () {
-              this.setSource(null), t.prototype.disposeInternal.call(this)
+              ;(this.setSource(null), t.prototype.disposeInternal.call(this))
             }),
             e
           )
@@ -18551,11 +18577,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function oa(t, e) {
@@ -18564,7 +18590,7 @@
       var aa = (function (t) {
           function e(e) {
             var r = t.call(this) || this
-            return (r.map_ = e), r
+            return ((r.map_ = e), r)
           }
           return (
             ia(e, t),
@@ -18575,7 +18601,7 @@
               var e = t.viewState,
                 r = t.coordinateToPixelTransform,
                 n = t.pixelToCoordinateTransform
-              kt(
+              ;(kt(
                 r,
                 t.size[0] / 2,
                 t.size[1] / 2,
@@ -18585,7 +18611,7 @@
                 -e.center[0],
                 -e.center[1],
               ),
-                jt(n, r)
+                jt(n, r))
             }),
             (e.prototype.forEachFeatureAtCoordinate = function (
               t,
@@ -18623,9 +18649,9 @@
                     if (S && E) {
                       var T = E.getWrapX() ? p : t,
                         C = c.bind(null, x.managed)
-                      ;(v[0] = T[0] + f[_][0]),
+                      ;((v[0] = T[0] + f[_][0]),
                         (v[1] = T[1] + f[_][1]),
-                        (l = S.forEachFeatureAtCoordinate(v, e, r, C, m))
+                        (l = S.forEachFeatureAtCoordinate(v, e, r, C, m)))
                     }
                     if (l) return l
                   }
@@ -18684,11 +18710,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         la = (function (t) {
@@ -18701,7 +18727,7 @@
               o
             )
           }
-          return sa(e, t), e
+          return (sa(e, t), e)
         })(c),
         ua = new RegExp(
           [
@@ -18735,7 +18761,7 @@
             var o = e[n + 1]
             void 0 !== o && (r[ca[n]] = o)
           }
-          return (r.families = r.family.split(/,\s?/)), r
+          return ((r.families = r.family.split(/,\s?/)), r)
         },
         pa = [],
         fa = [0, 0, 0, 0],
@@ -18802,7 +18828,7 @@
                 (isNaN(Number(r.lineHeight)) ? 1.2 : Number(r.lineHeight)) *
                 (n.actualBoundingBoxAscent + n.actualBoundingBoxDescent)
             } else
-              ma ||
+              (ma ||
                 (((ma = document.createElement('div')).innerHTML = 'M'),
                 (ma.style.margin = '0 !important'),
                 (ma.style.padding = '0 !important'),
@@ -18811,7 +18837,7 @@
                 (ma.style.font = t),
                 document.body.appendChild(ma),
                 (e = ma.offsetHeight),
-                document.body.removeChild(ma)
+                document.body.removeChild(ma))
             _a[t] = e
           }
           return e
@@ -18829,12 +18855,12 @@
       function Ea(t, e, r) {
         if (e in r) return r[e]
         var n = Sa(t, e)
-        return (r[e] = n), n
+        return ((r[e] = n), n)
       }
       function Ta(t, e, r) {
         for (var n = e.length, i = 0, o = 0; o < n; ++o) {
           var a = Sa(t, e[o])
-          ;(i = Math.max(i, a)), r.push(a)
+          ;((i = Math.max(i, a)), r.push(a))
         }
         return i
       }
@@ -18842,7 +18868,7 @@
         0 !== e && (t.translate(r, n), t.rotate(e), t.translate(-r, -n))
       }
       function Oa(t, e, r, n, i, o, a, s, l, u, c) {
-        t.save(),
+        ;(t.save(),
           1 !== r && (t.globalAlpha *= r),
           e && t.setTransform.apply(t, e),
           n.contextInstructions
@@ -18863,7 +18889,7 @@
                 t.scale(c[0], c[1]),
                 t.drawImage(n, i, o, a, s, 0, 0, a, s))
               : t.drawImage(n, i, o, a, s, l, u, a * c[0], s * c[1]),
-          t.restore()
+          t.restore())
       }
       var Pa = null
       function Ra(t) {
@@ -18890,24 +18916,24 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         La = (function (t) {
           function e(e) {
             var r = t.call(this, e) || this
-            ;(r.fontChangeListenerKey_ = Z(da, h, e.redrawText.bind(e))),
-              (r.element_ = document.createElement('div'))
+            ;((r.fontChangeListenerKey_ = Z(da, h, e.redrawText.bind(e))),
+              (r.element_ = document.createElement('div')))
             var n = r.element_.style
-            ;(n.position = 'absolute'),
+            ;((n.position = 'absolute'),
               (n.width = '100%'),
               (n.height = '100%'),
               (n.zIndex = '0'),
-              (r.element_.className = 'ol-unselectable ol-layers')
+              (r.element_.className = 'ol-unselectable ol-layers'))
             var i = e.getViewport()
             return (
               i.insertBefore(r.element_, i.firstChild || null),
@@ -18926,13 +18952,13 @@
               }
             }),
             (e.prototype.disposeInternal = function () {
-              H(this.fontChangeListenerKey_),
+              ;(H(this.fontChangeListenerKey_),
                 this.element_.parentNode.removeChild(this.element_),
-                t.prototype.disposeInternal.call(this)
+                t.prototype.disposeInternal.call(this))
             }),
             (e.prototype.renderFrame = function (t) {
               if (t) {
-                this.calculateMatrices2D(t), this.dispatchRenderEvent(Zo, t)
+                ;(this.calculateMatrices2D(t), this.dispatchRenderEvent(Zo, t))
                 var e = t.layerStatesArray.sort(function (t, e) {
                     return t.zIndex - e.zIndex
                   }),
@@ -18952,12 +18978,12 @@
                   }
                 }
                 for (o = n.length - 1; o >= 0; --o) n[o].renderDeclutter(t)
-                yo(this.element_, this.children_),
+                ;(yo(this.element_, this.children_),
                   this.dispatchRenderEvent(Ko, t),
                   this.renderedVisible_ ||
                     ((this.element_.style.display = ''),
                     (this.renderedVisible_ = !0)),
-                  this.scheduleExpireIconCache(t)
+                  this.scheduleExpireIconCache(t))
               } else
                 this.renderedVisible_ &&
                   ((this.element_.style.display = 'none'),
@@ -19000,11 +19026,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Fa = 'layers',
@@ -19034,8 +19060,8 @@
               this.changed()
             }),
             (e.prototype.handleLayersChanged_ = function () {
-              this.layersListenerKeys_.forEach(H),
-                (this.layersListenerKeys_.length = 0)
+              ;(this.layersListenerKeys_.forEach(H),
+                (this.layersListenerKeys_.length = 0))
               var t = this.getLayers()
               for (var e in (this.layersListenerKeys_.push(
                 Z(t, at, this.handleLayersAdd_, this),
@@ -19055,17 +19081,17 @@
             }),
             (e.prototype.handleLayersAdd_ = function (t) {
               var e = t.element
-              ;(this.listenerKeys_[o(e)] = [
+              ;((this.listenerKeys_[o(e)] = [
                 Z(e, h, this.handleLayerChange_, this),
                 Z(e, F, this.handleLayerChange_, this),
               ]),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.handleLayersRemove_ = function (t) {
               var e = o(t.element)
-              this.listenerKeys_[e].forEach(H),
+              ;(this.listenerKeys_[e].forEach(H),
                 delete this.listenerKeys_[e],
-                this.changed()
+                this.changed())
             }),
             (e.prototype.getLayers = function () {
               return this.get(Fa)
@@ -19094,7 +19120,7 @@
                 i++
               ) {
                 var a = e[i]
-                ;(a.opacity *= n.opacity),
+                ;((a.opacity *= n.opacity),
                   (a.visible = a.visible && n.visible),
                   (a.maxResolution = Math.min(
                     a.maxResolution,
@@ -19109,7 +19135,7 @@
                   void 0 !== n.extent &&
                     (void 0 !== a.extent
                       ? (a.extent = Te(a.extent, n.extent))
-                      : (a.extent = n.extent))
+                      : (a.extent = n.extent)))
               }
               return e
             }),
@@ -19136,19 +19162,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ja = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, e) || this
-            return (i.map = r), (i.frameState = void 0 !== n ? n : null), i
+            return ((i.map = r), (i.frameState = void 0 !== n ? n : null), i)
           }
-          return ka(e, t), e
+          return (ka(e, t), e)
         })(c),
         Na = (function () {
           var t = function (e, r) {
@@ -19167,11 +19193,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Da = (function (t) {
@@ -19218,12 +19244,12 @@
               configurable: !0,
             }),
             (e.prototype.preventDefault = function () {
-              t.prototype.preventDefault.call(this),
-                this.originalEvent.preventDefault()
+              ;(t.prototype.preventDefault.call(this),
+                this.originalEvent.preventDefault())
             }),
             (e.prototype.stopPropagation = function () {
-              t.prototype.stopPropagation.call(this),
-                this.originalEvent.stopPropagation()
+              ;(t.prototype.stopPropagation.call(this),
+                this.originalEvent.stopPropagation())
             }),
             e
           )
@@ -19263,23 +19289,23 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Wa = (function (t) {
           function e(e, r) {
             var n = t.call(this, e) || this
-            ;(n.map_ = e),
+            ;((n.map_ = e),
               n.clickTimeoutId_,
               (n.emulateClicks_ = !1),
               (n.dragging_ = !1),
               (n.dragListenerKeys_ = []),
               (n.moveTolerance_ = r ? r * Vi : Vi),
-              (n.down_ = null)
+              (n.down_ = null))
             var i = n.map_.getViewport()
             return (
               (n.activePointers_ = 0),
@@ -19301,7 +19327,7 @@
             Ya(e, t),
             (e.prototype.emulateClick_ = function (t) {
               var e = new Da(Ga.CLICK, this.map_, t)
-              this.dispatchEvent(e),
+              ;(this.dispatchEvent(e),
                 void 0 !== this.clickTimeoutId_
                   ? (clearTimeout(this.clickTimeoutId_),
                     (this.clickTimeoutId_ = void 0),
@@ -19314,22 +19340,22 @@
                         this.dispatchEvent(e)
                       }.bind(this),
                       250,
-                    ))
+                    )))
             }),
             (e.prototype.updateActivePointers_ = function (t) {
               var e = t
-              e.type == Ga.POINTERUP || e.type == Ga.POINTERCANCEL
+              ;(e.type == Ga.POINTERUP || e.type == Ga.POINTERCANCEL
                 ? delete this.trackedTouches_[e.pointerId]
                 : e.type == Ga.POINTERDOWN &&
                   (this.trackedTouches_[e.pointerId] = !0),
                 (this.activePointers_ = Object.keys(
                   this.trackedTouches_,
-                ).length)
+                ).length))
             }),
             (e.prototype.handlePointerUp_ = function (t) {
               this.updateActivePointers_(t)
               var e = new Da(Ga.POINTERUP, this.map_, t)
-              this.dispatchEvent(e),
+              ;(this.dispatchEvent(e),
                 this.emulateClicks_ &&
                   !e.propagationStopped &&
                   !this.dragging_ &&
@@ -19339,14 +19365,14 @@
                   (this.dragListenerKeys_.forEach(H),
                   (this.dragListenerKeys_.length = 0),
                   (this.dragging_ = !1),
-                  (this.down_ = null))
+                  (this.down_ = null)))
             }),
             (e.prototype.isMouseActionButton_ = function (t) {
               return 0 === t.button
             }),
             (e.prototype.handlePointerDown_ = function (t) {
-              ;(this.emulateClicks_ = 0 === this.activePointers_),
-                this.updateActivePointers_(t)
+              ;((this.emulateClicks_ = 0 === this.activePointers_),
+                this.updateActivePointers_(t))
               var e = new Da(Ga.POINTERDOWN, this.map_, t)
               if (
                 (this.dispatchEvent(e),
@@ -19354,7 +19380,7 @@
                 0 === this.dragListenerKeys_.length)
               ) {
                 var r = this.map_.getOwnerDocument()
-                this.dragListenerKeys_.push(
+                ;(this.dragListenerKeys_.push(
                   Z(r, Ga.POINTERMOVE, this.handlePointerMove_, this),
                   Z(r, Ga.POINTERUP, this.handlePointerUp_, this),
                   Z(
@@ -19373,7 +19399,7 @@
                         this.handlePointerUp_,
                         this,
                       ),
-                    )
+                    ))
               }
             }),
             (e.prototype.handlePointerMove_ = function (t) {
@@ -19402,7 +19428,7 @@
               )
             }),
             (e.prototype.disposeInternal = function () {
-              this.relayedListenerKey_ &&
+              ;(this.relayedListenerKey_ &&
                 (H(this.relayedListenerKey_),
                 (this.relayedListenerKey_ = null)),
                 this.element_.removeEventListener(
@@ -19415,7 +19441,7 @@
                 this.dragListenerKeys_.forEach(H),
                 (this.dragListenerKeys_.length = 0),
                 (this.element_ = null),
-                t.prototype.disposeInternal.call(this)
+                t.prototype.disposeInternal.call(this))
             }),
             e
           )
@@ -19429,17 +19455,17 @@
         Ja = 'view',
         Qa = (function () {
           function t(t, e) {
-            ;(this.priorityFunction_ = t),
+            ;((this.priorityFunction_ = t),
               (this.keyFunction_ = e),
               (this.elements_ = []),
               (this.priorities_ = []),
-              (this.queuedElements_ = {})
+              (this.queuedElements_ = {}))
           }
           return (
             (t.prototype.clear = function () {
-              ;(this.elements_.length = 0),
+              ;((this.elements_.length = 0),
                 (this.priorities_.length = 0),
-                P(this.queuedElements_)
+                P(this.queuedElements_))
             }),
             (t.prototype.dequeue = function () {
               var t = this.elements_,
@@ -19449,7 +19475,7 @@
                 ? ((t.length = 0), (e.length = 0))
                 : ((t[0] = t.pop()), (e[0] = e.pop()), this.siftUp_(0))
               var n = this.keyFunction_(r)
-              return delete this.queuedElements_[n], r
+              return (delete this.queuedElements_[n], r)
             }),
             (t.prototype.enqueue = function (t) {
               pt(!(this.keyFunction_(t) in this.queuedElements_), 31)
@@ -19503,9 +19529,9 @@
                 var s = this.getLeftChildIndex_(t),
                   l = this.getRightChildIndex_(t),
                   u = l < n && r[l] < r[s] ? l : s
-                ;(e[t] = e[u]), (r[t] = r[u]), (t = u)
+                ;((e[t] = e[u]), (r[t] = r[u]), (t = u))
               }
-              ;(e[t] = i), (r[t] = o), this.siftDown_(a, t)
+              ;((e[t] = i), (r[t] = o), this.siftDown_(a, t))
             }),
             (t.prototype.siftDown_ = function (t, e) {
               for (
@@ -19518,9 +19544,9 @@
               ) {
                 var a = this.getParentIndex_(e)
                 if (!(n[a] > o)) break
-                ;(r[e] = r[a]), (n[e] = n[a]), (e = a)
+                ;((r[e] = r[a]), (n[e] = n[a]), (e = a))
               }
-              ;(r[e] = i), (n[e] = o)
+              ;((r[e] = i), (n[e] = o))
             }),
             (t.prototype.reprioritize = function () {
               var t,
@@ -19535,7 +19561,7 @@
                 (r = n((t = i[e]))) == 1 / 0
                   ? delete this.queuedElements_[this.keyFunction_(t)]
                   : ((o[a] = r), (i[a++] = t))
-              ;(i.length = a), (o.length = a), this.heapify_()
+              ;((i.length = a), (o.length = a), this.heapify_())
             }),
             t
           )
@@ -19557,11 +19583,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         es = (function (t) {
@@ -19600,9 +19626,9 @@
               if ((e.hifi && r === to) || r === eo || r === ro) {
                 e.removeEventListener(F, this.boundHandleTileChange_)
                 var n = e.getKey()
-                n in this.tilesLoadingKeys_ &&
+                ;(n in this.tilesLoadingKeys_ &&
                   (delete this.tilesLoadingKeys_[n], --this.tilesLoading_),
-                  this.tileChangeCallback_()
+                  this.tileChangeCallback_())
               }
             }),
             (e.prototype.loadMoreTiles = function (t, e) {
@@ -19611,13 +19637,13 @@
                 this.tilesLoading_ < t && i < e && this.getCount() > 0;
 
               )
-                (n = (r = this.dequeue()[0]).getKey()),
+                ((n = (r = this.dequeue()[0]).getKey()),
                   r.getState() !== Ji ||
                     n in this.tilesLoadingKeys_ ||
                     ((this.tilesLoadingKeys_[n] = !0),
                     ++this.tilesLoading_,
                     ++i,
-                    r.load())
+                    r.load()))
             }),
             e
           )
@@ -19646,7 +19672,7 @@
               f = t[2] - l / 2 + c,
               d = t[1] + u / 2 + h,
               g = t[3] - u / 2 + h
-            p > f && (f = p = (f + p) / 2), d > g && (g = d = (g + d) / 2)
+            ;(p > f && (f = p = (f + p) / 2), d > g && (g = d = (g + d) / 2))
             var y = Ne(n[0], p, f),
               m = Ne(n[1], d, g),
               v = 30 * i
@@ -19757,11 +19783,11 @@
           function n() {
             this.constructor = e
           }
-          t(e, r),
+          ;(t(e, r),
             (e.prototype =
               null === r
                 ? Object.create(r)
-                : ((n.prototype = r.prototype), new n()))
+                : ((n.prototype = r.prototype), new n())))
         }
       })()
       function bs(t, e) {
@@ -19778,7 +19804,7 @@
         var r = Vr(t.projection, 'EPSG:3857')
         if (!0 !== t.multiWorld && r.isGlobal()) {
           var n = r.getExtent().slice()
-          return (n[0] = -1 / 0), (n[2] = 1 / 0), ls(n, !1, !1)
+          return ((n[0] = -1 / 0), (n[2] = 1 / 0), ls(n, !1, !1))
         }
         return us
       }
@@ -19803,11 +19829,11 @@
           void 0 !== t.resolutions)
         ) {
           var d = t.resolutions
-          ;(r = d[i]),
+          ;((r = d[i]),
             (n = void 0 !== d[o] ? d[o] : d[d.length - 1]),
             (e = t.constrainResolution
               ? ps(d, l, !p && f, u)
-              : ds(r, n, l, !p && f, u))
+              : ds(r, n, l, !p && f, u)))
         } else {
           var g =
               (h
@@ -19816,7 +19842,9 @@
               256 /
               Math.pow(2, 0),
             y = g / Math.pow(2, 28)
-          void 0 !== (r = t.maxResolution) ? (i = 0) : (r = g / Math.pow(a, i)),
+          ;(void 0 !== (r = t.maxResolution)
+            ? (i = 0)
+            : (r = g / Math.pow(a, i)),
             void 0 === (n = t.minResolution) &&
               (n =
                 void 0 !== t.maxZoom
@@ -19828,7 +19856,7 @@
             (n = r / Math.pow(a, o - i)),
             (e = t.constrainResolution
               ? fs(a, r, n, l, !p && f, u)
-              : ds(r, n, l, !p && f, u))
+              : ds(r, n, l, !p && f, u)))
         }
         return {
           constraint: e,
@@ -19897,23 +19925,23 @@
           _s(e, t),
           (e.prototype.applyOptions_ = function (t) {
             var e = ws(t)
-            ;(this.maxResolution_ = e.maxResolution),
+            ;((this.maxResolution_ = e.maxResolution),
               (this.minResolution_ = e.minResolution),
               (this.zoomFactor_ = e.zoomFactor),
               (this.resolutions_ = t.resolutions),
               (this.padding = t.padding),
-              (this.minZoom_ = e.minZoom)
+              (this.minZoom_ = e.minZoom))
             var r = xs(t),
               n = e.constraint,
               i = Ss(t)
-            ;(this.constraints_ = { center: r, resolution: n, rotation: i }),
+            ;((this.constraints_ = { center: r, resolution: n, rotation: i }),
               this.setRotation(void 0 !== t.rotation ? t.rotation : 0),
               this.setCenterInternal(void 0 !== t.center ? t.center : null),
               void 0 !== t.resolution
                 ? this.setResolution(t.resolution)
                 : void 0 !== t.zoom && this.setZoom(t.zoom),
               this.setProperties({}),
-              (this.options_ = t)
+              (this.options_ = t))
           }),
           (e.prototype.getUpdatedOptions_ = function (t) {
             var e = O({}, this.options_)
@@ -19934,11 +19962,11 @@
               ++r
             ) {
               var n = arguments[r]
-              n.center &&
+              ;(n.center &&
                 ((n = O({}, n)).center = rn(n.center, this.getProjection())),
                 n.anchor &&
                   ((n = O({}, n)).anchor = rn(n.anchor, this.getProjection())),
-                (e[r] = n)
+                (e[r] = n))
             }
             this.animateInternal.apply(this, e)
           }),
@@ -19995,13 +20023,13 @@
               ) {
                 h.sourceRotation = s
                 var p = We(c.rotation - s + Math.PI, 2 * Math.PI) - Math.PI
-                ;(h.targetRotation = s + p), (s = h.targetRotation)
+                ;((h.targetRotation = s + p), (s = h.targetRotation))
               }
-              Es(h) ? (h.complete = !0) : (i += h.duration), l.push(h)
+              ;(Es(h) ? (h.complete = !0) : (i += h.duration), l.push(h))
             }
-            this.animations_.push(l),
+            ;(this.animations_.push(l),
               this.setHint(ns, 1),
-              this.updateAnimations_()
+              this.updateAnimations_())
           }),
           (e.prototype.getAnimating = function () {
             return this.hints_[ns] > 0
@@ -20023,7 +20051,7 @@
                   }
                 }
             }
-            ;(this.animations_.length = 0), (this.cancelAnchor_ = t)
+            ;((this.animations_.length = 0), (this.cancelAnchor_ = t))
           }),
           (e.prototype.updateAnimations_ = function () {
             if (
@@ -20069,7 +20097,8 @@
                           s.anchor,
                         )
                       }
-                      ;(this.targetResolution_ = g), this.applyTargetState_(!0)
+                      ;((this.targetResolution_ = g),
+                        this.applyTargetState_(!0))
                     }
                     if (
                       void 0 !== s.sourceRotation &&
@@ -20095,17 +20124,17 @@
                   }
                 }
                 if (i) {
-                  ;(this.animations_[r] = null), this.setHint(ns, -1)
+                  ;((this.animations_[r] = null), this.setHint(ns, -1))
                   var b = n[0].callback
                   b && bs(b, !0)
                 }
               }
-              ;(this.animations_ = this.animations_.filter(Boolean)),
+              ;((this.animations_ = this.animations_.filter(Boolean)),
                 e &&
                   void 0 === this.updateAnimationKey_ &&
                   (this.updateAnimationKey_ = requestAnimationFrame(
                     this.updateAnimations_.bind(this),
-                  ))
+                  )))
             }
           }),
           (e.prototype.calculateCenterRotate = function (t, e) {
@@ -20143,8 +20172,8 @@
             return e
           }),
           (e.prototype.setViewportSize = function (t) {
-            ;(this.viewportSize_ = Array.isArray(t) ? t.slice() : [100, 100]),
-              this.getAnimating() || this.resolveConstraints(0)
+            ;((this.viewportSize_ = Array.isArray(t) ? t.slice() : [100, 100]),
+              this.getAnimating() || this.resolveConstraints(0))
           }),
           (e.prototype.getCenter = function () {
             var t = this.getCenterInternal()
@@ -20174,7 +20203,7 @@
             var n = this.getResolution()
             pt(void 0 !== n, 2)
             var i = this.getRotation()
-            return pt(void 0 !== i, 3), Se(r, n, i, e)
+            return (pt(void 0 !== i, 3), Se(r, n, i, e))
           }),
           (e.prototype.getMaxResolution = function () {
             return this.maxResolution_
@@ -20244,7 +20273,7 @@
           (e.prototype.getViewportSizeMinusPadding_ = function (t) {
             var e = this.getViewportSize_(t),
               r = this.padding
-            return r && (e = [e[0] - r[1] - r[3], e[1] - r[0] - r[2]]), e
+            return (r && (e = [e[0] - r[1] - r[3], e[1] - r[0] - r[2]]), e)
           }),
           (e.prototype.getState = function () {
             var t = this.getProjection(),
@@ -20273,7 +20302,7 @@
           (e.prototype.getZoom = function () {
             var t,
               e = this.getResolution()
-            return void 0 !== e && (t = this.getZoomForResolution(e)), t
+            return (void 0 !== e && (t = this.getZoomForResolution(e)), t)
           }),
           (e.prototype.getZoomForResolution = function (t) {
             var e,
@@ -20281,13 +20310,13 @@
               n = this.minZoom_ || 0
             if (this.resolutions_) {
               var i = y(this.resolutions_, t, 1)
-              ;(n = i),
+              ;((n = i),
                 (e = this.resolutions_[i]),
                 (r =
                   i == this.resolutions_.length - 1
                     ? 2
-                    : e / this.resolutions_[i + 1])
-            } else (e = this.maxResolution_), (r = this.zoomFactor_)
+                    : e / this.resolutions_[i + 1]))
+            } else ((e = this.maxResolution_), (r = this.zoomFactor_))
             return n + Math.log(e / t) / Math.log(r)
           }),
           (e.prototype.getResolutionForZoom = function (t) {
@@ -20312,7 +20341,7 @@
               ),
               Array.isArray(t))
             )
-              pt(!Ie(t), 25), (r = gi((n = on(t, this.getProjection()))))
+              (pt(!Ie(t), 25), (r = gi((n = on(t, this.getProjection())))))
             else if (t.getType() === bt.CIRCLE) {
               var n
               ;(r = gi((n = on(t.getExtent(), this.getProjection())))).rotate(
@@ -20355,18 +20384,18 @@
             ) {
               var v = s[y] * u - s[y + 1] * c,
                 _ = s[y] * c + s[y + 1] * u
-              ;(h = Math.min(h, v)),
+              ;((h = Math.min(h, v)),
                 (p = Math.min(p, _)),
                 (f = Math.max(f, v)),
-                (d = Math.max(d, _))
+                (d = Math.max(d, _)))
             }
             var b = this.getResolutionForExtentInternal(
               [h, p, f, d],
               [n[0] - o[1] - o[3], n[1] - o[0] - o[2]],
             )
-            ;(b = isNaN(b) ? i : Math.max(b, i)),
+            ;((b = isNaN(b) ? i : Math.max(b, i)),
               (b = this.getConstrainedResolution(b, a ? 0 : 1)),
-              (c = -c)
+              (c = -c))
             var x = (h + f) / 2,
               w = (p + d) / 2,
               S =
@@ -20432,38 +20461,38 @@
                 n,
                 r,
               )
-            e && (this.targetCenter_ = this.calculateCenterZoom(i, e)),
+            ;(e && (this.targetCenter_ = this.calculateCenterZoom(i, e)),
               (this.targetResolution_ *= t),
-              this.applyTargetState_()
+              this.applyTargetState_())
           }),
           (e.prototype.adjustZoom = function (t, e) {
             this.adjustResolution(Math.pow(this.zoomFactor_, -t), e)
           }),
           (e.prototype.adjustRotation = function (t, e) {
-            e && (e = rn(e, this.getProjection())),
-              this.adjustRotationInternal(t, e)
+            ;(e && (e = rn(e, this.getProjection())),
+              this.adjustRotationInternal(t, e))
           }),
           (e.prototype.adjustRotationInternal = function (t, e) {
             var r = this.getAnimating() || this.getInteracting(),
               n = this.constraints_.rotation(this.targetRotation_ + t, r)
-            e && (this.targetCenter_ = this.calculateCenterRotate(n, e)),
+            ;(e && (this.targetCenter_ = this.calculateCenterRotate(n, e)),
               (this.targetRotation_ += t),
-              this.applyTargetState_()
+              this.applyTargetState_())
           }),
           (e.prototype.setCenter = function (t) {
             this.setCenterInternal(rn(t, this.getProjection()))
           }),
           (e.prototype.setCenterInternal = function (t) {
-            ;(this.targetCenter_ = t), this.applyTargetState_()
+            ;((this.targetCenter_ = t), this.applyTargetState_())
           }),
           (e.prototype.setHint = function (t, e) {
-            return (this.hints_[t] += e), this.changed(), this.hints_[t]
+            return ((this.hints_[t] += e), this.changed(), this.hints_[t])
           }),
           (e.prototype.setResolution = function (t) {
-            ;(this.targetResolution_ = t), this.applyTargetState_()
+            ;((this.targetResolution_ = t), this.applyTargetState_())
           }),
           (e.prototype.setRotation = function (t) {
-            ;(this.targetRotation_ = t), this.applyTargetState_()
+            ;((this.targetRotation_ = t), this.applyTargetState_())
           }),
           (e.prototype.setZoom = function (t) {
             this.setResolution(this.getResolutionForZoom(t))
@@ -20480,11 +20509,11 @@
                 r,
                 this.calculateCenterShift(this.targetCenter_, o, n, i),
               )
-            this.get(ss) !== n && this.set(ss, n),
+            ;(this.get(ss) !== n && this.set(ss, n),
               this.get(as) !== o && this.set(as, o),
               (this.get(os) && Cr(this.get(os), a)) || this.set(os, a),
               this.getAnimating() && !t && this.cancelAnimations(),
-              (this.cancelAnchor_ = void 0)
+              (this.cancelAnchor_ = void 0))
           }),
           (e.prototype.resolveConstraints = function (t, e, r) {
             var n = void 0 !== t ? t : 200,
@@ -20507,7 +20536,7 @@
                 void this.applyTargetState_()
               )
             var u = r || (0 === n ? this.cancelAnchor_ : void 0)
-            ;(this.cancelAnchor_ = void 0),
+            ;((this.cancelAnchor_ = void 0),
               (this.getResolution() === s &&
                 this.getRotation() === o &&
                 this.getCenterInternal() &&
@@ -20520,17 +20549,17 @@
                   duration: n,
                   easing: io,
                   anchor: u,
-                }))
+                })))
           }),
           (e.prototype.beginInteraction = function () {
-            this.resolveConstraints(0), this.setHint(is, 1)
+            ;(this.resolveConstraints(0), this.setHint(is, 1))
           }),
           (e.prototype.endInteraction = function (t, e, r) {
             var n = r && rn(r, this.getProjection())
             this.endInteractionInternal(t, e, n)
           }),
           (e.prototype.endInteractionInternal = function (t, e, r) {
-            this.setHint(is, -1), this.resolveConstraints(t, e, r)
+            ;(this.setHint(is, -1), this.resolveConstraints(t, e, r))
           }),
           (e.prototype.getConstrainedCenter = function (t, e) {
             var r = this.getViewportSize_(this.getRotation())
@@ -20591,11 +20620,11 @@
           function n() {
             this.constructor = e
           }
-          t(e, r),
+          ;(t(e, r),
             (e.prototype =
               null === r
                 ? Object.create(r)
-                : ((n.prototype = r.prototype), new n()))
+                : ((n.prototype = r.prototype), new n())))
         }
       })()
       var Ms = (function (t) {
@@ -20616,14 +20645,14 @@
                     t.layers && 'function' == typeof t.layers.getLayers
                       ? t.layers
                       : new Aa({ layers: t.layers })
-                ;(o[Ka] = a),
+                ;((o[Ka] = a),
                   (o[$a] = t.target),
                   (o[Ja] = void 0 !== t.view ? t.view : new Cs()),
                   void 0 !== t.controls &&
                     (Array.isArray(t.controls)
                       ? (r = new ht(t.controls.slice()))
                       : (pt('function' == typeof t.controls.getArray, 47),
-                        (r = t.controls)))
+                        (r = t.controls))))
                 void 0 !== t.interactions &&
                   (Array.isArray(t.interactions)
                     ? (n = new ht(t.interactions.slice()))
@@ -20651,8 +20680,8 @@
               r.postRenderTimeoutHandle_,
               r.animationDelayKey_,
               (r.animationDelay_ = function () {
-                ;(this.animationDelayKey_ = void 0),
-                  this.renderFrame_(Date.now())
+                ;((this.animationDelayKey_ = void 0),
+                  this.renderFrame_(Date.now()))
               }.bind(r)),
               (r.coordinateToPixelTransform_ = [1, 0, 0, 1, 0, 0]),
               (r.pixelToCoordinateTransform_ = [1, 0, 0, 1, 0, 0]),
@@ -20751,8 +20780,8 @@
                 st,
                 function (t) {
                   var e = t.element.getId()
-                  void 0 !== e && delete this.overlayIdIndex_[e.toString()],
-                    t.element.setMap(null)
+                  ;(void 0 !== e && delete this.overlayIdIndex_[e.toString()],
+                    t.element.setMap(null))
                 }.bind(r),
               ),
               r
@@ -20777,11 +20806,11 @@
             }),
             (e.prototype.addOverlayInternal_ = function (t) {
               var e = t.getId()
-              void 0 !== e && (this.overlayIdIndex_[e.toString()] = t),
-                t.setMap(this)
+              ;(void 0 !== e && (this.overlayIdIndex_[e.toString()] = t),
+                t.setMap(this))
             }),
             (e.prototype.disposeInternal = function () {
-              this.setTarget(null), t.prototype.disposeInternal.call(this)
+              ;(this.setTarget(null), t.prototype.disposeInternal.call(this))
             }),
             (e.prototype.forEachFeatureAtPixel = function (t, e, r) {
               if (this.frameState_) {
@@ -21001,7 +21030,7 @@
                   var i = t.viewHints
                   if (i[ns] || i[is]) {
                     var o = !Wi && Date.now() - t.time > 8
-                    ;(r = o ? 0 : 8), (n = o ? 0 : 2)
+                    ;((r = o ? 0 : 8), (n = o ? 0 : 2))
                   }
                 }
                 e.getTilesLoading() < r &&
@@ -21022,10 +21051,10 @@
               a.length = 0
             }),
             (e.prototype.handleSizeChanged_ = function () {
-              this.getView() &&
+              ;(this.getView() &&
                 !this.getView().getAnimating() &&
                 this.getView().resolveConstraints(0),
-                this.render()
+                this.render())
             }),
             (e.prototype.handleTargetChanged_ = function () {
               var t
@@ -21035,7 +21064,7 @@
               ) {
                 for (var e = 0, r = this.keyHandlerKeys_.length; e < r; ++e)
                   H(this.keyHandlerKeys_[e])
-                ;(this.keyHandlerKeys_ = null),
+                ;((this.keyHandlerKeys_ = null),
                   this.viewport_.removeEventListener(
                     j,
                     this.boundHandleBrowserEvent_,
@@ -21049,7 +21078,7 @@
                     (this.handleResize_ = void 0)),
                   this.mapBrowserEventHandler_.dispose(),
                   (this.mapBrowserEventHandler_ = null),
-                  fo(this.viewport_)
+                  fo(this.viewport_))
               }
               if (t) {
                 for (var n in (t.appendChild(this.viewport_),
@@ -21063,7 +21092,7 @@
                     Ga[n],
                     this.handleMapBrowserEvent.bind(this),
                   )
-                this.viewport_.addEventListener(
+                ;(this.viewport_.addEventListener(
                   j,
                   this.boundHandleBrowserEvent_,
                   !1,
@@ -21072,19 +21101,19 @@
                     X,
                     this.boundHandleBrowserEvent_,
                     !!qi && { passive: !1 },
-                  )
+                  ))
                 var i = this.keyboardEventTarget_
                   ? this.keyboardEventTarget_
                   : t
-                ;(this.keyHandlerKeys_ = [
+                ;((this.keyHandlerKeys_ = [
                   Z(i, B, this.handleBrowserEvent, this),
                   Z(i, V, this.handleBrowserEvent, this),
                 ]),
                   this.handleResize_ ||
                     ((this.handleResize_ = this.updateSize.bind(this)),
-                    window.addEventListener(W, this.handleResize_, !1))
+                    window.addEventListener(W, this.handleResize_, !1)))
               } else
-                this.renderer_ &&
+                (this.renderer_ &&
                   (clearTimeout(this.postRenderTimeoutHandle_),
                   (this.postRenderTimeoutHandle_ = void 0),
                   (this.postRenderFunctions_.length = 0),
@@ -21092,7 +21121,7 @@
                   (this.renderer_ = null)),
                   this.animationDelayKey_ &&
                     (cancelAnimationFrame(this.animationDelayKey_),
-                    (this.animationDelayKey_ = void 0))
+                    (this.animationDelayKey_ = void 0)))
               this.updateSize()
             }),
             (e.prototype.handleTileChange_ = function () {
@@ -21102,14 +21131,14 @@
               this.render()
             }),
             (e.prototype.handleViewChanged_ = function () {
-              this.viewPropertyListenerKey_ &&
+              ;(this.viewPropertyListenerKey_ &&
                 (H(this.viewPropertyListenerKey_),
                 (this.viewPropertyListenerKey_ = null)),
                 this.viewChangeListenerKey_ &&
                   (H(this.viewChangeListenerKey_),
-                  (this.viewChangeListenerKey_ = null))
+                  (this.viewChangeListenerKey_ = null)))
               var t = this.getView()
-              t &&
+              ;(t &&
                 (this.updateViewportSize_(),
                 (this.viewPropertyListenerKey_ = Z(
                   t,
@@ -21124,27 +21153,27 @@
                   this,
                 )),
                 t.resolveConstraints(0)),
-                this.render()
+                this.render())
             }),
             (e.prototype.handleLayerGroupChanged_ = function () {
               this.layerGroupPropertyListenerKeys_ &&
                 (this.layerGroupPropertyListenerKeys_.forEach(H),
                 (this.layerGroupPropertyListenerKeys_ = null))
               var t = this.getLayerGroup()
-              t &&
+              ;(t &&
                 (this.layerGroupPropertyListenerKeys_ = [
                   Z(t, h, this.render, this),
                   Z(t, F, this.render, this),
                 ]),
-                this.render()
+                this.render())
             }),
             (e.prototype.isRendered = function () {
               return !!this.frameState_
             }),
             (e.prototype.renderSync = function () {
-              this.animationDelayKey_ &&
+              ;(this.animationDelayKey_ &&
                 cancelAnimationFrame(this.animationDelayKey_),
-                this.animationDelay_()
+                this.animationDelay_())
             }),
             (e.prototype.redrawText = function () {
               for (
@@ -21229,11 +21258,12 @@
                   (this.dispatchEvent(new ja(Za, this, o)),
                   $t(o.extent, this.previousExtent_))
               }
-              this.dispatchEvent(new ja(qa, this, o)),
+              ;(this.dispatchEvent(new ja(qa, this, o)),
                 this.postRenderTimeoutHandle_ ||
                   (this.postRenderTimeoutHandle_ = setTimeout(function () {
-                    ;(e.postRenderTimeoutHandle_ = void 0), e.handlePostRender()
-                  }, 0))
+                    ;((e.postRenderTimeoutHandle_ = void 0),
+                      e.handlePostRender())
+                  }, 0)))
             }),
             (e.prototype.setLayerGroup = function (t) {
               this.set(Ka, t)
@@ -21271,10 +21301,10 @@
               if (t) {
                 var e = void 0,
                   r = getComputedStyle(this.viewport_)
-                r.width &&
+                ;(r.width &&
                   r.height &&
                   (e = [parseInt(r.width, 10), parseInt(r.height, 10)]),
-                  t.setViewportSize(e)
+                  t.setViewportSize(e))
               }
             }),
             e
@@ -21297,11 +21327,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         As = (function (t) {
@@ -21325,7 +21355,7 @@
           return (
             Fs(e, t),
             (e.prototype.disposeInternal = function () {
-              fo(this.element), t.prototype.disposeInternal.call(this)
+              ;(fo(this.element), t.prototype.disposeInternal.call(this))
             }),
             (e.prototype.getMap = function () {
               return this.map_
@@ -21368,18 +21398,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         js = (function (t) {
           function e(e) {
             var r = this,
               n = e || {}
-            ;((r =
+            ;(((r =
               t.call(this, {
                 element: document.createElement('div'),
                 render: n.render,
@@ -21389,7 +21419,7 @@
               (r.userCollapsed_ = r.collapsed_),
               (r.overrideCollapsible_ = void 0 !== n.collapsible),
               (r.collapsible_ = void 0 === n.collapsible || n.collapsible),
-              r.collapsible_ || (r.collapsed_ = !1)
+              r.collapsible_ || (r.collapsed_ = !1))
             var i = void 0 !== n.className ? n.className : 'ol-attribution',
               o = void 0 !== n.tipLabel ? n.tipLabel : 'Attributions',
               a =
@@ -21415,10 +21445,10 @@
             var c =
                 r.collapsible_ && !r.collapsed_ ? r.collapseLabel_ : r.label_,
               h = document.createElement('button')
-            h.setAttribute('type', 'button'),
+            ;(h.setAttribute('type', 'button'),
               (h.title = o),
               h.appendChild(c),
-              h.addEventListener(N, r.handleClick_.bind(r), !1)
+              h.addEventListener(N, r.handleClick_.bind(r), !1))
             var p =
                 i +
                 ' ol-unselectable ol-control' +
@@ -21466,7 +21496,7 @@
                   }
                 }
               }
-              return this.overrideCollapsible_ || this.setCollapsible(n), r
+              return (this.overrideCollapsible_ || this.setCollapsible(n), r)
             }),
             (e.prototype.updateElement_ = function (t) {
               if (t) {
@@ -21481,7 +21511,7 @@
                   go(this.ulElement_)
                   for (var n = 0, i = e.length; n < i; ++n) {
                     var o = document.createElement('li')
-                    ;(o.innerHTML = e[n]), this.ulElement_.appendChild(o)
+                    ;((o.innerHTML = e[n]), this.ulElement_.appendChild(o))
                   }
                   this.renderedAttributions_ = e
                 }
@@ -21491,16 +21521,16 @@
                   (this.renderedVisible_ = !1))
             }),
             (e.prototype.handleClick_ = function (t) {
-              t.preventDefault(),
+              ;(t.preventDefault(),
                 this.handleToggle_(),
-                (this.userCollapsed_ = this.collapsed_)
+                (this.userCollapsed_ = this.collapsed_))
             }),
             (e.prototype.handleToggle_ = function () {
-              this.element.classList.toggle('ol-collapsed'),
+              ;(this.element.classList.toggle('ol-collapsed'),
                 this.collapsed_
                   ? po(this.collapseLabel_, this.label_)
                   : po(this.label_, this.collapseLabel_),
-                (this.collapsed_ = !this.collapsed_)
+                (this.collapsed_ = !this.collapsed_))
             }),
             (e.prototype.getCollapsible = function () {
               return this.collapsible_
@@ -21512,10 +21542,10 @@
                 this.userCollapsed_ && this.handleToggle_())
             }),
             (e.prototype.setCollapsed = function (t) {
-              ;(this.userCollapsed_ = t),
+              ;((this.userCollapsed_ = t),
                 this.collapsible_ &&
                   this.collapsed_ !== t &&
-                  this.handleToggle_()
+                  this.handleToggle_())
             }),
             (e.prototype.getCollapsed = function () {
               return this.collapsed_
@@ -21543,11 +21573,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Ds = (function (t) {
@@ -21566,19 +21596,19 @@
                 void 0 !== n.compassClassName
                   ? n.compassClassName
                   : 'ol-compass'
-            ;(r.label_ = null),
+            ;((r.label_ = null),
               'string' == typeof o
                 ? ((r.label_ = document.createElement('span')),
                   (r.label_.className = a),
                   (r.label_.textContent = o))
-                : ((r.label_ = o), r.label_.classList.add(a))
+                : ((r.label_ = o), r.label_.classList.add(a)))
             var s = n.tipLabel ? n.tipLabel : 'Reset rotation',
               l = document.createElement('button')
-            ;(l.className = i + '-reset'),
+            ;((l.className = i + '-reset'),
               l.setAttribute('type', 'button'),
               (l.title = s),
               l.appendChild(r.label_),
-              l.addEventListener(N, r.handleClick_.bind(r), !1)
+              l.addEventListener(N, r.handleClick_.bind(r), !1))
             var u = i + ' ol-unselectable ol-control',
               c = r.element
             return (
@@ -21595,10 +21625,10 @@
           return (
             Ns(e, t),
             (e.prototype.handleClick_ = function (t) {
-              t.preventDefault(),
+              ;(t.preventDefault(),
                 void 0 !== this.callResetNorth_
                   ? this.callResetNorth_()
-                  : this.resetNorth_()
+                  : this.resetNorth_())
             }),
             (e.prototype.resetNorth_ = function () {
               var t = this.getMap().getView()
@@ -21653,11 +21683,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         zs = (function (t) {
@@ -21679,21 +21709,21 @@
               c = void 0 !== n.zoomInTipLabel ? n.zoomInTipLabel : 'Zoom in',
               h = void 0 !== n.zoomOutTipLabel ? n.zoomOutTipLabel : 'Zoom out',
               p = document.createElement('button')
-            ;(p.className = a),
+            ;((p.className = a),
               p.setAttribute('type', 'button'),
               (p.title = c),
               p.appendChild(
                 'string' == typeof l ? document.createTextNode(l) : l,
               ),
-              p.addEventListener(N, r.handleClick_.bind(r, o), !1)
+              p.addEventListener(N, r.handleClick_.bind(r, o), !1))
             var f = document.createElement('button')
-            ;(f.className = s),
+            ;((f.className = s),
               f.setAttribute('type', 'button'),
               (f.title = h),
               f.appendChild(
                 'string' == typeof u ? document.createTextNode(u) : u,
               ),
-              f.addEventListener(N, r.handleClick_.bind(r, -o), !1)
+              f.addEventListener(N, r.handleClick_.bind(r, -o), !1))
             var d = i + ' ol-unselectable ol-control',
               g = r.element
             return (
@@ -21707,7 +21737,7 @@
           return (
             Gs(e, t),
             (e.prototype.handleClick_ = function (t, e) {
-              e.preventDefault(), this.zoomByDelta_(t)
+              ;(e.preventDefault(), this.zoomByDelta_(t))
             }),
             (e.prototype.zoomByDelta_ = function (t) {
               var e = this.getMap().getView()
@@ -21758,11 +21788,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Ys(t, e, r) {
@@ -21781,13 +21811,13 @@
         if (void 0 !== i) {
           var o = t.getConstrainedZoom(i + e),
             a = t.getResolutionForZoom(o)
-          t.getAnimating() && t.cancelAnimations(),
+          ;(t.getAnimating() && t.cancelAnimations(),
             t.animate({
               resolution: a,
               anchor: r,
               duration: void 0 !== n ? n : 250,
               easing: io,
-            })
+            }))
         }
       }
       var qs = (function (t) {
@@ -21837,11 +21867,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Zs = (function (t) {
@@ -21863,9 +21893,9 @@
                   n = t.map,
                   i = t.coordinate,
                   o = r.shiftKey ? -this.delta_ : this.delta_
-                Ws(n.getView(), o, i, this.duration_),
+                ;(Ws(n.getView(), o, i, this.duration_),
                   r.preventDefault(),
-                  (e = !0)
+                  (e = !0))
               }
               return !e
             }),
@@ -21889,16 +21919,16 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Hs(t) {
         for (var e = t.length, r = 0, n = 0, i = 0; i < e; i++)
-          (r += t[i].clientX), (n += t[i].clientY)
+          ((r += t[i].clientX), (n += t[i].clientY))
         return [r / e, n / e]
       }
       var $s = (function (t) {
@@ -21932,7 +21962,7 @@
             var e = !1
             if ((this.updateTrackedPointers_(t), this.handlingDownUpSequence)) {
               if (t.type == Ga.POINTERDRAG)
-                this.handleDragEvent(t), t.originalEvent.preventDefault()
+                (this.handleDragEvent(t), t.originalEvent.preventDefault())
               else if (t.type == Ga.POINTERUP) {
                 var r = this.handleUpEvent(t)
                 this.handlingDownUpSequence =
@@ -21940,7 +21970,7 @@
               }
             } else if (t.type == Ga.POINTERDOWN) {
               var n = this.handleDownEvent(t)
-              ;(this.handlingDownUpSequence = n), (e = this.stopDown(n))
+              ;((this.handlingDownUpSequence = n), (e = this.stopDown(n)))
             } else t.type == Ga.POINTERMOVE && this.handleMoveEvent(t)
             return !e
           }),
@@ -21964,11 +21994,11 @@
             ) {
               var e = t.originalEvent,
                 r = e.pointerId.toString()
-              t.type == Ga.POINTERUP
+              ;(t.type == Ga.POINTERUP
                 ? delete this.trackedPointers_[r]
                 : (t.type == Ga.POINTERDOWN || r in this.trackedPointers_) &&
                   (this.trackedPointers_[r] = e),
-                (this.targetPointers = R(this.trackedPointers_))
+                (this.targetPointers = R(this.trackedPointers_)))
             }
           }),
           e
@@ -22022,11 +22052,11 @@
         },
         cl = function (t) {
           var e = t.originalEvent
-          return pt(void 0 !== e, 56), 'mouse' == e.pointerType
+          return (pt(void 0 !== e, 56), 'mouse' == e.pointerType)
         },
         hl = function (t) {
           var e = t.originalEvent
-          return pt(void 0 !== e, 56), e.isPrimary && 0 === e.button
+          return (pt(void 0 !== e, 56), e.isPrimary && 0 === e.button)
         },
         pl = (function () {
           var t = function (e, r) {
@@ -22045,21 +22075,21 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         fl = (function (t) {
           function e(e) {
             var r = t.call(this, { stopDown: E }) || this,
               n = e || {}
-            ;(r.kinetic_ = n.kinetic),
+            ;((r.kinetic_ = n.kinetic),
               (r.lastCentroid = null),
               r.lastPointersCount_,
-              (r.panning_ = !1)
+              (r.panning_ = !1))
             var i = n.condition ? n.condition : Js(sl, hl)
             return (
               (r.condition_ = n.onFocusOnly ? Js(rl, i) : i),
@@ -22085,14 +22115,14 @@
                       r[1] - this.lastCentroid[1],
                     ],
                     i = t.map.getView()
-                  Pr(n, i.getResolution()),
+                  ;(Pr(n, i.getResolution()),
                     Or(n, i.getRotation()),
-                    i.adjustCenterInternal(n)
+                    i.adjustCenterInternal(n))
                 }
               } else this.kinetic_ && this.kinetic_.begin()
-              ;(this.lastCentroid = r),
+              ;((this.lastCentroid = r),
                 (this.lastPointersCount_ = e.length),
-                t.originalEvent.preventDefault()
+                t.originalEvent.preventDefault())
             }),
             (e.prototype.handleUpEvent = function (t) {
               var e = t.map,
@@ -22157,11 +22187,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         gl = (function (t) {
@@ -22228,11 +22258,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ml = (function (t) {
@@ -22259,29 +22289,29 @@
               var t = this.startPixel_,
                 e = this.endPixel_,
                 r = this.element_.style
-              ;(r.left = Math.min(t[0], e[0]) + 'px'),
+              ;((r.left = Math.min(t[0], e[0]) + 'px'),
                 (r.top = Math.min(t[1], e[1]) + 'px'),
                 (r.width = Math.abs(e[0] - t[0]) + 'px'),
-                (r.height = Math.abs(e[1] - t[1]) + 'px')
+                (r.height = Math.abs(e[1] - t[1]) + 'px'))
             }),
             (e.prototype.setMap = function (t) {
               if (this.map_) {
                 this.map_.getOverlayContainer().removeChild(this.element_)
                 var e = this.element_.style
-                ;(e.left = 'inherit'),
+                ;((e.left = 'inherit'),
                   (e.top = 'inherit'),
                   (e.width = 'inherit'),
-                  (e.height = 'inherit')
+                  (e.height = 'inherit'))
               }
-              ;(this.map_ = t),
+              ;((this.map_ = t),
                 this.map_ &&
-                  this.map_.getOverlayContainer().appendChild(this.element_)
+                  this.map_.getOverlayContainer().appendChild(this.element_))
             }),
             (e.prototype.setPixels = function (t, e) {
-              ;(this.startPixel_ = t),
+              ;((this.startPixel_ = t),
                 (this.endPixel_ = e),
                 this.createOrUpdateGeometry(),
-                this.render_()
+                this.render_())
             }),
             (e.prototype.createOrUpdateGeometry = function () {
               var t = this.startPixel_,
@@ -22290,10 +22320,10 @@
                   this.map_.getCoordinateFromPixelInternal,
                   this.map_,
                 )
-              ;(r[4] = r[0].slice()),
+              ;((r[4] = r[0].slice()),
                 this.geometry_
                   ? this.geometry_.setCoordinates([r])
-                  : (this.geometry_ = new fi([r]))
+                  : (this.geometry_ = new fi([r])))
             }),
             (e.prototype.getGeometry = function () {
               return this.geometry_
@@ -22318,11 +22348,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         _l = 'boxstart',
@@ -22332,9 +22362,9 @@
         Sl = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, e) || this
-            return (i.coordinate = r), (i.mapBrowserEvent = n), i
+            return ((i.coordinate = r), (i.mapBrowserEvent = n), i)
           }
-          return vl(e, t), e
+          return (vl(e, t), e)
         })(c),
         El = (function (t) {
           function e(e) {
@@ -22363,8 +22393,8 @@
               return this.box_.getGeometry()
             }),
             (e.prototype.handleDragEvent = function (t) {
-              this.box_.setPixels(this.startPixel_, t.pixel),
-                this.dispatchEvent(new Sl(bl, t.coordinate, t))
+              ;(this.box_.setPixels(this.startPixel_, t.pixel),
+                this.dispatchEvent(new Sl(bl, t.coordinate, t)))
             }),
             (e.prototype.handleUpEvent = function (t) {
               this.box_.setMap(null)
@@ -22406,11 +22436,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Cl = (function (t) {
@@ -22443,7 +22473,7 @@
                     e.getPixelFromCoordinateInternal(_e(i)),
                     e.getPixelFromCoordinateInternal(Oe(i)),
                   ])
-                Me(o, 1 / r.getResolutionForExtentInternal(a, n)), (i = o)
+                ;(Me(o, 1 / r.getResolutionForExtentInternal(a, n)), (i = o))
               }
               var s = r.getConstrainedResolution(
                   r.getResolutionForExtentInternal(i, n),
@@ -22480,11 +22510,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Ml = (function (t) {
@@ -22525,10 +22555,10 @@
                         ? (a = o)
                         : (s = o)
                   var l = [a, s]
-                  Or(l, i.getRotation()),
+                  ;(Or(l, i.getRotation()),
                     Ys(i, l, this.duration_),
                     r.preventDefault(),
-                    (e = !0)
+                    (e = !0))
                 }
               }
               return !e
@@ -22553,11 +22583,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Al = (function (t) {
@@ -22584,9 +22614,9 @@
                 ) {
                   var i = t.map,
                     o = n == '+'.charCodeAt(0) ? this.delta_ : -this.delta_
-                  Ws(i.getView(), o, void 0, this.duration_),
+                  ;(Ws(i.getView(), o, void 0, this.duration_),
                     r.preventDefault(),
-                    (e = !0)
+                    (e = !0))
                 }
               }
               return !e
@@ -22611,11 +22641,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         jl = 'trackpad',
@@ -22624,14 +22654,14 @@
           function e(e) {
             var r = this,
               n = e || {}
-            ;((r = t.call(this, n) || this).totalDelta_ = 0),
+            ;(((r = t.call(this, n) || this).totalDelta_ = 0),
               (r.lastDelta_ = 0),
               (r.maxDelta_ = void 0 !== n.maxDelta ? n.maxDelta : 1),
               (r.duration_ = void 0 !== n.duration ? n.duration : 250),
               (r.timeout_ = void 0 !== n.timeout ? n.timeout : 80),
               (r.useAnchor_ = void 0 === n.useAnchor || n.useAnchor),
               (r.constrainResolution_ =
-                void 0 !== n.constrainResolution && n.constrainResolution)
+                void 0 !== n.constrainResolution && n.constrainResolution))
             var i = n.condition ? n.condition : nl
             return (
               (r.condition_ = n.onFocusOnly ? Js(rl, i) : i),
@@ -22648,14 +22678,14 @@
           return (
             kl(e, t),
             (e.prototype.endInteraction_ = function () {
-              ;(this.trackpadTimeoutId_ = void 0),
+              ;((this.trackpadTimeoutId_ = void 0),
                 this.getMap()
                   .getView()
                   .endInteraction(
                     void 0,
                     this.lastDelta_ ? (this.lastDelta_ > 0 ? 1 : -1) : 0,
                     this.lastAnchor_,
-                  )
+                  ))
             }),
             (e.prototype.handleEvent = function (t) {
               if (!this.condition_(t)) return !0
@@ -22675,9 +22705,9 @@
                 return !1
               this.lastDelta_ = e
               var i = Date.now()
-              void 0 === this.startTime_ && (this.startTime_ = i),
+              ;(void 0 === this.startTime_ && (this.startTime_ = i),
                 (!this.mode_ || i - this.startTime_ > this.trackpadEventGap_) &&
-                  (this.mode_ = Math.abs(e) < 4 ? jl : Nl)
+                  (this.mode_ = Math.abs(e) < 4 ? jl : Nl))
               var o = r.getView()
               if (
                 this.mode_ === jl &&
@@ -22717,17 +22747,17 @@
                   -this.maxDelta_ * this.deltaPerZoom_,
                   this.maxDelta_ * this.deltaPerZoom_,
                 ) / this.deltaPerZoom_
-              ;(e.getConstrainResolution() || this.constrainResolution_) &&
+              ;((e.getConstrainResolution() || this.constrainResolution_) &&
                 (r = r ? (r > 0 ? 1 : -1) : 0),
                 Ws(e, r, this.lastAnchor_, this.duration_),
                 (this.mode_ = void 0),
                 (this.totalDelta_ = 0),
                 (this.lastAnchor_ = null),
                 (this.startTime_ = void 0),
-                (this.timeoutId_ = void 0)
+                (this.timeoutId_ = void 0))
             }),
             (e.prototype.setMouseAnchor = function (t) {
-              ;(this.useAnchor_ = t), t || (this.lastAnchor_ = null)
+              ;((this.useAnchor_ = t), t || (this.lastAnchor_ = null))
             }),
             e
           )
@@ -22749,11 +22779,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         zl = (function (t) {
@@ -22781,11 +22811,11 @@
                 i = Math.atan2(n.clientY - r.clientY, n.clientX - r.clientX)
               if (void 0 !== this.lastAngle_) {
                 var o = i - this.lastAngle_
-                ;(this.rotationDelta_ += o),
+                ;((this.rotationDelta_ += o),
                   !this.rotating_ &&
                     Math.abs(this.rotationDelta_) > this.threshold_ &&
                     (this.rotating_ = !0),
-                  (e = o)
+                  (e = o))
               }
               this.lastAngle_ = i
               var a = t.map,
@@ -22793,11 +22823,11 @@
               if (s.getConstraints().rotation !== gs) {
                 var l = a.getViewport().getBoundingClientRect(),
                   u = Hs(this.targetPointers)
-                ;(u[0] -= l.left),
+                ;((u[0] -= l.left),
                   (u[1] -= l.top),
                   (this.anchor_ = a.getCoordinateFromPixelInternal(u)),
                   this.rotating_ &&
-                    (a.render(), s.adjustRotationInternal(e, this.anchor_))
+                    (a.render(), s.adjustRotationInternal(e, this.anchor_)))
               }
             }),
             (e.prototype.handleUpEvent = function (t) {
@@ -22840,11 +22870,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Bl = (function (t) {
@@ -22870,24 +22900,24 @@
                 i = r.clientX - n.clientX,
                 o = r.clientY - n.clientY,
                 a = Math.sqrt(i * i + o * o)
-              void 0 !== this.lastDistance_ && (e = this.lastDistance_ / a),
-                (this.lastDistance_ = a)
+              ;(void 0 !== this.lastDistance_ && (e = this.lastDistance_ / a),
+                (this.lastDistance_ = a))
               var s = t.map,
                 l = s.getView()
               1 != e && (this.lastScaleDelta_ = e)
               var u = s.getViewport().getBoundingClientRect(),
                 c = Hs(this.targetPointers)
-              ;(c[0] -= u.left),
+              ;((c[0] -= u.left),
                 (c[1] -= u.top),
                 (this.anchor_ = s.getCoordinateFromPixelInternal(c)),
                 s.render(),
-                l.adjustResolutionInternal(e, this.anchor_)
+                l.adjustResolutionInternal(e, this.anchor_))
             }),
             (e.prototype.handleUpEvent = function (t) {
               if (this.targetPointers.length < 2) {
                 var e = t.map.getView(),
                   r = this.lastScaleDelta_ > 1 ? 1 : -1
-                return e.endInteraction(this.duration_, r), !1
+                return (e.endInteraction(this.duration_, r), !1)
               }
               return !0
             }),
@@ -22950,11 +22980,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Wl = (function (t) {
@@ -22999,11 +23029,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ru = 'element',
@@ -23014,7 +23044,7 @@
         su = (function (t) {
           function e(e) {
             var r = t.call(this) || this
-            ;(r.options = e),
+            ;((r.options = e),
               (r.id = e.id),
               (r.insertFirst = void 0 === e.insertFirst || e.insertFirst),
               (r.stopEvent = void 0 === e.stopEvent || e.stopEvent),
@@ -23024,7 +23054,7 @@
                   ? e.className
                   : 'ol-overlay-container ol-selectable'),
               (r.element.style.position = 'absolute'),
-              (r.element.style.pointerEvents = 'auto')
+              (r.element.style.pointerEvents = 'auto'))
             var n = e.autoPan
             return (
               n &&
@@ -23080,15 +23110,15 @@
                 (this.mapPostrenderListenerKey = null))
               var t = this.getMap()
               if (t) {
-                ;(this.mapPostrenderListenerKey = Z(t, qa, this.render, this)),
-                  this.updatePixelPosition()
+                ;((this.mapPostrenderListenerKey = Z(t, qa, this.render, this)),
+                  this.updatePixelPosition())
                 var e = this.stopEvent
                   ? t.getOverlayContainerStopEvent()
                   : t.getOverlayContainer()
-                this.insertFirst
+                ;(this.insertFirst
                   ? e.insertBefore(this.element, e.childNodes[0] || null)
                   : e.appendChild(this.element),
-                  this.performAutoPan()
+                  this.performAutoPan())
               }
             }),
             (e.prototype.render = function () {
@@ -23098,7 +23128,7 @@
               this.updatePixelPosition()
             }),
             (e.prototype.handlePositionChanged = function () {
-              this.updatePixelPosition(), this.performAutoPan()
+              ;(this.updatePixelPosition(), this.performAutoPan())
             }),
             (e.prototype.handlePositioningChanged = function () {
               this.updatePixelPosition()
@@ -23183,12 +23213,12 @@
                 a = Math.round(t[1] + n[1]) + 'px',
                 s = '0%',
                 l = '0%'
-              i == Zl || i == $l || i == tu
+              ;(i == Zl || i == $l || i == tu
                 ? (s = '-100%')
                 : (i != Xl && i != Hl && i != Ql) || (s = '-50%'),
                 i == ql || i == Xl || i == Zl
                   ? (l = '-100%')
-                  : (i != Kl && i != Hl && i != $l) || (l = '-50%')
+                  : (i != Kl && i != Hl && i != $l) || (l = '-50%'))
               var u =
                 'translate(' +
                 s +
@@ -23212,11 +23242,11 @@
         })(ot),
         lu = (function () {
           function t(t) {
-            ;(this.highWaterMark = void 0 !== t ? t : 2048),
+            ;((this.highWaterMark = void 0 !== t ? t : 2048),
               (this.count_ = 0),
               (this.entries_ = {}),
               (this.oldest_ = null),
-              (this.newest_ = null)
+              (this.newest_ = null))
           }
           return (
             (t.prototype.canExpireCache = function () {
@@ -23225,17 +23255,17 @@
               )
             }),
             (t.prototype.clear = function () {
-              ;(this.count_ = 0),
+              ;((this.count_ = 0),
                 (this.entries_ = {}),
                 (this.oldest_ = null),
-                (this.newest_ = null)
+                (this.newest_ = null))
             }),
             (t.prototype.containsKey = function (t) {
               return this.entries_.hasOwnProperty(t)
             }),
             (t.prototype.forEach = function (t) {
               for (var e = this.oldest_; e; )
-                t(e.value_, e.key_, this), (e = e.newer)
+                (t(e.value_, e.key_, this), (e = e.newer))
             }),
             (t.prototype.get = function (t, e) {
               var r = this.entries_[t]
@@ -23307,15 +23337,15 @@
               )
             }),
             (t.prototype.replace = function (t, e) {
-              this.get(t), (this.entries_[t].value_ = e)
+              ;(this.get(t), (this.entries_[t].value_ = e))
             }),
             (t.prototype.set = function (t, e) {
               pt(!(t in this.entries_), 16)
               var r = { key_: t, newer: null, older: this.newest_, value_: e }
-              this.newest_ ? (this.newest_.newer = r) : (this.oldest_ = r),
+              ;(this.newest_ ? (this.newest_.newer = r) : (this.oldest_ = r),
                 (this.newest_ = r),
                 (this.entries_[t] = r),
-                ++this.count_
+                ++this.count_)
             }),
             (t.prototype.setSize = function (t) {
               this.highWaterMark = t
@@ -23365,11 +23395,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         yu = (function (t) {
@@ -23400,7 +23430,10 @@
         })(lu),
         mu = (function () {
           function t(t, e, r, n) {
-            ;(this.minX = t), (this.maxX = e), (this.minY = r), (this.maxY = n)
+            ;((this.minX = t),
+              (this.maxX = e),
+              (this.minY = r),
+              (this.maxY = n))
           }
           return (
             (t.prototype.contains = function (t) {
@@ -23431,10 +23464,10 @@
               )
             }),
             (t.prototype.extend = function (t) {
-              t.minX < this.minX && (this.minX = t.minX),
+              ;(t.minX < this.minX && (this.minX = t.minX),
                 t.maxX > this.maxX && (this.maxX = t.maxX),
                 t.minY < this.minY && (this.minY = t.minY),
-                t.maxY > this.maxY && (this.maxY = t.maxY)
+                t.maxY > this.maxY && (this.maxY = t.maxY))
             }),
             (t.prototype.getHeight = function () {
               return this.maxY - this.minY + 1
@@ -23479,11 +23512,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         xu = [],
@@ -23544,7 +23577,7 @@
             }),
             (e.prototype.release = function () {
               for (var e in this.context_)
-                xu.push(this.context_[e].canvas), delete this.context_[e]
+                (xu.push(this.context_[e].canvas), delete this.context_[e])
               t.prototype.release.call(this)
             }),
             e
@@ -23567,11 +23600,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Eu = (function (t) {
@@ -23612,7 +23645,7 @@
               this.setState(eo)
             }),
             (e.prototype.setFeatures = function (t) {
-              ;(this.features_ = t), this.setState(to)
+              ;((this.features_ = t), this.setState(to))
             }),
             (e.prototype.setLoader = function (t) {
               this.loader_ = t
@@ -23630,14 +23663,14 @@
         Iu = !1
       function Lu(t, e, r, n, i, o, a) {
         var s = new XMLHttpRequest()
-        s.open('GET', 'function' == typeof t ? t(r, n, i) : t, !0),
+        ;(s.open('GET', 'function' == typeof t ? t(r, n, i) : t, !0),
           e.getType() == Cu && (s.responseType = 'arraybuffer'),
           (s.withCredentials = Iu),
           (s.onload = function (t) {
             if (!s.status || (s.status >= 200 && s.status < 300)) {
               var n = e.getType(),
                 l = void 0
-              n == Ou || n == Pu
+              ;(n == Ou || n == Pu
                 ? (l = s.responseText)
                 : n == Ru
                   ? (l = s.responseXML) ||
@@ -23651,11 +23684,11 @@
                       e.readFeatures(l, { extent: r, featureProjection: i }),
                       e.readProjection(l),
                     )
-                  : a()
+                  : a())
             } else a()
           }),
           (s.onerror = a),
-          s.send()
+          s.send())
       }
       function Mu(t, e) {
         return function (r, n, i, o, a) {
@@ -23667,7 +23700,7 @@
             n,
             i,
             function (t, e) {
-              void 0 !== o && o(t), s.addFeatures(t)
+              ;(void 0 !== o && o(t), s.addFeatures(t))
             },
             a || T,
           )
@@ -23680,22 +23713,22 @@
         var i = document.createElement('script'),
           a = 'olc_' + o(e)
         function s() {
-          delete window[a], i.parentNode.removeChild(i)
+          ;(delete window[a], i.parentNode.removeChild(i))
         }
-        ;(i.async = !0),
+        ;((i.async = !0),
           (i.src =
             t +
             (-1 == t.indexOf('?') ? '?' : '&') +
             (n || 'callback') +
             '=' +
-            a)
+            a))
         var l = setTimeout(function () {
-          s(), r && r()
+          ;(s(), r && r())
         }, 1e4)
-        ;(window[a] = function (t) {
-          clearTimeout(l), s(), e(t)
+        ;((window[a] = function (t) {
+          ;(clearTimeout(l), s(), e(t))
         }),
-          document.getElementsByTagName('head')[0].appendChild(i)
+          document.getElementsByTagName('head')[0].appendChild(i))
       }
       var ku = (function () {
           function t() {}
@@ -23736,11 +23769,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Nu = (function (t) {
@@ -23806,7 +23839,7 @@
                   ) {
                     var f = h + this.imageAnchorX_,
                       d = p + this.imageAnchorY_
-                    kt(a, f, d, 1, 1, l, -f, -d),
+                    ;(kt(a, f, d, 1, 1, l, -f, -d),
                       o.setTransform.apply(o, a),
                       o.translate(f, d),
                       o.scale(this.imageScale_[0], this.imageScale_[1]),
@@ -23821,7 +23854,7 @@
                         this.imageWidth_,
                         this.imageHeight_,
                       ),
-                      o.setTransform(1, 0, 0, 1, 0, 0)
+                      o.setTransform(1, 0, 0, 1, 0, 0))
                   } else
                     o.drawImage(
                       this.image_,
@@ -23840,11 +23873,11 @@
             }),
             (e.prototype.drawText_ = function (t, e, r, n) {
               if (this.textState_ && '' !== this.text_) {
-                this.textFillState_ &&
+                ;(this.textFillState_ &&
                   this.setContextFillState_(this.textFillState_),
                   this.textStrokeState_ &&
                     this.setContextStrokeState_(this.textStrokeState_),
-                  this.setContextTextState_(this.textState_)
+                  this.setContextTextState_(this.textState_))
                 var i = ln(t, e, r, n, this.transform_, this.pixelCoordinates_),
                   o = this.context_,
                   a = this.textRotation_
@@ -23861,15 +23894,15 @@
                     1 != this.textScale_[1]
                   ) {
                     var u = kt(this.tmpLocalTransform_, s, l, 1, 1, a, -s, -l)
-                    o.setTransform.apply(o, u),
+                    ;(o.setTransform.apply(o, u),
                       o.translate(s, l),
                       o.scale(this.textScale_[0], this.textScale_[1]),
                       this.textStrokeState_ && o.strokeText(this.text_, 0, 0),
                       this.textFillState_ && o.fillText(this.text_, 0, 0),
-                      o.setTransform(1, 0, 0, 1, 0, 0)
+                      o.setTransform(1, 0, 0, 1, 0, 0))
                   } else
-                    this.textStrokeState_ && o.strokeText(this.text_, s, l),
-                      this.textFillState_ && o.fillText(this.text_, s, l)
+                    (this.textStrokeState_ && o.strokeText(this.text_, s, l),
+                      this.textFillState_ && o.fillText(this.text_, s, l))
                 }
               }
             }),
@@ -23880,7 +23913,7 @@
               var s = a.length
               i && (s -= 2)
               for (var l = 2; l < s; l += 2) o.lineTo(a[l], a[l + 1])
-              return i && o.closePath(), r
+              return (i && o.closePath(), r)
             }),
             (e.prototype.drawRings_ = function (t, e, r, n) {
               for (var i = 0, o = r.length; i < o; ++i)
@@ -23890,26 +23923,27 @@
             (e.prototype.drawCircle = function (t) {
               if (Re(this.extent_, t.getExtent())) {
                 if (this.fillState_ || this.strokeState_) {
-                  this.fillState_ && this.setContextFillState_(this.fillState_),
+                  ;(this.fillState_ &&
+                    this.setContextFillState_(this.fillState_),
                     this.strokeState_ &&
-                      this.setContextStrokeState_(this.strokeState_)
+                      this.setContextStrokeState_(this.strokeState_))
                   var e = mn(t, this.transform_, this.pixelCoordinates_),
                     r = e[2] - e[0],
                     n = e[3] - e[1],
                     i = Math.sqrt(r * r + n * n),
                     o = this.context_
-                  o.beginPath(),
+                  ;(o.beginPath(),
                     o.arc(e[0], e[1], i, 0, 2 * Math.PI),
                     this.fillState_ && o.fill(),
-                    this.strokeState_ && o.stroke()
+                    this.strokeState_ && o.stroke())
                 }
                 '' !== this.text_ && this.drawText_(t.getCenter(), 0, 2, 2)
               }
             }),
             (e.prototype.setStyle = function (t) {
-              this.setFillStrokeStyle(t.getFill(), t.getStroke()),
+              ;(this.setFillStrokeStyle(t.getFill(), t.getStroke()),
                 this.setImageStyle(t.getImage()),
-                this.setTextStyle(t.getText())
+                this.setTextStyle(t.getText()))
             }),
             (e.prototype.setTransform = function (t) {
               this.transform_ = t
@@ -23963,8 +23997,8 @@
                 ))
               var e = t.getFlatCoordinates(),
                 r = t.getStride()
-              this.image_ && this.drawImages_(e, 0, e.length, r),
-                '' !== this.text_ && this.drawText_(e, 0, e.length, r)
+              ;(this.image_ && this.drawImages_(e, 0, e.length, r),
+                '' !== this.text_ && this.drawText_(e, 0, e.length, r))
             }),
             (e.prototype.drawMultiPoint = function (t) {
               this.squaredTolerance_ &&
@@ -23974,8 +24008,8 @@
                 ))
               var e = t.getFlatCoordinates(),
                 r = t.getStride()
-              this.image_ && this.drawImages_(e, 0, e.length, r),
-                '' !== this.text_ && this.drawText_(e, 0, e.length, r)
+              ;(this.image_ && this.drawImages_(e, 0, e.length, r),
+                '' !== this.text_ && this.drawText_(e, 0, e.length, r))
             }),
             (e.prototype.drawLineString = function (t) {
               if (
@@ -23990,9 +24024,9 @@
                   this.setContextStrokeState_(this.strokeState_)
                   var e = this.context_,
                     r = t.getFlatCoordinates()
-                  e.beginPath(),
+                  ;(e.beginPath(),
                     this.moveToLineTo_(r, 0, r.length, t.getStride(), !1),
-                    e.stroke()
+                    e.stroke())
                 }
                 if ('' !== this.text_) {
                   var n = t.getFlatMidpoint()
@@ -24036,11 +24070,12 @@
                 Re(this.extent_, t.getExtent()))
               ) {
                 if (this.strokeState_ || this.fillState_) {
-                  this.fillState_ && this.setContextFillState_(this.fillState_),
+                  ;(this.fillState_ &&
+                    this.setContextFillState_(this.fillState_),
                     this.strokeState_ &&
-                      this.setContextStrokeState_(this.strokeState_)
+                      this.setContextStrokeState_(this.strokeState_))
                   var e = this.context_
-                  e.beginPath(),
+                  ;(e.beginPath(),
                     this.drawRings_(
                       t.getOrientedFlatCoordinates(),
                       0,
@@ -24048,7 +24083,7 @@
                       t.getStride(),
                     ),
                     this.fillState_ && e.fill(),
-                    this.strokeState_ && e.stroke()
+                    this.strokeState_ && e.stroke())
                 }
                 if ('' !== this.text_) {
                   var r = t.getFlatInteriorPoint()
@@ -24066,9 +24101,10 @@
                 Re(this.extent_, t.getExtent()))
               ) {
                 if (this.strokeState_ || this.fillState_) {
-                  this.fillState_ && this.setContextFillState_(this.fillState_),
+                  ;(this.fillState_ &&
+                    this.setContextFillState_(this.fillState_),
                     this.strokeState_ &&
-                      this.setContextStrokeState_(this.strokeState_)
+                      this.setContextStrokeState_(this.strokeState_))
                   var e = this.context_,
                     r = t.getOrientedFlatCoordinates(),
                     n = 0,
@@ -24079,7 +24115,8 @@
                     var l = i[a]
                     n = this.drawRings_(r, n, l, o)
                   }
-                  this.fillState_ && e.fill(), this.strokeState_ && e.stroke()
+                  ;(this.fillState_ && e.fill(),
+                    this.strokeState_ && e.stroke())
                 }
                 if ('' !== this.text_) {
                   var u = t.getFlatInteriorPoints()
@@ -24187,7 +24224,7 @@
                     n = t.getImage(1),
                     i = t.getOrigin(),
                     o = t.getScaleArray()
-                  ;(this.imageAnchorX_ = r[0]),
+                  ;((this.imageAnchorX_ = r[0]),
                     (this.imageAnchorY_ = r[1]),
                     (this.imageHeight_ = e[1]),
                     (this.image_ = n),
@@ -24200,7 +24237,7 @@
                       this.pixelRatio_ * o[0],
                       this.pixelRatio_ * o[1],
                     ]),
-                    (this.imageWidth_ = e[0])
+                    (this.imageWidth_ = e[0]))
                 } else this.image_ = null
               } else this.image_ = null
             }),
@@ -24239,7 +24276,7 @@
                   m = t.getText(),
                   v = t.getTextAlign(),
                   _ = t.getTextBaseline()
-                ;(this.textState_ = {
+                ;((this.textState_ = {
                   font: void 0 !== h ? h : '10px sans-serif',
                   textAlign: void 0 !== v ? v : 'center',
                   textBaseline: void 0 !== _ ? _ : 'middle',
@@ -24252,7 +24289,7 @@
                   (this.textScale_ = [
                     this.pixelRatio_ * y[0],
                     this.pixelRatio_ * y[1],
-                  ])
+                  ]))
               } else this.text_ = ''
             }),
             e
@@ -24273,23 +24310,23 @@
             if (a) {
               if (a.getImageState() != ki) return
               var l = t.getBuilder(r.getZIndex(), zu)
-              l.setImageStyle(a, o), l.drawPoint(e, n)
+              ;(l.setImageStyle(a, o), l.drawPoint(e, n))
             }
             if (s && s.getText()) {
               var u = t.getBuilder(r.getZIndex(), Vu)
-              u.setTextStyle(s, o), u.drawText(e, n)
+              ;(u.setTextStyle(s, o), u.drawText(e, n))
             }
           },
           LineString: function (t, e, r, n, i) {
             var o = r.getStroke()
             if (o) {
               var a = t.getBuilder(r.getZIndex(), Uu)
-              a.setFillStrokeStyle(null, o), a.drawLineString(e, n)
+              ;(a.setFillStrokeStyle(null, o), a.drawLineString(e, n))
             }
             var s = r.getText()
             if (s && s.getText()) {
               var l = (i || t).getBuilder(r.getZIndex(), Vu)
-              l.setTextStyle(s), l.drawText(e, n)
+              ;(l.setTextStyle(s), l.drawText(e, n))
             }
           },
           Polygon: function (t, e, r, n, i) {
@@ -24297,12 +24334,12 @@
               a = r.getStroke()
             if (o || a) {
               var s = t.getBuilder(r.getZIndex(), Bu)
-              s.setFillStrokeStyle(o, a), s.drawPolygon(e, n)
+              ;(s.setFillStrokeStyle(o, a), s.drawPolygon(e, n))
             }
             var l = r.getText()
             if (l && l.getText()) {
               var u = (i || t).getBuilder(r.getZIndex(), Vu)
-              u.setTextStyle(l), u.drawText(e, n)
+              ;(u.setTextStyle(l), u.drawText(e, n))
             }
           },
           MultiPoint: function (t, e, r, n, i) {
@@ -24313,23 +24350,23 @@
             if (a) {
               if (a.getImageState() != ki) return
               var l = t.getBuilder(r.getZIndex(), zu)
-              l.setImageStyle(a, o), l.drawMultiPoint(e, n)
+              ;(l.setImageStyle(a, o), l.drawMultiPoint(e, n))
             }
             if (s && s.getText()) {
               var u = (i || t).getBuilder(r.getZIndex(), Vu)
-              u.setTextStyle(s, o), u.drawText(e, n)
+              ;(u.setTextStyle(s, o), u.drawText(e, n))
             }
           },
           MultiLineString: function (t, e, r, n, i) {
             var o = r.getStroke()
             if (o) {
               var a = t.getBuilder(r.getZIndex(), Uu)
-              a.setFillStrokeStyle(null, o), a.drawMultiLineString(e, n)
+              ;(a.setFillStrokeStyle(null, o), a.drawMultiLineString(e, n))
             }
             var s = r.getText()
             if (s && s.getText()) {
               var l = (i || t).getBuilder(r.getZIndex(), Vu)
-              l.setTextStyle(s), l.drawText(e, n)
+              ;(l.setTextStyle(s), l.drawText(e, n))
             }
           },
           MultiPolygon: function (t, e, r, n, i) {
@@ -24337,12 +24374,12 @@
               a = r.getStroke()
             if (a || o) {
               var s = t.getBuilder(r.getZIndex(), Bu)
-              s.setFillStrokeStyle(o, a), s.drawMultiPolygon(e, n)
+              ;(s.setFillStrokeStyle(o, a), s.drawMultiPolygon(e, n))
             }
             var l = r.getText()
             if (l && l.getText()) {
               var u = (i || t).getBuilder(r.getZIndex(), Vu)
-              u.setTextStyle(l), u.drawText(e, n)
+              ;(u.setTextStyle(l), u.drawText(e, n))
             }
           },
           GeometryCollection: function (t, e, r, n, i) {
@@ -24358,12 +24395,12 @@
               a = r.getStroke()
             if (o || a) {
               var s = t.getBuilder(r.getZIndex(), Du)
-              s.setFillStrokeStyle(o, a), s.drawCircle(e, n)
+              ;(s.setFillStrokeStyle(o, a), s.drawCircle(e, n))
             }
             var l = r.getText()
             if (l && l.getText()) {
               var u = (i || t).getBuilder(r.getZIndex(), Vu)
-              u.setTextStyle(l), u.drawText(e, n)
+              ;(u.setTextStyle(l), u.drawText(e, n))
             }
           },
         }
@@ -24440,7 +24477,7 @@
       var Hu,
         $u = { imageSmoothingEnabled: !1, msImageSmoothingEnabled: !1 }
       function Ju(t, e, r, n, i) {
-        t.beginPath(),
+        ;(t.beginPath(),
           t.moveTo(0, 0),
           t.lineTo(e, r),
           t.lineTo(n, i),
@@ -24448,7 +24485,7 @@
           t.save(),
           t.clip(),
           t.fillRect(0, 0, Math.max(e, n) + 1, Math.max(r, i)),
-          t.restore()
+          t.restore())
       }
       function Qu(t, e) {
         return (
@@ -24475,7 +24512,7 @@
         return (
           (!isFinite(o) || o <= 0) &&
             me(r, function (r) {
-              return (o = tc(t, e, r, n)), isFinite(o) && o > 0
+              return ((o = tc(t, e, r, n)), isFinite(o) && o > 0)
             }),
           o
         )
@@ -24486,7 +24523,7 @@
         function f(t) {
           return Math.round(t * r) / r
         }
-        p.scale(r, r), (p.globalCompositeOperation = 'lighter')
+        ;(p.scale(r, r), (p.globalCompositeOperation = 'lighter'))
         var d = [1 / 0, 1 / 0, -1 / 0, -1 / 0]
         l.forEach(function (t, e, r) {
           he(d, t.extent)
@@ -24534,7 +24571,7 @@
               T = f(-(s[2][1] - _[1]) / o),
               C = l,
               O = u
-            ;(l = 0), (u = 0)
+            ;((l = 0), (u = 0))
             var P = Be([
               [(c -= C), (g -= O), 0, 0, w - b],
               [(y -= C), (v -= O), 0, 0, E - b],
@@ -24548,10 +24585,10 @@
                 (function () {
                   if (void 0 === Hu) {
                     var t = document.createElement('canvas').getContext('2d')
-                    ;(t.globalCompositeOperation = 'lighter'),
+                    ;((t.globalCompositeOperation = 'lighter'),
                       (t.fillStyle = 'rgba(210, 0, 0, 0.75)'),
                       Ju(t, 4, 5, 4, 0),
-                      Ju(t, 4, 5, 0, 5)
+                      Ju(t, 4, 5, 0, 5))
                     var e = t.getImageData(0, 0, 3, 3).data
                     Hu = Qu(e, 0) || Qu(e, 4) || Qu(e, 8)
                   }
@@ -24560,20 +24597,20 @@
               ) {
                 p.moveTo(w, S)
                 for (var R = b - w, I = x - S, L = 0; L < 4; L++)
-                  p.lineTo(w + f(((L + 1) * R) / 4), S + f((L * I) / 3)),
+                  (p.lineTo(w + f(((L + 1) * R) / 4), S + f((L * I) / 3)),
                     3 != L &&
                       p.lineTo(
                         w + f(((L + 1) * R) / 4),
                         S + f(((L + 1) * I) / 3),
-                      )
+                      ))
                 p.lineTo(E, T)
-              } else p.moveTo(w, S), p.lineTo(b, x), p.lineTo(E, T)
-              p.clip(),
+              } else (p.moveTo(w, S), p.lineTo(b, x), p.lineTo(E, T))
+              ;(p.clip(),
                 p.transform(P[0], P[2], P[1], P[3], b, x),
                 p.translate(d[0] - C, d[3] - O),
                 p.scale(n / r, -n / r),
                 p.drawImage(m.canvas, 0, 0),
-                p.restore()
+                p.restore())
             }
           }),
           c &&
@@ -24589,12 +24626,12 @@
                 l = -(n[1][1] - _[1]) / o,
                 u = (n[2][0] - _[0]) / o,
                 c = -(n[2][1] - _[1]) / o
-              p.beginPath(),
+              ;(p.beginPath(),
                 p.moveTo(s, l),
                 p.lineTo(i, a),
                 p.lineTo(u, c),
                 p.closePath(),
-                p.stroke()
+                p.stroke())
             }),
             p.restore()),
           p.canvas
@@ -24626,15 +24663,15 @@
                     break
                   }
                 } else e = this.resolutions_[r] / this.resolutions_[r + 1]
-            ;(this.zoomFactor_ = e),
+            ;((this.zoomFactor_ = e),
               (this.maxZoom = this.resolutions_.length - 1),
               (this.origin_ = void 0 !== t.origin ? t.origin : null),
               (this.origins_ = null),
               void 0 !== t.origins &&
                 ((this.origins_ = t.origins),
-                pt(this.origins_.length == this.resolutions_.length, 20))
+                pt(this.origins_.length == this.resolutions_.length, 20)))
             var i = t.extent
-            void 0 === i ||
+            ;(void 0 === i ||
               this.origin_ ||
               this.origins_ ||
               (this.origin_ = Ce(i)),
@@ -24671,14 +24708,14 @@
                     )
                     if (i) {
                       var n = this.getTileRangeForExtentAndZ(i, e)
-                      ;(r.minX = Math.max(n.minX, r.minX)),
+                      ;((r.minX = Math.max(n.minX, r.minX)),
                         (r.maxX = Math.min(n.maxX, r.maxX)),
                         (r.minY = Math.max(n.minY, r.minY)),
-                        (r.maxY = Math.min(n.maxY, r.maxY))
+                        (r.maxY = Math.min(n.maxY, r.maxY)))
                     }
                     return r
                   }, this))
-                : i && this.calculateTileRanges_(i)
+                : i && this.calculateTileRanges_(i))
           }
           return (
             (t.prototype.forEachTileCoord = function (t, e, r) {
@@ -24885,7 +24922,7 @@
         })()
       function oc(t) {
         var e = t.getDefaultTileGrid()
-        return e || ((e = cc(t)), t.setDefaultTileGrid(e)), e
+        return (e || ((e = cc(t)), t.setDefaultTileGrid(e)), e)
       }
       function ac(t, e, r) {
         var n = e[0],
@@ -24894,7 +24931,7 @@
         if (Qt(o, i)) return e
         var a = Pe(o),
           s = Math.ceil((o[0] - i[0]) / a)
-        return (i[0] += a * s), t.getTileCoordForCoordAndZ(i, n)
+        return ((i[0] += a * s), t.getTileCoordForCoordAndZ(i, n))
       }
       function sc(t, e, r, n) {
         var i = void 0 !== n ? n : Ut,
@@ -24958,7 +24995,7 @@
                 .replace(o, function () {
                   var t = a[0],
                     r = e.getFullTileRange(t)
-                  return pt(r, 55), (r.getHeight() - a[2] - 1).toString()
+                  return (pt(r, 55), (r.getHeight() - a[2] - 1).toString())
                 })
             : void 0
         }
@@ -24995,7 +25032,7 @@
             e.push(t.replace(r[0], s.toString()))
           return e
         }
-        return e.push(t), e
+        return (e.push(t), e)
       }
       function mc(t, e) {
         var r = []
@@ -25084,7 +25121,7 @@
             var a = i[i.length - 1],
               s = void 0 !== e ? e : n.localName,
               l = void 0
-            s in a ? (l = a[s]) : ((l = []), (a[s] = l)), l.push(o)
+            ;(s in a ? (l = a[s]) : ((l = []), (a[s] = l)), l.push(o))
           }
         }
       }
@@ -25096,8 +25133,8 @@
       }
       function Ac(t, e) {
         return function (r, n, i) {
-          t.call(void 0 !== e ? e : this, r, n, i),
-            i[i.length - 1].node.appendChild(r)
+          ;(t.call(void 0 !== e ? e : this, r, n, i),
+            i[i.length - 1].node.appendChild(r))
         }
       }
       function kc(t, e) {
@@ -25106,9 +25143,9 @@
           if (void 0 === r) {
             r = {}
             var a = {}
-            ;(a[e.localName] = t),
+            ;((a[e.localName] = t),
               (r[e.namespaceURI] = a),
-              (n = jc(e.localName))
+              (n = jc(e.localName)))
           }
           Bc(r, n, i, o)
         }
@@ -25119,7 +25156,8 @@
           var o = n[n.length - 1].node,
             a = r
           return (
-            void 0 === a && (a = i), Sc(void 0 !== e ? e : o.namespaceURI, a)
+            void 0 === a && (a = i),
+            Sc(void 0 !== e ? e : o.namespaceURI, a)
           )
         }
       }
@@ -25147,7 +25185,7 @@
         }
       }
       function Uc(t, e, r, n, i) {
-        return n.push(t), zc(e, r, n, i), n.pop()
+        return (n.push(t), zc(e, r, n, i), n.pop())
       }
       function Bc(t, e, r, n, i, o) {
         for (var a, s, l = (void 0 !== i ? i : r).length, u = 0; u < l; ++u)
@@ -25162,7 +25200,7 @@
             t[s.namespaceURI][s.localName].call(o, s, a, n)
       }
       function Vc(t, e, r, n, i, o, a) {
-        return i.push(t), Bc(e, r, n, i, o, a), i.pop()
+        return (i.push(t), Bc(e, r, n, i, o, a), i.pop())
       }
       var Yc = void 0
       function Wc() {
@@ -25209,10 +25247,10 @@
       }
       var Qc = (function () {
           function t(t, e) {
-            ;(this.array = null),
+            ;((this.array = null),
               (this.type = t),
               pt(34962 === t || 34963 === t, 62),
-              (this.usage = void 0 !== e ? e : $c)
+              (this.usage = void 0 !== e ? e : $c))
           }
           return (
             (t.prototype.ofSize = function (t) {
@@ -25245,19 +25283,19 @@
           function t(t) {
             this.gl_ = t.webGlContext
             var e = this.gl_
-            ;(this.scaleRatio_ = t.scaleRatio || 1),
+            ;((this.scaleRatio_ = t.scaleRatio || 1),
               (this.renderTargetTexture_ = e.createTexture()),
               (this.renderTargetTextureSize_ = null),
-              (this.frameBuffer_ = e.createFramebuffer())
+              (this.frameBuffer_ = e.createFramebuffer()))
             var r = e.createShader(e.VERTEX_SHADER)
-            e.shaderSource(
+            ;(e.shaderSource(
               r,
               t.vertexShader ||
                 '\n  precision mediump float;\n  \n  attribute vec2 a_position;\n  varying vec2 v_texCoord;\n  varying vec2 v_screenCoord;\n  \n  uniform vec2 u_screenSize;\n   \n  void main() {\n    v_texCoord = a_position * 0.5 + 0.5;\n    v_screenCoord = v_texCoord * u_screenSize;\n    gl_Position = vec4(a_position, 0.0, 1.0);\n  }\n',
             ),
-              e.compileShader(r)
+              e.compileShader(r))
             var n = e.createShader(e.FRAGMENT_SHADER)
-            e.shaderSource(
+            ;(e.shaderSource(
               n,
               t.fragmentShader ||
                 '\n  precision mediump float;\n   \n  uniform sampler2D u_image;\n   \n  varying vec2 v_texCoord;\n   \n  void main() {\n    gl_FragColor = texture2D(u_image, v_texCoord);\n  }\n',
@@ -25267,8 +25305,8 @@
               e.attachShader(this.renderTargetProgram_, r),
               e.attachShader(this.renderTargetProgram_, n),
               e.linkProgram(this.renderTargetProgram_),
-              (this.renderTargetVerticesBuffer_ = e.createBuffer())
-            e.bindBuffer(e.ARRAY_BUFFER, this.renderTargetVerticesBuffer_),
+              (this.renderTargetVerticesBuffer_ = e.createBuffer()))
+            ;(e.bindBuffer(e.ARRAY_BUFFER, this.renderTargetVerticesBuffer_),
               e.bufferData(
                 e.ARRAY_BUFFER,
                 new Float32Array([-1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, 1]),
@@ -25298,7 +25336,7 @@
                       ),
                     })
                   }.bind(this),
-                )
+                ))
           }
           return (
             (t.prototype.getGL = function () {
@@ -25321,7 +25359,7 @@
                 var n = e.RGBA,
                   i = e.RGBA,
                   o = e.UNSIGNED_BYTE
-                e.bindTexture(e.TEXTURE_2D, this.renderTargetTexture_),
+                ;(e.bindTexture(e.TEXTURE_2D, this.renderTargetTexture_),
                   e.texImage2D(e.TEXTURE_2D, 0, n, r[0], r[1], 0, i, o, null),
                   e.texParameteri(e.TEXTURE_2D, e.TEXTURE_MIN_FILTER, e.LINEAR),
                   e.texParameteri(
@@ -25340,13 +25378,13 @@
                     e.TEXTURE_2D,
                     this.renderTargetTexture_,
                     0,
-                  )
+                  ))
               }
             }),
             (t.prototype.apply = function (t, e) {
               var r = this.getGL(),
                 n = t.size
-              r.bindFramebuffer(r.FRAMEBUFFER, e ? e.getFrameBuffer() : null),
+              ;(r.bindFramebuffer(r.FRAMEBUFFER, e ? e.getFrameBuffer() : null),
                 r.activeTexture(r.TEXTURE0),
                 r.bindTexture(r.TEXTURE_2D, this.renderTargetTexture_),
                 r.clearColor(0, 0, 0, 0),
@@ -25368,7 +25406,7 @@
                 r.uniform2f(this.renderTargetUniformLocation_, n[0], n[1]),
                 r.uniform1i(this.renderTargetTextureLocation_, 0),
                 this.applyUniforms(t),
-                r.drawArrays(r.TRIANGLES, 0, 6)
+                r.drawArrays(r.TRIANGLES, 0, 6))
             }),
             (t.prototype.getFrameBuffer = function () {
               return this.frameBuffer_
@@ -25385,7 +25423,7 @@
                       : i.value) instanceof HTMLCanvasElement ||
                   e instanceof ImageData
                 )
-                  i.texture || (i.texture = r.createTexture()),
+                  (i.texture || (i.texture = r.createTexture()),
                     r.activeTexture(r['TEXTURE' + n]),
                     r.bindTexture(r.TEXTURE_2D, i.texture),
                     r.texParameteri(
@@ -25423,7 +25461,7 @@
                           r.UNSIGNED_BYTE,
                           e,
                         ),
-                    r.uniform1i(i.location, n++)
+                    r.uniform1i(i.location, n++))
                 else if (Array.isArray(e))
                   switch (e.length) {
                     case 2:
@@ -25478,11 +25516,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ah = 'u_projectionMatrix',
@@ -25521,14 +25559,14 @@
           function e(e) {
             var r = t.call(this) || this,
               n = e || {}
-            ;(r.boundHandleWebGLContextLost_ =
+            ;((r.boundHandleWebGLContextLost_ =
               r.handleWebGLContextLost.bind(r)),
               (r.boundHandleWebGLContextRestored_ =
                 r.handleWebGLContextRestored.bind(r)),
               (r.canvas_ = document.createElement('canvas')),
               (r.canvas_.style.position = 'absolute'),
               (r.canvas_.style.left = '0'),
-              (r.gl_ = bc(r.canvas_))
+              (r.gl_ = bc(r.canvas_)))
             var i = r.getGL()
             if (
               ((r.bufferCache_ = {}),
@@ -25580,51 +25618,51 @@
             }),
             (e.prototype.flushBufferData = function (t) {
               var e = this.getGL()
-              this.bindBuffer(t),
-                e.bufferData(t.getType(), t.getArray(), t.getUsage())
+              ;(this.bindBuffer(t),
+                e.bufferData(t.getType(), t.getArray(), t.getUsage()))
             }),
             (e.prototype.deleteBuffer = function (t) {
               var e = this.getGL(),
                 r = o(t),
                 n = this.bufferCache_[r]
-              e.isContextLost() || e.deleteBuffer(n.buffer),
-                delete this.bufferCache_[r]
+              ;(e.isContextLost() || e.deleteBuffer(n.buffer),
+                delete this.bufferCache_[r])
             }),
             (e.prototype.disposeInternal = function () {
-              this.canvas_.removeEventListener(
+              ;(this.canvas_.removeEventListener(
                 th,
                 this.boundHandleWebGLContextLost_,
               ),
                 this.canvas_.removeEventListener(
                   eh,
                   this.boundHandleWebGLContextRestored_,
-                )
+                ))
             }),
             (e.prototype.prepareDraw = function (t) {
               var e = this.getGL(),
                 r = this.getCanvas(),
                 n = t.size,
                 i = t.pixelRatio
-              ;(r.width = n[0] * i),
+              ;((r.width = n[0] * i),
                 (r.height = n[1] * i),
                 (r.style.width = n[0] + 'px'),
                 (r.style.height = n[1] + 'px'),
-                e.useProgram(this.currentProgram_)
+                e.useProgram(this.currentProgram_))
               for (var o = this.postProcessPasses_.length - 1; o >= 0; o--)
                 this.postProcessPasses_[o].init(t)
-              e.bindTexture(e.TEXTURE_2D, null),
+              ;(e.bindTexture(e.TEXTURE_2D, null),
                 e.clearColor(0, 0, 0, 0),
                 e.clear(e.COLOR_BUFFER_BIT),
                 e.enable(e.BLEND),
                 e.blendFunc(e.ONE, e.ONE_MINUS_SRC_ALPHA),
                 e.useProgram(this.currentProgram_),
                 this.applyFrameState(t),
-                this.applyUniforms(t)
+                this.applyUniforms(t))
             }),
             (e.prototype.prepareDrawToRenderTarget = function (t, e, r) {
               var n = this.getGL(),
                 i = e.getSize()
-              n.bindFramebuffer(n.FRAMEBUFFER, e.getFramebuffer()),
+              ;(n.bindFramebuffer(n.FRAMEBUFFER, e.getFramebuffer()),
                 n.viewport(0, 0, i[0], i[1]),
                 n.bindTexture(n.TEXTURE_2D, e.getTexture()),
                 n.clearColor(0, 0, 0, 0),
@@ -25633,7 +25671,7 @@
                 n.blendFunc(n.ONE, r ? n.ZERO : n.ONE_MINUS_SRC_ALPHA),
                 n.useProgram(this.currentProgram_),
                 this.applyFrameState(t),
-                this.applyUniforms(t)
+                this.applyUniforms(t))
             }),
             (e.prototype.drawElements = function (t, e) {
               var r = this.getGL(),
@@ -25661,7 +25699,7 @@
                 n = Ct(this.offsetScaleMatrix_)
               Mt(n, 2 / e[0], 2 / e[1])
               var i = Ct(this.offsetRotateMatrix_)
-              0 !== r && Lt(i, -r),
+              ;(0 !== r && Lt(i, -r),
                 this.setUniformMatrixValue(sh, ih(this.tmpMat4_, n)),
                 this.setUniformMatrixValue(lh, ih(this.tmpMat4_, i)),
                 this.setUniformFloatValue(
@@ -25669,7 +25707,7 @@
                   0.001 * (Date.now() - this.startTime_),
                 ),
                 this.setUniformFloatValue(ch, t.viewState.zoom),
-                this.setUniformFloatValue(hh, t.viewState.resolution)
+                this.setUniformFloatValue(hh, t.viewState.resolution))
             }),
             (e.prototype.applyUniforms = function (t) {
               var e,
@@ -25685,7 +25723,7 @@
                     e instanceof HTMLImageElement ||
                     e instanceof ImageData
                   )
-                    i.texture ||
+                    (i.texture ||
                       ((i.prevValue = void 0), (i.texture = r.createTexture())),
                       r.activeTexture(r['TEXTURE' + n]),
                       r.bindTexture(r.TEXTURE_2D, i.texture),
@@ -25715,7 +25753,7 @@
                           r.UNSIGNED_BYTE,
                           e,
                         )),
-                      r.uniform1i(this.getUniformLocation(i.name), n++)
+                      r.uniform1i(this.getUniformLocation(i.name), n++))
                   else if (Array.isArray(e) && 6 === e.length)
                     this.setUniformMatrixValue(i.name, ih(this.tmpMat4_, e))
                   else if (Array.isArray(e) && e.length <= 4)
@@ -25763,13 +25801,13 @@
             (e.prototype.compileShader = function (t, e) {
               var r = this.getGL(),
                 n = r.createShader(e)
-              return r.shaderSource(n, t), r.compileShader(n), n
+              return (r.shaderSource(n, t), r.compileShader(n), n)
             }),
             (e.prototype.getProgram = function (t, e) {
               var r = this.getGL(),
                 n = this.compileShader(t, r.FRAGMENT_SHADER),
                 i = this.compileShader(e, r.VERTEX_SHADER)
-              ;(this.shaderCompileErrors_ = null),
+              ;((this.shaderCompileErrors_ = null),
                 r.getShaderInfoLog(n) &&
                   (this.shaderCompileErrors_ =
                     'Fragment shader compilation failed:\n' +
@@ -25778,10 +25816,13 @@
                   (this.shaderCompileErrors_ =
                     (this.shaderCompileErrors_ || '') +
                     'Vertex shader compilation failed:\n' +
-                    r.getShaderInfoLog(i))
+                    r.getShaderInfoLog(i)))
               var o = r.createProgram()
               return (
-                r.attachShader(o, n), r.attachShader(o, i), r.linkProgram(o), o
+                r.attachShader(o, n),
+                r.attachShader(o, i),
+                r.linkProgram(o),
+                o
               )
             }),
             (e.prototype.getShaderCompileErrors = function () {
@@ -25833,18 +25874,18 @@
             (e.prototype.enableAttributes = function (t) {
               for (var e = fh(t), r = 0, n = 0; n < t.length; n++) {
                 var i = t[n]
-                this.enableAttributeArray_(
+                ;(this.enableAttributeArray_(
                   i.name,
                   i.size,
                   i.type || 5126,
                   e,
                   r,
                 ),
-                  (r += i.size * dh(i.type))
+                  (r += i.size * dh(i.type)))
               }
             }),
             (e.prototype.handleWebGLContextLost = function () {
-              P(this.bufferCache_), (this.currentProgram_ = null)
+              ;(P(this.bufferCache_), (this.currentProgram_ = null))
             }),
             (e.prototype.handleWebGLContextRestored = function () {}),
             (e.prototype.createTexture = function (t, e, r) {
@@ -25880,12 +25921,12 @@
           function t(t, e) {
             this.helper_ = t
             var r = t.getGL()
-            ;(this.texture_ = r.createTexture()),
+            ;((this.texture_ = r.createTexture()),
               (this.framebuffer_ = r.createFramebuffer()),
               (this.size_ = e || [1, 1]),
               (this.data_ = new Uint8Array(0)),
               (this.dataCacheDirty_ = !0),
-              this.updateSize_()
+              this.updateSize_())
           }
           return (
             (t.prototype.setSize = function (t) {
@@ -25904,7 +25945,7 @@
               if (this.dataCacheDirty_) {
                 var t = this.size_,
                   e = this.helper_.getGL()
-                e.bindFramebuffer(e.FRAMEBUFFER, this.framebuffer_),
+                ;(e.bindFramebuffer(e.FRAMEBUFFER, this.framebuffer_),
                   e.readPixels(
                     0,
                     0,
@@ -25914,13 +25955,13 @@
                     e.UNSIGNED_BYTE,
                     this.data_,
                   ),
-                  (this.dataCacheDirty_ = !1)
+                  (this.dataCacheDirty_ = !1))
               }
               return this.data_
             }),
             (t.prototype.readPixel = function (t, e) {
               if (t < 0 || e < 0 || t > this.size_[0] || e >= this.size_[1])
-                return (yh[0] = 0), (yh[1] = 0), (yh[2] = 0), (yh[3] = 0), yh
+                return ((yh[0] = 0), (yh[1] = 0), (yh[2] = 0), (yh[3] = 0), yh)
               this.readAll()
               var r =
                 Math.floor(t) +
@@ -25942,7 +25983,7 @@
             (t.prototype.updateSize_ = function () {
               var t = this.size_,
                 e = this.helper_.getGL()
-              ;(this.texture_ = this.helper_.createTexture(
+              ;((this.texture_ = this.helper_.createTexture(
                 t,
                 null,
                 this.texture_,
@@ -25956,7 +25997,7 @@
                   this.texture_,
                   0,
                 ),
-                (this.data_ = new Uint8Array(t[0] * t[1] * 4))
+                (this.data_ = new Uint8Array(t[0] * t[1] * 4)))
             }),
             t
           )
@@ -26158,12 +26199,12 @@
           },
         }
       }
-      ;(Eh.get = {
+      ;((Eh.get = {
         getReturnType: function (t) {
           return Sh
         },
         toGlsl: function (t, e) {
-          Nh(e, 1), kh(e[0])
+          ;(Nh(e, 1), kh(e[0]))
           var r = e[0].toString()
           return (
             -1 === t.attributes.indexOf(r) && t.attributes.push(r),
@@ -26176,10 +26217,11 @@
             return Sh
           },
           toGlsl: function (t, e) {
-            Nh(e, 1), kh(e[0])
+            ;(Nh(e, 1), kh(e[0]))
             var r = e[0].toString()
             return (
-              -1 === t.variables.indexOf(r) && t.variables.push(r), 'u_' + r
+              -1 === t.variables.indexOf(r) && t.variables.push(r),
+              'u_' + r
             )
           },
         }),
@@ -26188,7 +26230,7 @@
             return vh
           },
           toGlsl: function (t, e) {
-            return Nh(e, 0), 'u_time'
+            return (Nh(e, 0), 'u_time')
           },
         }),
         (Eh.zoom = {
@@ -26196,7 +26238,7 @@
             return vh
           },
           toGlsl: function (t, e) {
-            return Nh(e, 0), 'u_zoom'
+            return (Nh(e, 0), 'u_zoom')
           },
         }),
         (Eh.resolution = {
@@ -26204,7 +26246,7 @@
             return vh
           },
           toGlsl: function (t, e) {
-            return Nh(e, 0), 'u_resolution'
+            return (Nh(e, 0), 'u_resolution')
           },
         }),
         (Eh['*'] = {
@@ -26213,7 +26255,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' * ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' * ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26223,7 +26267,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' / ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' / ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26233,7 +26279,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' + ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' + ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26243,7 +26291,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' - ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' - ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26252,7 +26302,7 @@
             return vh
           },
           toGlsl: function (t, e) {
-            Nh(e, 3), Ah(e)
+            ;(Nh(e, 3), Ah(e))
             var r = Mh(t, e[1]),
               n = Mh(t, e[2])
             return 'clamp(' + Mh(t, e[0]) + ', ' + r + ', ' + n + ')'
@@ -26264,7 +26314,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), 'mod(' + Mh(t, e[0]) + ', ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              'mod(' + Mh(t, e[0]) + ', ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26274,7 +26326,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), 'pow(' + Mh(t, e[0]) + ', ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              'pow(' + Mh(t, e[0]) + ', ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26284,7 +26338,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' > ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' > ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26294,7 +26350,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' >= ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' >= ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26304,7 +26362,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' < ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' < ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26314,7 +26374,9 @@
           },
           toGlsl: function (t, e) {
             return (
-              Nh(e, 2), Ah(e), '(' + Mh(t, e[0]) + ' <= ' + Mh(t, e[1]) + ')'
+              Nh(e, 2),
+              Ah(e),
+              '(' + Mh(t, e[0]) + ' <= ' + Mh(t, e[1]) + ')'
             )
           },
         }),
@@ -26325,7 +26387,7 @@
             return xh
           },
           toGlsl: function (t, e) {
-            return Nh(e, 1), jh(e[0]), '(!' + Mh(t, e[0]) + ')'
+            return (Nh(e, 1), jh(e[0]), '(!' + Mh(t, e[0]) + ')')
           },
         }),
         (Eh.all = Vh('&&')),
@@ -26335,7 +26397,7 @@
             return xh
           },
           toGlsl: function (t, e) {
-            Nh(e, 3), Ah(e)
+            ;(Nh(e, 3), Ah(e))
             var r = Mh(t, e[1]),
               n = Mh(t, e[2]),
               i = Mh(t, e[0])
@@ -26347,7 +26409,7 @@
             return wh
           },
           toGlsl: function (t, e) {
-            Dh(e, 2), Gh(e, 4), Ah(e)
+            ;(Dh(e, 2), Gh(e, 4), Ah(e))
             var r = e.map(function (e) {
               return Mh(t, e, vh)
             })
@@ -26359,7 +26421,7 @@
             return bh
           },
           toGlsl: function (t, e) {
-            Dh(e, 3), Gh(e, 4), Ah(e)
+            ;(Dh(e, 3), Gh(e, 4), Ah(e))
             var r = e
             3 === e.length && r.push(1)
             var n = e.map(function (e, r) {
@@ -26374,7 +26436,7 @@
             return e
           },
           toGlsl: function (t, e, r) {
-            zh(e), Dh(e, 6)
+            ;(zh(e), Dh(e, 6))
             var n,
               i = e[0]
             switch (i[0]) {
@@ -26429,7 +26491,7 @@
             return (e &= Th(t[t.length - 1]))
           },
           toGlsl: function (t, e, r) {
-            zh(e), Dh(e, 4)
+            ;(zh(e), Dh(e, 4))
             var n = void 0 !== r ? r : Sh,
               i = Eh.match.getReturnType(e) & n
             Uh(e, i)
@@ -26461,7 +26523,7 @@
             return (e &= Th(t[t.length - 1]))
           },
           toGlsl: function (t, e, r) {
-            !(function (t) {
+            ;(!(function (t) {
               if (t.length % 2 == 0)
                 throw new Error(
                   'An odd amount of arguments was expected, got ' +
@@ -26469,7 +26531,7 @@
                     ' instead',
                 )
             })(e),
-              Dh(e, 3)
+              Dh(e, 3))
             var n = void 0 !== r ? r : Sh,
               i = Eh.case.getReturnType(e) & n
             Uh(e, i)
@@ -26488,10 +26550,10 @@
             }
             return s
           },
-        })
+        }))
       var Yh = (function () {
         function t() {
-          ;(this.uniforms = []),
+          ;((this.uniforms = []),
             (this.attributes = []),
             (this.varyings = []),
             (this.sizeExpression = 'vec2(1.0)'),
@@ -26500,38 +26562,41 @@
             (this.colorExpression = 'vec4(1.0)'),
             (this.texCoordExpression = 'vec4(0.0, 0.0, 1.0, 1.0)'),
             (this.discardExpression = 'false'),
-            (this.rotateWithView = !1)
+            (this.rotateWithView = !1))
         }
         return (
           (t.prototype.addUniform = function (t) {
-            return this.uniforms.push(t), this
+            return (this.uniforms.push(t), this)
           }),
           (t.prototype.addAttribute = function (t) {
-            return this.attributes.push(t), this
+            return (this.attributes.push(t), this)
           }),
           (t.prototype.addVarying = function (t, e, r) {
-            return this.varyings.push({ name: t, type: e, expression: r }), this
+            return (
+              this.varyings.push({ name: t, type: e, expression: r }),
+              this
+            )
           }),
           (t.prototype.setSizeExpression = function (t) {
-            return (this.sizeExpression = t), this
+            return ((this.sizeExpression = t), this)
           }),
           (t.prototype.setRotationExpression = function (t) {
-            return (this.rotationExpression = t), this
+            return ((this.rotationExpression = t), this)
           }),
           (t.prototype.setSymbolOffsetExpression = function (t) {
-            return (this.offsetExpression = t), this
+            return ((this.offsetExpression = t), this)
           }),
           (t.prototype.setColorExpression = function (t) {
-            return (this.colorExpression = t), this
+            return ((this.colorExpression = t), this)
           }),
           (t.prototype.setTextureCoordinateExpression = function (t) {
-            return (this.texCoordExpression = t), this
+            return ((this.texCoordExpression = t), this)
           }),
           (t.prototype.setFragmentDiscardExpression = function (t) {
-            return (this.discardExpression = t), this
+            return ((this.discardExpression = t), this)
           }),
           (t.prototype.setSymbolRotateWithView = function (t) {
-            return (this.rotateWithView = t), this
+            return ((this.rotateWithView = t), this)
           }),
           (t.prototype.getSizeExpression = function () {
             return this.sizeExpression
@@ -26706,7 +26771,7 @@
         var w = {}
         if (
           (f.variables.forEach(function (e) {
-            b.addUniform('float u_' + e),
+            ;(b.addUniform('float u_' + e),
               (w['u_' + e] = function () {
                 if (!t.variables || void 0 === t.variables[e])
                   throw new Error(
@@ -26717,23 +26782,23 @@
                   'string' == typeof r && (r = Ih(l, r)),
                   void 0 !== r ? r : -9999999
                 )
-              })
+              }))
           }),
           'image' === e.symbolType && e.src)
         ) {
           var S = new Image()
-          ;(S.src = e.src),
+          ;((S.src = e.src),
             b
               .addUniform('sampler2D u_texture')
               .setColorExpression(
                 b.getColorExpression() + ' * texture2D(u_texture, v_texCoord)',
               ),
-            (w.u_texture = S)
+            (w.u_texture = S))
         }
         return (
           f.attributes.forEach(function (t) {
-            ;-1 === l.attributes.indexOf(t) && l.attributes.push(t),
-              b.addVarying('v_' + t, 'float', 'a_' + t)
+            ;(-1 === l.attributes.indexOf(t) && l.attributes.push(t),
+              b.addVarying('v_' + t, 'float', 'a_' + t))
           }),
           l.attributes.forEach(function (t) {
             b.addAttribute('float a_' + t)
@@ -26773,11 +26838,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Xh = (function (t) {
@@ -26792,7 +26857,7 @@
                 tileSizes: e.tileSizes,
                 sizes: e.sizes,
               }) || this
-            return (r.matrixIds_ = e.matrixIds), r
+            return ((r.matrixIds_ = e.matrixIds), r)
           }
           return (
             qh(e, t),
@@ -26835,12 +26900,12 @@
               var r = (28e-5 * e.ScaleDenominator) / c,
                 u = e.TileWidth,
                 p = e.TileHeight
-              h
+              ;(h
                 ? o.push([e.TopLeftCorner[1], e.TopLeftCorner[0]])
                 : o.push(e.TopLeftCorner),
                 n.push(r),
                 a.push(u == p ? u : [u, p]),
-                s.push([e.MatrixWidth, e.MatrixHeight])
+                s.push([e.MatrixWidth, e.MatrixHeight]))
             }
           }),
           new Xh({
@@ -26855,12 +26920,12 @@
       }
       var Hh = (function () {
           function t(t) {
-            ;(this.opacity_ = t.opacity),
+            ;((this.opacity_ = t.opacity),
               (this.rotateWithView_ = t.rotateWithView),
               (this.rotation_ = t.rotation),
               (this.scale_ = t.scale),
               (this.scaleArray_ = Is(t.scale)),
-              (this.displacement_ = t.displacement)
+              (this.displacement_ = t.displacement))
           }
           return (
             (t.prototype.clone = function () {
@@ -26928,7 +26993,7 @@
               this.rotation_ = t
             }),
             (t.prototype.setScale = function (t) {
-              ;(this.scale_ = t), (this.scaleArray_ = Is(t))
+              ;((this.scale_ = t), (this.scaleArray_ = Is(t)))
             }),
             (t.prototype.listenImageChange = function (t) {
               n()
@@ -26959,11 +27024,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Jh = (function (t) {
@@ -27012,7 +27077,7 @@
                   scale: Array.isArray(t) ? t.slice() : t,
                   displacement: this.getDisplacement().slice(),
                 })
-              return r.setOpacity(this.getOpacity()), r
+              return (r.setOpacity(this.getOpacity()), r)
             }),
             (e.prototype.getAnchor = function () {
               return this.anchor_
@@ -27034,8 +27099,8 @@
               if (!this.canvas_[t || 1]) {
                 var e = this.createRenderOptions(),
                   r = uo(e.size * t || 1, e.size * t || 1)
-                this.draw_(e, r, 0, 0, t || 1),
-                  (this.canvas_[t || 1] = r.canvas)
+                ;(this.draw_(e, r, 0, 0, t || 1),
+                  (this.canvas_[t || 1] = r.canvas))
               }
               return this.canvas_[t || 1]
             }),
@@ -27105,39 +27170,41 @@
             (e.prototype.render = function () {
               var t = this.createRenderOptions(),
                 e = uo(t.size, t.size)
-              this.draw_(t, e, 0, 0, 1),
+              ;(this.draw_(t, e, 0, 0, 1),
                 (this.canvas_ = {}),
-                (this.canvas_[1] = e.canvas)
+                (this.canvas_[1] = e.canvas))
               var r = e.canvas.width,
                 n = r,
                 i = this.getDisplacement()
-              ;(this.hitDetectionImageSize_ = [t.size, t.size]),
+              ;((this.hitDetectionImageSize_ = [t.size, t.size]),
                 this.createHitDetectionCanvas_(t),
                 (this.anchor_ = [r / 2 - i[0], r / 2 + i[1]]),
                 (this.size_ = [r, r]),
-                (this.imageSize_ = [n, n])
+                (this.imageSize_ = [n, n]))
             }),
             (e.prototype.draw_ = function (t, e, r, n, i) {
               var o, a, s
-              e.setTransform(i, 0, 0, i, 0, 0), e.translate(r, n), e.beginPath()
+              ;(e.setTransform(i, 0, 0, i, 0, 0),
+                e.translate(r, n),
+                e.beginPath())
               var l = this.points_
               if (l === 1 / 0)
                 e.arc(t.size / 2, t.size / 2, this.radius_, 0, 2 * Math.PI, !0)
               else {
                 var u = void 0 !== this.radius2_ ? this.radius2_ : this.radius_
                 for (u !== this.radius_ && (l *= 2), o = 0; o <= l; o++)
-                  (a = (2 * o * Math.PI) / l - Math.PI / 2 + this.angle_),
+                  ((a = (2 * o * Math.PI) / l - Math.PI / 2 + this.angle_),
                     (s = o % 2 == 0 ? this.radius_ : u),
                     e.lineTo(
                       t.size / 2 + s * Math.cos(a),
                       t.size / 2 + s * Math.sin(a),
-                    )
+                    ))
               }
               if (this.fill_) {
                 var c = this.fill_.getColor()
-                null === c && (c = '#000'), (e.fillStyle = Tu(c)), e.fill()
+                ;(null === c && (c = '#000'), (e.fillStyle = Tu(c)), e.fill())
               }
-              this.stroke_ &&
+              ;(this.stroke_ &&
                 ((e.strokeStyle = t.strokeStyle),
                 (e.lineWidth = t.strokeWidth),
                 e.setLineDash &&
@@ -27148,7 +27215,7 @@
                 (e.lineJoin = t.lineJoin),
                 (e.miterLimit = t.miterLimit),
                 e.stroke()),
-                e.closePath()
+                e.closePath())
             }),
             (e.prototype.createHitDetectionCanvas_ = function (t) {
               if (((this.hitDetectionCanvas_ = this.getImage(1)), this.fill_)) {
@@ -27162,13 +27229,13 @@
                   0 === r)
                 ) {
                   var n = uo(t.size, t.size)
-                  ;(this.hitDetectionCanvas_ = n.canvas),
-                    this.drawHitDetectionCanvas_(t, n, 0, 0)
+                  ;((this.hitDetectionCanvas_ = n.canvas),
+                    this.drawHitDetectionCanvas_(t, n, 0, 0))
                 }
               }
             }),
             (e.prototype.drawHitDetectionCanvas_ = function (t, e, r, n) {
-              e.translate(r, n), e.beginPath()
+              ;(e.translate(r, n), e.beginPath())
               var i = this.points_
               if (i === 1 / 0)
                 e.arc(t.size / 2, t.size / 2, this.radius_, 0, 2 * Math.PI, !0)
@@ -27179,14 +27246,14 @@
                   s = void 0,
                   l = void 0
                 for (a = 0; a <= i; a++)
-                  (l = (2 * a * Math.PI) / i - Math.PI / 2 + this.angle_),
+                  ((l = (2 * a * Math.PI) / i - Math.PI / 2 + this.angle_),
                     (s = a % 2 == 0 ? this.radius_ : o),
                     e.lineTo(
                       t.size / 2 + s * Math.cos(l),
                       t.size / 2 + s * Math.sin(l),
-                    )
+                    ))
               }
-              ;(e.fillStyle = '#000'),
+              ;((e.fillStyle = '#000'),
                 e.fill(),
                 this.stroke_ &&
                   ((e.strokeStyle = t.strokeStyle),
@@ -27195,7 +27262,7 @@
                     (e.setLineDash(t.lineDash),
                     (e.lineDashOffset = t.lineDashOffset)),
                   e.stroke()),
-                e.closePath()
+                e.closePath())
             }),
             e
           )
@@ -27217,11 +27284,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         tp = (function (t) {
@@ -27254,10 +27321,10 @@
                   rotateWithView: this.getRotateWithView(),
                   displacement: this.getDisplacement().slice(),
                 })
-              return r.setOpacity(this.getOpacity()), r
+              return (r.setOpacity(this.getOpacity()), r)
             }),
             (e.prototype.setRadius = function (t) {
-              ;(this.radius_ = t), this.render()
+              ;((this.radius_ = t), this.render())
             }),
             e
           )
@@ -27306,11 +27373,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         up = null,
@@ -27335,11 +27402,11 @@
             lp(e, t),
             (e.prototype.isTainted_ = function () {
               if (void 0 === this.tainted_ && this.imageState_ === ki) {
-                up || (up = uo(1, 1)), up.drawImage(this.image_, 0, 0)
+                ;(up || (up = uo(1, 1)), up.drawImage(this.image_, 0, 0))
                 try {
-                  up.getImageData(0, 0, 1, 1), (this.tainted_ = !1)
+                  ;(up.getImageData(0, 0, 1, 1), (this.tainted_ = !1))
                 } catch (t) {
-                  ;(up = null), (this.tainted_ = !0)
+                  ;((up = null), (this.tainted_ = !0))
                 }
               }
               return !0 === this.tainted_
@@ -27348,18 +27415,18 @@
               this.dispatchEvent(F)
             }),
             (e.prototype.handleImageError_ = function () {
-              ;(this.imageState_ = ji),
+              ;((this.imageState_ = ji),
                 this.unlistenImage_(),
-                this.dispatchChangeEvent_()
+                this.dispatchChangeEvent_())
             }),
             (e.prototype.handleImageLoad_ = function () {
-              ;(this.imageState_ = ki),
+              ;((this.imageState_ = ki),
                 this.size_
                   ? ((this.image_.width = this.size_[0]),
                     (this.image_.height = this.size_[1]))
                   : (this.size_ = [this.image_.width, this.image_.height]),
                 this.unlistenImage_(),
-                this.dispatchChangeEvent_()
+                this.dispatchChangeEvent_())
             }),
             (e.prototype.getImage = function (t) {
               return (
@@ -27368,7 +27435,7 @@
               )
             }),
             (e.prototype.getPixelRatio = function (t) {
-              return this.replaceColor_(t), this.canvas_[t] ? t : 1
+              return (this.replaceColor_(t), this.canvas_[t] ? t : 1)
             }),
             (e.prototype.getImageState = function () {
               return this.imageState_
@@ -27379,7 +27446,8 @@
                   var t = this.size_[0],
                     e = this.size_[1],
                     r = uo(t, e)
-                  r.fillRect(0, 0, t, e), (this.hitDetectionImage_ = r.canvas)
+                  ;(r.fillRect(0, 0, t, e),
+                    (this.hitDetectionImage_ = r.canvas))
                 } else this.hitDetectionImage_ = this.image_
               return this.hitDetectionImage_
             }),
@@ -27407,9 +27475,9 @@
             (e.prototype.replaceColor_ = function (t) {
               if (this.color_ && !this.canvas_[t]) {
                 var e = document.createElement('canvas')
-                ;(this.canvas_[t] = e),
+                ;((this.canvas_[t] = e),
                   (e.width = Math.ceil(this.image_.width * t)),
-                  (e.height = Math.ceil(this.image_.height * t))
+                  (e.height = Math.ceil(this.image_.height * t)))
                 var r = e.getContext('2d')
                 if (
                   (r.scale(t, t),
@@ -27418,10 +27486,10 @@
                   'multiply' === r.globalCompositeOperation ||
                     this.isTainted_())
                 )
-                  (r.fillStyle = wo(this.color_)),
+                  ((r.fillStyle = wo(this.color_)),
                     r.fillRect(0, 0, e.width, e.height),
                     (r.globalCompositeOperation = 'destination-in'),
-                    r.drawImage(this.image_, 0, 0)
+                    r.drawImage(this.image_, 0, 0))
                 else {
                   for (
                     var n = r.getImageData(0, 0, e.width, e.height),
@@ -27435,10 +27503,10 @@
                     u < c;
                     u += 4
                   )
-                    (i[u] *= o),
+                    ((i[u] *= o),
                       (i[u + 1] *= a),
                       (i[u + 2] *= s),
-                      (i[u + 3] *= l)
+                      (i[u + 3] *= l))
                   r.putImageData(n, 0, 0)
                 }
               }
@@ -27451,7 +27519,7 @@
         })(M)
       function hp(t, e, r, n, i, o) {
         var a = Ao.get(e, n, o)
-        return a || ((a = new cp(t, e, r, n, i, o)), Ao.set(e, n, o, a)), a
+        return (a || ((a = new cp(t, e, r, n, i, o)), Ao.set(e, n, o, a)), a)
       }
       var pp = cp,
         fp = (function () {
@@ -27471,11 +27539,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         dp = (function (t) {
@@ -27486,7 +27554,7 @@
               a = void 0 !== n.rotation ? n.rotation : 0,
               s = void 0 !== n.scale ? n.scale : 1,
               l = void 0 !== n.rotateWithView && n.rotateWithView
-            ;((r =
+            ;(((r =
               t.call(this, {
                 opacity: i,
                 rotation: a,
@@ -27503,14 +27571,15 @@
                 void 0 !== n.anchorXUnits ? n.anchorXUnits : rp),
               (r.anchorYUnits_ =
                 void 0 !== n.anchorYUnits ? n.anchorYUnits : rp),
-              (r.crossOrigin_ = void 0 !== n.crossOrigin ? n.crossOrigin : null)
+              (r.crossOrigin_ =
+                void 0 !== n.crossOrigin ? n.crossOrigin : null))
             var u = void 0 !== n.img ? n.img : null,
               c = void 0 !== n.imgSize ? n.imgSize : null,
               h = n.src
-            pt(!(void 0 !== h && u), 4),
+            ;(pt(!(void 0 !== h && u), 4),
               pt(!u || (u && c), 5),
               (void 0 !== h && 0 !== h.length) || !u || (h = u.src || o(u)),
-              pt(void 0 !== h && h.length > 0, 6)
+              pt(void 0 !== h && h.length > 0, 6))
             var p = void 0 !== n.src ? Fi : ki
             return (
               (r.color_ = void 0 !== n.color ? Oo(n.color) : null),
@@ -27553,22 +27622,22 @@
                 e = this.getSize()
               if (this.anchorXUnits_ == rp || this.anchorYUnits_ == rp) {
                 if (!e) return null
-                ;(t = this.anchor_.slice()),
+                ;((t = this.anchor_.slice()),
                   this.anchorXUnits_ == rp && (t[0] *= e[0]),
-                  this.anchorYUnits_ == rp && (t[1] *= e[1])
+                  this.anchorYUnits_ == rp && (t[1] *= e[1]))
               }
               if (this.anchorOrigin_ != ap) {
                 if (!e) return null
-                t === this.anchor_ && (t = this.anchor_.slice()),
+                ;(t === this.anchor_ && (t = this.anchor_.slice()),
                   (this.anchorOrigin_ != sp && this.anchorOrigin_ != op) ||
                     (t[0] = -t[0] + e[0]),
                   (this.anchorOrigin_ != ip && this.anchorOrigin_ != op) ||
-                    (t[1] = -t[1] + e[1])
+                    (t[1] = -t[1] + e[1]))
               }
-              return (this.normalizedAnchor_ = t), this.normalizedAnchor_
+              return ((this.normalizedAnchor_ = t), this.normalizedAnchor_)
             }),
             (e.prototype.setAnchor = function (t) {
-              ;(this.anchor_ = t), (this.normalizedAnchor_ = null)
+              ;((this.anchor_ = t), (this.normalizedAnchor_ = null))
             }),
             (e.prototype.getColor = function () {
               return this.color_
@@ -27599,14 +27668,17 @@
                 var r = this.getSize(),
                   n = this.iconImage_.getSize()
                 if (!r || !n) return null
-                ;(t = t.slice()),
+                ;((t = t.slice()),
                   (this.offsetOrigin_ != sp && this.offsetOrigin_ != op) ||
                     (t[0] = n[0] - r[0] - t[0]),
                   (this.offsetOrigin_ != ip && this.offsetOrigin_ != op) ||
-                    (t[1] = n[1] - r[1] - t[1])
+                    (t[1] = n[1] - r[1] - t[1]))
               }
               return (
-                (t[0] += e[0]), (t[1] += e[1]), (this.origin_ = t), this.origin_
+                (t[0] += e[0]),
+                (t[1] += e[1]),
+                (this.origin_ = t),
+                this.origin_
               )
             }),
             (e.prototype.getSrc = function () {
@@ -27630,13 +27702,13 @@
         gp = (function () {
           function t(t) {
             var e = t || {}
-            ;(this.color_ = void 0 !== e.color ? e.color : null),
+            ;((this.color_ = void 0 !== e.color ? e.color : null),
               (this.lineCap_ = e.lineCap),
               (this.lineDash_ = void 0 !== e.lineDash ? e.lineDash : null),
               (this.lineDashOffset_ = e.lineDashOffset),
               (this.lineJoin_ = e.lineJoin),
               (this.miterLimit_ = e.miterLimit),
-              (this.width_ = e.width)
+              (this.width_ = e.width))
           }
           return (
             (t.prototype.clone = function () {
@@ -27701,7 +27773,7 @@
         yp = (function () {
           function t(t) {
             var e = t || {}
-            ;(this.geometry_ = null),
+            ;((this.geometry_ = null),
               (this.geometryFunction_ = xp),
               void 0 !== e.geometry && this.setGeometry(e.geometry),
               (this.fill_ = void 0 !== e.fill ? e.fill : null),
@@ -27709,7 +27781,7 @@
               (this.renderer_ = void 0 !== e.renderer ? e.renderer : null),
               (this.stroke_ = void 0 !== e.stroke ? e.stroke : null),
               (this.text_ = void 0 !== e.text ? e.text : null),
-              (this.zIndex_ = e.zIndex)
+              (this.zIndex_ = e.zIndex))
           }
           return (
             (t.prototype.clone = function () {
@@ -27766,7 +27838,7 @@
               return this.zIndex_
             }),
             (t.prototype.setGeometry = function (t) {
-              'function' == typeof t
+              ;('function' == typeof t
                 ? (this.geometryFunction_ = t)
                 : 'string' == typeof t
                   ? (this.geometryFunction_ = function (e) {
@@ -27778,7 +27850,7 @@
                         return t
                       })
                     : (this.geometryFunction_ = xp),
-                (this.geometry_ = t)
+                (this.geometry_ = t))
             }),
             (t.prototype.setZIndex = function (t) {
               this.zIndex_ = t
@@ -27792,7 +27864,7 @@
         else {
           var r
           if (Array.isArray(t)) r = t
-          else pt('function' == typeof t.getZIndex, 41), (r = [t])
+          else (pt('function' == typeof t.getZIndex, 41), (r = [t]))
           e = function () {
             return r
           }
@@ -27856,7 +27928,7 @@
         Tp = (function () {
           function t(t) {
             var e = t || {}
-            ;(this.font_ = e.font),
+            ;((this.font_ = e.font),
               (this.rotation_ = e.rotation),
               (this.rotateWithView_ = e.rotateWithView),
               (this.scale_ = e.scale),
@@ -27879,7 +27951,7 @@
               (this.backgroundStroke_ = e.backgroundStroke
                 ? e.backgroundStroke
                 : null),
-              (this.padding_ = void 0 === e.padding ? null : e.padding)
+              (this.padding_ = void 0 === e.padding ? null : e.padding))
           }
           return (
             (t.prototype.clone = function () {
@@ -27990,7 +28062,8 @@
               this.rotation_ = t
             }),
             (t.prototype.setScale = function (t) {
-              ;(this.scale_ = t), (this.scaleArray_ = Is(void 0 !== t ? t : 1))
+              ;((this.scale_ = t),
+                (this.scaleArray_ = Is(void 0 !== t ? t : 1)))
             }),
             (t.prototype.setStroke = function (t) {
               this.stroke_ = t
@@ -28018,11 +28091,11 @@
         })(),
         Cp = (function () {
           function t(t) {
-            this.first_,
+            ;(this.first_,
               this.last_,
               this.head_,
               (this.circular_ = void 0 === t || t),
-              (this.length_ = 0)
+              (this.length_ = 0))
           }
           return (
             (t.prototype.insertItem = function (t) {
@@ -28030,23 +28103,23 @@
                 r = this.head_
               if (r) {
                 var n = r.next
-                ;(e.prev = r),
+                ;((e.prev = r),
                   (e.next = n),
                   (r.next = e),
                   n && (n.prev = e),
-                  r === this.last_ && (this.last_ = e)
+                  r === this.last_ && (this.last_ = e))
               } else
-                (this.first_ = e),
+                ((this.first_ = e),
                   (this.last_ = e),
-                  this.circular_ && ((e.next = e), (e.prev = e))
-              ;(this.head_ = e), this.length_++
+                  this.circular_ && ((e.next = e), (e.prev = e)))
+              ;((this.head_ = e), this.length_++)
             }),
             (t.prototype.removeItem = function () {
               var t = this.head_
               if (t) {
                 var e = t.next,
                   r = t.prev
-                e && (e.prev = r),
+                ;(e && (e.prev = r),
                   r && (r.next = e),
                   (this.head_ = e || r),
                   this.first_ === this.last_
@@ -28057,7 +28130,7 @@
                       ? (this.first_ = this.head_)
                       : this.last_ === t &&
                         (this.last_ = r ? this.head_.prev : this.head_),
-                  this.length_--
+                  this.length_--)
               }
             }),
             (t.prototype.firstItem = function () {
@@ -28070,14 +28143,14 @@
             }),
             (t.prototype.nextItem = function () {
               if (this.head_ && this.head_.next)
-                return (this.head_ = this.head_.next), this.head_.data
+                return ((this.head_ = this.head_.next), this.head_.data)
             }),
             (t.prototype.getNextItem = function () {
               if (this.head_ && this.head_.next) return this.head_.next.data
             }),
             (t.prototype.prevItem = function () {
               if (this.head_ && this.head_.prev)
-                return (this.head_ = this.head_.prev), this.head_.data
+                return ((this.head_ = this.head_.prev), this.head_.data)
             }),
             (t.prototype.getPrevItem = function () {
               if (this.head_ && this.head_.prev) return this.head_.prev.data
@@ -28094,20 +28167,20 @@
               if (t.head_) {
                 if (this.head_) {
                   var e = this.head_.next
-                  ;(this.head_.next = t.first_),
+                  ;((this.head_.next = t.first_),
                     (t.first_.prev = this.head_),
                     (e.prev = t.last_),
                     (t.last_.next = e),
-                    (this.length_ += t.length_)
+                    (this.length_ += t.length_))
                 } else
-                  (this.head_ = t.head_),
+                  ((this.head_ = t.head_),
                     (this.first_ = t.first_),
                     (this.last_ = t.last_),
-                    (this.length_ = t.length_)
-                ;(t.head_ = void 0),
+                    (this.length_ = t.length_))
+                ;((t.head_ = void 0),
                   (t.first_ = void 0),
                   (t.last_ = void 0),
-                  (t.length_ = 0)
+                  (t.length_ = 0))
               }
             }),
             (t.prototype.getLength = function () {
@@ -28120,7 +28193,7 @@
         Pp = r.n(Op),
         Rp = (function () {
           function t(t) {
-            ;(this.rbush_ = new Pp.a(t)), (this.items_ = {})
+            ;((this.rbush_ = new Pp.a(t)), (this.items_ = {}))
           }
           return (
             (t.prototype.insert = function (t, e) {
@@ -28131,7 +28204,7 @@
                 maxY: t[3],
                 value: e,
               }
-              this.rbush_.insert(r), (this.items_[o(e)] = r)
+              ;(this.rbush_.insert(r), (this.items_[o(e)] = r))
             }),
             (t.prototype.load = function (t, e) {
               for (
@@ -28148,14 +28221,14 @@
                     maxY: a[3],
                     value: s,
                   }
-                ;(r[n] = l), (this.items_[o(s)] = l)
+                ;((r[n] = l), (this.items_[o(s)] = l))
               }
               this.rbush_.load(r)
             }),
             (t.prototype.remove = function (t) {
               var e = o(t),
                 r = this.items_[e]
-              return delete this.items_[e], null !== this.rbush_.remove(r)
+              return (delete this.items_[e], null !== this.rbush_.remove(r))
             }),
             (t.prototype.update = function (t, e) {
               var r = this.items_[o(e)]
@@ -28188,7 +28261,7 @@
               return I(this.items_)
             }),
             (t.prototype.clear = function () {
-              this.rbush_.clear(), (this.items_ = {})
+              ;(this.rbush_.clear(), (this.items_ = {}))
             }),
             (t.prototype.getExtent = function (t) {
               var e = this.rbush_.toJSON()
@@ -28203,12 +28276,12 @@
         })(),
         Ip = (function () {
           function t(t, e, r, n, i, o) {
-            ;(this.sourceProj_ = t), (this.targetProj_ = e)
+            ;((this.sourceProj_ = t), (this.targetProj_ = e))
             var a = {},
               s = Kr(this.targetProj_, this.sourceProj_)
-            ;(this.transformInv_ = function (t) {
+            ;((this.transformInv_ = function (t) {
               var e = t[0] + '/' + t[1]
-              return a[e] || (a[e] = s(t)), a[e]
+              return (a[e] || (a[e] = s(t)), a[e])
             }),
               (this.maxSourceExtent_ = n),
               (this.errorThresholdSquared_ = i * i),
@@ -28224,7 +28297,7 @@
                 : null),
               (this.targetWorldWidth_ = this.targetProj_.getExtent()
                 ? Pe(this.targetProj_.getExtent())
-                : null)
+                : null))
             var l = Ce(r),
               u = Oe(r),
               c = be(r),
@@ -28242,7 +28315,7 @@
               (this.addQuad_(l, u, c, h, p, f, d, g, y), this.wrapsXInSource_)
             ) {
               var m = 1 / 0
-              this.triangles_.forEach(function (t, e, r) {
+              ;(this.triangles_.forEach(function (t, e, r) {
                 m = Math.min(m, t.source[0][0], t.source[1][0], t.source[2][0])
               }),
                 this.triangles_.forEach(
@@ -28257,18 +28330,18 @@
                         [t.source[1][0], t.source[1][1]],
                         [t.source[2][0], t.source[2][1]],
                       ]
-                      e[0][0] - m > this.sourceWorldWidth_ / 2 &&
+                      ;(e[0][0] - m > this.sourceWorldWidth_ / 2 &&
                         (e[0][0] -= this.sourceWorldWidth_),
                         e[1][0] - m > this.sourceWorldWidth_ / 2 &&
                           (e[1][0] -= this.sourceWorldWidth_),
                         e[2][0] - m > this.sourceWorldWidth_ / 2 &&
-                          (e[2][0] -= this.sourceWorldWidth_)
+                          (e[2][0] -= this.sourceWorldWidth_))
                       var r = Math.min(e[0][0], e[1][0], e[2][0])
                       Math.max(e[0][0], e[1][0], e[2][0]) - r <
                         this.sourceWorldWidth_ / 2 && (t.source = e)
                     }
                   }.bind(this),
-                )
+                ))
             }
             a = {}
           }
@@ -28343,15 +28416,15 @@
                         b = this.transformInv_(_),
                         x = [(n[0] + t[0]) / 2, (n[1] + t[1]) / 2],
                         w = this.transformInv_(x)
-                      this.addQuad_(t, e, _, x, i, o, b, w, l - 1),
-                        this.addQuad_(x, _, r, n, w, b, a, s, l - 1)
+                      ;(this.addQuad_(t, e, _, x, i, o, b, w, l - 1),
+                        this.addQuad_(x, _, r, n, w, b, a, s, l - 1))
                     } else {
                       var S = [(t[0] + e[0]) / 2, (t[1] + e[1]) / 2],
                         E = this.transformInv_(S),
                         T = [(r[0] + n[0]) / 2, (r[1] + n[1]) / 2],
                         C = this.transformInv_(T)
-                      this.addQuad_(t, S, T, n, i, E, C, s, l - 1),
-                        this.addQuad_(S, e, r, T, E, o, a, C, l - 1)
+                      ;(this.addQuad_(t, S, T, n, i, E, C, s, l - 1),
+                        this.addQuad_(S, e, r, T, E, o, a, C, l - 1))
                     }
                     return
                   }
@@ -28360,11 +28433,11 @@
                   if (!this.canWrapXInSource_) return
                   this.wrapsXInSource_ = !0
                 }
-                0 == (11 & d) && this.addTriangle_(t, r, n, i, a, s),
+                ;(0 == (11 & d) && this.addTriangle_(t, r, n, i, a, s),
                   0 == (14 & d) && this.addTriangle_(t, r, e, i, a, o),
                   d &&
                     (0 == (13 & d) && this.addTriangle_(e, n, t, o, s, i),
-                    0 == (7 & d) && this.addTriangle_(e, n, r, o, s, a))
+                    0 == (7 & d) && this.addTriangle_(e, n, r, o, s, a)))
               }
             }),
             (t.prototype.calculateSourceExtent = function () {
@@ -28372,7 +28445,7 @@
               return (
                 this.triangles_.forEach(function (e, r, n) {
                   var i = e.source
-                  pe(t, i[0]), pe(t, i[1]), pe(t, i[2])
+                  ;(pe(t, i[0]), pe(t, i[1]), pe(t, i[2]))
                 }),
                 t
               )
@@ -28400,17 +28473,17 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Mp = (function (t) {
           function e(e, r, n, i, o, a, s, l, u, c, h, p) {
             var f = t.call(this, o, Ji) || this
-            ;(f.renderEdges_ = void 0 !== h && h),
+            ;((f.renderEdges_ = void 0 !== h && h),
               (f.contextOptions_ = p),
               (f.pixelRatio_ = s),
               (f.gutter_ = l),
@@ -28420,23 +28493,23 @@
               (f.wrappedTileCoord_ = a || o),
               (f.sourceTiles_ = []),
               (f.sourcesListenerKeys_ = null),
-              (f.sourceZ_ = 0)
+              (f.sourceZ_ = 0))
             var d = i.getTileCoordExtent(f.wrappedTileCoord_),
               g = f.targetTileGrid_.getExtent(),
               y = f.sourceTileGrid_.getExtent(),
               m = g ? Te(d, g) : d
-            if (0 === ve(m)) return (f.state = ro), f
+            if (0 === ve(m)) return ((f.state = ro), f)
             var v = e.getExtent()
             v && (y = y ? Te(y, v) : v)
             var _ = i.getResolution(f.wrappedTileCoord_[0]),
               b = ec(e, n, m, _)
-            if (!isFinite(b) || b <= 0) return (f.state = ro), f
+            if (!isFinite(b) || b <= 0) return ((f.state = ro), f)
             var x = void 0 !== c ? c : 0.5
             if (
               ((f.triangulation_ = new Ip(e, n, m, y, b * x, _)),
               0 === f.triangulation_.getTriangles().length)
             )
-              return (f.state = ro), f
+              return ((f.state = ro), f)
             f.sourceZ_ = r.getZForResolution(b)
             var w = f.triangulation_.calculateSourceExtent()
             if (
@@ -28494,7 +28567,7 @@
                   s = this.targetTileGrid_.getTileCoordExtent(
                     this.wrappedTileCoord_,
                   )
-                ;(this.canvas_ = rc(
+                ;((this.canvas_ = rc(
                   n,
                   i,
                   this.pixelRatio_,
@@ -28508,15 +28581,15 @@
                   this.renderEdges_,
                   this.contextOptions_,
                 )),
-                  (this.state = to)
+                  (this.state = to))
               }
               this.changed()
             }),
             (e.prototype.load = function () {
               if (this.state == Ji) {
-                ;(this.state = Qi), this.changed()
+                ;((this.state = Qi), this.changed())
                 var t = 0
-                ;(this.sourcesListenerKeys_ = []),
+                ;((this.sourcesListenerKeys_ = []),
                   this.sourceTiles_.forEach(
                     function (e, r, n) {
                       var i = e.getState()
@@ -28541,12 +28614,12 @@
                   this.sourceTiles_.forEach(function (t, e, r) {
                     t.getState() == Ji && t.load()
                   }),
-                  0 === t && setTimeout(this.reproject_.bind(this), 0)
+                  0 === t && setTimeout(this.reproject_.bind(this), 0))
               }
             }),
             (e.prototype.unlistenSources_ = function () {
-              this.sourcesListenerKeys_.forEach(H),
-                (this.sourcesListenerKeys_ = null)
+              ;(this.sourcesListenerKeys_.forEach(H),
+                (this.sourcesListenerKeys_ = null))
             }),
             e
           )
@@ -28571,11 +28644,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Np(t) {
@@ -28631,10 +28704,10 @@
               this.changed()
             }),
             (e.prototype.setAttributions = function (t) {
-              ;(this.attributions_ = Np(t)), this.changed()
+              ;((this.attributions_ = Np(t)), this.changed())
             }),
             (e.prototype.setState = function (t) {
-              ;(this.state_ = t), this.changed()
+              ;((this.state_ = t), this.changed())
             }),
             e
           )
@@ -28656,11 +28729,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         zp = (function (t) {
@@ -28673,10 +28746,10 @@
                 state: e.state,
                 wrapX: e.wrapX,
               }) || this
-            ;(r.opaque_ = void 0 !== e.opaque && e.opaque),
+            ;((r.opaque_ = void 0 !== e.opaque && e.opaque),
               (r.tilePixelRatio_ =
                 void 0 !== e.tilePixelRatio ? e.tilePixelRatio : 1),
-              (r.tileGrid = void 0 !== e.tileGrid ? e.tileGrid : null)
+              (r.tileGrid = void 0 !== e.tileGrid ? e.tileGrid : null))
             var n = e.tileGrid
             return (
               n && Is(n.getTileSize(n.getMinZoom()), [256, 256]),
@@ -28702,12 +28775,12 @@
               if (!i) return !1
               for (var o, a, s, l = !0, u = r.minX; u <= r.maxX; ++u)
                 for (var c = r.minY; c <= r.maxY; ++c)
-                  (a = cu(e, u, c)),
+                  ((a = cu(e, u, c)),
                     (s = !1),
                     i.containsKey(a) &&
                       (s = (o = i.get(a)).getState() === to) &&
                       (s = !1 !== n(o)),
-                    s || (l = !1)
+                    s || (l = !1))
               return l
             }),
             (e.prototype.getGutterForProjection = function (t) {
@@ -28735,7 +28808,7 @@
               return this.tileGrid ? this.tileGrid : oc(t)
             }),
             (e.prototype.getTileCacheForProjection = function (t) {
-              return pt(Xr(this.getProjection(), t), 68), this.tileCache
+              return (pt(Xr(this.getProjection(), t), 68), this.tileCache)
             }),
             (e.prototype.getTilePixelRatio = function (t) {
               return this.tilePixelRatio_
@@ -28758,7 +28831,7 @@
               this.tileCache.clear()
             }),
             (e.prototype.refresh = function () {
-              this.clear(), t.prototype.refresh.call(this)
+              ;(this.clear(), t.prototype.refresh.call(this))
             }),
             (e.prototype.updateCacheSize = function (t, e) {
               var r = this.getTileCacheForProjection(e)
@@ -28771,9 +28844,9 @@
         Up = (function (t) {
           function e(e, r) {
             var n = t.call(this, e) || this
-            return (n.tile = r), n
+            return ((n.tile = r), n)
           }
-          return Gp(e, t), e
+          return (Gp(e, t), e)
         })(c),
         Bp = zp,
         Vp = (function () {
@@ -28793,11 +28866,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Yp = (function (t) {
@@ -28847,26 +28920,26 @@
                 r = t.target,
                 n = o(r),
                 i = r.getState()
-              i == Qi
+              ;(i == Qi
                 ? ((this.tileLoadingKeys_[n] = !0), (e = Fp))
                 : n in this.tileLoadingKeys_ &&
                   (delete this.tileLoadingKeys_[n],
                   (e = i == eo ? kp : i == to ? Ap : void 0)),
-                null != e && this.dispatchEvent(new Up(e, r))
+                null != e && this.dispatchEvent(new Up(e, r)))
             }),
             (e.prototype.setTileLoadFunction = function (t) {
-              this.tileCache.clear(),
+              ;(this.tileCache.clear(),
                 (this.tileLoadFunction = t),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.setTileUrlFunction = function (t, e) {
-              ;(this.tileUrlFunction = t),
+              ;((this.tileUrlFunction = t),
                 this.tileCache.pruneExceptNewestZ(),
-                void 0 !== e ? this.setKey(e) : this.changed()
+                void 0 !== e ? this.setKey(e) : this.changed())
             }),
             (e.prototype.setUrl = function (t) {
               var e = yc(t)
-              ;(this.urls = e), this.setUrls(e)
+              ;((this.urls = e), this.setUrls(e))
             }),
             (e.prototype.setUrls = function (t) {
               this.urls = t
@@ -28900,11 +28973,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function qp(t, e) {
@@ -29075,16 +29148,16 @@
               if (this.tileCache.containsKey(a)) {
                 if ((o = this.tileCache.get(a)).key != s) {
                   var l = o
-                  ;(o = this.createTile_(t, e, r, n, i, s)),
+                  ;((o = this.createTile_(t, e, r, n, i, s)),
                     l.getState() == Ji
                       ? (o.interimTile = l.interimTile)
                       : (o.interimTile = l),
                     o.refreshInterimChain(),
-                    this.tileCache.replace(a, o)
+                    this.tileCache.replace(a, o))
                 }
               } else
-                (o = this.createTile_(t, e, r, n, i, s)),
-                  this.tileCache.set(a, o)
+                ((o = this.createTile_(t, e, r, n, i, s)),
+                  this.tileCache.set(a, o))
               return o
             }),
             (e.prototype.setRenderReprojectionEdges = function (t) {
@@ -29123,11 +29196,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Kp(t) {
@@ -29137,11 +29210,11 @@
           i = new Array(n),
           o = 1 << (n - 1)
         for (e = 0; e < n; ++e)
-          (r = 48),
+          ((r = 48),
             t[1] & o && (r += 1),
             t[2] & o && (r += 2),
             (i[e] = String.fromCharCode(r)),
-            (o >>= 1)
+            (o >>= 1))
         return i.join('')
       }
       var Hp = (function (t) {
@@ -29297,11 +29370,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Jp = (function (t) {
@@ -29340,7 +29413,7 @@
               }) || this
             )
           }
-          return $p(e, t), e
+          return ($p(e, t), e)
         })(Xp),
         Qp = (function () {
           var t = function (e, r) {
@@ -29359,11 +29432,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         tf = (function (t) {
@@ -29394,10 +29467,10 @@
               return this.config_
             }),
             (e.prototype.updateConfig = function (t) {
-              O(this.config_, t), this.initializeMap_()
+              ;(O(this.config_, t), this.initializeMap_())
             }),
             (e.prototype.setConfig = function (t) {
-              ;(this.config_ = t || {}), this.initializeMap_()
+              ;((this.config_ = t || {}), this.initializeMap_())
             }),
             (e.prototype.initializeMap_ = function () {
               var t = JSON.stringify(this.config_)
@@ -29407,14 +29480,14 @@
                 var e = 'https://' + this.account_ + '.carto.com/api/v1/map'
                 this.mapId_ && (e += '/named/' + this.mapId_)
                 var r = new XMLHttpRequest()
-                r.addEventListener(
+                ;(r.addEventListener(
                   'load',
                   this.handleInitResponse_.bind(this, t),
                 ),
                   r.addEventListener('error', this.handleInitError_.bind(this)),
                   r.open('POST', e),
                   r.setRequestHeader('Content-type', 'application/json'),
-                  r.send(JSON.stringify(this.config_))
+                  r.send(JSON.stringify(this.config_)))
               }
             }),
             (e.prototype.handleInitResponse_ = function (t, e) {
@@ -29426,9 +29499,9 @@
                 } catch (t) {
                   return void this.setState(ta)
                 }
-                this.applyTemplate_(n),
+                ;(this.applyTemplate_(n),
                   (this.templateCache_[t] = n),
-                  this.setState(Qo)
+                  this.setState(Qo))
               } else this.setState(ta)
             }),
             (e.prototype.handleInitError_ = function (t) {
@@ -29472,25 +29545,25 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         cf = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, e) || this
-            return (i.feature = r), (i.features = n), i
+            return ((i.feature = r), (i.features = n), i)
           }
-          return uf(e, t), e
+          return (uf(e, t), e)
         })(c),
         hf = (function (t) {
           function e(e) {
             var r = this,
               n = e || {}
-            ;((r =
+            ;(((r =
               t.call(this, {
                 attributions: n.attributions,
                 projection: void 0,
@@ -29504,7 +29577,7 @@
                 ? (r.loader_ = n.loader)
                 : void 0 !== r.url_ &&
                   (pt(r.format_, 7), (r.loader_ = Mu(r.url_, r.format_))),
-              (r.strategy_ = void 0 !== n.strategy ? n.strategy : Fu)
+              (r.strategy_ = void 0 !== n.strategy ? n.strategy : Fu))
             var i,
               o,
               a = void 0 === n.useSpatialIndex || n.useSpatialIndex
@@ -29528,7 +29601,7 @@
           return (
             uf(e, t),
             (e.prototype.addFeature = function (t) {
-              this.addFeatureInternal(t), this.changed()
+              ;(this.addFeatureInternal(t), this.changed())
             }),
             (e.prototype.addFeatureInternal = function (t) {
               var e = o(t)
@@ -29562,7 +29635,7 @@
               )
             }),
             (e.prototype.addFeatures = function (t) {
-              this.addFeaturesInternal(t), this.changed()
+              ;(this.addFeaturesInternal(t), this.changed())
             }),
             (e.prototype.addFeaturesInternal = function (t) {
               for (
@@ -29581,7 +29654,7 @@
                 var c = u.getGeometry()
                 if (c) {
                   var h = c.getExtent()
-                  e.push(h), n.push(u)
+                  ;(e.push(h), n.push(u))
                 } else this.nullGeometryFeatures_[s] = u
               }
               this.featuresRtree_ && this.featuresRtree_.load(e, n)
@@ -29591,7 +29664,7 @@
             }),
             (e.prototype.bindFeaturesCollection_ = function (t) {
               var e = !1
-              this.addEventListener(ef, function (r) {
+              ;(this.addEventListener(ef, function (r) {
                 e || ((e = !0), t.push(r.feature), (e = !1))
               }),
                 this.addEventListener(of, function (r) {
@@ -29609,7 +29682,7 @@
                     e || ((e = !0), this.removeFeature(t.element), (e = !1))
                   }.bind(this),
                 ),
-                (this.featuresCollection_ = t)
+                (this.featuresCollection_ = t))
             }),
             (e.prototype.clear = function (t) {
               if (t) {
@@ -29626,11 +29699,11 @@
                 ),
                 this.nullGeometryFeatures_))
                   this.removeFeatureInternal(this.nullGeometryFeatures_[r])
-              this.featuresCollection_ && this.featuresCollection_.clear(),
+              ;(this.featuresCollection_ && this.featuresCollection_.clear(),
                 this.featuresRtree_ && this.featuresRtree_.clear(),
-                (this.nullGeometryFeatures_ = {})
+                (this.nullGeometryFeatures_ = {}))
               var n = new cf(nf)
-              this.dispatchEvent(n), this.changed()
+              ;(this.dispatchEvent(n), this.changed())
             }),
             (e.prototype.forEachFeature = function (t) {
               if (this.featuresRtree_) return this.featuresRtree_.forEach(t)
@@ -29702,10 +29775,10 @@
                     if ((a = e.closestPointXY(r, n, o, a)) < u) {
                       i = t
                       var c = Math.sqrt(a)
-                      ;(s[0] = r - c),
+                      ;((s[0] = r - c),
                         (s[1] = n - c),
                         (s[2] = r + c),
-                        (s[3] = n + c)
+                        (s[3] = n + c))
                     }
                   }
                 }),
@@ -29751,8 +29824,8 @@
                 var s = a.toString()
                 this.idIndex_[s] !== e &&
                   (this.removeFromIdIndex_(e), (this.idIndex_[s] = e))
-              } else this.removeFromIdIndex_(e), (this.uidIndex_[r] = e)
-              this.changed(), this.dispatchEvent(new cf(rf, e))
+              } else (this.removeFromIdIndex_(e), (this.uidIndex_[r] = e))
+              ;(this.changed(), this.dispatchEvent(new cf(rf, e)))
             }),
             (e.prototype.hasFeature = function (t) {
               var e = t.getId()
@@ -29798,40 +29871,40 @@
                 o(s)
             }),
             (e.prototype.refresh = function () {
-              this.clear(!0),
+              ;(this.clear(!0),
                 this.loadedExtentsRtree_.clear(),
-                t.prototype.refresh.call(this)
+                t.prototype.refresh.call(this))
             }),
             (e.prototype.removeLoadedExtent = function (t) {
               var e,
                 r = this.loadedExtentsRtree_
-              r.forEachInExtent(t, function (r) {
-                if (ue(r.extent, t)) return (e = r), !0
+              ;(r.forEachInExtent(t, function (r) {
+                if (ue(r.extent, t)) return ((e = r), !0)
               }),
-                e && r.remove(e)
+                e && r.remove(e))
             }),
             (e.prototype.removeFeature = function (t) {
               var e = o(t)
-              e in this.nullGeometryFeatures_
+              ;(e in this.nullGeometryFeatures_
                 ? delete this.nullGeometryFeatures_[e]
                 : this.featuresRtree_ && this.featuresRtree_.remove(t),
                 this.removeFeatureInternal(t),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.removeFeatureInternal = function (t) {
               var e = o(t)
-              this.featureChangeKeys_[e].forEach(H),
-                delete this.featureChangeKeys_[e]
+              ;(this.featureChangeKeys_[e].forEach(H),
+                delete this.featureChangeKeys_[e])
               var r = t.getId()
-              void 0 !== r && delete this.idIndex_[r.toString()],
+              ;(void 0 !== r && delete this.idIndex_[r.toString()],
                 delete this.uidIndex_[e],
-                this.dispatchEvent(new cf(of, t))
+                this.dispatchEvent(new cf(of, t)))
             }),
             (e.prototype.removeFromIdIndex_ = function (t) {
               var e = !1
               for (var r in this.idIndex_)
                 if (this.idIndex_[r] === t) {
-                  delete this.idIndex_[r], (e = !0)
+                  ;(delete this.idIndex_[r], (e = !0))
                   break
                 }
               return e
@@ -29840,7 +29913,7 @@
               this.loader_ = t
             }),
             (e.prototype.setUrl = function (t) {
-              pt(this.format_, 7), this.setLoader(Mu(t, this.format_))
+              ;(pt(this.format_, 7), this.setLoader(Mu(t, this.format_)))
             }),
             e
           )
@@ -29862,11 +29935,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ff = (function (t) {
@@ -29882,7 +29955,7 @@
                 e.geometryFunction ||
                 function (t) {
                   var e = t.getGeometry()
-                  return pt(e.getType() == bt.POINT, 10), e
+                  return (pt(e.getType() == bt.POINT, 10), e)
                 }),
               (r.boundRefresh_ = r.refresh.bind(r)),
               r.setSource(e.source || null),
@@ -29892,7 +29965,7 @@
           return (
             pf(e, t),
             (e.prototype.clear = function (e) {
-              ;(this.features.length = 0), t.prototype.clear.call(this, e)
+              ;((this.features.length = 0), t.prototype.clear.call(this, e))
             }),
             (e.prototype.getDistance = function () {
               return this.distance
@@ -29901,25 +29974,25 @@
               return this.source
             }),
             (e.prototype.loadFeatures = function (t, e, r) {
-              this.source.loadFeatures(t, e, r),
+              ;(this.source.loadFeatures(t, e, r),
                 e !== this.resolution &&
                   (this.clear(),
                   (this.resolution = e),
                   this.cluster(),
-                  this.addFeatures(this.features))
+                  this.addFeatures(this.features)))
             }),
             (e.prototype.setDistance = function (t) {
-              ;(this.distance = t), this.refresh()
+              ;((this.distance = t), this.refresh())
             }),
             (e.prototype.setSource = function (t) {
-              this.source &&
+              ;(this.source &&
                 this.source.removeEventListener(F, this.boundRefresh_),
                 (this.source = t),
                 t && t.addEventListener(F, this.boundRefresh_),
-                this.refresh()
+                this.refresh())
             }),
             (e.prototype.refresh = function () {
-              this.clear(), this.cluster(), this.addFeatures(this.features)
+              ;(this.clear(), this.cluster(), this.addFeatures(this.features))
             }),
             (e.prototype.cluster = function () {
               if (void 0 !== this.resolution && this.source)
@@ -29937,13 +30010,13 @@
                   if (!(o(s) in n)) {
                     var l = this.geometryFunction(s)
                     if (l) {
-                      ae(l.getCoordinates(), t), Ht(t, e, t)
+                      ;(ae(l.getCoordinates(), t), Ht(t, e, t))
                       var u = this.source.getFeaturesInExtent(t)
-                      ;(u = u.filter(function (t) {
+                      ;((u = u.filter(function (t) {
                         var e = o(t)
                         return !(e in n) && ((n[e] = !0), !0)
                       })),
-                        this.features.push(this.createCluster(u))
+                        this.features.push(this.createCluster(u)))
                     }
                   }
                 }
@@ -29955,7 +30028,7 @@
               }
               Pr(e, 1 / t.length)
               var i = new gt(new qn(e))
-              return i.set('features', t), i
+              return (i.set('features', t), i)
             }),
             e
           )
@@ -29977,11 +30050,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         gf = 'default',
@@ -29989,7 +30062,7 @@
         mf = (function (t) {
           function e(e, r, n, i, o, a, s) {
             var l = t.call(this, r, n, i, o, a, s) || this
-            return (l.zoomifyImage_ = null), (l.tileSize_ = e), l
+            return ((l.zoomifyImage_ = null), (l.tileSize_ = e), l)
           }
           return (
             df(e, t),
@@ -29999,7 +30072,7 @@
               if (this.state == to) {
                 var r = this.tileSize_
                 if (e.width == r[0] && e.height == r[1])
-                  return (this.zoomifyImage_ = e), e
+                  return ((this.zoomifyImage_ = e), e)
                 var n = uo(r[0], r[1])
                 return (
                   n.drawImage(e, 0, 0),
@@ -30027,20 +30100,20 @@
             switch (o) {
               case gf:
                 for (; s > h || l > h; )
-                  u.push([Math.ceil(s / h), Math.ceil(l / h)]), (h += h)
+                  (u.push([Math.ceil(s / h), Math.ceil(l / h)]), (h += h))
                 break
               case yf:
                 for (var p = s, f = l; p > h || f > h; )
-                  u.push([Math.ceil(p / h), Math.ceil(f / h)]),
+                  (u.push([Math.ceil(p / h), Math.ceil(f / h)]),
                     (p >>= 1),
-                    (f >>= 1)
+                    (f >>= 1))
                 break
               default:
                 pt(!1, 53)
             }
-            u.push([1, 1]), u.reverse()
+            ;(u.push([1, 1]), u.reverse())
             for (var d = [a], g = [0], y = 1, m = u.length; y < m; y++)
-              d.push(a << y), g.push(u[y - 1][0] * u[y - 1][1] + g[y - 1])
+              (d.push(a << y), g.push(u[y - 1][0] * u[y - 1][1] + g[y - 1]))
             d.reverse()
             var v = new ic({
                 tileSize: c,
@@ -30104,14 +30177,14 @@
               T.addEventListener(
                 'error',
                 function () {
-                  ;(x = c), this.changed()
+                  ;((x = c), this.changed())
                 }.bind(r),
               ),
               (T.src = E),
               r
             )
           }
-          return df(e, t), e
+          return (df(e, t), e)
         })(Xp),
         _f = function () {
           for (var t = 0, e = 0, r = arguments.length; e < r; e++)
@@ -30127,7 +30200,7 @@
         xf = 'version2',
         wf = 'version3',
         Sf = {}
-      ;(Sf[bf] = {
+      ;((Sf[bf] = {
         level0: { supports: [], formats: [], qualities: ['native'] },
         level1: {
           supports: ['regionByPx', 'sizeByW', 'sizeByH', 'sizeByPct'],
@@ -30198,14 +30271,14 @@
             qualities: ['default'],
           },
         }),
-        (Sf.none = { none: { supports: [], formats: [], qualities: [] } })
+        (Sf.none = { none: { supports: [], formats: [], qualities: [] } }))
       var Ef =
           /^https?:\/\/library\.stanford\.edu\/iiif\/image-api\/(?:1\.1\/)?compliance\.html#level[0-2]$/,
         Tf = /^https?:\/\/iiif\.io\/api\/image\/2\/level[0-2](?:\.json)?$/,
         Cf =
           /(^https?:\/\/iiif\.io\/api\/image\/3\/level[0-2](?:\.json)?$)|(^level[0-2]$)/
       var Of = {}
-      ;(Of[bf] = function (t) {
+      ;((Of[bf] = function (t) {
         var e = t.getComplianceLevelSupportedFeatures()
         return (
           void 0 === e && (e = Sf[bf].level0),
@@ -30337,7 +30410,7 @@
                 : _f(e.qualities, t.imageInfo.extraQualities),
             preferredFormat: n,
           }
-        })
+        }))
       var Pf = (function () {
           function t(t) {
             this.setImageInfo(t)
@@ -30465,11 +30538,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function If(t) {
@@ -30557,10 +30630,10 @@
                 c = Math.round(Math.log(E) / Math.LN2)
               }
             else if (((l = h), (u = p), (m = []), b)) {
-              a.sort(function (t, e) {
+              ;(a.sort(function (t, e) {
                 return t[0] - e[0]
               }),
-                (c = -1)
+                (c = -1))
               var T = []
               for (S = 0; S < a.length; S++) {
                 var C = h / a[S][0]
@@ -30570,7 +30643,7 @@
               }
               if (T.length > 0)
                 for (S = 0; S < T.length; S++) a.splice(T[S] - S, 1)
-            } else m.push(1), a.push([h, p]), (c = 0)
+            } else (m.push(1), a.push([h, p]), (c = 0))
             var O = new ic({
                 tileSize: [l, u],
                 extent: _,
@@ -30677,7 +30750,7 @@
               r
             )
           }
-          return Rf(e, t), e
+          return (Rf(e, t), e)
         })(Xp),
         Mf = (function () {
           var t = function (e, r) {
@@ -30696,11 +30769,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Ff = (function (t) {
@@ -30731,8 +30804,8 @@
           return (
             Mf(e, t),
             (e.prototype.disposeInternal = function () {
-              this.state == Ai && this.unlistenSource_(),
-                t.prototype.disposeInternal.call(this)
+              ;(this.state == Ai && this.unlistenSource_(),
+                t.prototype.disposeInternal.call(this))
             }),
             (e.prototype.getImage = function () {
               return this.canvas_
@@ -30765,11 +30838,11 @@
                   this.contextOptions_,
                 )
               }
-              ;(this.state = t), this.changed()
+              ;((this.state = t), this.changed())
             }),
             (e.prototype.load = function () {
               if (this.state == Fi) {
-                ;(this.state = Ai), this.changed()
+                ;((this.state = Ai), this.changed())
                 var t = this.sourceImage_.getState()
                 t == ki || t == ji
                   ? this.reproject_()
@@ -30787,7 +30860,7 @@
               }
             }),
             (e.prototype.unlistenSource_ = function () {
-              H(this.sourceListenerKey_), (this.sourceListenerKey_ = null)
+              ;(H(this.sourceListenerKey_), (this.sourceListenerKey_ = null))
             }),
             e
           )
@@ -30809,11 +30882,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         kf = 'imageloadstart',
@@ -30822,9 +30895,9 @@
         Df = (function (t) {
           function e(e, r) {
             var n = t.call(this, e) || this
-            return (n.image = r), n
+            return ((n.image = r), n)
           }
-          return Af(e, t), e
+          return (Af(e, t), e)
         })(c)
       function Gf(t, e) {
         t.getImage().src = e
@@ -30872,8 +30945,8 @@
                     ue(this.reprojectedImage_.getExtent(), t)
                   )
                     return this.reprojectedImage_
-                  this.reprojectedImage_.dispose(),
-                    (this.reprojectedImage_ = null)
+                  ;(this.reprojectedImage_.dispose(),
+                    (this.reprojectedImage_ = null))
                 }
                 return (
                   (this.reprojectedImage_ = new Ff(
@@ -30891,7 +30964,7 @@
                   this.reprojectedImage_
                 )
               }
-              return i && (n = i), this.getImageInternal(t, e, r, n)
+              return (i && (n = i), this.getImageInternal(t, e, r, n))
             }),
             (e.prototype.getImageInternal = function (t, e, r, i) {
               return n()
@@ -30900,13 +30973,13 @@
               var e = t.target
               switch (e.getState()) {
                 case Ai:
-                  ;(this.loading = !0), this.dispatchEvent(new Df(kf, e))
+                  ;((this.loading = !0), this.dispatchEvent(new Df(kf, e)))
                   break
                 case ki:
-                  ;(this.loading = !1), this.dispatchEvent(new Df(jf, e))
+                  ;((this.loading = !1), this.dispatchEvent(new Df(jf, e)))
                   break
                 case ji:
-                  ;(this.loading = !1), this.dispatchEvent(new Df(Nf, e))
+                  ;((this.loading = !1), this.dispatchEvent(new Df(Nf, e)))
               }
             }),
             e
@@ -30929,11 +31002,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Bf = (function (t) {
@@ -30968,7 +31041,7 @@
             }),
             (e.prototype.getImageInternal = function (t, e, r, n) {
               if (void 0 === this.url_) return null
-              ;(e = this.findNearestResolution(e)), (r = this.hidpi_ ? r : 1)
+              ;((e = this.findNearestResolution(e)), (r = this.hidpi_ ? r : 1))
               var i = this.image_
               if (
                 i &&
@@ -30985,17 +31058,20 @@
               if (1 != this.ratio_) {
                 var l = (this.ratio_ * Pe(t)) / 2,
                   u = (this.ratio_ * Ee(t)) / 2
-                ;(t[0] = a - l), (t[1] = s - u), (t[2] = a + l), (t[3] = s + u)
+                ;((t[0] = a - l),
+                  (t[1] = s - u),
+                  (t[2] = a + l),
+                  (t[3] = s + u))
               }
               var c = e / r,
                 h = Math.ceil(Pe(t) / c),
                 p = Math.ceil(Ee(t) / c)
-              ;(t[0] = a - (c * h) / 2),
+              ;((t[0] = a - (c * h) / 2),
                 (t[2] = a + (c * h) / 2),
                 (t[1] = s - (c * p) / 2),
                 (t[3] = s + (c * p) / 2),
                 (this.imageSize_[0] = h),
-                (this.imageSize_[1] = p)
+                (this.imageSize_[1] = p))
               var f = this.getRequestUrl_(t, this.imageSize_, r, n, o)
               return (
                 (this.image_ = new Ki(
@@ -31019,31 +31095,31 @@
             }),
             (e.prototype.getRequestUrl_ = function (t, e, r, n, i) {
               var o = n.getCode().split(':').pop()
-              ;(i.SIZE = e[0] + ',' + e[1]),
+              ;((i.SIZE = e[0] + ',' + e[1]),
                 (i.BBOX = t.join(',')),
                 (i.BBOXSR = o),
                 (i.IMAGESR = o),
-                (i.DPI = Math.round(90 * r))
+                (i.DPI = Math.round(90 * r)))
               var a = this.url_,
                 s = a
                   .replace(/MapServer\/?$/, 'MapServer/export')
                   .replace(/ImageServer\/?$/, 'ImageServer/exportImage')
-              return s == a && pt(!1, 50), mc(s, i)
+              return (s == a && pt(!1, 50), mc(s, i))
             }),
             (e.prototype.getUrl = function () {
               return this.url_
             }),
             (e.prototype.setImageLoadFunction = function (t) {
-              ;(this.image_ = null),
+              ;((this.image_ = null),
                 (this.imageLoadFunction_ = t),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.setUrl = function (t) {
               t != this.url_ &&
                 ((this.url_ = t), (this.image_ = null), this.changed())
             }),
             (e.prototype.updateParams = function (t) {
-              O(this.params_, t), (this.image_ = null), this.changed()
+              ;(O(this.params_, t), (this.image_ = null), this.changed())
             }),
             e
           )
@@ -31065,11 +31141,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Yf = (function (t) {
@@ -31134,11 +31210,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       var qf = (function (t) {
@@ -31173,7 +31249,7 @@
               return this.params_
             }),
             (e.prototype.getImageInternal = function (t, e, r, n) {
-              ;(e = this.findNearestResolution(e)), (r = this.hidpi_ ? r : 1)
+              ;((e = this.findNearestResolution(e)), (r = this.hidpi_ ? r : 1))
               var i = this.image_
               if (
                 i &&
@@ -31206,7 +31282,7 @@
               return this.imageLoadFunction_
             }),
             (e.prototype.updateParams = function (t) {
-              O(this.params_, t), this.changed()
+              ;(O(this.params_, t), this.changed())
             }),
             (e.prototype.getUrl = function (t, e, r, n, i) {
               var o = (function (t, e, r, n) {
@@ -31233,12 +31309,12 @@
                   SETVIEWCENTERX: a[0],
                   SETVIEWCENTERY: a[1],
                 }
-              return O(s, e), mc(t, s)
+              return (O(s, e), mc(t, s))
             }),
             (e.prototype.setImageLoadFunction = function (t) {
-              ;(this.image_ = null),
+              ;((this.image_ = null),
                 (this.imageLoadFunction_ = t),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -31260,11 +31336,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Zf = (function (t) {
@@ -31312,8 +31388,8 @@
                   var l = uo(s, o)
                   O(l, this.getContextOptions())
                   var u = l.canvas
-                  l.drawImage(n, 0, 0, i, o, 0, 0, u.width, u.height),
-                    this.image_.setImage(u)
+                  ;(l.drawImage(n, 0, 0, i, o, 0, 0, u.width, u.height),
+                    this.image_.setImage(u))
                 }
               }
               t.prototype.handleImageChange.call(this, e)
@@ -31342,11 +31418,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         td = [101, 101],
@@ -31423,7 +31499,7 @@
                     : 1
                   r.SCALE = (t * i) / 28e-5
                 }
-                return O(r, e), mc(this.url_, r)
+                return (O(r, e), mc(this.url_, r))
               }
             }),
             (e.prototype.getParams = function () {
@@ -31431,10 +31507,10 @@
             }),
             (e.prototype.getImageInternal = function (t, e, r, n) {
               if (void 0 === this.url_) return null
-              ;(e = this.findNearestResolution(e)),
+              ;((e = this.findNearestResolution(e)),
                 1 == r ||
                   (this.hidpi_ && void 0 !== this.serverType_) ||
-                  (r = 1)
+                  (r = 1))
               var i = e / r,
                 o = xe(t),
                 a = Se(o, i, 0, [Math.ceil(Pe(t) / i), Math.ceil(Ee(t) / i)]),
@@ -31458,9 +31534,9 @@
                 FORMAT: 'image/png',
                 TRANSPARENT: !0,
               }
-              O(u, this.params_),
+              ;(O(u, this.params_),
                 (this.imageSize_[0] = Math.round(Pe(s) / i)),
-                (this.imageSize_[1] = Math.round(Ee(s) / i))
+                (this.imageSize_[1] = Math.round(Ee(s) / i)))
               var c = this.getRequestUrl_(s, this.imageSize_, r, n, u)
               return (
                 (this.image_ = new Ki(
@@ -31506,7 +31582,7 @@
                   default:
                     pt(!1, 8)
                 }
-              ;(i.WIDTH = e[0]), (i.HEIGHT = e[1])
+              ;((i.WIDTH = e[0]), (i.HEIGHT = e[1]))
               var a,
                 s = n.getAxisOrientation()
               return (
@@ -31522,19 +31598,19 @@
               return this.url_
             }),
             (e.prototype.setImageLoadFunction = function (t) {
-              ;(this.image_ = null),
+              ;((this.image_ = null),
                 (this.imageLoadFunction_ = t),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.setUrl = function (t) {
               t != this.url_ &&
                 ((this.url_ = t), (this.image_ = null), this.changed())
             }),
             (e.prototype.updateParams = function (t) {
-              O(this.params_, t),
+              ;(O(this.params_, t),
                 this.updateV13_(),
                 (this.image_ = null),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.updateV13_ = function () {
               var t = this.params_.VERSION || '1.3.0'
@@ -31560,11 +31636,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         nd =
@@ -31596,7 +31672,7 @@
               }) || this
             )
           }
-          return rd(e, t), e
+          return (rd(e, t), e)
         })(Jp),
         od = (function () {
           var t = function (e, r) {
@@ -31615,11 +31691,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ad = (function (t) {
@@ -31627,7 +31703,7 @@
             var r = e || {}
             return t.call(this, r) || this
           }
-          return od(e, t), e
+          return (od(e, t), e)
         })(na),
         sd = (function () {
           var t = function (e, r) {
@@ -31646,11 +31722,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ld = (function (t) {
@@ -31675,7 +31751,7 @@
               return n()
             }),
             (e.prototype.loadedTileCallback = function (t, e, r) {
-              t[e] || (t[e] = {}), (t[e][r.tileCoord.toString()] = r)
+              ;(t[e] || (t[e] = {}), (t[e][r.tileCoord.toString()] = r))
             }),
             (e.prototype.createLoadedTileFinder = function (t, e, r) {
               return function (n, i) {
@@ -31734,11 +31810,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         cd = (function (t) {
@@ -31779,16 +31855,16 @@
               ) {
                 ;(n = document.createElement('div')).className = o
                 var a = n.style
-                ;(a.position = 'absolute'),
+                ;((a.position = 'absolute'),
                   (a.width = '100%'),
-                  (a.height = '100%')
+                  (a.height = '100%'))
                 var s = (i = uo()).canvas
-                n.appendChild(s),
+                ;(n.appendChild(s),
                   ((a = s.style).position = 'absolute'),
                   (a.left = '0'),
                   (a.transformOrigin = 'top left'),
                   (this.container = n),
-                  (this.context = i)
+                  (this.context = i))
               }
             }),
             (e.prototype.clip = function (t, e, r) {
@@ -31800,7 +31876,7 @@
                 l = Oe(r),
                 u = be(r),
                 c = _e(r)
-              It(e.coordinateToPixelTransform, s),
+              ;(It(e.coordinateToPixelTransform, s),
                 It(e.coordinateToPixelTransform, l),
                 It(e.coordinateToPixelTransform, u),
                 It(e.coordinateToPixelTransform, c),
@@ -31812,19 +31888,19 @@
                 t.lineTo(u[0] * n, u[1] * n),
                 t.lineTo(c[0] * n, c[1] * n),
                 t.clip(),
-                Ca(t, a, i, o)
+                Ca(t, a, i, o))
             }),
             (e.prototype.clipUnrotated = function (t, e, r) {
               var n = Ce(r),
                 i = Oe(r),
                 o = be(r),
                 a = _e(r)
-              It(e.coordinateToPixelTransform, n),
+              ;(It(e.coordinateToPixelTransform, n),
                 It(e.coordinateToPixelTransform, i),
                 It(e.coordinateToPixelTransform, o),
-                It(e.coordinateToPixelTransform, a)
+                It(e.coordinateToPixelTransform, a))
               var s = this.inversePixelTransform
-              It(s, n),
+              ;(It(s, n),
                 It(s, i),
                 It(s, o),
                 It(s, a),
@@ -31834,7 +31910,7 @@
                 t.lineTo(Math.round(i[0]), Math.round(i[1])),
                 t.lineTo(Math.round(o[0]), Math.round(o[1])),
                 t.lineTo(Math.round(a[0]), Math.round(a[1])),
-                t.clip()
+                t.clip())
             }),
             (e.prototype.dispatchRenderEvent_ = function (t, e, r) {
               var n = this.getLayer()
@@ -31870,11 +31946,11 @@
                   l = Math.round(i[1]),
                   u = document.createElement('canvas'),
                   c = u.getContext('2d')
-                ;(u.width = 1),
+                ;((u.width = 1),
                   (u.height = 1),
                   c.clearRect(0, 0, 1, 1),
                   c.drawImage(o.canvas, s, l, 1, 1, 0, 0, 1, 1),
-                  (n = c.getImageData(0, 0, 1, 1).data)
+                  (n = c.getImageData(0, 0, 1, 1).data))
               } catch (t) {
                 return 'SecurityError' === t.name ? new Uint8Array() : n
               }
@@ -31900,17 +31976,17 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         pd = (function (t) {
           function e(e) {
             var r = t.call(this, e) || this
-            return (r.image_ = null), r
+            return ((r.image_ = null), r)
           }
           return (
             hd(e, t),
@@ -31953,9 +32029,9 @@
                 g = l.rotation
               if (g) {
                 var y = Math.round(Math.sqrt(f * f + d * d))
-                ;(f = y), (d = y)
+                ;((f = y), (d = y))
               }
-              kt(
+              ;(kt(
                 this.pixelTransform,
                 t.size[0] / 2,
                 t.size[1] / 2,
@@ -31965,7 +32041,7 @@
                 -f / 2,
                 -d / 2,
               ),
-                jt(this.inversePixelTransform, this.pixelTransform)
+                jt(this.inversePixelTransform, this.pixelTransform))
               var m = Ra(this.pixelTransform)
               this.useContainer(e, m, a.opacity)
               var v = this.context,
@@ -32002,7 +32078,7 @@
               ) {
                 var R = a.opacity,
                   I = void 0
-                1 !== R &&
+                ;(1 !== R &&
                   ((I = this.context.globalAlpha),
                   (this.context.globalAlpha = R)),
                   this.context.drawImage(
@@ -32016,7 +32092,7 @@
                     Math.round(C),
                     Math.round(P),
                   ),
-                  1 !== R && (this.context.globalAlpha = I)
+                  1 !== R && (this.context.globalAlpha = I))
               }
               return (
                 this.postRender(v, t),
@@ -32045,11 +32121,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         dd = (function (t) {
@@ -32083,11 +32159,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         vd = (function (t) {
@@ -32141,11 +32217,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         bd = (function (t) {
@@ -32217,7 +32293,7 @@
                 x = Math.round(t.size[1] * _)
               if (l) {
                 var w = Math.round(Math.sqrt(b * b + x * x))
-                ;(b = w), (x = w)
+                ;((b = w), (x = w))
               }
               var S = (y * b) / 2 / _,
                 E = (y * x) / 2 / _,
@@ -32245,8 +32321,9 @@
                   }
                   var N = f.getTileCoordChildTileRange(A.tileCoord, L, I),
                     D = !1
-                  N && (D = R(g + 1, N)),
-                    D || f.forEachTileCoordParentTileRange(A.tileCoord, R, L, I)
+                  ;(N && (D = R(g + 1, N)),
+                    D ||
+                      f.forEachTileCoordParentTileRange(A.tileCoord, R, L, I))
                 }
               var G = y / a
               kt(
@@ -32263,7 +32340,7 @@
               this.useContainer(e, z, r.opacity)
               var U = this.context,
                 B = U.canvas
-              jt(this.inversePixelTransform, this.pixelTransform),
+              ;(jt(this.inversePixelTransform, this.pixelTransform),
                 kt(this.tempTransform, b / 2, x / 2, G, G, 0, -b / 2, -x / 2),
                 B.width != b || B.height != x
                   ? ((B.width = b), (B.height = x))
@@ -32271,16 +32348,16 @@
                 v && this.clipUnrotated(U, t, v),
                 O(U, h.getContextOptions()),
                 this.preRender(U, t),
-                (this.renderedTiles.length = 0)
+                (this.renderedTiles.length = 0))
               var V,
                 Y,
                 W,
                 q = Object.keys(P).map(Number)
-              q.sort(d),
+              ;(q.sort(d),
                 1 !== r.opacity ||
                 (this.containerReused && !h.getOpaque(t.viewState.projection))
                   ? ((V = []), (Y = []))
-                  : (q = q.reverse())
+                  : (q = q.reverse()))
               for (var X = q.length - 1; X >= 0; --X) {
                 var Z = q[X],
                   K = h.getTilePixelSize(Z, u, i),
@@ -32306,12 +32383,12 @@
                     pt = g === Z
                   if (!(j = pt && 1 !== A.getAlpha(o(this), t.time)))
                     if (V) {
-                      U.save(),
-                        (W = [M, F, M + ct, F, M + ct, F + ht, M, F + ht])
+                      ;(U.save(),
+                        (W = [M, F, M + ct, F, M + ct, F + ht, M, F + ht]))
                       for (var ft = 0, dt = V.length; ft < dt; ++ft)
                         if (g !== Z && Z < Y[ft]) {
                           var gt = V[ft]
-                          U.beginPath(),
+                          ;(U.beginPath(),
                             U.moveTo(W[0], W[1]),
                             U.lineTo(W[2], W[3]),
                             U.lineTo(W[4], W[5]),
@@ -32320,14 +32397,14 @@
                             U.lineTo(gt[4], gt[5]),
                             U.lineTo(gt[2], gt[3]),
                             U.lineTo(gt[0], gt[1]),
-                            U.clip()
+                            U.clip())
                         }
-                      V.push(W), Y.push(Z)
+                      ;(V.push(W), Y.push(Z))
                     } else U.clearRect(M, F, ct, ht)
-                  this.drawTileImage(A, t, M, F, ct, ht, rt, pt, r.opacity),
+                  ;(this.drawTileImage(A, t, M, F, ct, ht, rt, pt, r.opacity),
                     V && !j && U.restore(),
                     this.renderedTiles.push(A),
-                    this.updateUsedTiles(t.usedTiles, h, A)
+                    this.updateUsedTiles(t.usedTiles, h, A))
                 }
               }
               return (
@@ -32353,7 +32430,7 @@
                   p = l ? t.getAlpha(h, e.time) : 1,
                   f = u * p,
                   d = f !== this.context.globalAlpha
-                d && (this.context.save(), (this.context.globalAlpha = f)),
+                ;(d && (this.context.save(), (this.context.globalAlpha = f)),
                   this.context.drawImage(
                     c,
                     s,
@@ -32366,7 +32443,7 @@
                     a,
                   ),
                   d && this.context.restore(),
-                  1 !== p ? (e.animate = !0) : l && t.endTransition(h)
+                  1 !== p ? (e.animate = !0) : l && t.endTransition(h))
               }
             }),
             (e.prototype.getImage = function () {
@@ -32388,7 +32465,7 @@
             }),
             (e.prototype.updateUsedTiles = function (t, e, r) {
               var n = o(e)
-              n in t || (t[n] = {}), (t[n][r.getKey()] = !0)
+              ;(n in t || (t[n] = {}), (t[n][r.getKey()] = !0))
             }),
             (e.prototype.manageTilePyramid = function (
               t,
@@ -32458,11 +32535,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Sd = (function (t) {
@@ -32494,11 +32571,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Td = !0
@@ -32511,7 +32588,7 @@
       function Od(t, e, r) {
         if (Td) return new ImageData(t, e, r)
         var n = Cd.createImageData(e, r)
-        return n.data.set(t), n
+        return (n.data.set(t), n)
       }
       function Pd(t) {
         var e = !0
@@ -32542,20 +32619,20 @@
             var f = new Array(c),
               d = new Array(c)
             for (i = 0; i < c; ++i)
-              (f[i] = new Uint8ClampedArray(o[i])), (d[i] = [0, 0, 0, 0])
+              ((f[i] = new Uint8ClampedArray(o[i])), (d[i] = [0, 0, 0, 0]))
             for (var g = 0; g < h; g += 4) {
               for (var y = 0; y < c; ++y) {
                 var m = f[y]
-                ;(d[y][0] = m[g]),
+                ;((d[y][0] = m[g]),
                   (d[y][1] = m[g + 1]),
                   (d[y][2] = m[g + 2]),
-                  (d[y][3] = m[g + 3])
+                  (d[y][3] = m[g + 3]))
               }
               var v = t(d, a)
-              ;(n[g] = v[0]),
+              ;((n[g] = v[0]),
                 (n[g + 1] = v[1]),
                 (n[g + 2] = v[2]),
-                (n[g + 3] = v[3])
+                (n[g + 3] = v[3]))
             }
           }
           return n.buffer
@@ -32578,7 +32655,7 @@
           n = new Blob(r, { type: 'text/javascript' }),
           i = URL.createObjectURL(n),
           o = new Worker(i)
-        return o.addEventListener('message', e), o
+        return (o.addEventListener('message', e), o)
       }
       var Id = (function (t) {
           function e(e) {
@@ -32617,8 +32694,8 @@
           return (
             Ed(e, t),
             (e.prototype.process = function (t, e, r) {
-              this._enqueue({ inputs: t, meta: e, callback: r }),
-                this._dispatch()
+              ;(this._enqueue({ inputs: t, meta: e, callback: r }),
+                this._dispatch())
             }),
             (e.prototype._enqueue = function (t) {
               for (
@@ -32684,26 +32761,26 @@
                 r = this._job,
                 n = this._workers.length
               if (1 === n)
-                (t = new Uint8ClampedArray(this._dataLookup[0].buffer)),
-                  (e = this._dataLookup[0].meta)
+                ((t = new Uint8ClampedArray(this._dataLookup[0].buffer)),
+                  (e = this._dataLookup[0].meta))
               else {
                 var i = r.inputs[0].data.length
-                ;(t = new Uint8ClampedArray(i)), (e = new Array(i))
+                ;((t = new Uint8ClampedArray(i)), (e = new Array(i)))
                 for (var o = 4 * Math.ceil(i / 4 / n), a = 0; a < n; ++a) {
                   var s = this._dataLookup[a].buffer,
                     l = a * o
-                  t.set(new Uint8ClampedArray(s), l),
-                    (e[a] = this._dataLookup[a].meta)
+                  ;(t.set(new Uint8ClampedArray(s), l),
+                    (e[a] = this._dataLookup[a].meta))
                 }
               }
-              ;(this._job = null),
+              ;((this._job = null),
                 (this._dataLookup = {}),
                 r.callback(
                   null,
                   Od(t, r.inputs[0].width, r.inputs[0].height),
                   e,
                 ),
-                this._dispatch()
+                this._dispatch())
             }),
             (e.prototype.disposeInternal = function () {
               for (var t = 0; t < this._workers.length; ++t)
@@ -32727,12 +32804,12 @@
               i
             )
           }
-          return Ed(e, t), e
+          return (Ed(e, t), e)
         })(c),
         jd = (function (t) {
           function e(e) {
             var r = t.call(this, { projection: null }) || this
-            ;(r.processor_ = null),
+            ;((r.processor_ = null),
               (r.operationType_ =
                 void 0 !== e.operationType ? e.operationType : Fd),
               (r.threads_ = void 0 !== e.threads ? e.threads : 1),
@@ -32740,7 +32817,7 @@
                 for (var e = t.length, r = new Array(e), n = 0; n < e; ++n)
                   r[n] = Gd(t[n])
                 return r
-              })(e.sources))
+              })(e.sources)))
             for (
               var n, i = r.changed.bind(r), o = 0, a = r.layers_.length;
               o < a;
@@ -32795,7 +32872,7 @@
           return (
             Ed(e, t),
             (e.prototype.setOperation = function (t, e) {
-              this.processor_ && this.processor_.dispose(),
+              ;(this.processor_ && this.processor_.dispose(),
                 (this.processor_ = new Id({
                   operation: t,
                   imageOps: this.operationType_ === Ad,
@@ -32803,18 +32880,18 @@
                   lib: e,
                   threads: this.threads_,
                 })),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.updateFrameState_ = function (t, e, r) {
               var n = O({}, this.frameState_)
               n.viewState = O({}, n.viewState)
               var i = xe(t)
-              ;(n.extent = t.slice()),
+              ;((n.extent = t.slice()),
                 (n.size[0] = Math.round(Pe(t) / e)),
                 (n.size[1] = Math.round(Ee(t) / e)),
-                (n.time = 1 / 0)
+                (n.time = 1 / 0))
               var o = n.viewState
-              return (o.center = i), (o.projection = r), (o.resolution = e), n
+              return ((o.center = i), (o.projection = r), (o.resolution = e), n)
             }),
             (e.prototype.allSourcesReady_ = function () {
               for (var t = !0, e = 0, r = this.layers_.length; e < r; ++e)
@@ -32858,12 +32935,12 @@
                 r[n] = i
               }
               var o = {}
-              this.dispatchEvent(new kd(Ld, t, o)),
+              ;(this.dispatchEvent(new kd(Ld, t, o)),
                 this.processor_.process(
                   r,
                   o,
                   this.onWorkerComplete_.bind(this, t),
-                )
+                ))
             }),
             (e.prototype.onWorkerComplete_ = function (t, e, r, n) {
               if (!e && r) {
@@ -32877,12 +32954,12 @@
                   if (this.renderedImageCanvas_)
                     a = this.renderedImageCanvas_.getImage().getContext('2d')
                   else
-                    (a = uo(Math.round(Pe(i) / o), Math.round(Ee(i) / o))),
-                      (this.renderedImageCanvas_ = new $i(i, o, 1, a.canvas))
-                  a.putImageData(r, 0, 0),
+                    ((a = uo(Math.round(Pe(i) / o), Math.round(Ee(i) / o))),
+                      (this.renderedImageCanvas_ = new $i(i, o, 1, a.canvas)))
+                  ;(a.putImageData(r, 0, 0),
                     this.changed(),
                     (this.renderedRevision_ = this.getRevision()),
-                    this.dispatchEvent(new kd(Md, t, n))
+                    this.dispatchEvent(new kd(Md, t, n)))
                 }
               }
             }),
@@ -32890,8 +32967,8 @@
               return null
             }),
             (e.prototype.disposeInternal = function () {
-              this.processor_ && this.processor_.dispose(),
-                t.prototype.disposeInternal.call(this)
+              ;(this.processor_ && this.processor_.dispose(),
+                t.prototype.disposeInternal.call(this))
             }),
             e
           )
@@ -32917,7 +32994,7 @@
             ? (Nd = uo(n, i))
             : Nd.clearRect(0, 0, n, i)
         } else Nd = uo(n, i)
-        return Nd.drawImage(o, 0, 0, n, i), Nd.getImageData(0, 0, n, i)
+        return (Nd.drawImage(o, 0, 0, n, i), Nd.getImageData(0, 0, n, i))
       }
       function Gd(t) {
         var e
@@ -32948,11 +33025,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Bd = [
@@ -33007,7 +33084,7 @@
               }) || this
             )
           }
-          return Ud(e, t), e
+          return (Ud(e, t), e)
         })(Jp),
         qd = (function () {
           var t = function (e, r) {
@@ -33026,11 +33103,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Xd = (function (t) {
@@ -33097,7 +33174,7 @@
               return this.hidpi_ ? t : 1
             }),
             (e.prototype.updateParams = function (t) {
-              O(this.params_, t), this.setKey(this.getKeyForParams_())
+              ;(O(this.params_, t), this.setKey(this.getKeyForParams_()))
             }),
             (e.prototype.tileUrlFunction = function (t, e, r) {
               var n = this.getTileGrid()
@@ -33110,7 +33187,10 @@
                   o = Is(n.getTileSize(t[0]), this.tmpSize)
                 1 != e && (o = Rs(o, e, this.tmpSize))
                 var a = { F: 'image', FORMAT: 'PNG32', TRANSPARENT: !0 }
-                return O(a, this.params_), this.getRequestUrl_(t, o, i, e, r, a)
+                return (
+                  O(a, this.params_),
+                  this.getRequestUrl_(t, o, i, e, r, a)
+                )
               }
             }),
             e
@@ -33133,17 +33213,17 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Kd = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, e, to) || this
-            return (i.tileSize_ = r), (i.text_ = n), (i.canvas_ = null), i
+            return ((i.tileSize_ = r), (i.text_ = n), (i.canvas_ = null), i)
           }
           return (
             Zd(e, t),
@@ -33194,7 +33274,7 @@
                 s = void 0
               s = a ? 'z:' + a[0] + ' x:' + a[1] + ' y:' + a[2] : 'none'
               var l = new Kd(o, i, s)
-              return this.tileCache.set(n, l), l
+              return (this.tileCache.set(n, l), l)
             }),
             e
           )
@@ -33216,11 +33296,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Jd = (function (t) {
@@ -33247,10 +33327,10 @@
                 )
               else {
                 var n = new XMLHttpRequest()
-                n.addEventListener('load', r.onXHRLoad_.bind(r)),
+                ;(n.addEventListener('load', r.onXHRLoad_.bind(r)),
                   n.addEventListener('error', r.onXHRError_.bind(r)),
                   n.open('GET', e.url),
-                  n.send()
+                  n.send())
               }
             else e.tileJSON ? r.handleTileJSONResponse(e.tileJSON) : pt(!1, 51)
             return r
@@ -33301,7 +33381,7 @@
                   return Re(l, e.extent) ? [t.attribution] : null
                 })
               }
-              ;(this.tileJSON_ = t), this.setState(Qo)
+              ;((this.tileJSON_ = t), this.setState(Qo))
             }),
             (e.prototype.handleTileJSONError = function () {
               this.setState(ta)
@@ -33326,11 +33406,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         tg = (function (t) {
@@ -33381,11 +33461,13 @@
                   c = a.getTileCoordExtent(l, this.tmpExtent_),
                   h = Is(a.getTileSize(l[0]), this.tmpSize),
                   p = this.gutter_
-                0 !== p &&
+                ;(0 !== p &&
                   ((h = Os(h, p, this.tmpSize)), (c = Ht(c, u * p, c))),
                   o &&
                     o !== i &&
-                    ((u = tc(o, i, t, u)), (c = $r(c, i, o)), (t = Hr(t, i, o)))
+                    ((u = tc(o, i, t, u)),
+                    (c = $r(c, i, o)),
+                    (t = Hr(t, i, o))))
                 var f = {
                   SERVICE: 'WMS',
                   VERSION: '1.3.0',
@@ -33423,7 +33505,7 @@
                     : 1
                   r.SCALE = (t * i) / 28e-5
                 }
-                return O(r, e), mc(this.urls[0], r)
+                return (O(r, e), mc(this.urls[0], r))
               }
             }),
             (e.prototype.getGutter = function () {
@@ -33464,12 +33546,12 @@
                   c = r
                 if (this.v13_ && 'ne' == u.substr(0, 2)) {
                   var h = void 0
-                  ;(h = r[0]),
+                  ;((h = r[0]),
                     (c[0] = r[1]),
                     (c[1] = h),
                     (h = r[2]),
                     (c[2] = r[3]),
-                    (c[3] = h)
+                    (c[3] = h))
                 }
                 if (((o.BBOX = c.join(',')), 1 == a.length)) l = a[0]
                 else l = a[We(fu(t), a.length)]
@@ -33486,9 +33568,9 @@
               return e.join('/')
             }),
             (e.prototype.updateParams = function (t) {
-              O(this.params_, t),
+              ;(O(this.params_, t),
                 this.updateV13_(),
-                this.setKey(this.getKeyForParams_())
+                this.setKey(this.getKeyForParams_()))
             }),
             (e.prototype.updateV13_ = function () {
               var t = this.params_.VERSION || '1.3.0'
@@ -33507,9 +33589,9 @@
                   o = n.getTileCoordExtent(t, this.tmpExtent_),
                   a = Is(n.getTileSize(t[0]), this.tmpSize),
                   s = this.gutter_
-                0 !== s &&
+                ;(0 !== s &&
                   ((a = Os(a, s, this.tmpSize)), (o = Ht(o, i * s, o))),
-                  1 != e && (a = Rs(a, e, this.tmpSize))
+                  1 != e && (a = Rs(a, e, this.tmpSize)))
                 var l = {
                   SERVICE: 'WMS',
                   VERSION: '1.3.0',
@@ -33517,7 +33599,10 @@
                   FORMAT: 'image/png',
                   TRANSPARENT: !0,
                 }
-                return O(l, this.params_), this.getRequestUrl_(t, a, o, e, r, l)
+                return (
+                  O(l, this.params_),
+                  this.getRequestUrl_(t, a, o, e, r, l)
+                )
               }
             }),
             e
@@ -33540,11 +33625,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         rg = (function (t) {
@@ -33577,7 +33662,7 @@
                 n = this.grid_[Math.floor((1 - r) * this.grid_.length)]
               if ('string' != typeof n) return null
               var i = n.charCodeAt(Math.floor(e * n.length))
-              i >= 93 && i--, i >= 35 && i--
+              ;(i >= 93 && i--, i >= 35 && i--)
               var o = null
               if ((i -= 32) in this.keys_) {
                 var a = this.keys_[i]
@@ -33610,14 +33695,14 @@
               return this.src_
             }),
             (e.prototype.handleError_ = function () {
-              ;(this.state = eo), this.changed()
+              ;((this.state = eo), this.changed())
             }),
             (e.prototype.handleLoad_ = function (t) {
-              ;(this.grid_ = t.grid),
+              ;((this.grid_ = t.grid),
                 (this.keys_ = t.keys),
                 (this.data_ = t.data),
                 (this.state = to),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.loadInternal_ = function () {
               if (this.state == Ji)
@@ -33629,10 +33714,10 @@
                   )
                 else {
                   var t = new XMLHttpRequest()
-                  t.addEventListener('load', this.onXHRLoad_.bind(this)),
+                  ;(t.addEventListener('load', this.onXHRLoad_.bind(this)),
                     t.addEventListener('error', this.onXHRError_.bind(this)),
                     t.open('GET', this.src_),
-                    t.send()
+                    t.send())
                 }
             }),
             (e.prototype.onXHRLoad_ = function (t) {
@@ -33675,10 +33760,10 @@
                 )
               else {
                 var n = new XMLHttpRequest()
-                n.addEventListener('load', r.onXHRLoad_.bind(r)),
+                ;(n.addEventListener('load', r.onXHRLoad_.bind(r)),
                   n.addEventListener('error', r.onXHRError_.bind(r)),
                   n.open('GET', e.url),
-                  n.send()
+                  n.send())
               }
             else e.tileJSON ? r.handleTileJSONResponse(e.tileJSON) : pt(!1, 51)
             return r
@@ -33740,7 +33825,7 @@
               var o = t.minzoom || 0,
                 a = t.maxzoom || 22,
                 s = lc({ extent: hc(n), maxZoom: a, minZoom: o })
-              ;(this.tileGrid = s), (this.template_ = t.template)
+              ;((this.tileGrid = s), (this.template_ = t.template))
               var l = t.grids
               if (l) {
                 if (
@@ -33768,7 +33853,7 @@
                   this.preemptive_,
                   this.jsonp_,
                 )
-              return this.tileCache.set(o, u), u
+              return (this.tileCache.set(o, u), u)
             }),
             (e.prototype.useTile = function (t, e, r) {
               var n = cu(t, e, r)
@@ -33794,11 +33879,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         og = (function (t) {
@@ -33879,11 +33964,11 @@
               return this.overlaps_
             }),
             (e.prototype.clear = function () {
-              this.tileCache.clear(), this.sourceTileCache.clear()
+              ;(this.tileCache.clear(), this.sourceTileCache.clear())
             }),
             (e.prototype.expireCache = function (e, r) {
-              t.prototype.expireCache.call(this, e, r),
-                this.sourceTileCache.expireCache({})
+              ;(t.prototype.expireCache.call(this, e, r),
+                this.sourceTileCache.expireCache({}))
             }),
             (e.prototype.getSourceTiles = function (t, e, r) {
               var n = r.wrappedTileCoord,
@@ -33902,11 +33987,11 @@
                 d = l.getMinZoom(),
                 g = r.sourceTiles
               if (g && g.length > 0 && g[0].tileCoord[0] === f)
-                (c = g), (h = !0), (p = f)
+                ((c = g), (h = !0), (p = f))
               else {
-                ;(c = []), (p = f + 1)
+                ;((c = []), (p = f + 1))
                 do {
-                  --p,
+                  ;(--p,
                     (h = !0),
                     l.forEachTileCoord(
                       o,
@@ -33936,7 +34021,7 @@
                                 this.handleTileChange.bind(this),
                               ),
                               i.load())
-                        ;(h = h && i && i.getState() === to),
+                        ;((h = h && i && i.getState() === to),
                           i &&
                             i.getState() !== ro &&
                             r.getState() === Ji &&
@@ -33958,10 +34043,10 @@
                                   (r.sourceZ = f),
                                   r.setState(to))
                               }
-                            }))
+                            })))
                       }.bind(this),
                     ),
-                    h || (c.length = 0)
+                    h || (c.length = 0))
                 } while (!h && p > d)
               }
               return (
@@ -33990,7 +34075,7 @@
                 h = this.getTileGridForProjection(i)
               if (u && c) {
                 var p = h.getTileCoordExtent(u)
-                Ht(p, -h.getResolution(t), p), Re(c, p) || (u = null)
+                ;(Ht(p, -h.getResolution(t), p), Re(c, p) || (u = null))
               }
               var f = !0
               if (null !== u) {
@@ -33998,14 +34083,14 @@
                   g = h.getResolution(t),
                   y = d.getZForResolution(g, 1),
                   m = h.getTileCoordExtent(u)
-                Ht(m, -g, m),
+                ;(Ht(m, -g, m),
                   d.forEachTileCoord(
                     m,
                     y,
                     function (t) {
                       f = f && !this.tileUrlFunction(t, n, i)
                     }.bind(this),
-                  )
+                  ))
               }
               var v = new wu(
                 l,
@@ -34028,12 +34113,12 @@
                 r = this.tileGrids_[e]
               if (!r) {
                 var n = this.tileGrid
-                ;(r = cc(
+                ;((r = cc(
                   t,
                   void 0,
                   n ? n.getTileSize(n.getMinZoom()) : void 0,
                 )),
-                  (this.tileGrids_[e] = r)
+                  (this.tileGrids_[e] = r))
               }
               return r
             }),
@@ -34077,11 +34162,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         cg = (function (t) {
@@ -34163,7 +34248,8 @@
               return e.join('/')
             }),
             (e.prototype.updateDimensions = function (t) {
-              O(this.dimensions_, t), this.setKey(this.getKeyForDimensions_())
+              ;(O(this.dimensions_, t),
+                this.setKey(this.getKeyForDimensions_()))
             }),
             (e.prototype.createFromWMTSTemplate = function (t) {
               var e = this.requestEncoding_,
@@ -34172,7 +34258,7 @@
                   style: this.style_,
                   tilematrixset: this.matrixSet_,
                 }
-              e == sg &&
+              ;(e == sg &&
                 O(r, {
                   Service: 'WMTS',
                   Request: 'GetTile',
@@ -34184,7 +34270,7 @@
                     ? mc(t, r)
                     : t.replace(/\{(\w+?)\}/g, function (t, e) {
                         return e.toLowerCase() in r ? r[e.toLowerCase()] : t
-                      }))
+                      })))
               var n = this.tileGrid,
                 i = this.dimensions_
               return function (r, o, a) {
@@ -34225,11 +34311,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         pg = 'GENERATE_BUFFERS',
@@ -34250,7 +34336,7 @@
           return (
             hg(e, t),
             (e.prototype.disposeInternal = function () {
-              this.helper.dispose(), t.prototype.disposeInternal.call(this)
+              ;(this.helper.dispose(), t.prototype.disposeInternal.call(this))
             }),
             (e.prototype.getShaderCompileErrors = function () {
               return this.helper.getShaderCompileErrors()
@@ -34274,7 +34360,7 @@
         dg = [],
         gg = { vertexPosition: 0, indexPosition: 0 }
       function yg(t, e, r, n, i) {
-        ;(t[e + 0] = r), (t[e + 1] = n), (t[e + 2] = i)
+        ;((t[e + 0] = r), (t[e + 1] = n), (t[e + 2] = i))
       }
       function mg(t, e) {
         var r = e || []
@@ -34313,11 +34399,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         xg = 'renderOrder',
@@ -34373,16 +34459,16 @@
               return this.updateWhileInteracting_
             }),
             (e.prototype.renderDeclutter = function (t) {
-              t.declutterTree || (t.declutterTree = new Pp.a(9)),
-                this.getRenderer().renderDeclutter(t)
+              ;(t.declutterTree || (t.declutterTree = new Pp.a(9)),
+                this.getRenderer().renderDeclutter(t))
             }),
             (e.prototype.setRenderOrder = function (t) {
               this.set(xg, t)
             }),
             (e.prototype.setStyle = function (t) {
-              ;(this.style_ = void 0 !== t ? t : _p),
+              ;((this.style_ = void 0 !== t ? t : _p),
                 (this.styleFunction_ = null === t ? void 0 : mp(this.style_)),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -34404,11 +34490,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Eg = (function (t) {
@@ -34416,7 +34502,7 @@
             var n = this,
               i = r.uniforms || {},
               a = [1, 0, 0, 1, 0, 0]
-            ;(i[ah] = a),
+            ;((i[ah] = a),
               ((n =
                 t.call(this, e, {
                   className: r.className,
@@ -34435,13 +34521,13 @@
               )),
               (n.hitProgram_ =
                 n.hitDetectionEnabled_ &&
-                n.helper.getProgram(r.hitFragmentShader, r.hitVertexShader))
+                n.helper.getProgram(r.hitFragmentShader, r.hitVertexShader)))
             var s = r.attributes
               ? r.attributes.map(function (t) {
                   return { name: 'a_' + t.name, size: 1, type: ph.FLOAT }
                 })
               : []
-            ;(n.attributes = [
+            ;((n.attributes = [
               { name: 'a_position', size: 2, type: ph.FLOAT },
               { name: 'a_index', size: 1, type: ph.FLOAT },
             ].concat(s)),
@@ -34466,7 +34552,7 @@
                   var e = t.data
                   if (e.type === pg) {
                     var r = e.projectionTransform
-                    e.hitDetection
+                    ;(e.hitDetection
                       ? (this.hitVerticesBuffer_.fromArrayBuffer(
                           e.vertexBuffer,
                         ),
@@ -34484,12 +34570,12 @@
                         : (this.renderInstructions_ = new Float32Array(
                             t.data.renderInstructions,
                           )),
-                      this.getLayer().changed()
+                      this.getLayer().changed())
                   }
                 }.bind(n),
               ),
               (n.featureCache_ = {}),
-              (n.featureCount_ = 0)
+              (n.featureCount_ = 0))
             var l = n.getLayer().getSource()
             return (
               (n.sourceListenKeys_ = [
@@ -34500,12 +34586,12 @@
               ]),
               l.forEachFeature(
                 function (t) {
-                  ;(this.featureCache_[o(t)] = {
+                  ;((this.featureCache_[o(t)] = {
                     feature: t,
                     properties: t.getProperties(),
                     geometry: t.getGeometry(),
                   }),
-                    this.featureCount_++
+                    this.featureCount_++)
                 }.bind(n),
               ),
               n
@@ -34515,12 +34601,12 @@
             Sg(e, t),
             (e.prototype.handleSourceFeatureAdded_ = function (t) {
               var e = t.feature
-              ;(this.featureCache_[o(e)] = {
+              ;((this.featureCache_[o(e)] = {
                 feature: e,
                 properties: e.getProperties(),
                 geometry: e.getGeometry(),
               }),
-                this.featureCount_++
+                this.featureCount_++)
             }),
             (e.prototype.handleSourceFeatureChanged_ = function (t) {
               var e = t.feature
@@ -34532,15 +34618,15 @@
             }),
             (e.prototype.handleSourceFeatureDelete_ = function (t) {
               var e = t.feature
-              delete this.featureCache_[o(e)], this.featureCount_--
+              ;(delete this.featureCache_[o(e)], this.featureCount_--)
             }),
             (e.prototype.handleSourceFeatureClear_ = function () {
-              ;(this.featureCache_ = {}), (this.featureCount_ = 0)
+              ;((this.featureCache_ = {}), (this.featureCount_ = 0))
             }),
             (e.prototype.renderFrame = function (t) {
               this.preRender(t)
               var e = this.indicesBuffer_.getSize()
-              this.helper.drawElements(0, e), this.helper.finalizeDraw(t)
+              ;(this.helper.drawElements(0, e), this.helper.finalizeDraw(t))
               var r = this.helper.getCanvas(),
                 n = t.layerStatesArray[t.layerIndex].opacity
               return (
@@ -34567,9 +34653,9 @@
                   l = n.resolution,
                   u = e instanceof wg ? e.getRenderBuffer() : 0,
                   c = Ht(t.extent, u * l)
-                r.loadFeatures(c, l, s),
+                ;(r.loadFeatures(c, l, s),
                   this.rebuildBuffers_(t),
-                  (this.previousExtent_ = t.extent.slice())
+                  (this.previousExtent_ = t.extent.slice()))
               }
               return (
                 this.helper.makeProjectionTransform(t, this.currentTransform_),
@@ -34609,7 +34695,7 @@
                   (n = (r = this.featureCache_[h]).geometry) &&
                   n.getType() === bt.POINT
                 ) {
-                  ;(s[0] = n.getFlatCoordinates()[0]),
+                  ;((s[0] = n.getFlatCoordinates()[0]),
                     (s[1] = n.getFlatCoordinates()[1]),
                     It(e, s),
                     (a = mg(c + 6, l)),
@@ -34622,19 +34708,19 @@
                       (this.hitRenderInstructions_[c++] = a[1]),
                       (this.hitRenderInstructions_[c++] = a[2]),
                       (this.hitRenderInstructions_[c++] = a[3]),
-                      (this.hitRenderInstructions_[c++] = Number(h)))
+                      (this.hitRenderInstructions_[c++] = Number(h))))
                   for (
                     var p = void 0, f = 0;
                     f < this.customAttributes.length;
                     f++
                   )
-                    (p = this.customAttributes[f].callback(
+                    ((p = this.customAttributes[f].callback(
                       r.feature,
                       r.properties,
                     )),
                       (this.renderInstructions_[u++] = p),
                       this.hitDetectionEnabled_ &&
-                        (this.hitRenderInstructions_[c++] = p)
+                        (this.hitRenderInstructions_[c++] = p))
                 }
               var d = {
                 type: pg,
@@ -34652,12 +34738,12 @@
                   renderInstructions: this.hitRenderInstructions_.buffer,
                   customAttributesCount: 5 + this.customAttributes.length,
                 }
-                ;(g.projectionTransform = e),
+                ;((g.projectionTransform = e),
                   (g.hitDetection = !0),
                   this.worker_.postMessage(g, [
                     this.hitRenderInstructions_.buffer,
                   ]),
-                  (this.hitRenderInstructions_ = null)
+                  (this.hitRenderInstructions_ = null))
               }
             }),
             (e.prototype.forEachFeatureAtCoordinate = function (t, e, r, n, i) {
@@ -34675,7 +34761,7 @@
             }),
             (e.prototype.renderHitDetection = function (t) {
               if (this.hitVerticesBuffer_.getSize()) {
-                this.hitRenderTarget_.setSize([
+                ;(this.hitRenderTarget_.setSize([
                   Math.floor(t.size[0] / 2),
                   Math.floor(t.size[1] / 2),
                 ]),
@@ -34687,19 +34773,19 @@
                   ),
                   this.helper.bindBuffer(this.hitVerticesBuffer_),
                   this.helper.bindBuffer(this.indicesBuffer_),
-                  this.helper.enableAttributes(this.hitDetectionAttributes)
+                  this.helper.enableAttributes(this.hitDetectionAttributes))
                 var e = this.indicesBuffer_.getSize()
                 this.helper.drawElements(0, e)
               }
             }),
             (e.prototype.disposeInternal = function () {
-              this.worker_.terminate(),
+              ;(this.worker_.terminate(),
                 (this.layer_ = null),
                 this.sourceListenKeys_.forEach(function (t) {
                   H(t)
                 }),
                 (this.sourceListenKeys_ = null),
-                t.prototype.disposeInternal.call(this)
+                t.prototype.disposeInternal.call(this))
             }),
             e
           )
@@ -34741,11 +34827,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Mg = (function (t) {
@@ -34789,9 +34875,9 @@
                 a < s;
                 a += e
               )
-                (n[0] = t[a]),
+                ((n[0] = t[a]),
                   (n[1] = t[a + 1]),
-                  Qt(r, n) && ((i[o++] = n[0]), (i[o++] = n[1]))
+                  Qt(r, n) && ((i[o++] = n[0]), (i[o++] = n[1])))
               return o
             }),
             (e.prototype.appendFlatLineCoordinates = function (
@@ -34814,7 +34900,7 @@
                 d = this.tmpCoordinate_,
                 g = !0
               for (u = e + n; u < r; u += n)
-                (d[0] = t[u]),
+                ((d[0] = t[u]),
                   (d[1] = t[u + 1]),
                   (h = re(l, d)) !== c
                     ? (g && ((a[s++] = p), (a[s++] = f), (g = !1)),
@@ -34825,16 +34911,17 @@
                       : (g = !0),
                   (p = d[0]),
                   (f = d[1]),
-                  (c = h)
+                  (c = h))
               return (
-                ((i && g) || u === e + n) && ((a[s++] = p), (a[s++] = f)), s
+                ((i && g) || u === e + n) && ((a[s++] = p), (a[s++] = f)),
+                s
               )
             }),
             (e.prototype.drawCustomCoordinates_ = function (t, e, r, n, i) {
               for (var o = 0, a = r.length; o < a; ++o) {
                 var s = r[o],
                   l = this.appendFlatLineCoordinates(t, e, s, n, !1, !1)
-                i.push(l), (e = s)
+                ;(i.push(l), (e = s))
               }
               return e
             }),
@@ -34849,13 +34936,13 @@
                 u = t.getStride(),
                 c = this.coordinates.length
               if (l == bt.MULTI_POLYGON) {
-                ;(n = t.getOrientedFlatCoordinates()), (a = [])
+                ;((n = t.getOrientedFlatCoordinates()), (a = []))
                 var h = t.getEndss()
                 s = 0
                 for (var p = 0, f = h.length; p < f; ++p) {
                   var d = []
-                  ;(s = this.drawCustomCoordinates_(n, s, h[p], u, d)),
-                    a.push(d)
+                  ;((s = this.drawCustomCoordinates_(n, s, h[p], u, d)),
+                    a.push(d))
                 }
                 this.instructions.push([Ig.CUSTOM, c, a, t, r, Gn])
               } else
@@ -34890,7 +34977,12 @@
               this.endGeometry(e)
             }),
             (e.prototype.beginGeometry = function (t, e) {
-              ;(this.beginGeometryInstruction1_ = [Ig.BEGIN_GEOMETRY, e, 0, t]),
+              ;((this.beginGeometryInstruction1_ = [
+                Ig.BEGIN_GEOMETRY,
+                e,
+                0,
+                t,
+              ]),
                 this.instructions.push(this.beginGeometryInstruction1_),
                 (this.beginGeometryInstruction2_ = [
                   Ig.BEGIN_GEOMETRY,
@@ -34900,7 +34992,7 @@
                 ]),
                 this.hitDetectionInstructions.push(
                   this.beginGeometryInstruction2_,
-                )
+                ))
             }),
             (e.prototype.finish = function () {
               return {
@@ -34945,23 +35037,23 @@
                 var u = e.getWidth()
                 r.lineWidth = void 0 !== u ? u : 1
                 var c = e.getMiterLimit()
-                ;(r.miterLimit = void 0 !== c ? c : 10),
+                ;((r.miterLimit = void 0 !== c ? c : 10),
                   r.lineWidth > this.maxLineWidth &&
                     ((this.maxLineWidth = r.lineWidth),
-                    (this.bufferedMaxExtent_ = null))
+                    (this.bufferedMaxExtent_ = null)))
               } else
-                (r.strokeStyle = void 0),
+                ((r.strokeStyle = void 0),
                   (r.lineCap = void 0),
                   (r.lineDash = null),
                   (r.lineDashOffset = void 0),
                   (r.lineJoin = void 0),
                   (r.lineWidth = void 0),
-                  (r.miterLimit = void 0)
+                  (r.miterLimit = void 0))
             }),
             (e.prototype.createFill = function (t) {
               var e = t.fillStyle,
                 r = [Ig.SET_FILL_STYLE, e]
-              return 'string' != typeof e && r.push(!0), r
+              return ('string' != typeof e && r.push(!0), r)
             }),
             (e.prototype.applyStroke = function (t) {
               this.instructions.push(this.createStroke(t))
@@ -35009,13 +35101,14 @@
                 (t.currentMiterLimit = l))
             }),
             (e.prototype.endGeometry = function (t) {
-              ;(this.beginGeometryInstruction1_[2] = this.instructions.length),
+              ;((this.beginGeometryInstruction1_[2] = this.instructions.length),
                 (this.beginGeometryInstruction1_ = null),
                 (this.beginGeometryInstruction2_[2] =
                   this.hitDetectionInstructions.length),
-                (this.beginGeometryInstruction2_ = null)
+                (this.beginGeometryInstruction2_ = null))
               var e = [Ig.END_GEOMETRY, t]
-              this.instructions.push(e), this.hitDetectionInstructions.push(e)
+              ;(this.instructions.push(e),
+                this.hitDetectionInstructions.push(e))
             }),
             (e.prototype.getBufferedMaxExtent = function () {
               if (
@@ -35048,11 +35141,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Ag = (function (t) {
@@ -35085,7 +35178,7 @@
                   n = t.getStride(),
                   i = this.coordinates.length,
                   o = this.appendFlatPointCoordinates(r, n)
-                this.instructions.push([
+                ;(this.instructions.push([
                   Ig.DRAW_IMAGE,
                   i,
                   o,
@@ -35122,7 +35215,7 @@
                     this.width_,
                     this.declutterImageWithText_,
                   ]),
-                  this.endGeometry(e)
+                  this.endGeometry(e))
               }
             }),
             (e.prototype.drawMultiPoint = function (t, e) {
@@ -35132,7 +35225,7 @@
                   n = t.getStride(),
                   i = this.coordinates.length,
                   o = this.appendFlatPointCoordinates(r, n)
-                this.instructions.push([
+                ;(this.instructions.push([
                   Ig.DRAW_IMAGE,
                   i,
                   o,
@@ -35169,7 +35262,7 @@
                     this.width_,
                     this.declutterImageWithText_,
                   ]),
-                  this.endGeometry(e)
+                  this.endGeometry(e))
               }
             }),
             (e.prototype.finish = function () {
@@ -35197,7 +35290,7 @@
                 i = t.getHitDetectionImage(),
                 o = t.getImage(this.pixelRatio),
                 a = t.getOrigin()
-              ;(this.imagePixelRatio_ = t.getPixelRatio(this.pixelRatio)),
+              ;((this.imagePixelRatio_ = t.getPixelRatio(this.pixelRatio)),
                 (this.anchorX_ = r[0]),
                 (this.anchorY_ = r[1]),
                 (this.hitDetectionImage_ = i),
@@ -35210,7 +35303,7 @@
                 (this.rotation_ = t.getRotation()),
                 (this.scale_ = t.getScaleArray()),
                 (this.width_ = n[0]),
-                (this.declutterImageWithText_ = e)
+                (this.declutterImageWithText_ = e))
             }),
             e
           )
@@ -35232,11 +35325,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         jg = (function (t) {
@@ -35260,7 +35353,7 @@
                 n = r.strokeStyle,
                 i = r.lineWidth
               if (void 0 !== n && void 0 !== i) {
-                this.updateStrokeStyle(r, this.applyStroke),
+                ;(this.updateStrokeStyle(r, this.applyStroke),
                   this.beginGeometry(t, e),
                   this.hitDetectionInstructions.push(
                     [
@@ -35274,12 +35367,12 @@
                       r.lineDashOffset,
                     ],
                     Pg,
-                  )
+                  ))
                 var o = t.getFlatCoordinates(),
                   a = t.getStride()
-                this.drawFlatCoordinates_(o, 0, o.length, a),
+                ;(this.drawFlatCoordinates_(o, 0, o.length, a),
                   this.hitDetectionInstructions.push(Og),
-                  this.endGeometry(e)
+                  this.endGeometry(e))
               }
             }),
             (e.prototype.drawMultiLineString = function (t, e) {
@@ -35287,7 +35380,7 @@
                 n = r.strokeStyle,
                 i = r.lineWidth
               if (void 0 !== n && void 0 !== i) {
-                this.updateStrokeStyle(r, this.applyStroke),
+                ;(this.updateStrokeStyle(r, this.applyStroke),
                   this.beginGeometry(t, e),
                   this.hitDetectionInstructions.push(
                     [
@@ -35301,7 +35394,7 @@
                       r.lineDashOffset,
                     ],
                     Pg,
-                  )
+                  ))
                 for (
                   var o = t.getEnds(),
                     a = t.getFlatCoordinates(),
@@ -35313,7 +35406,7 @@
                   ++u
                 )
                   l = this.drawFlatCoordinates_(a, l, o[u], s)
-                this.hitDetectionInstructions.push(Og), this.endGeometry(e)
+                ;(this.hitDetectionInstructions.push(Og), this.endGeometry(e))
               }
             }),
             (e.prototype.finish = function () {
@@ -35328,13 +35421,13 @@
               )
             }),
             (e.prototype.applyStroke = function (e) {
-              null != e.lastStroke &&
+              ;(null != e.lastStroke &&
                 e.lastStroke != this.coordinates.length &&
                 (this.instructions.push(Og),
                 (e.lastStroke = this.coordinates.length)),
                 (e.lastStroke = 0),
                 t.prototype.applyStroke.call(this, e),
-                this.instructions.push(Pg)
+                this.instructions.push(Pg))
             }),
             e
           )
@@ -35356,11 +35449,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Dg = (function (t) {
@@ -35374,18 +35467,19 @@
                 o = void 0 !== i.fillStyle,
                 a = void 0 !== i.strokeStyle,
                 s = r.length
-              this.instructions.push(Pg), this.hitDetectionInstructions.push(Pg)
+              ;(this.instructions.push(Pg),
+                this.hitDetectionInstructions.push(Pg))
               for (var l = 0; l < s; ++l) {
                 var u = r[l],
                   c = this.coordinates.length,
                   h = this.appendFlatLineCoordinates(t, e, u, n, !0, !a),
                   p = [Ig.MOVE_TO_LINE_TO, c, h]
-                this.instructions.push(p),
+                ;(this.instructions.push(p),
                   this.hitDetectionInstructions.push(p),
                   a &&
                     (this.instructions.push(Rg),
                     this.hitDetectionInstructions.push(Rg)),
-                  (e = u)
+                  (e = u))
               }
               return (
                 o &&
@@ -35402,7 +35496,7 @@
                 n = r.fillStyle,
                 i = r.strokeStyle
               if (void 0 !== n || void 0 !== i) {
-                this.setFillStrokeStyles_(),
+                ;(this.setFillStrokeStyles_(),
                   this.beginGeometry(t, e),
                   void 0 !== r.fillStyle &&
                     this.hitDetectionInstructions.push([
@@ -35419,13 +35513,13 @@
                       r.miterLimit,
                       r.lineDash,
                       r.lineDashOffset,
-                    ])
+                    ]))
                 var o = t.getFlatCoordinates(),
                   a = t.getStride(),
                   s = this.coordinates.length
                 this.appendFlatLineCoordinates(o, 0, o.length, a, !1, !1)
                 var l = [Ig.CIRCLE, s]
-                this.instructions.push(Pg, l),
+                ;(this.instructions.push(Pg, l),
                   this.hitDetectionInstructions.push(Pg, l),
                   void 0 !== r.fillStyle &&
                     (this.instructions.push(Cg),
@@ -35433,7 +35527,7 @@
                   void 0 !== r.strokeStyle &&
                     (this.instructions.push(Og),
                     this.hitDetectionInstructions.push(Og)),
-                  this.endGeometry(e)
+                  this.endGeometry(e))
               }
             }),
             (e.prototype.drawPolygon = function (t, e) {
@@ -35441,7 +35535,7 @@
                 n = r.fillStyle,
                 i = r.strokeStyle
               if (void 0 !== n || void 0 !== i) {
-                this.setFillStrokeStyles_(),
+                ;(this.setFillStrokeStyles_(),
                   this.beginGeometry(t, e),
                   void 0 !== r.fillStyle &&
                     this.hitDetectionInstructions.push([
@@ -35458,11 +35552,11 @@
                       r.miterLimit,
                       r.lineDash,
                       r.lineDashOffset,
-                    ])
+                    ]))
                 var o = t.getEnds(),
                   a = t.getOrientedFlatCoordinates(),
                   s = t.getStride()
-                this.drawFlatCoordinatess_(a, 0, o, s), this.endGeometry(e)
+                ;(this.drawFlatCoordinatess_(a, 0, o, s), this.endGeometry(e))
               }
             }),
             (e.prototype.drawMultiPolygon = function (t, e) {
@@ -35470,7 +35564,7 @@
                 n = r.fillStyle,
                 i = r.strokeStyle
               if (void 0 !== n || void 0 !== i) {
-                this.setFillStrokeStyles_(),
+                ;(this.setFillStrokeStyles_(),
                   this.beginGeometry(t, e),
                   void 0 !== r.fillStyle &&
                     this.hitDetectionInstructions.push([
@@ -35487,7 +35581,7 @@
                       r.miterLimit,
                       r.lineDash,
                       r.lineDashOffset,
-                    ])
+                    ]))
                 for (
                   var o = t.getEndss(),
                     a = t.getOrientedFlatCoordinates(),
@@ -35503,7 +35597,7 @@
               }
             }),
             (e.prototype.finish = function () {
-              this.reverseHitDetectionInstructions(), (this.state = null)
+              ;(this.reverseHitDetectionInstructions(), (this.state = null))
               var e = this.tolerance
               if (0 !== e)
                 for (var r = this.coordinates, n = 0, i = r.length; n < i; ++n)
@@ -35512,10 +35606,10 @@
             }),
             (e.prototype.setFillStrokeStyles_ = function () {
               var t = this.state
-              void 0 !== t.fillStyle &&
+              ;(void 0 !== t.fillStyle &&
                 this.updateFillStyle(t, this.createFill),
                 void 0 !== t.strokeStyle &&
-                  this.updateStrokeStyle(t, this.applyStroke)
+                  this.updateStrokeStyle(t, this.applyStroke))
             }),
             e
           )
@@ -35538,7 +35632,7 @@
         for (o = r; o < n; o += i) {
           var _ = e[o],
             b = e[o + 1]
-          void 0 !== l &&
+          ;(void 0 !== l &&
             ((p = _ - l),
             (f = b - u),
             (s = Math.sqrt(p * p + f * f)),
@@ -35550,7 +35644,7 @@
             (c = p),
             (h = f)),
             (l = _),
-            (u = b)
+            (u = b))
         }
         return (m += s) > y ? [v, o] : [d, g]
       }
@@ -35571,11 +35665,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Ug = {
@@ -35655,24 +35749,24 @@
                       l = t.getCenter()
                       break
                     case bt.MULTI_LINE_STRING:
-                      ;(l = t.getFlatMidpoints()), (u = 2)
+                      ;((l = t.getFlatMidpoints()), (u = 2))
                       break
                     case bt.POLYGON:
-                      ;(l = t.getFlatInteriorPoint()),
+                      ;((l = t.getFlatInteriorPoint()),
                         i.overflow || c.push(l[2] / this.resolution),
-                        (u = 3)
+                        (u = 3))
                       break
                     case bt.MULTI_POLYGON:
                       var h = t.getFlatInteriorPoints()
                       l = []
                       for (x = 0, w = h.length; x < w; x += 3)
-                        i.overflow || c.push(h[x + 2] / this.resolution),
-                          l.push(h[x], h[x + 1])
+                        (i.overflow || c.push(h[x + 2] / this.resolution),
+                          l.push(h[x], h[x + 1]))
                       if (0 === l.length) return
                       u = 2
                   }
                   if ((R = this.appendFlatPointCoordinates(l, u)) === a) return
-                  this.saveTextStates_(),
+                  ;(this.saveTextStates_(),
                     (i.backgroundFill || i.backgroundStroke) &&
                       (this.setFillStrokeStyle(
                         i.backgroundFill,
@@ -35688,16 +35782,16 @@
                         this.hitDetectionInstructions.push(
                           this.createStroke(this.state),
                         ))),
-                    this.beginGeometry(t, e)
+                    this.beginGeometry(t, e))
                   var p = i.padding
                   if (p != fa && (i.scale[0] < 0 || i.scale[1] < 0)) {
                     var f = i.padding[0],
                       d = i.padding[1],
                       g = i.padding[2],
                       y = i.padding[3]
-                    i.scale[0] < 0 && ((d = -d), (y = -y)),
+                    ;(i.scale[0] < 0 && ((d = -d), (y = -y)),
                       i.scale[1] < 0 && ((f = -f), (g = -g)),
-                      (p = [f, d, g, y])
+                      (p = [f, d, g, y]))
                   }
                   var m = this.pixelRatio
                   this.instructions.push([
@@ -35732,7 +35826,7 @@
                     c,
                   ])
                   var v = 1 / m
-                  this.hitDetectionInstructions.push([
+                  ;(this.hitDetectionInstructions.push([
                     Ig.DRAW_IMAGE,
                     a,
                     R,
@@ -35759,7 +35853,7 @@
                     this.textOffsetY_,
                     c,
                   ]),
-                    this.endGeometry(e)
+                    this.endGeometry(e))
                 } else {
                   if (!Re(this.getBufferedMaxExtent(), t.getExtent())) return
                   var _ = void 0
@@ -35780,11 +35874,11 @@
                   ) {
                     if (null == S) {
                       var P = Gg(i.maxAngle, l, E, _[C], u)
-                      ;(E = P[0]), (T = P[1])
+                      ;((E = P[0]), (T = P[1]))
                     } else T = _[C]
                     for (var x = E; x < T; x += u) o.push(l[x], l[x + 1])
                     var R = o.length
-                    ;(E = _[C]), this.drawChars_(a, R), (a = R)
+                    ;((E = _[C]), this.drawChars_(a, R), (a = R))
                   }
                   this.endGeometry(e)
                 }
@@ -35831,7 +35925,7 @@
                 u = this.textOffsetY_ * s,
                 c = this.text_,
                 h = r ? (r.lineWidth * Math.abs(n.scale[0])) / 2 : 0
-              this.instructions.push([
+              ;(this.instructions.push([
                 Ig.DRAW_CHARS,
                 t,
                 e,
@@ -35862,7 +35956,7 @@
                   c,
                   o,
                   1 / s,
-                ])
+                ]))
             }),
             (e.prototype.setTextStyle = function (t, e) {
               var r, n, i
@@ -35881,19 +35975,19 @@
                     u = s.getLineDashOffset(),
                     c = s.getWidth(),
                     h = s.getMiterLimit()
-                  ;(i.lineCap = s.getLineCap() || 'round'),
+                  ;((i.lineCap = s.getLineCap() || 'round'),
                     (i.lineDash = l ? l.slice() : pa),
                     (i.lineDashOffset = void 0 === u ? 0 : u),
                     (i.lineJoin = s.getLineJoin() || 'round'),
                     (i.lineWidth = void 0 === c ? 1 : c),
                     (i.miterLimit = void 0 === h ? 10 : h),
-                    (i.strokeStyle = Tu(s.getColor() || '#000'))
-                } else (i = null), (this.textStrokeState_ = i)
+                    (i.strokeStyle = Tu(s.getColor() || '#000')))
+                } else ((i = null), (this.textStrokeState_ = i))
                 r = this.textState_
                 var p = t.getFont() || '10px sans-serif'
                 ba(p)
                 var f = t.getScaleArray()
-                ;(r.overflow = t.getOverflow()),
+                ;((r.overflow = t.getOverflow()),
                   (r.font = p),
                   (r.maxAngle = t.getMaxAngle()),
                   (r.placement = t.getPlacement()),
@@ -35902,12 +35996,12 @@
                   (r.backgroundFill = t.getBackgroundFill()),
                   (r.backgroundStroke = t.getBackgroundStroke()),
                   (r.padding = t.getPadding() || fa),
-                  (r.scale = void 0 === f ? [1, 1] : f)
+                  (r.scale = void 0 === f ? [1, 1] : f))
                 var d = t.getOffsetX(),
                   g = t.getOffsetY(),
                   y = t.getRotateWithView(),
                   m = t.getRotation()
-                ;(this.text_ = t.getText() || ''),
+                ;((this.text_ = t.getText() || ''),
                   (this.textOffsetX_ = void 0 === d ? 0 : d),
                   (this.textOffsetY_ = void 0 === g ? 0 : g),
                   (this.textRotateWithView_ = void 0 !== y && y),
@@ -35935,7 +36029,7 @@
                     ? 'string' == typeof n.fillStyle
                       ? n.fillStyle
                       : '|' + o(n.fillStyle)
-                    : '')
+                    : ''))
               } else this.text_ = ''
               this.declutterImageWithText_ = e
             }),
@@ -35952,11 +36046,11 @@
         },
         Yg = (function () {
           function t(t, e, r, n) {
-            ;(this.tolerance_ = t),
+            ;((this.tolerance_ = t),
               (this.maxExtent_ = e),
               (this.pixelRatio_ = n),
               (this.resolution_ = r),
-              (this.buildersByZIndex_ = {})
+              (this.buildersByZIndex_ = {}))
           }
           return (
             (t.prototype.finish = function () {
@@ -35997,12 +36091,12 @@
           y = 0,
           m = 0
         function v() {
-          ;(d = p),
+          ;((d = p),
             (g = f),
             (p = t[(e += n)]),
             (f = t[e + 1]),
             (m += y),
-            (y = Math.sqrt((p - d) * (p - d) + (f - g) * (f - g)))
+            (y = Math.sqrt((p - d) * (p - d) + (f - g) * (f - g))))
         }
         do {
           v()
@@ -36023,7 +36117,7 @@
           O = qe(g, f, _)
         if (h) {
           var P = [b, x, C, O]
-          un(P, 0, 4, 2, h, P, P), (T = P[0] > P[2])
+          ;(un(P, 0, 4, 2, h, P, P), (T = P[0] > P[2]))
         } else T = b > C
         var R,
           I = Math.PI,
@@ -36035,7 +36129,7 @@
           T && (F += F > 0 ? -I : I)
           var A = (C + b) / 2,
             k = (O + x) / 2
-          return (L[0] = [A, k, (E - o) / 2, F, i]), L
+          return ((L[0] = [A, k, (E - o) / 2, F, i]), L)
         }
         for (var j = 0, N = i.length; j < N; ) {
           v()
@@ -36053,8 +36147,8 @@
           }
           if (j !== z) {
             var V = T ? i.substring(N - z, N - j) : i.substring(z, j)
-            ;(A = qe(d, p, (_ = (o + U / 2 - m) / y))), (k = qe(g, f, _))
-            L.push([A, k, U / 2, D, V]), (o += U)
+            ;((A = qe(d, p, (_ = (o + U / 2 - m) / y))), (k = qe(g, f, _)))
+            ;(L.push([A, k, U / 2, D, V]), (o += U))
           }
         }
         return L
@@ -36063,9 +36157,9 @@
         for (var i = t[e], o = t[e + 1], a = 0, s = e + n; s < r; s += n) {
           var l = t[s],
             u = t[s + 1]
-          ;(a += Math.sqrt((l - i) * (l - i) + (u - o) * (u - o))),
+          ;((a += Math.sqrt((l - i) * (l - i) + (u - o) * (u - o))),
             (i = l),
-            (o = u)
+            (o = u))
         }
         return a
       }
@@ -36106,7 +36200,7 @@
       }
       var ey = (function () {
           function t(t, e, r, n, i) {
-            ;(this.overlaps = r),
+            ;((this.overlaps = r),
               (this.pixelRatio = e),
               (this.resolution = t),
               this.alignFill_,
@@ -36122,7 +36216,7 @@
               (this.strokeStates = n.strokeStates || {}),
               (this.textStates = n.textStates || {}),
               (this.widths_ = {}),
-              (this.labels_ = {})
+              (this.labels_ = {}))
           }
           return (
             (t.prototype.createLabel = function (t, e, r, n) {
@@ -36163,9 +36257,9 @@
                 ).prototype.setLineDash &&
                   (v.push('setLineDash', [o.lineDash]),
                   v.push('lineDashOffset', o.lineDashOffset)))
-              r && v.push('fillStyle', a.fillStyle),
+              ;(r && v.push('fillStyle', a.fillStyle),
                 v.push('textBaseline', 'middle'),
-                v.push('textAlign', 'center')
+                v.push('textAlign', 'center'))
               var w,
                 S = 0.5 - c,
                 E = c * m + S * h
@@ -36183,7 +36277,7 @@
                     E + S * d[w],
                     0.5 * (h + y) + w * y,
                   ])
-              return (this.labels_[i] = x), x
+              return ((this.labels_[i] = x), x)
             }),
             (t.prototype.replayTextBackground_ = function (
               t,
@@ -36194,14 +36288,14 @@
               o,
               a,
             ) {
-              t.beginPath(),
+              ;(t.beginPath(),
                 t.moveTo.apply(t, e),
                 t.lineTo.apply(t, r),
                 t.lineTo.apply(t, n),
                 t.lineTo.apply(t, i),
                 t.lineTo.apply(t, e),
                 o && ((this.alignFill_ = o[2]), this.fill_(t)),
-                a && (this.setStrokeStyle_(t, a), t.stroke())
+                a && (this.setStrokeStyle_(t, a), t.stroke()))
             }),
             (t.prototype.calculateImageOrLabelDimensions_ = function (
               t,
@@ -36313,20 +36407,20 @@
               if (this.alignFill_) {
                 var e = It(this.renderedTransform_, [0, 0]),
                   r = 512 * this.pixelRatio
-                t.save(),
+                ;(t.save(),
                   t.translate(e[0] % r, e[1] % r),
-                  t.rotate(this.viewRotation_)
+                  t.rotate(this.viewRotation_))
               }
-              t.fill(), this.alignFill_ && t.restore()
+              ;(t.fill(), this.alignFill_ && t.restore())
             }),
             (t.prototype.setStrokeStyle_ = function (t, e) {
-              ;(t.strokeStyle = e[1]),
+              ;((t.strokeStyle = e[1]),
                 (t.lineWidth = e[2]),
                 (t.lineCap = e[3]),
                 (t.lineJoin = e[4]),
                 (t.miterLimit = e[5]),
                 t.setLineDash &&
-                  ((t.lineDashOffset = e[7]), t.setLineDash(e[6]))
+                  ((t.lineDashOffset = e[7]), t.setLineDash(e[6])))
             }),
             (t.prototype.drawLabelWithPointPlacement_ = function (t, e, r, n) {
               var i = this.textStates[e],
@@ -36396,19 +36490,19 @@
                 var D = n[C]
                 switch (D[0]) {
                   case Ig.BEGIN_GEOMETRY:
-                    ;(w = D[1]),
+                    ;((w = D[1]),
                       (T = D[3]),
                       w.getGeometry()
                         ? void 0 === a || Re(a, T.getExtent())
                           ? ++C
                           : (C = D[2] + 1)
-                        : (C = D[2])
+                        : (C = D[2]))
                     break
                   case Ig.BEGIN_PATH:
-                    R > N && (this.fill_(t), (R = 0)),
+                    ;(R > N && (this.fill_(t), (R = 0)),
                       I > N && (t.stroke(), (I = 0)),
                       R || I || (t.beginPath(), (p = NaN), (f = NaN)),
-                      ++C
+                      ++C)
                     break
                   case Ig.CIRCLE:
                     var G = l[(P = D[1])],
@@ -36416,26 +36510,32 @@
                       U = l[P + 2] - G,
                       B = l[P + 3] - z,
                       V = Math.sqrt(U * U + B * B)
-                    t.moveTo(G + V, z), t.arc(G, z, V, 0, 2 * Math.PI, !0), ++C
+                    ;(t.moveTo(G + V, z),
+                      t.arc(G, z, V, 0, 2 * Math.PI, !0),
+                      ++C)
                     break
                   case Ig.CLOSE_PATH:
-                    t.closePath(), ++C
+                    ;(t.closePath(), ++C)
                     break
                   case Ig.CUSTOM:
-                    ;(P = D[1]), (u = D[2])
+                    ;((P = D[1]), (u = D[2]))
                     var Y = D[3],
                       W = D[4],
                       q = 6 == D.length ? D[5] : void 0
-                    ;(j.geometry = Y), (j.feature = w), C in F || (F[C] = [])
+                    ;((j.geometry = Y), (j.feature = w), C in F || (F[C] = []))
                     var X = F[C]
-                    q
+                    ;(q
                       ? q(l, P, u, 2, X)
                       : ((X[0] = l[P]), (X[1] = l[P + 1]), (X.length = 2)),
                       W(X, j),
-                      ++C
+                      ++C)
                     break
                   case Ig.DRAW_IMAGE:
-                    ;(P = D[1]), (u = D[2]), (y = D[3]), (c = D[4]), (h = D[5])
+                    ;((P = D[1]),
+                      (u = D[2]),
+                      (y = D[3]),
+                      (c = D[4]),
+                      (h = D[5]))
                     var Z = D[6],
                       K = D[7],
                       H = D[8],
@@ -36446,28 +36546,28 @@
                       et = D[13],
                       rt = D[14]
                     if (!y && D.length >= 19) {
-                      ;(m = D[18]), (v = D[19]), (_ = D[20]), (x = D[21])
+                      ;((m = D[18]), (v = D[19]), (_ = D[20]), (x = D[21]))
                       var nt = this.drawLabelWithPointPlacement_(m, v, _, x)
-                      ;(y = nt.label), (D[3] = y)
+                      ;((y = nt.label), (D[3] = y))
                       var it = D[22]
-                      ;(c = (nt.anchorX - it) * this.pixelRatio), (D[4] = c)
+                      ;((c = (nt.anchorX - it) * this.pixelRatio), (D[4] = c))
                       var ot = D[23]
-                      ;(h = (nt.anchorY - ot) * this.pixelRatio),
+                      ;((h = (nt.anchorY - ot) * this.pixelRatio),
                         (D[5] = h),
                         (Z = y.height),
                         (D[6] = Z),
                         (et = y.width),
-                        (D[13] = et)
+                        (D[13] = et))
                     }
                     var at = void 0
                     D.length > 24 && (at = D[24])
                     var st = void 0,
                       lt = void 0,
                       ut = void 0
-                    D.length > 16
+                    ;(D.length > 16
                       ? ((st = D[15]), (lt = D[16]), (ut = D[17]))
                       : ((st = fa), (lt = !1), (ut = !1)),
-                      J && k ? (Q += A) : J || k || (Q -= A)
+                      J && k ? (Q += A) : J || k || (Q -= A))
                     for (var ct = 0; P < u; P += 2)
                       if (!(at && at[ct++] < et / this.pixelRatio)) {
                         var ht = [
@@ -36531,7 +36631,7 @@
                       bt = D[8]
                     _ = D[9]
                     var xt = D[10]
-                    ;(m = D[11]), (v = D[12])
+                    ;((m = D[11]), (v = D[12]))
                     var wt = [D[13], D[13]],
                       St = this.textStates[v],
                       Et = St.font,
@@ -36567,13 +36667,13 @@
                           Nt = void 0
                         if (_)
                           for (Ft = 0, At = Lt.length; Ft < At; ++Ft) {
-                            ;(kt = (Nt = Lt[Ft])[4]),
+                            ;((kt = (Nt = Lt[Ft])[4]),
                               (jt = this.createLabel(kt, v, '', _)),
                               (c = Nt[2] + (Tt[0] < 0 ? -xt : xt)),
                               (h =
                                 yt * jt.height +
                                 (2 * (0.5 - yt) * xt * Tt[1]) / Tt[0] -
-                                bt)
+                                bt))
                             var Dt = this.calculateImageOrLabelDimensions_(
                               jt.width,
                               jt.height,
@@ -36597,10 +36697,10 @@
                           }
                         if (x)
                           for (Ft = 0, At = Lt.length; Ft < At; ++Ft) {
-                            ;(kt = (Nt = Lt[Ft])[4]),
+                            ;((kt = (Nt = Lt[Ft])[4]),
                               (jt = this.createLabel(kt, v, x, '')),
                               (c = Nt[2]),
-                              (h = yt * jt.height - bt)
+                              (h = yt * jt.height - bt))
                             Dt = this.calculateImageOrLabelDimensions_(
                               jt.width,
                               jt.height,
@@ -36637,7 +36737,7 @@
                     ++C
                     break
                   case Ig.FILL:
-                    N ? R++ : this.fill_(t), ++C
+                    ;(N ? R++ : this.fill_(t), ++C)
                     break
                   case Ig.MOVE_TO_LINE_TO:
                     for (
@@ -36651,37 +36751,37 @@
                       P < u;
                       P += 2
                     )
-                      (d = ((S = l[P]) + 0.5) | 0),
+                      ((d = ((S = l[P]) + 0.5) | 0),
                         (g = ((E = l[P + 1]) + 0.5) | 0),
                         (P != u - 2 && d === p && g === f) ||
-                          (t.lineTo(S, E), (p = d), (f = g))
+                          (t.lineTo(S, E), (p = d), (f = g)))
                     ++C
                     break
                   case Ig.SET_FILL_STYLE:
-                    ;(L = D),
+                    ;((L = D),
                       (this.alignFill_ = D[2]),
                       R && (this.fill_(t), (R = 0), I && (t.stroke(), (I = 0))),
                       (t.fillStyle = D[1]),
-                      ++C
+                      ++C)
                     break
                   case Ig.SET_STROKE_STYLE:
-                    ;(M = D),
+                    ;((M = D),
                       I && (t.stroke(), (I = 0)),
                       this.setStrokeStyle_(t, D),
-                      ++C
+                      ++C)
                     break
                   case Ig.STROKE:
-                    N ? I++ : t.stroke(), ++C
+                    ;(N ? I++ : t.stroke(), ++C)
                     break
                   default:
                     ++C
                 }
               }
-              R && this.fill_(t), I && t.stroke()
+              ;(R && this.fill_(t), I && t.stroke())
             }),
             (t.prototype.execute = function (t, e, r, n, i, o) {
-              ;(this.viewRotation_ = n),
-                this.execute_(t, e, r, this.instructions, i, void 0, void 0, o)
+              ;((this.viewRotation_ = n),
+                this.execute_(t, e, r, this.instructions, i, void 0, void 0, o))
             }),
             (t.prototype.executeHitDetection = function (t, e, r, n, i) {
               return (
@@ -36695,7 +36795,7 @@
         ry = [Bu, Du, Uu, zu, Vu, Gu],
         ny = (function () {
           function t(t, e, r, n, i, o) {
-            ;(this.maxExtent_ = t),
+            ;((this.maxExtent_ = t),
               (this.overlaps_ = n),
               (this.pixelRatio_ = r),
               (this.resolution_ = e),
@@ -36703,17 +36803,17 @@
               (this.executorsByZIndex_ = {}),
               (this.hitDetectionContext_ = null),
               (this.hitDetectionTransform_ = [1, 0, 0, 1, 0, 0]),
-              this.createExecutors_(i)
+              this.createExecutors_(i))
           }
           return (
             (t.prototype.clip = function (t, e) {
               var r = this.getClipCoords(e)
-              t.beginPath(),
+              ;(t.beginPath(),
                 t.moveTo(r[0], r[1]),
                 t.lineTo(r[2], r[3]),
                 t.lineTo(r[4], r[5]),
                 t.lineTo(r[6], r[7]),
-                t.clip()
+                t.clip())
             }),
             (t.prototype.createExecutors_ = function (t) {
               for (var e in t) {
@@ -36766,12 +36866,12 @@
               l && (this.hitDetectionContext_ = uo(a, a))
               var u,
                 c = this.hitDetectionContext_
-              c.canvas.width !== a || c.canvas.height !== a
+              ;(c.canvas.width !== a || c.canvas.height !== a
                 ? ((c.canvas.width = a), (c.canvas.height = a))
                 : l || c.clearRect(0, 0, a, a),
                 void 0 !== this.renderBuffer_ &&
                   (pe((u = [1 / 0, 1 / 0, -1 / 0, -1 / 0]), t),
-                  Ht(u, e * (this.renderBuffer_ + n), u))
+                  Ht(u, e * (this.renderBuffer_ + n), u)))
               var h,
                 p = oy(n)
               function f(t, e) {
@@ -36820,14 +36920,14 @@
                 i = e[2],
                 o = e[3],
                 a = [r, n, r, o, i, o, i, n]
-              return ln(a, 0, 8, 2, t, a), a
+              return (ln(a, 0, 8, 2, t, a), a)
             }),
             (t.prototype.isEmpty = function () {
               return I(this.executorsByZIndex_)
             }),
             (t.prototype.execute = function (t, e, r, n, i, o, a) {
               var s = Object.keys(this.executorsByZIndex_).map(Number)
-              s.sort(d), this.maxExtent_ && (t.save(), this.clip(t, r))
+              ;(s.sort(d), this.maxExtent_ && (t.save(), this.clip(t, r)))
               var l,
                 u,
                 c,
@@ -36862,16 +36962,16 @@
             var a = i * i + o * o
             if (a > r) break
             var s = n[a]
-            s || ((s = []), (n[a] = s)),
+            ;(s || ((s = []), (n[a] = s)),
               s.push(4 * ((t + i) * e + (t + o)) + 3),
               i > 0 && s.push(4 * ((t - i) * e + (t + o)) + 3),
               o > 0 &&
                 (s.push(4 * ((t + i) * e + (t - o)) + 3),
-                i > 0 && s.push(4 * ((t - i) * e + (t - o)) + 3))
+                i > 0 && s.push(4 * ((t - i) * e + (t - o)) + 3)))
           }
         for (var l = [], u = ((i = 0), n.length); i < u; ++i)
           n[i] && l.push.apply(l, n[i])
-        return (iy[t] = l), l
+        return ((iy[t] = l), l)
       }
       var ay = ny
       function sy(t, e, r, n, i, o, a) {
@@ -36905,17 +37005,17 @@
                   S = w.getFill()
                 S && S.setColor(v)
                 var E = w.getStroke()
-                E && E.setColor(v), w.setText(void 0)
+                ;(E && E.setColor(v), w.setText(void 0))
                 var T = x.getImage()
                 if (T) {
                   var C = T.getImageSize()
                   if (!C) continue
                   var O = document.createElement('canvas')
-                  ;(O.width = C[0]), (O.height = C[1])
+                  ;((O.width = C[0]), (O.height = C[1]))
                   var P = O.getContext('2d', { alpha: !1 })
                   P.fillStyle = v
                   var R = P.canvas
-                  P.fillRect(0, 0, R.width, R.height),
+                  ;(P.fillRect(0, 0, R.width, R.height),
                     uo(C ? C[0] : R.width, C ? C[1] : R.height).drawImage(
                       R,
                       0,
@@ -36935,7 +37035,7 @@
                         rotation: T.getRotation(),
                         rotateWithView: T.getRotateWithView(),
                       }),
-                    )
+                    ))
                 }
                 var I = Number(w.getZIndex())
                 ;(A = p[I]) ||
@@ -36964,7 +37064,7 @@
             for (_ = 0, b = j.length; _ < b; _ += 2) {
               u.setStyle(j[_ + 1])
               for (var N = 0, D = e.length; N < D; ++N)
-                u.setTransform(e[N]), u.drawGeometry(j[_])
+                (u.setTransform(e[N]), u.drawGeometry(j[_]))
             }
           }
         }
@@ -36999,11 +37099,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         cy = (function (t) {
@@ -37033,7 +37133,8 @@
           return (
             uy(e, t),
             (e.prototype.useContainer = function (e, r, n) {
-              n < 1 && (e = null), t.prototype.useContainer.call(this, e, r, n)
+              ;(n < 1 && (e = null),
+                t.prototype.useContainer.call(this, e, r, n))
             }),
             (e.prototype.renderWorlds = function (t, e, r) {
               var n = e.extent,
@@ -37070,8 +37171,8 @@
             (e.prototype.renderFrame = function (t, e) {
               var r = t.pixelRatio,
                 n = t.layerStatesArray[t.layerIndex]
-              Ft(this.pixelTransform, 1 / r, 1 / r),
-                jt(this.inversePixelTransform, this.pixelTransform)
+              ;(Ft(this.pixelTransform, 1 / r, 1 / r),
+                jt(this.inversePixelTransform, this.pixelTransform))
               var i = Dt(this.pixelTransform)
               this.useContainer(e, i, n.opacity)
               var o = this.context,
@@ -37085,12 +37186,12 @@
                 )
               var u = Math.round(t.size[0] * r),
                 c = Math.round(t.size[1] * r)
-              a.width != u || a.height != c
+              ;(a.width != u || a.height != c
                 ? ((a.width = u),
                   (a.height = c),
                   a.style.transform !== i && (a.style.transform = i))
                 : this.containerReused || o.clearRect(0, 0, u, c),
-                this.preRender(o, t)
+                this.preRender(o, t))
               var h = t.viewState,
                 p = h.projection,
                 f = !1
@@ -37099,7 +37200,9 @@
                 ;(f = !te(d, t.extent) && Re(d, t.extent)) &&
                   this.clipUnrotated(o, t, d)
               }
-              this.renderWorlds(s, t), f && o.restore(), this.postRender(o, t)
+              ;(this.renderWorlds(s, t),
+                f && o.restore(),
+                this.postRender(o, t))
               var g = n.opacity,
                 y = this.container
               return (
@@ -37143,7 +37246,7 @@
                         d < f[0];
 
                       )
-                        (m = g * --y),
+                        ((m = g * --y),
                           u.push(
                             this.getRenderTransform(
                               n,
@@ -37155,9 +37258,9 @@
                               m,
                             ).slice(),
                           ),
-                          (d += g)
+                          (d += g))
                       for (y = 0, d = s[2]; d > f[2]; )
-                        (m = g * ++y),
+                        ((m = g * ++y),
                           u.push(
                             this.getRenderTransform(
                               n,
@@ -37169,7 +37272,7 @@
                               m,
                             ).slice(),
                           ),
-                          (d -= g)
+                          (d -= g))
                     }
                     this.hitDetectionImageData_ = sy(
                       r,
@@ -37204,10 +37307,10 @@
                             i.splice(i.lastIndexOf(s), 1),
                             n(t, c, e)
                           )
-                        ;(s.geometry = e), (s.distanceSq = r)
+                        ;((s.geometry = e), (s.distanceSq = r))
                       }
                     } else {
-                      if (0 === r) return (h[a] = !0), n(t, c, e)
+                      if (0 === r) return ((h[a] = !0), n(t, c, e))
                       i.push(
                         (h[a] = {
                           feature: t,
@@ -37257,7 +37360,7 @@
                 o = e.getUpdateWhileAnimating(),
                 a = e.getUpdateWhileInteracting()
               if ((!this.dirty_ && !o && n) || (!a && i))
-                return (this.animatingOrInteracting_ = !0), !0
+                return ((this.animatingOrInteracting_ = !0), !0)
               this.animatingOrInteracting_ = !1
               var s = t.extent,
                 l = t.viewState,
@@ -37275,7 +37378,7 @@
               if (r.getWrapX() && u.canWrapX() && !te(v, t.extent)) {
                 var _ = Pe(v),
                   b = Math.max(Pe(y) / 2, _)
-                ;(y[0] = v[0] - b), (y[2] = v[2] + b), Fr(g, u)
+                ;((y[0] = v[0] - b), (y[2] = v[2] + b), Fr(g, u))
                 var x = ke(m[0], u)
                 x[0] < v[0] && x[2] < v[2]
                   ? m.push([x[0] + _, x[1], x[2] + _, x[3]])
@@ -37290,8 +37393,8 @@
                 this.renderedRenderOrder_ == d &&
                 te(this.renderedExtent_, y)
               )
-                return (this.replayGroupChanged = !1), !0
-              ;(this.replayGroup_ = null), (this.dirty_ = !1)
+                return ((this.replayGroupChanged = !1), !0)
+              ;((this.replayGroup_ = null), (this.dirty_ = !1))
               var w,
                 S = new Yg(Xu(c, h), y, c, h)
               this.getLayer().getDeclutter() && (w = new Yg(Xu(c, h), y, c, h))
@@ -37379,11 +37482,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         py = (function (t) {
@@ -37400,8 +37503,8 @@
           return (
             hy(e, t),
             (e.prototype.disposeInternal = function () {
-              this.vectorRenderer_.dispose(),
-                t.prototype.disposeInternal.call(this)
+              ;(this.vectorRenderer_.dispose(),
+                t.prototype.disposeInternal.call(this))
             }),
             (e.prototype.getFeatures = function (t) {
               if (this.vectorRenderer_) {
@@ -37446,7 +37549,7 @@
                       o.renderDeclutter(c),
                       t())
                   })
-                h.addEventListener(
+                ;(h.addEventListener(
                   F,
                   function () {
                     if (h.getState() === ki) {
@@ -37454,7 +37557,7 @@
                       var t = h.getResolution(),
                         n = h.getPixelRatio(),
                         i = (t * e) / n
-                      ;(this.renderedResolution = i),
+                      ;((this.renderedResolution = i),
                         (this.coordinateToVectorPixelTransform_ = kt(
                           this.coordinateToVectorPixelTransform_,
                           s / 2,
@@ -37464,11 +37567,11 @@
                           0,
                           -r.center[0],
                           -r.center[1],
-                        ))
+                        )))
                     }
                   }.bind(this),
                 ),
-                  h.load()
+                  h.load())
               }
               return (
                 this.image_ &&
@@ -37515,11 +37618,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         my = { image: [Bu, Du, Uu, zu, Vu], hybrid: [Bu, Uu], vector: [] },
@@ -37578,11 +37681,11 @@
                 }
               } else {
                 var d = i.viewHints
-                ;(!!(d[ns] || d[is]) && h.wantedResolution) ||
+                ;((!!(d[ns] || d[is]) && h.wantedResolution) ||
                   (h.wantedResolution = l),
                   this.prepareTile(h, a, u, !1) &&
                     c.getRenderMode() !== gy &&
-                    this.renderTileImage_(h, i)
+                    this.renderTileImage_(h, i))
               }
               return t.prototype.getTile.call(this, e, r, n, i)
             }),
@@ -37628,9 +37731,9 @@
                     .getTileCoordExtent(t.wrappedTileCoord),
                   f = u.getSourceTiles(e, r, t),
                   d = o(n)
-                delete t.hitDetectionImageData[d],
+                ;(delete t.hitDetectionImageData[d],
                   (t.executorGroups[d] = []),
-                  c && (t.declutterExecutorGroups[d] = [])
+                  c && (t.declutterExecutorGroups[d] = []))
                 for (
                   var g = function (r, i) {
                       var o = f[r]
@@ -37650,8 +37753,8 @@
                             r = t.getStyleFunction() || n.getStyleFunction()
                           if ((r && (e = r(t, s)), e)) {
                             var i = this.renderFeature(t, w, e, b, x)
-                            ;(this.dirty_ = this.dirty_ || i),
-                              (l.dirty = l.dirty || i)
+                            ;((this.dirty_ = this.dirty_ || i),
+                              (l.dirty = l.dirty || i))
                           }
                         },
                         E = o.getFeatures()
@@ -37693,10 +37796,10 @@
                   ++m
                 )
                   g(m)
-                ;(l.renderedRevision = i),
+                ;((l.renderedRevision = i),
                   (l.renderedZ = t.sourceZ),
                   (l.renderedRenderOrder = a),
-                  (l.renderedResolution = s)
+                  (l.renderedResolution = s))
               }
             }),
             (e.prototype.forEachFeatureAtCoordinate = function (t, e, r, n, i) {
@@ -37724,10 +37827,10 @@
                             i.splice(i.lastIndexOf(s), 1),
                             n(t, l, e)
                           )
-                        ;(s.geometry = e), (s.distanceSq = r)
+                        ;((s.geometry = e), (s.distanceSq = r))
                       }
                     } else {
-                      if (0 === r) return (p[a] = !0), n(t, l, e)
+                      if (0 === r) return ((p[a] = !0), n(t, l, e))
                       i.push(
                         (p[a] = {
                           feature: t,
@@ -37747,7 +37850,7 @@
                     var g = o(l),
                       y = [p.executorGroups[g]],
                       m = p.declutterExecutorGroups[g]
-                    m && y.push(m),
+                    ;(m && y.push(m),
                       y.some(function (n) {
                         for (
                           var i =
@@ -37767,7 +37870,7 @@
                           )
                             return !0
                         }
-                      })
+                      }))
                   },
                   y = 0,
                   m = d.length;
@@ -37825,7 +37928,7 @@
                       var x = Is(h.getTileSize(h.getZForResolution(c))),
                         w = [x[0] / 2, x[1] / 2],
                         S = this.renderedRotation_
-                      ;(b = sy(
+                      ;((b = sy(
                         x,
                         [
                           this.getRenderTransform(
@@ -37844,7 +37947,7 @@
                         n.getReplayState(i).renderedResolution,
                         S,
                       )),
-                        (n.hitDetectionImageData[a] = b)
+                        (n.hitDetectionImageData[a] = b))
                     }
                     e(ly(v, _, b))
                   }
@@ -37909,11 +38012,11 @@
             (e.prototype.renderFrame = function (e, r) {
               var n = e.viewHints,
                 i = !(n[ns] || n[is])
-              this.renderQueuedTileImages_(i, e),
+              ;(this.renderQueuedTileImages_(i, e),
                 t.prototype.renderFrame.call(this, e, r),
                 (this.renderedPixelToCoordinateTransform_ =
                   e.pixelToCoordinateTransform.slice()),
-                (this.renderedRotation_ = e.viewState.rotation)
+                (this.renderedRotation_ = e.viewState.rotation))
               var a = this.getLayer(),
                 s = a.getRenderMode()
               if (s === fy) return this.container
@@ -37963,8 +38066,8 @@
                           h.clip())
                       }
                     }
-                    E.execute(h, 1, _, f, i, p),
-                      !x && C && (h.restore(), g.push(C), y.push(T), (x = !0))
+                    ;(E.execute(h, 1, _, f, i, p),
+                      !x && C && (h.restore(), g.push(C), y.push(T), (x = !0)))
                   }
                 }
               return this.container
@@ -37976,8 +38079,8 @@
                   break
                 }
                 var n = this.renderTileImageQueue_[r]
-                delete this.renderTileImageQueue_[r],
-                  this.renderTileImage_(n, e)
+                ;(delete this.renderTileImageQueue_[r],
+                  this.renderTileImage_(n, e))
               }
             }),
             (e.prototype.renderFeature = function (t, e, r, n, i) {
@@ -38016,7 +38119,7 @@
                 n = t.getReplayState(r),
                 i = r.getRevision(),
                 a = t.executorGroups[o(r)]
-              ;(n.renderedTileRevision = i), (n.renderedTileZ = t.sourceZ)
+              ;((n.renderedTileRevision = i), (n.renderedTileZ = t.sourceZ))
               var s = t.wrappedTileCoord,
                 l = s[0],
                 u = r.getSource(),
@@ -38029,16 +38132,16 @@
                 y = t.getContext(r)
               c = Math.round(Math.max(c, d / c))
               var m = u.getTilePixelSize(l, c, h)
-              ;(y.canvas.width = m[0]), (y.canvas.height = m[1])
+              ;((y.canvas.width = m[0]), (y.canvas.height = m[1]))
               var v = c / d
               if (1 !== v) {
                 var _ = Ct(this.tmpTransform_)
-                Mt(_, v, v), y.setTransform.apply(y, _)
+                ;(Mt(_, v, v), y.setTransform.apply(y, _))
               }
               var b = p.getTileCoordExtent(s, this.tmpExtent),
                 x = d / g,
                 w = Ct(this.tmpTransform_)
-              Mt(w, x, -x), At(w, -b[0], -b[3])
+              ;(Mt(w, x, -x), At(w, -b[0], -b[3]))
               for (var S = 0, E = a.length; S < E; ++S) {
                 a[S].execute(y, v, w, 0, !0, my[r.getRenderMode()])
               }
@@ -38052,7 +38155,7 @@
           l,
           u = (r - e) / n
         if (1 === u) s = e
-        else if (2 === u) (s = e), (l = i)
+        else if (2 === u) ((s = e), (l = i))
         else if (0 !== u) {
           for (
             var c = t[e], h = t[e + 1], p = 0, d = [0], g = e + n;
@@ -38061,10 +38164,10 @@
           ) {
             var y = t[g],
               m = t[g + 1]
-            ;(p += Math.sqrt((y - c) * (y - c) + (m - h) * (m - h))),
+            ;((p += Math.sqrt((y - c) * (y - c) + (m - h) * (m - h))),
               d.push(p),
               (c = y),
-              (h = m)
+              (h = m))
           }
           var v = i * p,
             _ = f(d, v)
@@ -38102,7 +38205,7 @@
         a = []
         for (var p = 0; p < n - 1; ++p)
           a.push(qe(t[(s - 1) * n + p], t[s * n + p], h))
-        return a.push(i), a
+        return (a.push(i), a)
       }
       function wy(t, e, r, n, i, o, a) {
         if (a) return xy(t, e, r[r.length - 1], n, i, o)
@@ -38128,23 +38231,23 @@
           ++a
         ) {
           var l = r[a]
-          ;(o = le(t, e, l[0], n)),
+          ;((o = le(t, e, l[0], n)),
             i.push((o[0] + o[2]) / 2, (o[1] + o[3]) / 2),
-            (e = l[l.length - 1])
+            (e = l[l.length - 1]))
         }
         return i
       }
       var Ey = [1, 0, 0, 1, 0, 0],
         Ty = (function () {
           function t(t, e, r, n, i) {
-            this.extent_,
+            ;(this.extent_,
               (this.id_ = i),
               (this.type_ = t),
               (this.flatCoordinates_ = e),
               (this.flatInteriorPoints_ = null),
               (this.flatMidpoints_ = null),
               (this.ends_ = r),
-              (this.properties_ = n)
+              (this.properties_ = n))
           }
           return (
             (t.prototype.get = function (t) {
@@ -38219,7 +38322,7 @@
                 ) {
                   var o = r[n],
                     a = by(t, e, o, 2, 0.5)
-                  v(this.flatMidpoints_, a), (e = o)
+                  ;(v(this.flatMidpoints_, a), (e = o))
                 }
               }
               return this.flatMidpoints_
@@ -38254,7 +38357,7 @@
                 r = t.getWorldExtent()
               if (e && r) {
                 var n = Ee(r) / Ee(e)
-                kt(Ey, r[0], r[3], n, -n, 0, 0, 0),
+                ;(kt(Ey, r[0], r[3], n, -n, 0, 0, 0),
                   ln(
                     this.flatCoordinates_,
                     0,
@@ -38262,7 +38365,7 @@
                     2,
                     Ey,
                     this.flatCoordinates_,
-                  )
+                  ))
               }
             }),
             (t.prototype.getEnds = function () {
@@ -38271,9 +38374,9 @@
             t
           )
         })()
-      ;(Ty.prototype.getEndss = Ty.prototype.getEnds),
+      ;((Ty.prototype.getEndss = Ty.prototype.getEnds),
         (Ty.prototype.getFlatCoordinates =
-          Ty.prototype.getOrientedFlatCoordinates)
+          Ty.prototype.getOrientedFlatCoordinates))
       var Cy = Ty
       var Oy = (function () {
           var t = function (e, r) {
@@ -38292,11 +38395,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Py = (function (t) {
@@ -38316,14 +38419,14 @@
           return (
             Oy(e, t),
             (e.prototype.appendCoordinate = function (t) {
-              this.flatCoordinates
+              ;(this.flatCoordinates
                 ? v(this.flatCoordinates, t)
                 : (this.flatCoordinates = t.slice()),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.clone = function () {
               var t = new e(this.flatCoordinates.slice(), this.layout)
-              return t.applyProperties(this), t
+              return (t.applyProperties(this), t)
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
               return n < Jt(this.getExtent(), t, e)
@@ -38439,7 +38542,7 @@
               )
             }),
             (e.prototype.setCoordinates = function (t, e) {
-              this.setLayout(e, t, 1),
+              ;(this.setLayout(e, t, 1),
                 this.flatCoordinates || (this.flatCoordinates = []),
                 (this.flatCoordinates.length = On(
                   this.flatCoordinates,
@@ -38447,7 +38550,7 @@
                   t,
                   this.stride,
                 )),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -38469,11 +38572,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Iy = (function (t) {
@@ -38509,7 +38612,7 @@
           --v > 0 && y.length > 0;
 
         )
-          (o = y.pop()),
+          ((o = y.pop()),
             (c = d.pop()),
             (p = g.pop()),
             (l = o.toString()) in m || (u.push(p[0], p[1]), (m[l] = !0)),
@@ -38525,7 +38628,7 @@
               f[1],
             ) < r
               ? (u.push(f[0], f[1]), (m[(l = a.toString())] = !0))
-              : (y.push(a, s, s, o), g.push(f, i, i, p), d.push(h, n, n, c))
+              : (y.push(a, s, s, o), g.push(f, i, i, p), d.push(h, n, n, c)))
         return u
       }
       function My(t, e, r, n, i) {
@@ -38563,11 +38666,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ky = new gp({ color: 'rgba(0,0,0,0.2)' }),
@@ -38726,9 +38829,9 @@
               ) {
                 var o = xe(i),
                   a = (e * e) / 4
-                ;(!this.projection_ || !Xr(this.projection_, r)) &&
+                ;((!this.projection_ || !Xr(this.projection_, r)) &&
                   this.updateProjectionInfo_(r),
-                  this.createGraticule_(i, o, e, a)
+                  this.createGraticule_(i, o, e, a))
                 var s,
                   l = this.meridians_.length + this.parallels_.length
                 for (
@@ -38737,20 +38840,20 @@
                   l > this.featurePool_.length;
 
                 )
-                  (s = new gt()), this.featurePool_.push(s)
+                  ((s = new gt()), this.featurePool_.push(s))
                 var u = n.getFeaturesCollection()
                 u.clear()
                 var c,
                   h,
                   p = 0
                 for (c = 0, h = this.meridians_.length; c < h; ++c)
-                  (s = this.featurePool_[p++]).setGeometry(this.meridians_[c]),
+                  ((s = this.featurePool_[p++]).setGeometry(this.meridians_[c]),
                     s.setStyle(this.lineStyle_),
-                    u.push(s)
+                    u.push(s))
                 for (c = 0, h = this.parallels_.length; c < h; ++c)
-                  (s = this.featurePool_[p++]).setGeometry(this.parallels_[c]),
+                  ((s = this.featurePool_[p++]).setGeometry(this.parallels_[c]),
                     s.setStyle(this.lineStyle_),
-                    u.push(s)
+                    u.push(s))
               }
             }),
             (e.prototype.addMeridian_ = function (t, e, r, n, i, o) {
@@ -38814,13 +38917,13 @@
                   for (b = 0, x = this.meridiansLabels_.length; b < x; ++b) {
                     var S = this.meridians_[b]
                     if (e || 0 !== m)
-                      (E = S.clone()).translate(m * g, 0),
+                      ((E = S.clone()).translate(m * g, 0),
                         E.rotate(-e, n),
-                        (w = this.getMeridianPoint_(E, i, b)).rotate(e, n)
+                        (w = this.getMeridianPoint_(E, i, b)).rotate(e, n))
                     else w = this.getMeridianPoint_(S, r, b)
-                    ;(_ = this.featurePool_[v++]).setGeometry(w),
+                    ;((_ = this.featurePool_[v++]).setGeometry(w),
                       _.set('graticule_label', this.meridiansLabels_[b].text),
-                      y.drawFeature(_, this.lonLabelStyle_(_))
+                      y.drawFeature(_, this.lonLabelStyle_(_)))
                   }
                 if (
                   this.parallelsLabels_ &&
@@ -38830,13 +38933,13 @@
                     var E
                     S = this.parallels_[b]
                     if (e || 0 !== m)
-                      (E = S.clone()).translate(m * g, 0),
+                      ((E = S.clone()).translate(m * g, 0),
                         E.rotate(-e, n),
-                        (w = this.getParallelPoint_(E, i, b)).rotate(e, n)
+                        (w = this.getParallelPoint_(E, i, b)).rotate(e, n))
                     else w = this.getParallelPoint_(S, r, b)
-                    ;(_ = this.featurePool_[v++]).setGeometry(w),
+                    ;((_ = this.featurePool_[v++]).setGeometry(w),
                       _.set('graticule_label', this.parallelsLabels_[b].text),
-                      y.drawFeature(_, this.latLabelStyle_(_))
+                      y.drawFeature(_, this.latLabelStyle_(_)))
                   }
               }
             }),
@@ -38915,15 +39018,15 @@
                   h = this.addMeridian_(f, x, _, n, t, h)
               else
                 for (; f != this.minLon_ && c++ < y; )
-                  (f = Math.max(f - i, this.minLon_)),
-                    (h = this.addMeridian_(f, x, _, n, t, h))
+                  ((f = Math.max(f - i, this.minLon_)),
+                    (h = this.addMeridian_(f, x, _, n, t, h)))
               if (((f = Ne(d, this.minLon_, this.maxLon_)), (c = 0), o))
                 for (; (f += i) <= b && c++ < y; )
                   h = this.addMeridian_(f, x, _, n, t, h)
               else
                 for (; f != this.maxLon_ && c++ < y; )
-                  (f = Math.min(f + i, this.maxLon_)),
-                    (h = this.addMeridian_(f, x, _, n, t, h))
+                  ((f = Math.min(f + i, this.maxLon_)),
+                    (h = this.addMeridian_(f, x, _, n, t, h)))
               for (
                 this.meridians_.length = h,
                   this.meridiansLabels_ && (this.meridiansLabels_.length = h),
@@ -38937,17 +39040,17 @@
                 p != this.minLat_ && c++ < y;
 
               )
-                (p = Math.max(p - i, this.minLat_)),
-                  (h = this.addParallel_(p, w, b, n, t, h))
+                ((p = Math.max(p - i, this.minLat_)),
+                  (h = this.addParallel_(p, w, b, n, t, h)))
               for (
                 p = Ne(g, this.minLat_, this.maxLat_), c = 0;
                 p != this.maxLat_ && c++ < y;
 
               )
-                (p = Math.min(p + i, this.maxLat_)),
-                  (h = this.addParallel_(p, w, b, n, t, h))
-              ;(this.parallels_.length = h),
-                this.parallelsLabels_ && (this.parallelsLabels_.length = h)
+                ((p = Math.min(p + i, this.maxLat_)),
+                  (h = this.addParallel_(p, w, b, n, t, h)))
+              ;((this.parallels_.length = h),
+                this.parallelsLabels_ && (this.parallelsLabels_.length = h))
             }),
             (e.prototype.getInterval_ = function (t) {
               for (
@@ -39006,7 +39109,7 @@
                   l,
                 ],
                 c = this.meridiansLabels_[r].geom
-              return c.setCoordinates(u), c
+              return (c.setCoordinates(u), c)
             }),
             (e.prototype.getMeridians = function () {
               return this.meridians_
@@ -39039,7 +39142,7 @@
                     ((n[o + 1] - n[i + 1]) * (l - n[i])) / (n[o] - n[i]),
                 ],
                 c = this.parallelsLabels_[r].geom
-              return c.setCoordinates(u), c
+              return (c.setCoordinates(u), c)
             }),
             (e.prototype.getParallels = function () {
               return this.parallels_
@@ -39047,15 +39150,15 @@
             (e.prototype.updateProjectionInfo_ = function (t) {
               var e = Gr('EPSG:4326'),
                 r = t.getWorldExtent()
-              ;(this.maxLat_ = r[3]),
+              ;((this.maxLat_ = r[3]),
                 (this.maxLon_ = r[2]),
                 (this.minLat_ = r[1]),
-                (this.minLon_ = r[0])
+                (this.minLon_ = r[0]))
               var n = Kr(t, e)
               if (this.minLon_ < this.maxLon_) this.toLonLatTransform_ = n
               else {
                 var i = this.minLon_ + this.maxLon_ / 2
-                ;(this.maxLon_ += 360),
+                ;((this.maxLon_ += 360),
                   (this.toLonLatTransform_ = function (t, e, r) {
                     for (
                       var o = r || 2, a = n(t, e, o), s = 0, l = a.length;
@@ -39064,7 +39167,7 @@
                     )
                       a[s] < i && (a[s] += 360)
                     return a
-                  })
+                  }))
               }
               this.fromLonLatTransform_ = Kr(e, t)
               var o = Ae(
@@ -39073,7 +39176,7 @@
                 void 0,
                 8,
               )
-              ;(this.minX_ = o[0]),
+              ;((this.minX_ = o[0]),
                 (this.maxX_ = o[2]),
                 (this.minY_ = o[1]),
                 (this.maxY_ = o[3]),
@@ -39101,7 +39204,7 @@
                     Math.abs(this.maxLat_) >= Math.abs(this.minLat_)
                       ? this.maxLat_
                       : this.minLat_),
-                (this.projection_ = t)
+                (this.projection_ = t))
             }),
             e
           )
@@ -39123,11 +39226,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Gy = 'blur',
@@ -39139,7 +39242,7 @@
             var r = this,
               n = e || {},
               i = O({}, n)
-            delete i.gradient,
+            ;(delete i.gradient,
               delete i.radius,
               delete i.blur,
               delete i.weight,
@@ -39147,7 +39250,7 @@
               r.addEventListener(it(zy), r.handleGradientChanged_),
               r.setGradient(n.gradient ? n.gradient : By),
               r.setBlur(void 0 !== n.blur ? n.blur : 15),
-              r.setRadius(void 0 !== n.radius ? n.radius : 8)
+              r.setRadius(void 0 !== n.radius ? n.radius : 8))
             var o = n.weight ? n.weight : 'weight'
             return (
               (r.weightFunction_ =
@@ -39183,7 +39286,7 @@
                   ++i
                 )
                   r.addColorStop(i * n, t[i])
-                return (e.fillStyle = r), e.fillRect(0, 0, 1, 256), e.canvas
+                return ((e.fillStyle = r), e.fillRect(0, 0, 1, 256), e.canvas)
               })(this.getGradient())
             }),
             (e.prototype.setBlur = function (t) {
@@ -39242,8 +39345,8 @@
         })(Iy),
         Yy = (function () {
           function t() {
-            ;(this.dataProjection = null),
-              (this.defaultFeatureProjection = null)
+            ;((this.dataProjection = null),
+              (this.defaultFeatureProjection = null))
           }
           return (
             (t.prototype.getReadOptions = function (t, e) {
@@ -39252,14 +39355,14 @@
                 var n = e.dataProjection
                   ? Gr(e.dataProjection)
                   : this.readProjection(t)
-                e.extent &&
+                ;(e.extent &&
                   n &&
                   n.getUnits() === St.TILE_PIXELS &&
                   (n = Gr(n)).setWorldExtent(e.extent),
                   (r = {
                     dataProjection: n,
                     featureProjection: e.featureProjection,
-                  })
+                  }))
               }
               return this.adaptOptions(r)
             }),
@@ -39311,12 +39414,12 @@
           e && r && void 0 !== r.decimals)
         ) {
           var a = Math.pow(10, r.decimals)
-          n === t && (n = t.clone()),
+          ;(n === t && (n = t.clone()),
             n.applyTransform(function (t) {
               for (var e = 0, r = t.length; e < r; ++e)
                 t[e] = Math.round(t[e] * a) / a
               return t
-            })
+            }))
         }
         return n
       }
@@ -39342,11 +39445,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Zy = (function (t) {
@@ -39360,7 +39463,7 @@
             )
               i.setCoordinates(e, r)
             else if (void 0 !== r && n)
-              i.setFlatCoordinates(r, e), (i.ends_ = n)
+              (i.setFlatCoordinates(r, e), (i.ends_ = n))
             else {
               for (
                 var o = i.getLayout(),
@@ -39373,22 +39476,22 @@
                 ++u
               ) {
                 var h = a[u]
-                0 === u && (o = h.getLayout()),
+                ;(0 === u && (o = h.getLayout()),
                   v(s, h.getFlatCoordinates()),
-                  l.push(s.length)
+                  l.push(s.length))
               }
-              i.setFlatCoordinates(o, s), (i.ends_ = l)
+              ;(i.setFlatCoordinates(o, s), (i.ends_ = l))
             }
             return i
           }
           return (
             Xy(e, t),
             (e.prototype.appendLineString = function (t) {
-              this.flatCoordinates
+              ;(this.flatCoordinates
                 ? v(this.flatCoordinates, t.getFlatCoordinates().slice())
                 : (this.flatCoordinates = t.getFlatCoordinates().slice()),
                 this.ends_.push(this.flatCoordinates.length),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.clone = function () {
               var t = new e(
@@ -39396,7 +39499,7 @@
                 this.layout,
                 this.ends_.slice(),
               )
-              return t.applyProperties(this), t
+              return (t.applyProperties(this), t)
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
               return n < Jt(this.getExtent(), t, e)
@@ -39468,7 +39571,7 @@
               ) {
                 var s = e[o],
                   l = new Py(t.slice(i, s), r)
-                n.push(l), (i = s)
+                ;(n.push(l), (i = s))
               }
               return n
             }),
@@ -39485,7 +39588,7 @@
                 ++o
               ) {
                 var s = n[o]
-                v(t, by(e, r, s, i, 0.5)), (r = s)
+                ;(v(t, by(e, r, s, i, 0.5)), (r = s))
               }
               return t
             }),
@@ -39513,12 +39616,12 @@
               return ei(this.flatCoordinates, 0, this.ends_, this.stride, t)
             }),
             (e.prototype.setCoordinates = function (t, e) {
-              this.setLayout(e, t, 2),
-                this.flatCoordinates || (this.flatCoordinates = [])
+              ;(this.setLayout(e, t, 2),
+                this.flatCoordinates || (this.flatCoordinates = []))
               var r = Pn(this.flatCoordinates, 0, t, this.stride, this.ends_)
-              ;(this.flatCoordinates.length =
+              ;((this.flatCoordinates.length =
                 0 === r.length ? 0 : r[r.length - 1]),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -39540,11 +39643,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Hy = (function (t) {
@@ -39560,14 +39663,14 @@
           return (
             Ky(e, t),
             (e.prototype.appendPoint = function (t) {
-              this.flatCoordinates
+              ;(this.flatCoordinates
                 ? v(this.flatCoordinates, t.getFlatCoordinates())
                 : (this.flatCoordinates = t.getFlatCoordinates().slice()),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.clone = function () {
               var t = new e(this.flatCoordinates.slice(), this.layout)
-              return t.applyProperties(this), t
+              return (t.applyProperties(this), t)
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
               if (n < Jt(this.getExtent(), t, e)) return n
@@ -39643,7 +39746,7 @@
               return !1
             }),
             (e.prototype.setCoordinates = function (t, e) {
-              this.setLayout(e, t, 1),
+              ;(this.setLayout(e, t, 1),
                 this.flatCoordinates || (this.flatCoordinates = []),
                 (this.flatCoordinates.length = On(
                   this.flatCoordinates,
@@ -39651,7 +39754,7 @@
                   t,
                   this.stride,
                 )),
-                this.changed()
+                this.changed())
             }),
             e
           )
@@ -39673,11 +39776,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Jy = (function (t) {
@@ -39711,9 +39814,9 @@
                   ++d
                 )
                   f[d] += p
-                v(s, h.getFlatCoordinates()), l.push(f)
+                ;(v(s, h.getFlatCoordinates()), l.push(f))
               }
-              ;(r = o), (e = s), (n = l)
+              ;((r = o), (e = s), (n = l))
             }
             return (
               void 0 !== r && n
@@ -39736,10 +39839,10 @@
                 )
                   e[n] += r
               } else
-                (this.flatCoordinates = t.getFlatCoordinates().slice()),
+                ((this.flatCoordinates = t.getFlatCoordinates().slice()),
                   (e = t.getEnds().slice()),
-                  this.endss_.push()
-              this.endss_.push(e), this.changed()
+                  this.endss_.push())
+              ;(this.endss_.push(e), this.changed())
             }),
             (e.prototype.clone = function () {
               for (
@@ -39749,7 +39852,7 @@
               )
                 r[n] = this.endss_[n].slice()
               var i = new e(this.flatCoordinates.slice(), this.layout, r)
-              return i.applyProperties(this), i
+              return (i.applyProperties(this), i)
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
               return n < Jt(this.getExtent(), t, e)
@@ -39811,14 +39914,14 @@
             (e.prototype.getFlatInteriorPoints = function () {
               if (this.flatInteriorPointsRevision_ != this.getRevision()) {
                 var t = Sy(this.flatCoordinates, 0, this.endss_, this.stride)
-                ;(this.flatInteriorPoints_ = Jn(
+                ;((this.flatInteriorPoints_ = Jn(
                   this.getOrientedFlatCoordinates(),
                   0,
                   this.endss_,
                   this.stride,
                   t,
                 )),
-                  (this.flatInteriorPointsRevision_ = this.getRevision())
+                  (this.flatInteriorPointsRevision_ = this.getRevision()))
               }
               return this.flatInteriorPoints_
             }),
@@ -39828,7 +39931,7 @@
             (e.prototype.getOrientedFlatCoordinates = function () {
               if (this.orientedRevision_ != this.getRevision()) {
                 var t = this.flatCoordinates
-                li(t, 0, this.endss_, this.stride)
+                ;(li(t, 0, this.endss_, this.stride)
                   ? (this.orientedFlatCoordinates_ = t)
                   : ((this.orientedFlatCoordinates_ = t.slice()),
                     (this.orientedFlatCoordinates_.length = ci(
@@ -39837,7 +39940,7 @@
                       this.endss_,
                       this.stride,
                     ))),
-                  (this.orientedRevision_ = this.getRevision())
+                  (this.orientedRevision_ = this.getRevision()))
               }
               return this.orientedFlatCoordinates_
             }),
@@ -39887,7 +39990,7 @@
                   l = s[s.length - 1]
                 if (0 !== i) for (var u = 0, c = s.length; u < c; ++u) s[u] -= i
                 var h = new fi(e.slice(i, l), t, s)
-                n.push(h), (i = l)
+                ;(n.push(h), (i = l))
               }
               return n
             }),
@@ -39904,8 +40007,8 @@
               )
             }),
             (e.prototype.setCoordinates = function (t, e) {
-              this.setLayout(e, t, 3),
-                this.flatCoordinates || (this.flatCoordinates = [])
+              ;(this.setLayout(e, t, 3),
+                this.flatCoordinates || (this.flatCoordinates = []))
               var r = Rn(this.flatCoordinates, 0, t, this.stride, this.endss_)
               if (0 === r.length) this.flatCoordinates.length = 0
               else {
@@ -39937,20 +40040,20 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function rm(t, e, r) {
         if (3 === t) {
           var n = { keys: [], values: [], features: [] },
             i = r.readVarint() + r.pos
-          r.readFields(nm, n, i),
+          ;(r.readFields(nm, n, i),
             (n.length = n.features.length),
-            n.length && (e[n.name] = n)
+            n.length && (e[n.name] = n))
         }
       }
       function nm(t, e, r) {
@@ -39994,7 +40097,7 @@
         t.pos = e.features[r]
         var n = t.readVarint() + t.pos,
           i = { layer: e, type: 0, properties: {} }
-        return t.readFields(im, i, n), i
+        return (t.readFields(im, i, n), i)
       }
       var am = (function (t) {
           function e(e) {
@@ -40027,9 +40130,9 @@
               ) {
                 if (!a) {
                   var h = t.readVarint()
-                  ;(o = 7 & h), (a = h >> 3)
+                  ;((o = 7 & h), (a = h >> 3))
                 }
-                a--,
+                ;(a--,
                   1 === o || 2 === o
                     ? ((s += t.readSVarint()),
                       (l += t.readSVarint()),
@@ -40038,7 +40141,7 @@
                       (u += 2))
                     : 7 === o
                       ? u > c && (r.push(r[c], r[c + 1]), (u += 2))
-                      : pt(!1, 59)
+                      : pt(!1, 59))
               }
               u > c && (n.push(u), (c = u))
             }),
@@ -40048,10 +40151,10 @@
               if (0 === i) return null
               var o,
                 a = e.properties
-              this.idProperty_
+              ;(this.idProperty_
                 ? ((o = a[this.idProperty_]), delete a[this.idProperty_])
                 : (o = e.id),
-                (a[this.layerName_] = e.layer.name)
+                (a[this.layerName_] = e.layer.name))
               var s = [],
                 l = []
               this.readRawGeometry_(t, e, s, l)
@@ -40081,7 +40184,7 @@
                       if (0 === h.length) continue
                       h[h.length - 1].push(l[f])
                     } else h.push(l.slice(f, d + 1))
-                    ;(f = d + 1), (p = y)
+                    ;((f = d + 1), (p = y))
                   }
                   c = h.length > 1 ? new Jy(s, yt, h) : new fi(s, yt, l)
                 } else
@@ -40097,10 +40200,10 @@
                             : u === bt.MULTI_LINE_STRING
                               ? new Zy(s, yt, l)
                               : null
-                ;(n = new (0, this.featureClass_)()),
-                  this.geometryName_ && n.setGeometryName(this.geometryName_)
+                ;((n = new (0, this.featureClass_)()),
+                  this.geometryName_ && n.setGeometryName(this.geometryName_))
                 var m = Wy(c, !1, r)
-                n.setGeometry(m), n.setId(o), n.setProperties(a, !0)
+                ;(n.setGeometry(m), n.setId(o), n.setProperties(a, !0))
               }
               return n
             }),
@@ -40111,7 +40214,7 @@
               var r = this.layers_,
                 n = this.adaptOptions(e),
                 i = Gr(n.dataProjection)
-              i.setWorldExtent(n.extent), (n.dataProjection = i)
+              ;(i.setWorldExtent(n.extent), (n.dataProjection = i))
               var o = new tm.a(t),
                 a = o.readFields(rm, {}),
                 s = []
@@ -40153,11 +40256,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         lm = (function (t) {
@@ -40165,9 +40268,9 @@
             var r = this,
               n = e || {},
               i = O({}, n)
-            delete i.preload,
+            ;(delete i.preload,
               delete i.useInterimTilesOnError,
-              (r = t.call(this, i) || this)
+              (r = t.call(this, i) || this))
             var o = n.renderMode || dy
             return (
               pt(null == o || o == fy || o == dy || o == gy, 28),
@@ -40225,7 +40328,7 @@
         )
           return new OffscreenCanvas(t, e)
         var r = document.createElement('canvas')
-        return (r.width = t), (r.height = e), r
+        return ((r.width = t), (r.height = e), r)
       }
       var gm,
         ym = Array(256).join(' ')
@@ -40240,13 +40343,13 @@
             o < a;
             ++o
           )
-            o > 0 && (r += '\n'), (r += n[o].split('').join(i))
+            (o > 0 && (r += '\n'), (r += n[o].split('').join(i)))
           return r
         }
         return t
       }
       function vm() {
-        return gm || (gm = dm(1, 1).getContext('2d')), gm
+        return (gm || (gm = dm(1, 1).getContext('2d')), gm)
       }
       function _m(t, e) {
         return vm().measureText(t).width + (t.length - 1) * e
@@ -40308,12 +40411,12 @@
             })(s, l)
             a[r] = c.evaluate.bind(c)
           } else
-            'color' == l.type && (s = hm.a.parse(s)),
+            ('color' == l.type && (s = hm.a.parse(s)),
               (a[r] = function () {
                 return s
-              })
+              }))
         }
-        return (Im.zoom = n), a[r](Im, i)
+        return ((Im.zoom = n), a[r](Im, i))
       }
       var Fm = {}
       function Am(t, e) {
@@ -40358,25 +40461,25 @@
           if (o)
             if ('undefined' != typeof Image) {
               var u = new Image()
-              ;(u.crossOrigin = 'anonymous'),
+              ;((u.crossOrigin = 'anonymous'),
                 (u.onload = function () {
-                  ;(s = u),
+                  ;((s = u),
                     (l = [u.width, u.height]),
                     t.changed(),
-                    (u.onload = null)
+                    (u.onload = null))
                 }),
-                (u.src = o)
+                (u.src = o))
             } else if (
               'undefined' != typeof WorkerGlobalScope &&
               self instanceof WorkerGlobalScope
             ) {
               var c = self
-              c.postMessage({ action: 'loadImage', src: o }),
+              ;(c.postMessage({ action: 'loadImage', src: o }),
                 c.addEventListener('message', function (t) {
                   'imageLoaded' === t.data.action &&
                     t.data.src === o &&
                     ((s = t.data.image), (l = [s.width, s.height]))
-                })
+                }))
             }
           for (
             var h,
@@ -40410,9 +40513,9 @@
                   )
               }
               var w = f[_]
-              w || (w = f[_] = []), w.push({ layer: m, index: g }), d.push(v)
+              ;(w || (w = f[_] = []), w.push({ layer: m, index: g }), d.push(v))
             }
-            delete Lm[v], delete Fm[v]
+            ;(delete Lm[v], delete Fm[v])
           }
           var S = new gp(),
             E = new ep(),
@@ -40483,17 +40586,17 @@
                               var A =
                                 'string' == typeof F ? jm(F, r) : F.toString()
                               if (s && i && i[A]) {
-                                ++d,
+                                ;(++d,
                                   ((L = O[d]) &&
                                     L.getFill() &&
                                     !L.getStroke() &&
                                     !L.getText()) ||
                                     (L = O[d] = new wp({ fill: new ep() })),
                                   (P = L.getFill()),
-                                  L.setZIndex(M)
+                                  L.setZIndex(M))
                                 var k = C[(ut = A + '.' + w)]
                                 if (!k)
-                                  ((pt = (ht = dm(
+                                  (((pt = (ht = dm(
                                     (ct = i[A]).width,
                                     ct.height,
                                   )).getContext('2d')).globalAlpha = w),
@@ -40509,7 +40612,7 @@
                                       ct.height,
                                     ),
                                     (k = pt.createPattern(ht, 'repeat')),
-                                    (C[ut] = k)
+                                    (C[ut] = k))
                                 P.setColor(k)
                               }
                             }
@@ -40664,13 +40767,13 @@
                                 }
                               }
                               if (2 !== h || Y) {
-                                ++d,
+                                ;(++d,
                                   ((L = O[d]) &&
                                     L.getImage() &&
                                     !L.getFill() &&
                                     !L.getStroke()) ||
                                     (L = O[d] = new wp()),
-                                  L.setGeometry(Y)
+                                  L.setGeometry(Y))
                                 var st = Mm(y, 'layout', 'icon-size', u, p),
                                   lt =
                                     void 0 !== _['icon-color']
@@ -40711,19 +40814,19 @@
                                       dt += 4
                                     ) {
                                       var yt = lt.a
-                                      0 !== yt &&
+                                      ;(0 !== yt &&
                                         ((ft.data[dt] = (255 * lt.r) / yt),
                                         (ft.data[dt + 1] = (255 * lt.g) / yt),
                                         (ft.data[dt + 2] = (255 * lt.b) / yt)),
-                                        (ft.data[dt + 3] = yt)
+                                        (ft.data[dt + 3] = yt))
                                     }
-                                    pt.putImageData(ft, 0, 0),
+                                    ;(pt.putImageData(ft, 0, 0),
                                       (U = T[ut] =
                                         new dp({
                                           img: ht,
                                           imgSize: [ht.width, ht.height],
                                           scale: st / ct.pixelRatio,
-                                        }))
+                                        })))
                                   } else
                                     U = T[ut] = new dp({
                                       img: s,
@@ -40734,7 +40837,7 @@
                                       scale: st / ct.pixelRatio,
                                     })
                                 }
-                                U.setRotation(
+                                ;(U.setRotation(
                                   G + pm(Mm(y, 'layout', 'icon-rotate', u, p)),
                                 ),
                                   U.setOpacity(
@@ -40748,18 +40851,18 @@
                                   L.setText(void 0),
                                   L.setZIndex(M),
                                   (N = !0),
-                                  (B = !1)
+                                  (B = !1))
                               } else B = !0
                             }
                           }
                         }
                         if (1 == h && ('circle-radius' in _)) {
-                          ++d,
+                          ;(++d,
                             ((L = O[d]) &&
                               L.getImage() &&
                               !L.getFill() &&
                               !L.getStroke()) ||
-                              (L = O[d] = new wp())
+                              (L = O[d] = new wp()))
                           var mt = Mm(y, 'paint', 'circle-radius', u, p),
                             vt = Am(
                               Mm(y, 'paint', 'circle-stroke-color', u, p),
@@ -40771,7 +40874,7 @@
                             ),
                             bt = Mm(y, 'paint', 'circle-stroke-width', u, p),
                             xt = mt + '.' + vt + '.' + _t + '.' + bt
-                          ;(U = T[xt]) ||
+                          ;((U = T[xt]) ||
                             (U = T[xt] =
                               new tp({
                                 radius: mt,
@@ -40786,17 +40889,17 @@
                             L.setText(void 0),
                             L.setGeometry(void 0),
                             L.setZIndex(M),
-                            (N = !0)
+                            (N = !0))
                         }
                         var wt = void 0
                         if (('text-field' in v))
-                          (wt = jm(
+                          ((wt = jm(
                             Mm(y, 'layout', 'text-field', u, p).toString(),
                             r,
                           ).trim()),
-                            (w = Mm(y, 'paint', 'text-opacity', u, p))
+                            (w = Mm(y, 'paint', 'text-opacity', u, p)))
                         if (wt && w && !B) {
-                          N ||
+                          ;(N ||
                             (++d,
                             ((L = O[d]) &&
                               L.getText() &&
@@ -40807,7 +40910,7 @@
                             L.setGeometry(void 0)),
                             L.getText() ||
                               L.setText(D || new Tp({ padding: [2, 2, 2, 2] })),
-                            (D = L.getText())
+                            (D = L.getText()))
                           var St = Math.round(
                               Mm(y, 'layout', 'text-size', u, p),
                             ),
@@ -40870,12 +40973,12 @@
                                                 s < l - 1
                                                   ? _m(a[s + 1], i)
                                                   : 1 / 0
-                                            a.splice(s, 1),
+                                            ;(a.splice(s, 1),
                                               (l -= 1),
                                               v < _
                                                 ? ((a[s - 1] += ' ' + m),
                                                   (s -= 1))
-                                                : (a[s] = m + ' ' + a[s])
+                                                : (a[s] = m + ' ' + a[s]))
                                           }
                                         }
                                         for (
@@ -40891,23 +40994,23 @@
                                           ) {
                                             var w = b.split(' '),
                                               S = w.pop()
-                                            _m(S, i) < 0.2 * f &&
+                                            ;(_m(S, i) < 0.2 * f &&
                                               ((a[s] = w.join(' ')),
                                               (a[s + 1] = S + ' ' + x)),
-                                              (l -= 1)
+                                              (l -= 1))
                                           }
                                         }
                                         c = a.join('\n')
                                       } else c = e
-                                      ;(c = mm(c, i)), (bm[u] = c)
+                                      ;((c = mm(c, i)), (bm[u] = c))
                                     }
                                     return c
                                   })(wt, Ct, Pt, Rt)
-                          D.setText(It),
+                          ;(D.setText(It),
                             D.setFont(Ct),
                             D.setRotation(
                               pm(Mm(y, 'layout', 'text-rotate', u, p)),
-                            )
+                            ))
                           var Lt = Mm(y, 'layout', 'text-anchor', u, p),
                             Mt =
                               N || 1 == h
@@ -40921,11 +41024,11 @@
                             Nt = 0
                           if ('point' == Mt) {
                             var Dt = 'center'
-                            ;-1 !== Lt.indexOf('left')
+                            ;(-1 !== Lt.indexOf('left')
                               ? ((Dt = 'left'), (Nt = Ft))
                               : -1 !== Lt.indexOf('right') &&
                                 ((Dt = 'right'), (Nt = -Ft)),
-                              D.setTextAlign(Dt)
+                              D.setTextAlign(Dt))
                             var Gt = Mm(
                               y,
                               'layout',
@@ -40935,15 +41038,15 @@
                             )
                             D.setRotateWithView('map' == Gt)
                           } else
-                            D.setMaxAngle(
+                            (D.setMaxAngle(
                               (pm(Mm(y, 'layout', 'text-max-angle', u, p)) *
                                 wt.length) /
                                 It.length,
                             ),
                               D.setTextAlign(),
-                              D.setRotateWithView(!1)
+                              D.setRotateWithView(!1))
                           var zt = 'middle'
-                          0 == Lt.indexOf('bottom')
+                          ;(0 == Lt.indexOf('bottom')
                             ? ((zt = 'bottom'),
                               (jt = -Ft - 0.5 * (Tt - 1) * St))
                             : 0 == Lt.indexOf('top') &&
@@ -40954,20 +41057,21 @@
                             E.setColor(
                               Am(Mm(y, 'paint', 'text-color', u, p), w),
                             ),
-                            D.setFill(E)
+                            D.setFill(E))
                           var Ut = Am(
                             Mm(y, 'paint', 'text-halo-color', u, p),
                             w,
                           )
                           if (Ut) {
-                            S.setColor(Ut), (Ft *= 2)
+                            ;(S.setColor(Ut), (Ft *= 2))
                             var Bt = 0.5 * St
-                            S.setWidth(Ft <= Bt ? Ft : Bt), D.setStroke(S)
+                            ;(S.setWidth(Ft <= Bt ? Ft : Bt), D.setStroke(S))
                           } else D.setStroke(void 0)
                           var Vt = Mm(y, 'layout', 'text-padding', u, p),
                             Yt = D.getPadding()
-                          Vt !== Yt[0] && (Yt[0] = Yt[1] = Yt[2] = Yt[3] = Vt),
-                            L.setZIndex(M)
+                          ;(Vt !== Yt[0] &&
+                            (Yt[0] = Yt[1] = Yt[2] = Yt[3] = Vt),
+                            L.setZIndex(M))
                         }
                       }
                     },
@@ -41013,11 +41117,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Bm(t) {
@@ -41037,8 +41141,8 @@
           return (
             Um(e, t),
             (e.prototype.unlistenGeometriesChange_ = function () {
-              this.changeEventsKeys_.forEach(H),
-                (this.changeEventsKeys_.length = 0)
+              ;(this.changeEventsKeys_.forEach(H),
+                (this.changeEventsKeys_.length = 0))
             }),
             (e.prototype.listenGeometriesChange_ = function () {
               if (this.geometries_)
@@ -41050,7 +41154,9 @@
             (e.prototype.clone = function () {
               var t = new e(null)
               return (
-                t.setGeometries(this.geometries_), t.applyProperties(this), t
+                t.setGeometries(this.geometries_),
+                t.applyProperties(this),
+                t
               )
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
@@ -41104,13 +41210,13 @@
               ) {
                 var s = n[o],
                   l = s.getSimplifiedGeometry(t)
-                r.push(l), l !== s && (i = !0)
+                ;(r.push(l), l !== s && (i = !0))
               }
               if (i) {
                 var u = new e(null)
-                return u.setGeometriesArray(r), u
+                return (u.setGeometriesArray(r), u)
               }
-              return (this.simplifiedGeometryMaxMinSquaredTolerance = t), this
+              return ((this.simplifiedGeometryMaxMinSquaredTolerance = t), this)
             }),
             (e.prototype.getType = function () {
               return bt.GEOMETRY_COLLECTION
@@ -41139,10 +41245,10 @@
               this.setGeometriesArray(Bm(t))
             }),
             (e.prototype.setGeometriesArray = function (t) {
-              this.unlistenGeometriesChange_(),
+              ;(this.unlistenGeometriesChange_(),
                 (this.geometries_ = t),
                 this.listenGeometriesChange_(),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.applyTransform = function (t) {
               for (var e = this.geometries_, r = 0, n = e.length; r < n; ++r)
@@ -41155,8 +41261,8 @@
               this.changed()
             }),
             (e.prototype.disposeInternal = function () {
-              this.unlistenGeometriesChange_(),
-                t.prototype.disposeInternal.call(this)
+              ;(this.unlistenGeometriesChange_(),
+                t.prototype.disposeInternal.call(this))
             }),
             e
           )
@@ -41178,11 +41284,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Wm(t) {
@@ -41272,11 +41378,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Zm(t, e) {
@@ -41373,7 +41479,7 @@
                 type: 'GeometryCollection',
                 geometries: t.getGeometriesArray().map(function (t) {
                   var r = O({}, e)
-                  return delete r.featureProjection, Km(t, r)
+                  return (delete r.featureProjection, Km(t, r))
                 }),
               }
             })(t, e)
@@ -41525,17 +41631,17 @@
               o[1]
             if (!document.querySelector('link[href="' + s + '"]')) {
               var l = document.createElement('link')
-              ;(l.href = s),
+              ;((l.href = s),
                 (l.rel = 'stylesheet'),
-                document.head.appendChild(l)
+                document.head.appendChild(l))
             }
           }
         }
-        return (ev[e] = !0), t
+        return ((ev[e] = !0), t)
       }
       var iv = /^(.*)(\?.*)$/
       function ov(t, e) {
-        return e && 0 === t.indexOf('.') && (t = e + t), t
+        return (e && 0 === t.indexOf('.') && (t = e + t), t)
       }
       function av(t, e, r) {
         var n = (t = ov(t, e)).match(iv)
@@ -41581,7 +41687,7 @@
               })
               .then(function (t) {
                 if (void 0 === t) return a(new Error('No sprites found.'))
-                ;(s = t), (l = av(e.sprite, n, h + '.png')), c()
+                ;((s = t), (l = av(e.sprite, n, h + '.png')), c())
               })
               .catch(function (t) {
                 a(
@@ -41611,11 +41717,11 @@
           function n() {
             this.constructor = e
           }
-          t(e, r),
+          ;(t(e, r),
             (e.prototype =
               null === r
                 ? Object.create(r)
-                : ((n.prototype = r.prototype), new n()))
+                : ((n.prototype = r.prototype), new n())))
         }
       })()
       function uv(t) {
@@ -41669,9 +41775,9 @@
       var dv = (function (t) {
           function e(e) {
             var r = t.call(this, A) || this
-            return (r.error = e), r
+            return ((r.error = e), r)
           }
-          return lv(e, t), e
+          return (lv(e, t), e)
         })(c),
         gv = 'vector',
         yv = (function (t) {
@@ -41755,29 +41861,29 @@
                       )
                   } else s = l
                 }
-                ;(e = s), (r = this.layers)
+                ;((e = s), (r = this.layers))
               } else r = e = this.sourceId
-              r || (r = e = Object.keys(t.sources)[0]),
+              ;(r || (r = e = Object.keys(t.sources)[0]),
                 t.sprite && (t.sprite = cv(t.sprite, this.accessToken)),
-                t.glyphs && (t.glyphs = hv(t.glyphs, this.accessToken))
+                t.glyphs && (t.glyphs = hv(t.glyphs, this.accessToken)))
               var u = t.sources[e]
               if (u.type === gv) {
                 var c = this.getSource()
-                c.setUrl(fv(u.url, this.accessToken)),
+                ;(c.setUrl(fv(u.url, this.accessToken)),
                   sv(this, t, r)
                     .then(function () {
                       c.setState(Qo)
                     })
                     .catch(function (t) {
                       n.handleError(t)
-                    })
+                    }))
               } else
                 this.handleError(
                   new Error('only works for vector sources, found ' + u.type),
                 )
             }),
             (e.prototype.handleError = function (t) {
-              this.dispatchEvent(new dv(t)), this.getSource().setState(ta)
+              ;(this.dispatchEvent(new dv(t)), this.getSource().setState(ta))
             }),
             e
           )
@@ -41799,11 +41905,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         vv = (function (t) {
@@ -41846,11 +41952,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         bv = (function (t) {
@@ -41882,8 +41988,8 @@
               })
             }),
             (e.prototype.disposeInternal = function () {
-              this.getRenderer().disposeInternal(),
-                t.prototype.disposeInternal.call(this)
+              ;(this.getRenderer().disposeInternal(),
+                t.prototype.disposeInternal.call(this))
             }),
             e
           )
@@ -41905,28 +42011,28 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         wv = 'addfeatures',
         Sv = (function (t) {
           function e(e, r, n, i) {
             var o = t.call(this, e) || this
-            return (o.features = n), (o.file = r), (o.projection = i), o
+            return ((o.features = n), (o.file = r), (o.projection = i), o)
           }
-          return xv(e, t), e
+          return (xv(e, t), e)
         })(c),
         Ev = (function (t) {
           function e(e) {
             var r = this,
               n = e || {}
-            ;((r = t.call(this, { handleEvent: S }) || this).readAsBuffer_ =
+            ;(((r = t.call(this, { handleEvent: S }) || this).readAsBuffer_ =
               !1),
-              (r.formats_ = [])
+              (r.formats_ = []))
             for (
               var i = n.formatConstructors ? n.formatConstructors : [],
                 o = 0,
@@ -41935,9 +42041,9 @@
               ++o
             ) {
               var s = i[o]
-              'function' == typeof s && (s = new s()),
+              ;('function' == typeof s && (s = new s()),
                 r.formats_.push(s),
-                (r.readAsBuffer_ = r.readAsBuffer_ || s.getType() === Cu)
+                (r.readAsBuffer_ = r.readAsBuffer_ || s.getType() === Cu))
             }
             return (
               (r.projection_ = n.projection ? Gr(n.projection) : null),
@@ -41963,9 +42069,9 @@
                   (void 0 === r && (r = new TextDecoder().decode(n)), (c = r))
                 var h = this.tryReadFeatures_(u, c, { featureProjection: o })
                 if (h && h.length > 0) {
-                  this.source_ &&
+                  ;(this.source_ &&
                     (this.source_.clear(), this.source_.addFeatures(h)),
-                    this.dispatchEvent(new Sv(wv, t, h, o))
+                    this.dispatchEvent(new Sv(wv, t, h, o)))
                   break
                 }
               }
@@ -41983,14 +42089,14 @@
               }
             }),
             (e.prototype.setActive = function (e) {
-              !this.getActive() && e && this.registerListeners_(),
+              ;(!this.getActive() && e && this.registerListeners_(),
                 this.getActive() && !e && this.unregisterListeners_(),
-                t.prototype.setActive.call(this, e)
+                t.prototype.setActive.call(this, e))
             }),
             (e.prototype.setMap = function (e) {
-              this.unregisterListeners_(),
+              ;(this.unregisterListeners_(),
                 t.prototype.setMap.call(this, e),
-                this.getActive() && this.registerListeners_()
+                this.getActive() && this.registerListeners_())
             }),
             (e.prototype.tryReadFeatures_ = function (t, e, r) {
               try {
@@ -42011,14 +42117,14 @@
               ) {
                 var i = e.item(r),
                   o = new FileReader()
-                o.addEventListener(Y, this.handleResult_.bind(this, i)),
-                  this.readAsBuffer_ ? o.readAsArrayBuffer(i) : o.readAsText(i)
+                ;(o.addEventListener(Y, this.handleResult_.bind(this, i)),
+                  this.readAsBuffer_ ? o.readAsArrayBuffer(i) : o.readAsText(i))
               }
             }),
             (e.prototype.handleStop = function (t) {
-              t.stopPropagation(),
+              ;(t.stopPropagation(),
                 t.preventDefault(),
-                (t.dataTransfer.dropEffect = 'copy')
+                (t.dataTransfer.dropEffect = 'copy'))
             }),
             e
           )
@@ -42040,11 +42146,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Cv = (function (t) {
@@ -42078,12 +42184,12 @@
                   var u = this.lastAngle_ - a
                   l.adjustRotationInternal(u)
                 }
-                ;(this.lastAngle_ = a),
+                ;((this.lastAngle_ = a),
                   void 0 !== this.lastMagnitude_ &&
                     l.adjustResolutionInternal(this.lastMagnitude_ / s),
                   void 0 !== this.lastMagnitude_ &&
                     (this.lastScaleDelta_ = this.lastMagnitude_ / s),
-                  (this.lastMagnitude_ = s)
+                  (this.lastMagnitude_ = s))
               }
             }),
             (e.prototype.handleUpEvent = function (t) {
@@ -42126,11 +42232,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Pv = (function (t) {
@@ -42147,7 +42253,7 @@
             Ov(e, t),
             (e.prototype.clone = function () {
               var t = new e(this.flatCoordinates.slice(), void 0, this.layout)
-              return t.applyProperties(this), t
+              return (t.applyProperties(this), t)
             }),
             (e.prototype.closestPointXY = function (t, e, r, n) {
               var i = this.flatCoordinates,
@@ -42158,10 +42264,10 @@
                 if (0 === s) for (var l = 0; l < this.stride; ++l) r[l] = i[l]
                 else {
                   var u = this.getRadius() / Math.sqrt(s)
-                  ;(r[0] = i[0] + u * o), (r[1] = i[1] + u * a)
+                  ;((r[0] = i[0] + u * o), (r[1] = i[1] + u * a))
                   for (l = 2; l < this.stride; ++l) r[l] = i[l]
                 }
-                return (r.length = this.stride), s
+                return ((r.length = this.stride), s)
               }
               return n
             }),
@@ -42210,35 +42316,35 @@
                 n = t.slice()
               n[e] = n[0] + r
               for (var i = 1; i < e; ++i) n[e + i] = t[i]
-              this.setFlatCoordinates(this.layout, n), this.changed()
+              ;(this.setFlatCoordinates(this.layout, n), this.changed())
             }),
             (e.prototype.setCenterAndRadius = function (t, e, r) {
-              this.setLayout(r, t, 0),
-                this.flatCoordinates || (this.flatCoordinates = [])
+              ;(this.setLayout(r, t, 0),
+                this.flatCoordinates || (this.flatCoordinates = []))
               var n = this.flatCoordinates,
                 i = Cn(n, 0, t, this.stride)
               n[i++] = n[0] + e
               for (var o = 1, a = this.stride; o < a; ++o) n[i++] = n[o]
-              ;(n.length = i), this.changed()
+              ;((n.length = i), this.changed())
             }),
             (e.prototype.getCoordinates = function () {
               return null
             }),
             (e.prototype.setCoordinates = function (t, e) {}),
             (e.prototype.setRadius = function (t) {
-              ;(this.flatCoordinates[this.stride] =
+              ;((this.flatCoordinates[this.stride] =
                 this.flatCoordinates[0] + t),
-                this.changed()
+                this.changed())
             }),
             (e.prototype.rotate = function (t, e) {
               var r = this.getCenter(),
                 n = this.getStride()
-              this.setCenter(un(r, 0, r.length, n, t, e, r)), this.changed()
+              ;(this.setCenter(un(r, 0, r.length, n, t, e, r)), this.changed())
             }),
             (e.prototype.translate = function (t, e) {
               var r = this.getCenter(),
                 n = this.getStride()
-              this.setCenter(hn(r, 0, r.length, n, t, e, r)), this.changed()
+              ;(this.setCenter(hn(r, 0, r.length, n, t, e, r)), this.changed())
             }),
             e
           )
@@ -42262,11 +42368,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Lv = 'Point',
@@ -42279,15 +42385,15 @@
         Dv = (function (t) {
           function e(e, r) {
             var n = t.call(this, e) || this
-            return (n.feature = r), n
+            return ((n.feature = r), n)
           }
-          return Iv(e, t), e
+          return (Iv(e, t), e)
         })(c)
       var Gv = (function (t) {
           function e(e) {
             var r = this,
               n = e
-            n.stopDown || (n.stopDown = E),
+            ;(n.stopDown || (n.stopDown = E),
               ((r = t.call(this, n) || this).shouldHandle_ = !1),
               (r.downPx_ = null),
               r.downTimeout_,
@@ -42317,7 +42423,7 @@
                   : 2),
               (r.maxPoints_ =
                 r.mode_ === Av ? 2 : e.maxPoints ? e.maxPoints : 1 / 0),
-              (r.finishCondition_ = e.finishCondition ? e.finishCondition : S)
+              (r.finishCondition_ = e.finishCondition ? e.finishCondition : S))
             var i,
               o = e.geometryFunction
             if (!o) {
@@ -42330,10 +42436,10 @@
                     o = Rr(i, rn(t[t.length - 1], r))
                   n.setCenterAndRadius(i, Math.sqrt(o))
                   var a = tn()
-                  return a && n.transform(r, a), n
+                  return (a && n.transform(r, a), n)
                 }
               else
-                s === Lv
+                (s === Lv
                   ? (a = qn)
                   : s === Mv
                     ? (a = Py)
@@ -42349,7 +42455,7 @@
                         : (e = new a(t)),
                       e
                     )
-                  })
+                  }))
             }
             return (
               (r.geometryFunction_ = o),
@@ -42392,15 +42498,15 @@
           return (
             Iv(e, t),
             (e.prototype.setMap = function (e) {
-              t.prototype.setMap.call(this, e), this.updateState_()
+              ;(t.prototype.setMap.call(this, e), this.updateState_())
             }),
             (e.prototype.getOverlay = function () {
               return this.overlay_
             }),
             (e.prototype.handleEvent = function (e) {
-              e.originalEvent.type === j && e.originalEvent.preventDefault(),
+              ;(e.originalEvent.type === j && e.originalEvent.preventDefault(),
                 (this.freehand_ =
-                  this.mode_ !== Lv && this.freehandCondition_(e))
+                  this.mode_ !== Lv && this.freehandCondition_(e)))
               var r = e.type === Ga.POINTERMOVE,
                 n = !0
               !this.freehand_ &&
@@ -42487,7 +42593,8 @@
                   e = !1
                 } else this.freehand_ && this.abortDrawing()
               return (
-                !e && this.stopClick_ && t.originalEvent.stopPropagation(), e
+                !e && this.stopClick_ && t.originalEvent.stopPropagation(),
+                e
               )
             }),
             (e.prototype.handlePointerMove_ = function (t) {
@@ -42526,8 +42633,8 @@
                   r = this.sketchCoords_.length > this.minPoints_
                 else if (i === Fv) {
                   var o = this.sketchCoords_
-                  ;(r = o[0].length > this.minPoints_),
-                    (n = [o[0][0], o[0][o[0].length - 2]])
+                  ;((r = o[0].length > this.minPoints_),
+                    (n = [o[0][0], o[0][o[0].length - 2]]))
                 }
                 if (r)
                   for (var a = this.getMap(), s = 0, l = n.length; s < l; s++) {
@@ -42563,7 +42670,7 @@
             }),
             (e.prototype.startDrawing_ = function (t) {
               var e = this.getMap().getView().getProjection()
-              ;(this.finishCoordinate_ = t),
+              ;((this.finishCoordinate_ = t),
                 this.mode_ === Lv
                   ? (this.sketchCoords_ = t.slice())
                   : this.mode_ === Fv
@@ -42571,14 +42678,14 @@
                       (this.sketchLineCoords_ = this.sketchCoords_[0]))
                     : (this.sketchCoords_ = [t.slice(), t.slice()]),
                 this.sketchLineCoords_ &&
-                  (this.sketchLine_ = new gt(new Py(this.sketchLineCoords_)))
+                  (this.sketchLine_ = new gt(new Py(this.sketchLineCoords_))))
               var r = this.geometryFunction_(this.sketchCoords_, void 0, e)
-              ;(this.sketchFeature_ = new gt()),
+              ;((this.sketchFeature_ = new gt()),
                 this.geometryName_ &&
                   this.sketchFeature_.setGeometryName(this.geometryName_),
                 this.sketchFeature_.setGeometry(r),
                 this.updateSketchFeatures_(),
-                this.dispatchEvent(new Dv(kv, this.sketchFeature_))
+                this.dispatchEvent(new Dv(kv, this.sketchFeature_)))
             }),
             (e.prototype.modifyDrawing_ = function (t) {
               var e,
@@ -42613,7 +42720,7 @@
                 n = this.sketchFeature_.getGeometry(),
                 i = this.getMap().getView().getProjection(),
                 o = this.mode_
-              o === Mv || o === Av
+              ;(o === Mv || o === Av
                 ? ((this.finishCoordinate_ = t.slice()),
                   (r = this.sketchCoords_).length >= this.maxPoints_ &&
                     (this.freehand_ ? r.pop() : (e = !0)),
@@ -42626,7 +42733,7 @@
                   e && (this.finishCoordinate_ = r[0]),
                   this.geometryFunction_(this.sketchCoords_, n, i)),
                 this.updateSketchFeatures_(),
-                e && this.finishDrawing()
+                e && this.finishDrawing())
             }),
             (e.prototype.removeLastPoint = function () {
               if (this.sketchFeature_) {
@@ -42638,26 +42745,26 @@
                   if (((t = this.sketchCoords_).splice(-2, 1), t.length >= 2)) {
                     this.finishCoordinate_ = t[t.length - 2].slice()
                     var i = this.finishCoordinate_.slice()
-                    ;(t[t.length - 1] = i),
-                      this.sketchPoint_.setGeometry(new qn(i))
+                    ;((t[t.length - 1] = i),
+                      this.sketchPoint_.setGeometry(new qn(i)))
                   }
-                  this.geometryFunction_(t, e, r),
+                  ;(this.geometryFunction_(t, e, r),
                     e.getType() === bt.POLYGON &&
                       this.sketchLine_ &&
-                      this.createOrUpdateCustomSketchLine_(e)
+                      this.createOrUpdateCustomSketchLine_(e))
                 } else if (n === Fv) {
                   ;(t = this.sketchCoords_[0]).splice(-2, 1)
                   var o = this.sketchLine_.getGeometry()
                   if (t.length >= 2) {
                     i = t[t.length - 2].slice()
-                    ;(t[t.length - 1] = i),
-                      this.sketchPoint_.setGeometry(new qn(i))
+                    ;((t[t.length - 1] = i),
+                      this.sketchPoint_.setGeometry(new qn(i)))
                   }
-                  o.setCoordinates(t),
-                    this.geometryFunction_(this.sketchCoords_, e, r)
+                  ;(o.setCoordinates(t),
+                    this.geometryFunction_(this.sketchCoords_, e, r))
                 }
-                1 === t.length && this.abortDrawing(),
-                  this.updateSketchFeatures_()
+                ;(1 === t.length && this.abortDrawing(),
+                  this.updateSketchFeatures_())
               }
             }),
             (e.prototype.finishDrawing = function () {
@@ -42666,7 +42773,7 @@
                 var e = this.sketchCoords_,
                   r = t.getGeometry(),
                   n = this.getMap().getView().getProjection()
-                this.mode_ === Mv
+                ;(this.mode_ === Mv
                   ? (e.pop(), this.geometryFunction_(e, r, n))
                   : this.mode_ === Fv &&
                     (e[0].pop(),
@@ -42680,7 +42787,7 @@
                         t.setGeometry(new Jy([e])),
                   this.dispatchEvent(new Dv(jv, t)),
                   this.features_ && this.features_.push(t),
-                  this.source_ && this.source_.addFeature(t)
+                  this.source_ && this.source_.addFeature(t))
               }
             }),
             (e.prototype.abortDrawing_ = function () {
@@ -42711,35 +42818,35 @@
                     ? this.sketchCoords_[0]
                     : []
               }
-              n && e.shift(), e.pop()
+              ;(n && e.shift(), e.pop())
               for (var i = 0; i < t.length; i++) this.addToDrawing_(t[i])
               var o = t[t.length - 1]
-              this.addToDrawing_(o), this.modifyDrawing_(o)
+              ;(this.addToDrawing_(o), this.modifyDrawing_(o))
             }),
             (e.prototype.extend = function (t) {
               var e = t.getGeometry()
-              ;(this.sketchFeature_ = t),
-                (this.sketchCoords_ = e.getCoordinates())
+              ;((this.sketchFeature_ = t),
+                (this.sketchCoords_ = e.getCoordinates()))
               var r = this.sketchCoords_[this.sketchCoords_.length - 1]
-              ;(this.finishCoordinate_ = r.slice()),
+              ;((this.finishCoordinate_ = r.slice()),
                 this.sketchCoords_.push(r.slice()),
                 (this.sketchPoint_ = new gt(new qn(r))),
                 this.updateSketchFeatures_(),
-                this.dispatchEvent(new Dv(kv, this.sketchFeature_))
+                this.dispatchEvent(new Dv(kv, this.sketchFeature_)))
             }),
             (e.prototype.updateSketchFeatures_ = function () {
               var t = []
-              this.sketchFeature_ && t.push(this.sketchFeature_),
+              ;(this.sketchFeature_ && t.push(this.sketchFeature_),
                 this.sketchLine_ && t.push(this.sketchLine_),
-                this.sketchPoint_ && t.push(this.sketchPoint_)
+                this.sketchPoint_ && t.push(this.sketchPoint_))
               var e = this.overlay_.getSource()
-              e.clear(!0), e.addFeatures(t)
+              ;(e.clear(!0), e.addFeatures(t))
             }),
             (e.prototype.updateState_ = function () {
               var t = this.getMap(),
                 e = this.getActive()
-              ;(t && e) || this.abortDrawing(),
-                this.overlay_.setMap(e ? t : null)
+              ;((t && e) || this.abortDrawing(),
+                this.overlay_.setMap(e ? t : null))
             }),
             e
           )
@@ -42761,20 +42868,20 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Uv = 'extentchanged',
         Bv = (function (t) {
           function e(e) {
             var r = t.call(this, Uv) || this
-            return (r.extent = e), r
+            return ((r.extent = e), r)
           }
-          return zv(e, t), e
+          return (zv(e, t), e)
         })(c)
       function Vv() {
         var t = bp()
@@ -42887,8 +42994,8 @@
               var e = t.pixel,
                 r = t.map,
                 n = this.snapToVertex_(e, r)
-              n || (n = r.getCoordinateFromPixelInternal(e)),
-                this.createOrUpdatePointerFeature_(n)
+              ;(n || (n = r.getCoordinateFromPixelInternal(e)),
+                this.createOrUpdatePointerFeature_(n))
             }),
             (e.prototype.createOrUpdateExtentFeature_ = function (t) {
               var e = this.extentFeature_
@@ -42947,27 +43054,27 @@
                     : null !== s &&
                       (this.pointerHandler_ = Wv(o([n[0], s]), o([n[2], s])))
               } else
-                (i = r.getCoordinateFromPixelInternal(e)),
+                ((i = r.getCoordinateFromPixelInternal(e)),
                   this.setExtent([i[0], i[1], i[0], i[1]]),
-                  (this.pointerHandler_ = Yv(i))
+                  (this.pointerHandler_ = Yv(i)))
               return !0
             }),
             (e.prototype.handleDragEvent = function (t) {
               if (this.pointerHandler_) {
                 var e = t.coordinate
-                this.setExtent(this.pointerHandler_(e)),
-                  this.createOrUpdatePointerFeature_(e)
+                ;(this.setExtent(this.pointerHandler_(e)),
+                  this.createOrUpdatePointerFeature_(e))
               }
             }),
             (e.prototype.handleUpEvent = function (t) {
               this.pointerHandler_ = null
               var e = this.getExtentInternal()
-              return (e && 0 !== ve(e)) || this.setExtent(null), !1
+              return ((e && 0 !== ve(e)) || this.setExtent(null), !1)
             }),
             (e.prototype.setMap = function (e) {
-              this.extentOverlay_.setMap(e),
+              ;(this.extentOverlay_.setMap(e),
                 this.vertexOverlay_.setMap(e),
-                t.prototype.setMap.call(this, e)
+                t.prototype.setMap.call(this, e))
             }),
             (e.prototype.getExtent = function () {
               return nn(
@@ -42979,9 +43086,9 @@
               return this.extent_
             }),
             (e.prototype.setExtent = function (t) {
-              ;(this.extent_ = t || null),
+              ;((this.extent_ = t || null),
                 this.createOrUpdateExtentFeature_(t),
-                this.dispatchEvent(new Bv(this.extent_))
+                this.dispatchEvent(new Bv(this.extent_)))
             }),
             e
           )
@@ -43003,11 +43110,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Zv = [0, 0, 0, 0],
@@ -43017,9 +43124,9 @@
         Jv = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, e) || this
-            return (i.features = r), (i.mapBrowserEvent = n), i
+            return ((i.features = r), (i.mapBrowserEvent = n), i)
           }
-          return Xv(e, t), e
+          return (Xv(e, t), e)
         })(c)
       function Qv(t, e) {
         return t.index - e.index
@@ -43147,11 +43254,11 @@
                 r && r(t, e)
               }
               var n = this.getMap()
-              n &&
+              ;(n &&
                 n.isRendered() &&
                 this.getActive() &&
                 this.handlePointerAtPixel_(this.lastPixel_, n),
-                t.addEventListener(F, this.boundHandleFeatureChange_)
+                t.addEventListener(F, this.boundHandleFeatureChange_))
             }),
             (e.prototype.willModifyFeatures_ = function (t, e) {
               if (!this.featuresBeingModified_) {
@@ -43170,12 +43277,12 @@
               }
             }),
             (e.prototype.removeFeature_ = function (t) {
-              this.removeFeatureSegmentData_(t),
+              ;(this.removeFeatureSegmentData_(t),
                 this.vertexFeature_ &&
                   0 === this.features_.getLength() &&
                   (this.overlay_.getSource().removeFeature(this.vertexFeature_),
                   (this.vertexFeature_ = null)),
-                t.removeEventListener(F, this.boundHandleFeatureChange_)
+                t.removeEventListener(F, this.boundHandleFeatureChange_))
             }),
             (e.prototype.removeFeatureSegmentData_ = function (t) {
               var e = this.rBush_,
@@ -43195,14 +43302,14 @@
               }
             }),
             (e.prototype.setActive = function (e) {
-              this.vertexFeature_ &&
+              ;(this.vertexFeature_ &&
                 !e &&
                 (this.overlay_.getSource().removeFeature(this.vertexFeature_),
                 (this.vertexFeature_ = null)),
-                t.prototype.setActive.call(this, e)
+                t.prototype.setActive.call(this, e))
             }),
             (e.prototype.setMap = function (e) {
-              this.overlay_.setMap(e), t.prototype.setMap.call(this, e)
+              ;(this.overlay_.setMap(e), t.prototype.setMap.call(this, e))
             }),
             (e.prototype.getOverlay = function () {
               return this.overlay_
@@ -43219,7 +43326,7 @@
             (e.prototype.handleFeatureChange_ = function (t) {
               if (!this.changingFeature_) {
                 var e = t.target
-                this.removeFeature_(e), this.addFeature_(e)
+                ;(this.removeFeature_(e), this.addFeature_(e))
               }
             }),
             (e.prototype.handleFeatureRemove_ = function (t) {
@@ -43307,9 +43414,9 @@
                 n = { feature: t, geometry: e, index: 0, segment: [r, r] },
                 i = { feature: t, geometry: e, index: 1, segment: [r, r] },
                 o = [n, i]
-              ;(n.featureSegments = o),
+              ;((n.featureSegments = o),
                 (i.featureSegments = o),
-                this.rBush_.insert(ae(r), n)
+                this.rBush_.insert(ae(r), n))
               var a = e,
                 s = tn()
               if (s && this.getMap()) {
@@ -43331,7 +43438,7 @@
                 : ((n = new gt(new qn(t))),
                   (this.vertexFeature_ = n),
                   this.overlay_.getSource().addFeature(n))
-              return n.set('features', e), n.set('geometries', r), n
+              return (n.set('features', e), n.set('geometries', r), n)
             }),
             (e.prototype.handleEvent = function (e) {
               return (
@@ -43353,8 +43460,8 @@
               var r
             }),
             (e.prototype.handleDragEvent = function (t) {
-              ;(this.ignoreNextSingleClick_ = !1),
-                this.willModifyFeatures_(t, this.dragSegments_)
+              ;((this.ignoreNextSingleClick_ = !1),
+                this.willModifyFeatures_(t, this.dragSegments_))
               for (
                 var e = [
                     t.coordinate[0] + this.delta_[0],
@@ -43381,30 +43488,30 @@
                   e.push(p[f][e.length])
                 switch (u.getType()) {
                   case bt.POINT:
-                    ;(h = e), (p[0] = e), (p[1] = e)
+                    ;((h = e), (p[0] = e), (p[1] = e))
                     break
                   case bt.MULTI_POINT:
-                    ;((h = u.getCoordinates())[s.index] = e),
+                    ;(((h = u.getCoordinates())[s.index] = e),
                       (p[0] = e),
-                      (p[1] = e)
+                      (p[1] = e))
                     break
                   case bt.LINE_STRING:
-                    ;((h = u.getCoordinates())[s.index + f] = e), (p[f] = e)
+                    ;(((h = u.getCoordinates())[s.index + f] = e), (p[f] = e))
                     break
                   case bt.MULTI_LINE_STRING:
                   case bt.POLYGON:
-                    ;((h = u.getCoordinates())[c[0]][s.index + f] = e),
-                      (p[f] = e)
+                    ;(((h = u.getCoordinates())[c[0]][s.index + f] = e),
+                      (p[f] = e))
                     break
                   case bt.MULTI_POLYGON:
-                    ;((h = u.getCoordinates())[c[1]][c[0]][s.index + f] = e),
-                      (p[f] = e)
+                    ;(((h = u.getCoordinates())[c[1]][c[0]][s.index + f] = e),
+                      (p[f] = e))
                     break
                   case bt.CIRCLE:
                     if (((p[0] = e), (p[1] = e), 0 === s.index))
-                      (this.changingFeature_ = !0),
+                      ((this.changingFeature_ = !0),
                         u.setCenter(e),
-                        (this.changingFeature_ = !1)
+                        (this.changingFeature_ = !1))
                     else {
                       this.changingFeature_ = !0
                       var d = t.map.getView().getProjection(),
@@ -43412,9 +43519,9 @@
                         y = tn()
                       if (y) {
                         var m = u.clone().transform(y, d)
-                        m.setRadius(g), (g = m.transform(d, y).getRadius())
+                        ;(m.setRadius(g), (g = m.transform(d, y).getRadius()))
                       }
-                      u.setRadius(g), (this.changingFeature_ = !1)
+                      ;(u.setRadius(g), (this.changingFeature_ = !1))
                     }
                 }
                 h && this.setGeometryCoordinates_(u, h)
@@ -43424,9 +43531,9 @@
             (e.prototype.handleDownEvent = function (t) {
               if (!this.condition_(t)) return !1
               var e = t.coordinate
-              this.handlePointerAtPixel_(t.pixel, t.map, e),
+              ;(this.handlePointerAtPixel_(t.pixel, t.map, e),
                 (this.dragSegments_.length = 0),
-                (this.featuresBeingModified_ = null)
+                (this.featuresBeingModified_ = null))
               var r = this.vertexFeature_
               if (r) {
                 var n = t.map.getView().getProjection(),
@@ -43461,9 +43568,9 @@
                           0 === u[d][0].index
                         )
                           continue
-                        this.dragSegments_.push([p, 1]), (u[d][1] = p)
+                        ;(this.dragSegments_.push([p, 1]), (u[d][1] = p))
                       }
-                    else this.dragSegments_.push([p, 0]), (u[d][0] = p)
+                    else (this.dragSegments_.push([p, 0]), (u[d][0] = p))
                   else
                     Cr(e_(e, p, n), a) &&
                       !u[d][0] &&
@@ -43483,11 +43590,11 @@
                   var i = n.getCenter(),
                     o = r.featureSegments[0],
                     a = r.featureSegments[1]
-                  ;(o.segment[0] = i),
+                  ;((o.segment[0] = i),
                     (o.segment[1] = i),
                     (a.segment[0] = i),
                     (a.segment[1] = i),
-                    this.rBush_.update(ae(i), o)
+                    this.rBush_.update(ae(i), o))
                   var s = n,
                     l = tn()
                   if (l) {
@@ -43507,8 +43614,8 @@
               )
             }),
             (e.prototype.handlePointerMove_ = function (t) {
-              ;(this.lastPixel_ = t.pixel),
-                this.handlePointerAtPixel_(t.pixel, t.map, t.coordinate)
+              ;((this.lastPixel_ = t.pixel),
+                this.handlePointerAtPixel_(t.pixel, t.map, t.coordinate))
             }),
             (e.prototype.handlePointerAtPixel_ = function (t, e, r) {
               var n,
@@ -43563,25 +43670,25 @@
                     (this.delta_[1] = f[1] - s[1]),
                     h.geometry.getType() === bt.CIRCLE && 1 === h.index)
                   )
-                    (this.snappedToVertex_ = !0),
+                    ((this.snappedToVertex_ = !0),
                       this.createOrUpdateVertexFeature_(
                         f,
                         [h.feature],
                         [h.geometry],
-                      )
+                      ))
                   else {
                     var m = e.getPixelFromCoordinate(p[0]),
                       v = e.getPixelFromCoordinate(p[1]),
                       _ = Rr(d, m),
                       b = Rr(d, v)
-                    ;(g = Math.sqrt(Math.min(_, b))),
+                    ;((g = Math.sqrt(Math.min(_, b))),
                       (this.snappedToVertex_ = g <= this.pixelTolerance_),
                       this.snappedToVertex_ && (f = _ > b ? p[1] : p[0]),
                       this.createOrUpdateVertexFeature_(
                         f,
                         [h.feature],
                         [h.geometry],
-                      )
+                      ))
                     var x = {}
                     x[o(h.geometry)] = !0
                     for (var w = 1, S = n.length; w < S; ++w) {
@@ -43632,7 +43739,7 @@
               }
               this.setGeometryCoordinates_(o, r)
               var l = this.rBush_
-              l.remove(t), this.updateSegmentIndices_(o, s, a, 1)
+              ;(l.remove(t), this.updateSegmentIndices_(o, s, a, 1))
               var u = {
                 segment: [n[0], e],
                 feature: i,
@@ -43640,7 +43747,7 @@
                 depth: a,
                 index: s,
               }
-              l.insert(Kt(u.segment), u), this.dragSegments_.push([u, 1])
+              ;(l.insert(Kt(u.segment), u), this.dragSegments_.push([u, 1]))
               var c = {
                 segment: [e, n[1]],
                 feature: i,
@@ -43648,9 +43755,9 @@
                 depth: a,
                 index: s + 1,
               }
-              l.insert(Kt(c.segment), c),
+              ;(l.insert(Kt(c.segment), c),
                 this.dragSegments_.push([c, 0]),
-                (this.ignoreNextSingleClick_ = !0)
+                (this.ignoreNextSingleClick_ = !0))
             }),
             (e.prototype.removePoint = function () {
               if (
@@ -43686,12 +43793,13 @@
                 f = {},
                 d = !1
               for (i = p.length - 1; i >= 0; --i)
-                (h = o((c = (r = p[i])[0]).feature)),
+                ((h = o((c = (r = p[i])[0]).feature)),
                   c.depth && (h += '-' + c.depth.join('-')),
                   h in f || (f[h] = {}),
                   0 === r[1]
                     ? ((f[h].right = c), (f[h].index = c.index))
-                    : 1 == r[1] && ((f[h].left = c), (f[h].index = c.index + 1))
+                    : 1 == r[1] &&
+                      ((f[h].left = c), (f[h].index = c.index + 1)))
               for (h in f) {
                 switch (
                   ((u = f[h].right),
@@ -43737,21 +43845,21 @@
                     }
                     this.rBush_.insert(Kt(y.segment), y)
                   }
-                  this.updateSegmentIndices_(n, a, c.depth, -1),
+                  ;(this.updateSegmentIndices_(n, a, c.depth, -1),
                     this.vertexFeature_ &&
                       (this.overlay_
                         .getSource()
                         .removeFeature(this.vertexFeature_),
                       (this.vertexFeature_ = null)),
-                    (p.length = 0)
+                    (p.length = 0))
                 }
               }
               return d
             }),
             (e.prototype.setGeometryCoordinates_ = function (t, e) {
-              ;(this.changingFeature_ = !0),
+              ;((this.changingFeature_ = !0),
                 t.setCoordinates(e),
-                (this.changingFeature_ = !1)
+                (this.changingFeature_ = !1))
             }),
             (e.prototype.updateSegmentIndices_ = function (t, e, r, n) {
               this.rBush_.forEachInExtent(t.getExtent(), function (i) {
@@ -43781,11 +43889,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         i_ = 'select',
@@ -43793,10 +43901,13 @@
           function e(e, r, n, i) {
             var o = t.call(this, e) || this
             return (
-              (o.selected = r), (o.deselected = n), (o.mapBrowserEvent = i), o
+              (o.selected = r),
+              (o.deselected = n),
+              (o.mapBrowserEvent = i),
+              o
             )
           }
-          return n_(e, t), e
+          return (n_(e, t), e)
         })(c),
         a_ = {}
       var s_ = (function (t) {
@@ -43836,7 +43947,7 @@
                 }
               }
             else n = S
-            return (i.layerFilter_ = n), (i.featureLayerAssociation_ = {}), i
+            return ((i.layerFilter_ = n), (i.featureLayerAssociation_ = {}), i)
           }
           return (
             n_(e, t),
@@ -43856,7 +43967,7 @@
               this.hitTolerance_ = t
             }),
             (e.prototype.setMap = function (e) {
-              this.getMap() &&
+              ;(this.getMap() &&
                 this.style_ &&
                 this.features_.forEach(this.restorePreviousStyle_.bind(this)),
                 t.prototype.setMap.call(this, e),
@@ -43877,7 +43988,7 @@
                     this.features_.removeEventListener(
                       st,
                       this.boundRemoveFeature_,
-                    ))
+                    )))
             }),
             (e.prototype.addFeature_ = function (t) {
               var e = t.element
@@ -43892,7 +44003,7 @@
             }),
             (e.prototype.applySelectedStyle_ = function (t) {
               var e = o(t)
-              e in a_ || (a_[e] = t.getStyle()), t.setStyle(this.style_)
+              ;(e in a_ || (a_[e] = t.getStyle()), t.setStyle(this.style_))
             }),
             (e.prototype.restorePreviousStyle_ = function (t) {
               for (
@@ -43911,7 +44022,7 @@
                   return void t.setStyle(i.getStyle())
               }
               var a = o(t)
-              t.setStyle(a_[a]), delete a_[a]
+              ;(t.setStyle(a_[a]), delete a_[a])
             }),
             (e.prototype.removeFeatureLayerAssociation_ = function (t) {
               delete this.featureLayerAssociation_[o(t)]
@@ -43927,7 +44038,7 @@
                 s = [],
                 l = []
               if (i) {
-                P(this.featureLayerAssociation_),
+                ;(P(this.featureLayerAssociation_),
                   o.forEachFeatureAtPixel(
                     t.pixel,
                     function (t, e) {
@@ -43942,7 +44053,7 @@
                       layerFilter: this.layerFilter_,
                       hitTolerance: this.hitTolerance_,
                     },
-                  )
+                  ))
                 for (var u = a.getLength() - 1; u >= 0; --u) {
                   var c = a.item(u),
                     h = l.indexOf(c)
@@ -43997,11 +44108,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function u_(t) {
@@ -44136,7 +44247,7 @@
               var r = this.getMap(),
                 n = this.featuresListenerKeys_,
                 i = this.getFeatures_()
-              r &&
+              ;(r &&
                 (n.forEach(H),
                 (n.length = 0),
                 i.forEach(this.forEachFeatureRemove_.bind(this))),
@@ -44152,7 +44263,7 @@
                         Z(this.source_, ef, this.handleFeatureAdd_, this),
                         Z(this.source_, of, this.handleFeatureRemove_, this),
                       ),
-                  i.forEach(this.forEachFeatureAdd_.bind(this)))
+                  i.forEach(this.forEachFeatureAdd_.bind(this))))
             }),
             (e.prototype.snapTo = function (t, e, r) {
               var n = Kt([
@@ -44186,7 +44297,7 @@
                 ++p
               ) {
                 var f = i[p]
-                ;(c_[0] = rn(f.segment[0], u)), (c_[1] = rn(f.segment[1], u))
+                ;((c_[0] = rn(f.segment[0], u)), (c_[1] = rn(f.segment[1], u)))
                 var d = Lr(c, c_)
                 d < h && ((l = f), (h = d))
               }
@@ -44205,20 +44316,20 @@
                 if (b) {
                   var x = l.feature.getGeometry(),
                     w = tn()
-                  w && (x = x.clone().transform(w, u)), (a = en(wr(c, x), u))
+                  ;(w && (x = x.clone().transform(w, u)), (a = en(wr(c, x), u)))
                 } else
-                  (c_[0] = rn(g[0], u)),
+                  ((c_[0] = rn(g[0], u)),
                     (c_[1] = rn(g[1], u)),
-                    (a = en(Sr(c, c_), u))
+                    (a = en(Sr(c, c_), u)))
                 if (
                   Ir(t, (s = r.getPixelFromCoordinate(a))) <=
                     this.pixelTolerance_ &&
                   ((o = !0), this.vertex_ && !b)
                 ) {
-                  ;(y = r.getPixelFromCoordinate(g[0])),
+                  ;((y = r.getPixelFromCoordinate(g[0])),
                     (m = r.getPixelFromCoordinate(g[1])),
                     (v = Rr(s, y)),
-                    (_ = Rr(s, m))
+                    (_ = Rr(s, m)))
                   Math.sqrt(Math.min(v, _)) <= this.pixelTolerance_ &&
                     ((a = v > _ ? g[1] : g[0]),
                     (s = r.getPixelFromCoordinate(a)))
@@ -44230,7 +44341,7 @@
               )
             }),
             (e.prototype.updateFeature_ = function (t) {
-              this.removeFeature(t, !1), this.addFeature(t, !1)
+              ;(this.removeFeature(t, !1), this.addFeature(t, !1))
             }),
             (e.prototype.writeCircleGeometry_ = function (t, e) {
               var r = this.getMap().getView().getProjection(),
@@ -44327,11 +44438,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         f_ = 'translatestart',
@@ -44348,7 +44459,7 @@
               a
             )
           }
-          return p_(e, t), e
+          return (p_(e, t), e)
         })(c),
         m_ = (function (t) {
           function e(e) {
@@ -44385,9 +44496,9 @@
                 ((this.lastFeature_ = this.featuresAtPixel_(t.pixel, t.map)),
                 !this.lastCoordinate_ && this.lastFeature_)
               ) {
-                ;(this.startCoordinate_ = t.coordinate),
+                ;((this.startCoordinate_ = t.coordinate),
                   (this.lastCoordinate_ = t.coordinate),
-                  this.handleMoveEvent(t)
+                  this.handleMoveEvent(t))
                 var e = this.features_ || new ht([this.lastFeature_])
                 return (
                   this.dispatchEvent(
@@ -44400,7 +44511,7 @@
             }),
             (e.prototype.handleUpEvent = function (t) {
               if (this.lastCoordinate_) {
-                ;(this.lastCoordinate_ = null), this.handleMoveEvent(t)
+                ;((this.lastCoordinate_ = null), this.handleMoveEvent(t))
                 var e = this.features_ || new ht([this.lastFeature_])
                 return (
                   this.dispatchEvent(
@@ -44418,12 +44529,14 @@
                   r = e[0] - this.lastCoordinate_[0],
                   n = e[1] - this.lastCoordinate_[1],
                   i = this.features_ || new ht([this.lastFeature_])
-                i.forEach(function (t) {
+                ;(i.forEach(function (t) {
                   var e = t.getGeometry()
-                  e.translate(r, n), t.setGeometry(e)
+                  ;(e.translate(r, n), t.setGeometry(e))
                 }),
                   (this.lastCoordinate_ = e),
-                  this.dispatchEvent(new y_(d_, i, e, this.startCoordinate_, t))
+                  this.dispatchEvent(
+                    new y_(d_, i, e, this.startCoordinate_, t),
+                  ))
               }
             }),
             (e.prototype.handleMoveEvent = function (t) {
@@ -44461,7 +44574,7 @@
             }),
             (e.prototype.setMap = function (e) {
               var r = this.getMap()
-              t.prototype.setMap.call(this, e), this.updateState_(r)
+              ;(t.prototype.setMap.call(this, e), this.updateState_(r))
             }),
             (e.prototype.handleActiveChanged_ = function () {
               this.updateState_(null)
@@ -44483,10 +44596,10 @@
           : ((a = []), (s = 0))
         for (var l = e; l < r; ) {
           var u = t[l++]
-          ;(a[s++] = t[l++]), (a[s++] = u)
+          ;((a[s++] = t[l++]), (a[s++] = u))
           for (var c = 2; c < n; ++c) a[s++] = t[l++]
         }
-        return (a.length = s), a
+        return ((a.length = s), a)
       }
       var __ = (function () {
           var t = function (e, r) {
@@ -44505,15 +44618,15 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         b_ = {}
-      ;(b_[bt.POINT] = function (t) {
+      ;((b_[bt.POINT] = function (t) {
         var e
         e =
           void 0 !== t.m && void 0 !== t.z
@@ -44544,7 +44657,7 @@
         (b_[bt.MULTI_POLYGON] = function (t) {
           var e = S_(t)
           return new Jy(t.rings, e)
-        })
+        }))
       var x_ = {}
       function w_(t, e) {
         var r, n, i
@@ -44563,9 +44676,9 @@
                 o = [],
                 a = []
               for (r = 0, n = t.length; r < n; ++r) {
-                ;(i.length = 0),
+                ;((i.length = 0),
                   On(i, 0, t[r], e.length),
-                  ai(i, 0, i.length, e.length) ? o.push([t[r]]) : a.push(t[r])
+                  ai(i, 0, i.length, e.length) ? o.push([t[r]]) : a.push(t[r]))
               }
               for (; a.length; ) {
                 var s = a.shift(),
@@ -44573,7 +44686,7 @@
                 for (r = o.length - 1; r >= 0; r--) {
                   var u = o[r][0]
                   if (te(new Yn(u).getExtent(), new Yn(s).getExtent())) {
-                    o[r].push(s), (l = !0)
+                    ;(o[r].push(s), (l = !0))
                     break
                   }
                 }
@@ -44606,7 +44719,7 @@
       function T_(t, e) {
         return (0, x_[t.getType()])(Wy(t, !0, e), e)
       }
-      ;(x_[bt.POINT] = function (t, e) {
+      ;((x_[bt.POINT] = function (t, e) {
         var r,
           n = t.getCoordinates(),
           i = t.getLayout()
@@ -44645,13 +44758,14 @@
           )
             for (var a = n[o].length - 1; a >= 0; a--) i.push(n[o][a])
           return { hasZ: r.hasZ, hasM: r.hasM, rings: i }
-        })
+        }))
       var C_ = (function (t) {
           function e(e) {
             var r = this,
               n = e || {}
             return (
-              ((r = t.call(this) || this).geometryName_ = n.geometryName), r
+              ((r = t.call(this) || this).geometryName_ = n.geometryName),
+              r
             )
           }
           return (
@@ -44700,19 +44814,19 @@
             (e.prototype.writeFeatureObject = function (t, e) {
               e = this.adaptOptions(e)
               var r = {}
-              if (!t.hasProperties()) return (r.attributes = {}), r
+              if (!t.hasProperties()) return ((r.attributes = {}), r)
               var n = t.getProperties(),
                 i = t.getGeometry()
               if (i) {
                 r.geometry = T_(i, e)
                 var o = e && (e.dataProjection || e.featureProjection)
-                o &&
+                ;(o &&
                   (r.geometry.spatialReference = {
                     wkid: Number(Gr(o).getCode().split(':').pop()),
                   }),
-                  delete n[t.getGeometryName()]
+                  delete n[t.getGeometryName()])
               }
-              return I(n) ? (r.attributes = {}) : (r.attributes = n), r
+              return (I(n) ? (r.attributes = {}) : (r.attributes = n), r)
             }),
             (e.prototype.writeFeaturesObject = function (t, e) {
               e = this.adaptOptions(e)
@@ -44740,17 +44854,17 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         P_ = (function (t) {
           function e() {
             var e = t.call(this) || this
-            return (e.xmlSerializer_ = Wc()), e
+            return ((e.xmlSerializer_ = Wc()), e)
           }
           return (
             O_(e, t),
@@ -44874,11 +44988,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         I_ = 'http://www.opengis.net/gml',
@@ -44916,7 +45030,7 @@
                   o = i.featureType,
                   a = i.featureNS
                 if (!o && t.childNodes) {
-                  ;(o = []), (a = {})
+                  ;((o = []), (a = {}))
                   for (var s = 0, l = t.childNodes.length; s < l; ++s) {
                     var u = t.childNodes[s]
                     if (1 === u.nodeType) {
@@ -44932,7 +45046,7 @@
                           }
                           ++p
                         }
-                        h || (a[(h = 'p' + p)] = f), o.push(h + ':' + c)
+                        ;(h || (a[(h = 'p' + p)] = f), o.push(h + ':' + c))
                       }
                     }
                   }
@@ -44964,13 +45078,13 @@
                   e,
                 )
               }
-              return null === n && (n = []), n
+              return (null === n && (n = []), n)
             }),
             (e.prototype.readGeometryElement = function (t, e) {
               var r = e[0]
-              ;(r.srsName = t.firstElementChild.getAttribute('srsName')),
+              ;((r.srsName = t.firstElementChild.getAttribute('srsName')),
                 (r.srsDimension =
-                  t.firstElementChild.getAttribute('srsDimension'))
+                  t.firstElementChild.getAttribute('srsDimension')))
               var n = Uc(null, this.GEOMETRY_PARSERS, t, e, this)
               return n ? (Array.isArray(n) ? qy(n, r) : Wy(n, !1, r)) : void 0
             }),
@@ -44982,7 +45096,7 @@
               ) {
                 var a = void 0,
                   s = o.localName
-                0 === o.childNodes.length ||
+                ;(0 === o.childNodes.length ||
                 (1 === o.childNodes.length &&
                   (3 === o.firstChild.nodeType || 4 === o.firstChild.nodeType))
                   ? ((a = Ec(o, !1)), L_.test(a) && (a = void 0))
@@ -44992,7 +45106,7 @@
                       : (a = this.readFeatureElementInternal(o, e, !1))),
                   i[s]
                     ? (i[s] instanceof Array || (i[s] = [i[s]]), i[s].push(a))
-                    : (i[s] = a)
+                    : (i[s] = a))
                 var l = o.attributes.length
                 if (l > 0) {
                   i[s] = { _content_: i[s] }
@@ -45006,7 +45120,7 @@
                 var h = new gt(i)
                 n && h.setGeometryName(n)
                 var p = t.getAttribute('fid') || Oc(t, this.namespace, 'id')
-                return p && h.setId(p), h
+                return (p && h.setId(p), h)
               }
               return i
             }),
@@ -45064,7 +45178,7 @@
                   o = [i.length],
                   a = void 0
                 for (a = 1, n = r.length; a < n; ++a)
-                  v(i, r[a]), o.push(i.length)
+                  (v(i, r[a]), o.push(i.length))
                 return new fi(i, mt, o)
               }
             }),
@@ -45103,7 +45217,7 @@
             e
           )
         })(P_)
-      ;(M_.prototype.namespace = I_),
+      ;((M_.prototype.namespace = I_),
         (M_.prototype.FLAT_LINEAR_RINGS_PARSERS = {
           'http://www.opengis.net/gml': {},
         }),
@@ -45148,7 +45262,7 @@
           'http://www.opengis.net/gml': {
             LinearRing: Lc(M_.prototype.readFlatLinearRing),
           },
-        })
+        }))
       var F_ = M_
       function A_(t) {
         return k_(Ec(t, !1))
@@ -45230,11 +45344,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         K_ = {
@@ -45337,7 +45451,7 @@
                 }
               }
               var p = O({}, i)
-              ;(p.node = t), Vc(p, i.serializers, jc(void 0, o), l, r, s)
+              ;((p.node = t), Vc(p, i.serializers, jc(void 0, o), l, r, s))
             }),
             (e.prototype.writeCurveOrLineString = function (t, e, r) {
               var n = r[r.length - 1].srsName
@@ -45349,10 +45463,10 @@
                   'LineStringSegment' === t.nodeName)
               ) {
                 var i = this.createCoordinatesNode_(t.namespaceURI)
-                t.appendChild(i), this.writeCoordinates_(i, e, r)
+                ;(t.appendChild(i), this.writeCoordinates_(i, e, r))
               } else if ('Curve' === t.nodeName) {
                 var o = Sc(t.namespaceURI, 'segments')
-                t.appendChild(o), this.writeCurveSegments_(o, e, r)
+                ;(t.appendChild(o), this.writeCurveSegments_(o, e, r))
               }
             }),
             (e.prototype.writeLineStringOrCurveMember = function (t, e, r) {
@@ -45380,7 +45494,7 @@
               var n,
                 i = r[r.length - 1],
                 o = O({}, i)
-              ;(o.node = t),
+              ;((o.node = t),
                 (n = Array.isArray(e) ? qy(e, i) : Wy(e, !0, i)),
                 Vc(
                   o,
@@ -45390,7 +45504,7 @@
                   r,
                   void 0,
                   this,
-                )
+                ))
             }),
             (e.prototype.createCoordinatesNode_ = function (t) {
               var e = Sc(t, 'coordinates')
@@ -45420,7 +45534,7 @@
             }),
             (e.prototype.writeCurveSegments_ = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'LineStringSegment')
-              t.appendChild(n), this.writeCurveOrLineString(n, e, r)
+              ;(t.appendChild(n), this.writeCurveOrLineString(n, e, r))
             }),
             (e.prototype.writeSurfaceOrPolygon = function (t, e, r) {
               var n = r[r.length - 1],
@@ -45444,7 +45558,7 @@
                 )
               } else if ('Surface' === t.nodeName) {
                 var s = Sc(t.namespaceURI, 'patches')
-                t.appendChild(s), this.writeSurfacePatches_(s, e, r)
+                ;(t.appendChild(s), this.writeSurfacePatches_(s, e, r))
               }
             }),
             (e.prototype.RING_NODE_FACTORY_ = function (t, e, r) {
@@ -45461,11 +45575,11 @@
             }),
             (e.prototype.writeSurfacePatches_ = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'PolygonPatch')
-              t.appendChild(n), this.writeSurfaceOrPolygon(n, e, r)
+              ;(t.appendChild(n), this.writeSurfaceOrPolygon(n, e, r))
             }),
             (e.prototype.writeRing = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'LinearRing')
-              t.appendChild(n), this.writeLinearRing(n, e, r)
+              ;(t.appendChild(n), this.writeLinearRing(n, e, r))
             }),
             (e.prototype.getCoords_ = function (t, e, r) {
               var n = 'enu'
@@ -45503,13 +45617,13 @@
             }),
             (e.prototype.writePointMember = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'Point')
-              t.appendChild(n), this.writePoint(n, e, r)
+              ;(t.appendChild(n), this.writePoint(n, e, r))
             }),
             (e.prototype.writeLinearRing = function (t, e, r) {
               var n = r[r.length - 1].srsName
               n && t.setAttribute('srsName', n)
               var i = this.createCoordinatesNode_(t.namespaceURI)
-              t.appendChild(i), this.writeCoordinates_(i, e, r)
+              ;(t.appendChild(i), this.writeCoordinates_(i, e, r))
             }),
             (e.prototype.writeMultiSurfaceOrPolygon = function (t, e, r) {
               var n = r[r.length - 1],
@@ -45557,7 +45671,7 @@
             e
           )
         })(F_)
-      ;(H_.prototype.GEOMETRY_FLAT_COORDINATES_PARSERS = {
+      ;((H_.prototype.GEOMETRY_FLAT_COORDINATES_PARSERS = {
         'http://www.opengis.net/gml': {
           coordinates: Lc(H_.prototype.readFlatCoordinates),
         },
@@ -45629,7 +45743,7 @@
             lowerCorner: Ac(X_),
             upperCorner: Ac(X_),
           },
-        })
+        }))
       var $_ = H_,
         J_ = (function () {
           var t = function (e, r) {
@@ -45648,11 +45762,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         Q_ = {
@@ -45728,7 +45842,7 @@
                   o = [i.length],
                   a = void 0
                 for (a = 1, n = r.length; a < n; ++a)
-                  v(i, r[a]), o.push(i.length)
+                  (v(i, r[a]), o.push(i.length))
                 return new fi(i, mt, o)
               }
             }),
@@ -45749,7 +45863,7 @@
                 (r = i.exec(n));
 
               )
-                o.push(parseFloat(r[1])), (n = n.substr(r[0].length))
+                (o.push(parseFloat(r[1])), (n = n.substr(r[0].length)))
               if ('' === n) {
                 var a = e[0].srsName,
                   s = 'enu'
@@ -45760,7 +45874,7 @@
                   for (u = 0, l = o.length; u < l; u += 3) {
                     var c = o[u],
                       h = o[u + 1]
-                    ;(o[u] = h), (o[u + 1] = c)
+                    ;((o[u] = h), (o[u + 1] = c))
                   }
                 }
                 var p = o.length
@@ -45787,10 +45901,10 @@
                     ? (h = z_(t.parentNode.getAttribute('srsDimension')))
                     : o && (h = z_(o))
               for (var p = [], f = 0, d = c.length; f < d; f += h)
-                (s = parseFloat(c[f])),
+                ((s = parseFloat(c[f])),
                   (l = parseFloat(c[f + 1])),
                   (u = 3 === h ? parseFloat(c[f + 2]) : 0),
-                  'en' === a.substr(0, 2) ? p.push(s, l, u) : p.push(l, s, u)
+                  'en' === a.substr(0, 2) ? p.push(s, l, u) : p.push(l, s, u))
               return p
             }),
             (e.prototype.writePos_ = function (t, e, r) {
@@ -45833,14 +45947,14 @@
                 h < u;
                 ++h
               )
-                (a = l[h]), (c[h] = this.getCoords_(a, s, i))
+                ((a = l[h]), (c[h] = this.getCoords_(a, s, i)))
               X_(t, c.join(' '))
             }),
             (e.prototype.writePoint = function (t, e, r) {
               var n = r[r.length - 1].srsName
               n && t.setAttribute('srsName', n)
               var i = Sc(t.namespaceURI, 'pos')
-              t.appendChild(i), this.writePos_(i, e, r)
+              ;(t.appendChild(i), this.writePos_(i, e, r))
             }),
             (e.prototype.writeEnvelope = function (t, e, r) {
               var n = r[r.length - 1].srsName
@@ -45860,7 +45974,7 @@
               var n = r[r.length - 1].srsName
               n && t.setAttribute('srsName', n)
               var i = Sc(t.namespaceURI, 'posList')
-              t.appendChild(i), this.writePosList_(i, e, r)
+              ;(t.appendChild(i), this.writePosList_(i, e, r))
             }),
             (e.prototype.RING_NODE_FACTORY_ = function (t, e, r) {
               var n = e[e.length - 1],
@@ -45893,7 +46007,7 @@
                 )
               } else if ('Surface' === t.nodeName) {
                 var s = Sc(t.namespaceURI, 'patches')
-                t.appendChild(s), this.writeSurfacePatches_(s, e, r)
+                ;(t.appendChild(s), this.writeSurfacePatches_(s, e, r))
               }
             }),
             (e.prototype.writeCurveOrLineString = function (t, e, r) {
@@ -45906,10 +46020,10 @@
                   'LineStringSegment' === t.nodeName)
               ) {
                 var i = Sc(t.namespaceURI, 'posList')
-                t.appendChild(i), this.writePosList_(i, e, r)
+                ;(t.appendChild(i), this.writePosList_(i, e, r))
               } else if ('Curve' === t.nodeName) {
                 var o = Sc(t.namespaceURI, 'segments')
-                t.appendChild(o), this.writeCurveSegments_(o, e, r)
+                ;(t.appendChild(o), this.writeCurveSegments_(o, e, r))
               }
             }),
             (e.prototype.writeMultiSurfaceOrPolygon = function (t, e, r) {
@@ -45964,7 +46078,7 @@
             }),
             (e.prototype.writeRing = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'LinearRing')
-              t.appendChild(n), this.writeLinearRing(n, e, r)
+              ;(t.appendChild(n), this.writeLinearRing(n, e, r))
             }),
             (e.prototype.writeSurfaceOrPolygonMember = function (t, e, r) {
               var n = this.GEOMETRY_NODE_FACTORY_(e, r)
@@ -45972,7 +46086,7 @@
             }),
             (e.prototype.writePointMember = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'Point')
-              t.appendChild(n), this.writePoint(n, e, r)
+              ;(t.appendChild(n), this.writePoint(n, e, r))
             }),
             (e.prototype.writeLineStringOrCurveMember = function (t, e, r) {
               var n = this.GEOMETRY_NODE_FACTORY_(e, r)
@@ -45980,17 +46094,17 @@
             }),
             (e.prototype.writeSurfacePatches_ = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'PolygonPatch')
-              t.appendChild(n), this.writeSurfaceOrPolygon(n, e, r)
+              ;(t.appendChild(n), this.writeSurfaceOrPolygon(n, e, r))
             }),
             (e.prototype.writeCurveSegments_ = function (t, e, r) {
               var n = Sc(t.namespaceURI, 'LineStringSegment')
-              t.appendChild(n), this.writeCurveOrLineString(n, e, r)
+              ;(t.appendChild(n), this.writeCurveOrLineString(n, e, r))
             }),
             (e.prototype.writeGeometryElement = function (t, e, r) {
               var n,
                 i = r[r.length - 1],
                 o = O({}, i)
-              ;(o.node = t),
+              ;((o.node = t),
                 (n = Array.isArray(e) ? qy(e, i) : Wy(e, !0, i)),
                 Vc(
                   o,
@@ -46000,7 +46114,7 @@
                   r,
                   void 0,
                   this,
-                )
+                ))
             }),
             (e.prototype.writeFeatureElement = function (t, e, r) {
               var n = e.getId()
@@ -46028,16 +46142,16 @@
                 }
               }
               var p = O({}, i)
-              ;(p.node = t), Vc(p, i.serializers, jc(void 0, o), l, r, s)
+              ;((p.node = t), Vc(p, i.serializers, jc(void 0, o), l, r, s))
             }),
             (e.prototype.writeFeatureMembers_ = function (t, e, r) {
               var n = r[r.length - 1],
                 i = n.featureType,
                 o = n.featureNS,
                 a = {}
-              ;(a[o] = {}), (a[o][i] = Ac(this.writeFeatureElement, this))
+              ;((a[o] = {}), (a[o][i] = Ac(this.writeFeatureElement, this)))
               var s = O({}, n)
-              ;(s.node = t), Vc(s, a, jc(i, o), e, r)
+              ;((s.node = t), Vc(s, a, jc(i, o), e, r))
             }),
             (e.prototype.MULTIGEOMETRY_MEMBER_NODE_FACTORY_ = function (
               t,
@@ -46081,7 +46195,7 @@
                   multiSurface: this.multiSurface_,
                   multiCurve: this.multiCurve_,
                 }
-              return e && O(n, e), this.writeGeometryElement(r, t, [n]), r
+              return (e && O(n, e), this.writeGeometryElement(r, t, [n]), r)
             }),
             (e.prototype.writeFeaturesNode = function (t, e) {
               e = this.adaptOptions(e)
@@ -46097,12 +46211,12 @@
                 featureNS: this.featureNS,
                 featureType: this.featureType,
               }
-              return e && O(n, e), this.writeFeatureMembers_(r, t, [n]), r
+              return (e && O(n, e), this.writeFeatureMembers_(r, t, [n]), r)
             }),
             e
           )
         })(F_)
-      ;(tb.prototype.GEOMETRY_FLAT_COORDINATES_PARSERS = {
+      ;((tb.prototype.GEOMETRY_FLAT_COORDINATES_PARSERS = {
         'http://www.opengis.net/gml': {
           pos: Lc(tb.prototype.readFlatPos),
           posList: Lc(tb.prototype.readFlatPosList),
@@ -46224,10 +46338,10 @@
             MultiSurface: Ac(tb.prototype.writeMultiSurfaceOrPolygon),
             Envelope: Ac(tb.prototype.writeEnvelope),
           },
-        })
+        }))
       var eb = tb,
         rb = eb
-      rb.prototype.writeFeatures, rb.prototype.writeFeaturesNode
+      ;(rb.prototype.writeFeatures, rb.prototype.writeFeaturesNode)
       var nb = rb,
         ib = (function () {
           var t = function (e, r) {
@@ -46246,11 +46360,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ob = (function (t) {
@@ -46265,9 +46379,9 @@
               r
             )
           }
-          return ib(e, t), e
+          return (ib(e, t), e)
         })(eb)
-      ;(ob.prototype.namespace = 'http://www.opengis.net/gml/3.2'),
+      ;((ob.prototype.namespace = 'http://www.opengis.net/gml/3.2'),
         (ob.prototype.GEOMETRY_FLAT_COORDINATES_PARSERS = {
           'http://www.opengis.net/gml/3.2': {
             pos: Lc(eb.prototype.readFlatPos),
@@ -46429,7 +46543,7 @@
             MultiSurface: Ac(eb.prototype.writeMultiSurfaceOrPolygon),
             Envelope: Ac(eb.prototype.writeEnvelope),
           },
-        })
+        }))
       var ab = ob,
         sb = (function () {
           var t = function (e, r) {
@@ -46448,11 +46562,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         lb = [
@@ -46472,8 +46586,8 @@
             var a = e.getGeometry()
             if (a.getType() == bt.LINE_STRING) {
               var s = Wy(a, !0, n)
-              ;(o.geometryLayout = s.getLayout()),
-                (i.rtept = s.getCoordinates())
+              ;((o.geometryLayout = s.getLayout()),
+                (i.rtept = s.getCoordinates()))
             }
             var l = r[r.length - 1].node,
               u = wb[l.namespaceURI],
@@ -46502,7 +46616,8 @@
             var o = e.getGeometry()
             if (o.getType() == bt.POINT) {
               var a = Wy(o, !0, n)
-              ;(i.geometryLayout = a.getLayout()), Ub(t, a.getCoordinates(), r)
+              ;((i.geometryLayout = a.getLayout()),
+                Ub(t, a.getCoordinates(), r))
             }
           }),
         }),
@@ -46680,9 +46795,9 @@
           trkseg: kc(
             Ac(function (t, e, r) {
               var n = { node: t }
-              ;(n.geometryLayout = e.getLayout()),
+              ;((n.geometryLayout = e.getLayout()),
                 (n.properties = {}),
-                Vc(n, Pb, Ob, e.getCoordinates(), r)
+                Vc(n, Pb, Ob, e.getCoordinates(), r))
             }),
           ),
         }),
@@ -46761,10 +46876,10 @@
           4 !== i)
         ) {
           for (var o = 0, a = e.length / 4; o < a; o++)
-            (e[o * i] = e[4 * o]),
+            ((e[o * i] = e[4 * o]),
               (e[o * i + 1] = e[4 * o + 1]),
               t.hasZ && (e[o * i + 2] = e[4 * o + 2]),
-              t.hasM && (e[o * i + 2] = e[4 * o + 3])
+              t.hasM && (e[o * i + 2] = e[4 * o + 3]))
           if (((e.length = (e.length / 4) * i), r))
             for (o = 0, a = r.length; o < a; o++) r[o] = (r[o] / 4) * i
         }
@@ -46773,7 +46888,7 @@
       function kb(t, e) {
         var r = e[e.length - 1],
           n = t.getAttribute('href')
-        null !== n && (r.link = n), zc(hb, t, e)
+        ;(null !== n && (r.link = n), zc(hb, t, e))
       }
       function jb(t, e) {
         e[e.length - 1].extensionsNode_ = t
@@ -46790,7 +46905,7 @@
             s = new Py(i, a)
           Wy(s, !1, r)
           var l = new gt(s)
-          return l.setProperties(n, !0), l
+          return (l.setProperties(n, !0), l)
         }
       }
       function Db(t, e) {
@@ -46807,7 +46922,7 @@
             l = new Zy(i, s, o)
           Wy(l, !1, r)
           var u = new gt(l)
-          return u.setProperties(n, !0), u
+          return (u.setProperties(n, !0), u)
         }
       }
       function Gb(t, e) {
@@ -46820,7 +46935,7 @@
             s = new qn(o, a)
           Wy(s, !1, r)
           var l = new gt(s)
-          return l.setProperties(n, !0), l
+          return (l.setProperties(n, !0), l)
         }
       }
       function zb(t, e, r) {
@@ -46868,11 +46983,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function Yb(t) {
@@ -46956,11 +47071,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         tx = 'barometric',
@@ -47007,18 +47122,18 @@
                     var v = parseInt(f[7], 10) + parseInt(f[8], 10) / 6e4
                     if (('W' == f[9] && (v = -v), s.push(v, m), i != rx)) {
                       var _ = void 0
-                      ;(_ =
+                      ;((_ =
                         i == ex
                           ? parseInt(f[11], 10)
                           : i == tx
                             ? parseInt(f[12], 10)
                             : 0),
-                        s.push(_)
+                        s.push(_))
                     }
                     var b = Date.UTC(l, u, c, d, g, y)
-                    b < h && (b = Date.UTC(l, u, c + 1, d, g, y)),
+                    ;(b < h && (b = Date.UTC(l, u, c + 1, d, g, y)),
                       s.push(b / 1e3),
-                      (h = b)
+                      (h = b))
                   }
                 } else
                   'H' == p.charAt(0) &&
@@ -47031,7 +47146,7 @@
               if (0 === s.length) return null
               var x = new Py(s, i == rx ? vt : _t),
                 w = new gt(Wy(x, !1, e))
-              return w.setProperties(a, !0), w
+              return (w.setProperties(a, !0), w)
             }),
             (e.prototype.readFeaturesFromText = function (t, e) {
               var r = this.readFeatureFromText(t, e)
@@ -47057,11 +47172,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ux = ['http://www.google.com/kml/ext/2.2'],
@@ -47136,19 +47251,19 @@
                 parseFloat(r.east),
                 parseFloat(r.north),
               ]
-            ;(n.extent = i),
+            ;((n.extent = i),
               (n.altitudeMode = r.altitudeMode),
               (n.minAltitude = parseFloat(r.minAltitude)),
-              (n.maxAltitude = parseFloat(r.maxAltitude))
+              (n.maxAltitude = parseFloat(r.maxAltitude)))
           },
           Lod: function (t, e) {
             var r = Uc({}, pw, t, e)
             if (!r) return
             var n = e[e.length - 1]
-            ;(n.minLodPixels = parseFloat(r.minLodPixels)),
+            ;((n.minLodPixels = parseFloat(r.minLodPixels)),
               (n.maxLodPixels = parseFloat(r.maxLodPixels)),
               (n.minFadeExtent = parseFloat(r.minFadeExtent)),
-              (n.maxFadeExtent = parseFloat(r.maxFadeExtent))
+              (n.maxFadeExtent = parseFloat(r.maxFadeExtent)))
           },
         }),
         yx = Gc(cx, ['Document', 'Placemark']),
@@ -47300,9 +47415,9 @@
                           var o = i.getImageSize()
                           if ((null === o && (o = Kb), 2 == o.length)) {
                             var a = i.getScaleArray()
-                            ;(r[0] = (a[0] * o[0]) / 2),
+                            ;((r[0] = (a[0] * o[0]) / 2),
                               (r[1] = (-a[1] * o[1]) / 2),
-                              (n = 'left')
+                              (n = 'left'))
                           }
                         }
                         var s = t.getText()
@@ -47347,7 +47462,7 @@
                 )
                 n.setStyle(s)
               }
-              return delete r.Style, n.setProperties(r, !0), n
+              return (delete r.Style, n.setProperties(r, !0), n)
             }
           }),
           (e.prototype.readSharedStyle_ = function (t, e) {
@@ -47520,13 +47635,13 @@
             e = this.adaptOptions(e)
             var r = Sc(cx[4], 'kml'),
               n = 'http://www.w3.org/2000/xmlns/'
-            r.setAttributeNS(n, 'xmlns:gx', ux[0]),
+            ;(r.setAttributeNS(n, 'xmlns:gx', ux[0]),
               r.setAttributeNS(n, 'xmlns:xsi', wc),
               r.setAttributeNS(
                 wc,
                 'xsi:schemaLocation',
                 'http://www.opengis.net/kml/2.2 https://developers.google.com/kml/schema/kml22gx.xsd',
-              )
+              ))
             var i = { node: r },
               o = {}
             t.length > 1
@@ -47534,7 +47649,7 @@
               : 1 == t.length && (o.Placemark = t[0])
             var a = yx[r.namespaceURI],
               s = Dc(o, a)
-            return Vc(i, mx, Nc, s, [e], a, this), r
+            return (Vc(i, mx, Nc, s, [e], a, this), r)
           }),
           e
         )
@@ -47566,7 +47681,7 @@
           var o = parseFloat(n[1]),
             a = parseFloat(n[2]),
             s = n[3] ? parseFloat(n[3]) : 0
-          r.push(o, a, s), (e = e.substr(n[0].length))
+          ;(r.push(o, a, s), (e = e.substr(n[0].length)))
         }
         if ('' === e) return r
       }
@@ -47707,7 +47822,7 @@
           n = Xx(t, e)
         if (n) {
           var i = new Py(n, mt)
-          return i.setProperties(r, !0), i
+          return (i.setProperties(r, !0), i)
         }
       }
       function Hx(t, e) {
@@ -47715,7 +47830,7 @@
           n = Xx(t, e)
         if (n) {
           var i = new fi(n, mt, [n.length])
-          return i.setProperties(r, !0), i
+          return (i.setProperties(r, !0), i)
         }
       }
       var $x = Gc(cx, {
@@ -47740,7 +47855,7 @@
             u = void 0
           if (o == bt.POINT) {
             var c = n[0]
-            ;(l = c.getLayout()), (u = c.getFlatCoordinates())
+            ;((l = c.getLayout()), (u = c.getFlatCoordinates()))
             for (a = 1, s = n.length; a < s; ++a)
               v(u, n[a].getFlatCoordinates())
             iw((r = new Hy(u, l)), n)
@@ -47760,7 +47875,7 @@
           n = Xx(t, e)
         if (n) {
           var i = new qn(n, mt)
-          return i.setProperties(r, !0), i
+          return (i.setProperties(r, !0), i)
         }
       }
       var tw = Gc(cx, {
@@ -47782,9 +47897,9 @@
           n = Uc([null], tw, t, e)
         if (n && n[0]) {
           for (var i = n[0], o = [i.length], a = 1, s = n.length; a < s; ++a)
-            v(i, n[a]), o.push(i.length)
+            (v(i, n[a]), o.push(i.length))
           var l = new fi(i, mt, o)
-          return l.setProperties(r, !0), l
+          return (l.setProperties(r, !0), l)
         }
       }
       var rw = Gc(cx, {
@@ -47885,10 +48000,10 @@
         var n,
           i = 'fillStyle' in r ? r.fillStyle : vx,
           o = r.fill
-        void 0 === o || o || (i = null),
+        ;(void 0 === o || o || (i = null),
           'imageStyle' in r
             ? r.imageStyle != _x && (n = r.imageStyle)
-            : (n = bx)
+            : (n = bx))
         var a = 'textStyle' in r ? r.textStyle : Sx,
           s = 'strokeStyle' in r ? r.strokeStyle : wx,
           l = r.outline
@@ -47945,19 +48060,19 @@
           a = new Array(e.length),
           s = new Array(e.length),
           l = new Array(e.length)
-        ;(r = !1), (n = !1), (i = !1)
+        ;((r = !1), (n = !1), (i = !1))
         for (var u = 0; u < o; ++u) {
           var c = e[u]
-          ;(a[u] = c.get('extrude')),
+          ;((a[u] = c.get('extrude')),
             (s[u] = c.get('tessellate')),
             (l[u] = c.get('altitudeMode')),
             (r = r || void 0 !== a[u]),
             (n = n || void 0 !== s[u]),
-            (i = i || l[u])
+            (i = i || l[u]))
         }
-        r && t.set('extrude', a),
+        ;(r && t.set('extrude', a),
           n && t.set('tessellate', s),
-          i && t.set('altitudeMode', l)
+          i && t.set('altitudeMode', l))
       }
       var ow = Gc(cx, { displayName: Fc(U_), value: Fc(U_) })
       var aw = Gc(cx, {
@@ -47965,7 +48080,7 @@
           var r = t.getAttribute('name')
           zc(ow, t, e)
           var n = e[e.length - 1]
-          r && n.displayName
+          ;(r && n.displayName
             ? (n[r] = {
                 value: n.value,
                 displayName: n.displayName,
@@ -47976,7 +48091,7 @@
             : null !== r
               ? (n[r] = n.value)
               : null !== n.displayName && (n[n.displayName] = n.value),
-            delete n.value
+            delete n.value)
         },
         SchemaData: function (t, e) {
           zc(cw, t, e)
@@ -48068,17 +48183,17 @@
               i = r[r.length - 1].node,
               o = bw[i.namespaceURI],
               a = Dc(e, o)
-            Vc(n, xw, Nc, a, r, o),
+            ;(Vc(n, xw, Nc, a, r, o),
               (a = Dc(e, (o = bw[ux[0]]))),
-              Vc(n, xw, ww, a, r, o)
+              Vc(n, xw, ww, a, r, o))
           }),
           color: Ac(gw),
           heading: Ac(W_),
           hotSpot: Ac(function (t, e) {
-            t.setAttribute('x', String(e.x)),
+            ;(t.setAttribute('x', String(e.x)),
               t.setAttribute('y', String(e.y)),
               t.setAttribute('xunits', e.xunits),
-              t.setAttribute('yunits', e.yunits)
+              t.setAttribute('yunits', e.yunits))
           }),
           scale: Ac(Jw),
         })
@@ -48114,7 +48229,7 @@
           i = { node: t },
           o = e.getType(),
           a = []
-        o === bt.GEOMETRY_COLLECTION
+        ;(o === bt.GEOMETRY_COLLECTION
           ? (e.getGeometriesArrayRecursive().forEach(function (t) {
               var e = t.getType()
               e === bt.MULTI_POINT
@@ -48135,7 +48250,7 @@
               : o === bt.MULTI_POLYGON
                 ? ((a = e.getPolygons()), (n = Aw))
                 : pt(!1, 39),
-          Vc(i, kw, n, a, r)
+          Vc(i, kw, n, a, r))
       }
       var Nw = Gc(cx, { LinearRing: Ac(Ww) })
       function Dw(t, e, r) {
@@ -48173,10 +48288,10 @@
             }
             if (e.polyStyles.length) {
               var s
-              ;(s = e.polyStyles[0].getStroke()) &&
+              ;((s = e.polyStyles[0].getStroke()) &&
                 !i.LineStyle &&
                 (i.LineStyle = s),
-                (i.PolyStyle = e.polyStyles[0])
+                (i.PolyStyle = e.polyStyles[0]))
             }
             var l = r[r.length - 1].node,
               u = Qw[l.namespaceURI],
@@ -48245,7 +48360,7 @@
             ) {
               var h = u,
                 p = u
-              e.getGeometry() &&
+              ;(e.getGeometry() &&
                 ((h = u.filter(function (t) {
                   var r = t.getGeometryFunction()(e)
                   if (r) {
@@ -48272,7 +48387,7 @@
                       : n === bt.POLYGON || n === bt.MULTI_POLYGON
                   }
                 }))),
-                (i.Style = { pointStyles: c, lineStyles: h, polyStyles: p })
+                (i.Style = { pointStyles: c, lineStyles: h, polyStyles: p }))
             }
             if (c.length && void 0 === i.name) {
               var f = c[0].getText()
@@ -48289,7 +48404,7 @@
         }
         var v = r[0],
           _ = e.getGeometry()
-        _ && (_ = Wy(_, !0, v)), Vc(n, Gw, Iw, [_], r)
+        ;(_ && (_ = Wy(_, !0, v)), Vc(n, Gw, Iw, [_], r))
       }
       var Vw = Gc(cx, ['extrude', 'tessellate', 'altitudeMode', 'coordinates']),
         Yw = Gc(cx, {
@@ -48322,7 +48437,7 @@
       function Ww(t, e, r) {
         var n = e.getFlatCoordinates(),
           i = { node: t }
-        ;(i.layout = e.getLayout()), (i.stride = e.getStride())
+        ;((i.layout = e.getLayout()), (i.stride = e.getStride()))
         var o = e.getProperties()
         o.coordinates = n
         var a = r[r.length - 1].node,
@@ -48338,7 +48453,7 @@
         var n = e.getLinearRings(),
           i = n.shift(),
           o = { node: t }
-        Vc(o, Xw, Zw, n, r), Vc(o, Xw, Kw, [i], r)
+        ;(Vc(o, Xw, Zw, n, r), Vc(o, Xw, Kw, [i], r))
       }
       var $w = Gc(cx, { color: Ac(gw), fill: Ac(B_), outline: Ac(B_) })
       function Jw(t, e) {
@@ -48354,7 +48469,7 @@
               s = e.getImageSize(),
               l = { href: o }
             if (a) {
-              ;(l.w = a[0]), (l.h = a[1])
+              ;((l.w = a[0]), (l.h = a[1]))
               var u = e.getAnchor(),
                 c = e.getOrigin()
               if (
@@ -48434,11 +48549,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         nS = [null],
@@ -48463,7 +48578,7 @@
               var s = new qn(o)
               Wy(s, !1, r)
               var l = new gt(s)
-              l.setId(i), l.setProperties(a.tags, !0), n.features.push(l)
+              ;(l.setId(i), l.setProperties(a.tags, !0), n.features.push(l))
             }
           },
           way: function (t, e) {
@@ -48479,7 +48594,7 @@
         aS = (function (t) {
           function e() {
             var e = t.call(this) || this
-            return (e.dataProjection = Gr('EPSG:4326')), e
+            return ((e.dataProjection = Gr('EPSG:4326')), e)
           }
           return (
             rS(e, t),
@@ -48509,7 +48624,9 @@
                     r,
                   )
                   var c = new gt(u)
-                  c.setId(o.id), c.setProperties(o.tags, !0), n.features.push(c)
+                  ;(c.setId(o.id),
+                    c.setProperties(o.tags, !0),
+                    n.features.push(c))
                 }
                 if (n.features) return n.features
               }
@@ -48565,11 +48682,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         fS = [null, 'http://www.opengis.net/ows/1.1'],
@@ -48697,11 +48814,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })()
       function LS(t, e, r) {
@@ -48713,7 +48830,7 @@
           for (n = 0; n < e; ++n, ++a) {
             var l = t[a],
               u = l - o[n]
-            ;(o[n] = l), (t[a] = u)
+            ;((o[n] = l), (t[a] = u))
           }
         return FS(t, i)
       }
@@ -48723,7 +48840,7 @@
           o = new Array(e)
         for (n = 0; n < e; ++n) o[n] = 0
         for (var a = AS(t, i), s = 0, l = a.length; s < l; )
-          for (n = 0; n < e; ++n, ++s) (o[n] += a[s]), (a[s] = o[n])
+          for (n = 0; n < e; ++n, ++s) ((o[n] += a[s]), (a[s] = o[n]))
         return a
       }
       function FS(t, e) {
@@ -48757,15 +48874,15 @@
       function DS(t) {
         for (var e = [], r = 0, n = 0, i = 0, o = t.length; i < o; ++i) {
           var a = t.charCodeAt(i) - 63
-          ;(r |= (31 & a) << n),
-            a < 32 ? (e.push(r), (r = 0), (n = 0)) : (n += 5)
+          ;((r |= (31 & a) << n),
+            a < 32 ? (e.push(r), (r = 0), (n = 0)) : (n += 5))
         }
         return e
       }
       function GS(t) {
         for (var e, r = ''; t >= 32; )
-          (e = 63 + (32 | (31 & t))), (r += String.fromCharCode(e)), (t >>= 5)
-        return (e = t + 63), (r += String.fromCharCode(e))
+          ((e = 63 + (32 | (31 & t))), (r += String.fromCharCode(e)), (t >>= 5))
+        return ((e = t + 63), (r += String.fromCharCode(e)))
       }
       var zS = (function (t) {
           function e(e) {
@@ -48812,7 +48929,7 @@
                   this.adaptOptions(e),
                 )).getFlatCoordinates(),
                 n = t.getStride()
-              return v_(r, 0, r.length, n, r), LS(r, n, this.factor_)
+              return (v_(r, 0, r.length, n, r), LS(r, n, this.factor_))
             }),
             e
           )
@@ -48834,11 +48951,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         BS = (function (t) {
@@ -48924,10 +49041,10 @@
         }
       function YS(t, e) {
         for (var r, n, i = [], o = 0, a = t.length; o < a; ++o)
-          (r = t[o]),
+          ((r = t[o]),
             o > 0 && i.pop(),
             (n = r >= 0 ? e[r] : e[~r].slice().reverse()),
-            i.push.apply(i, n)
+            i.push.apply(i, n))
         for (var s = 0, l = i.length; s < l; ++s) i[s] = i[s].slice()
         return i
       }
@@ -48942,18 +49059,22 @@
           u = VS[l]
         s = 'Point' === l || 'MultiPoint' === l ? u(t, r, n) : u(t, e)
         var c = new gt()
-        c.setGeometry(Wy(s, !1, a)), void 0 !== t.id && c.setId(t.id)
+        ;(c.setGeometry(Wy(s, !1, a)), void 0 !== t.id && c.setId(t.id))
         var h = t.properties
-        return i && (h || (h = {}), (h[i] = o)), h && c.setProperties(h, !0), c
+        return (
+          i && (h || (h = {}), (h[i] = o)),
+          h && c.setProperties(h, !0),
+          c
+        )
       }
       function XS(t, e, r) {
         for (var n = 0, i = 0, o = 0, a = t.length; o < a; ++o) {
           var s = t[o]
-          ;(n += s[0]), (i += s[1]), (s[0] = n), (s[1] = i), ZS(s, e, r)
+          ;((n += s[0]), (i += s[1]), (s[0] = n), (s[1] = i), ZS(s, e, r))
         }
       }
       function ZS(t, e, r) {
-        ;(t[0] = t[0] * e[0] + r[0]), (t[1] = t[1] * e[1] + r[1])
+        ;((t[0] = t[0] * e[0] + r[0]), (t[1] = t[1] * e[1] + r[1]))
       }
       var KS = BS,
         HS = (function () {
@@ -48984,19 +49105,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         JS = (function (t) {
           function e(e, r) {
             var n = t.call(this, e) || this
-            return (n.conditions = r), pt(n.conditions.length >= 2, 57), n
+            return ((n.conditions = r), pt(n.conditions.length >= 2, 57), n)
           }
-          return $S(e, t), e
+          return ($S(e, t), e)
         })(HS),
         QS = (function () {
           var t = function (e, r) {
@@ -49015,11 +49136,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         tE = (function (t) {
@@ -49028,7 +49149,7 @@
               t.call(this, 'And', Array.prototype.slice.call(arguments)) || this
             )
           }
-          return QS(e, t), e
+          return (QS(e, t), e)
         })(JS),
         eE = (function () {
           var t = function (e, r) {
@@ -49047,11 +49168,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         rE = (function (t) {
@@ -49061,9 +49182,9 @@
               throw new Error(
                 'Expected an extent with four values ([minX, minY, maxX, maxY])',
               )
-            return (i.srsName = n), i
+            return ((i.srsName = n), i)
           }
-          return eE(e, t), e
+          return (eE(e, t), e)
         })(HS),
         nE = (function () {
           var t = function (e, r) {
@@ -49082,11 +49203,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         iE = (function (t) {
@@ -49099,7 +49220,7 @@
               o
             )
           }
-          return nE(e, t), e
+          return (nE(e, t), e)
         })(HS),
         oE = (function () {
           var t = function (e, r) {
@@ -49118,18 +49239,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         aE = (function (t) {
           function e(e, r, n) {
             return t.call(this, 'Contains', e, r, n) || this
           }
-          return oE(e, t), e
+          return (oE(e, t), e)
         })(iE),
         sE = (function () {
           var t = function (e, r) {
@@ -49148,19 +49269,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         lE = (function (t) {
           function e(e, r, n, i, o) {
             var a = t.call(this, 'DWithin', e, r, o) || this
-            return (a.distance = n), (a.unit = i), a
+            return ((a.distance = n), (a.unit = i), a)
           }
-          return sE(e, t), e
+          return (sE(e, t), e)
         })(iE),
         uE = (function () {
           var t = function (e, r) {
@@ -49179,18 +49300,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         cE = (function (t) {
           function e(e, r, n) {
             return t.call(this, 'Disjoint', e, r, n) || this
           }
-          return uE(e, t), e
+          return (uE(e, t), e)
         })(iE),
         hE = (function () {
           var t = function (e, r) {
@@ -49209,19 +49330,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         pE = (function (t) {
           function e(e, r) {
             var n = t.call(this, e) || this
-            return (n.propertyName = r), n
+            return ((n.propertyName = r), n)
           }
-          return hE(e, t), e
+          return (hE(e, t), e)
         })(HS),
         fE = (function () {
           var t = function (e, r) {
@@ -49240,19 +49361,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         dE = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, 'During', e) || this
-            return (i.begin = r), (i.end = n), i
+            return ((i.begin = r), (i.end = n), i)
           }
-          return fE(e, t), e
+          return (fE(e, t), e)
         })(pE),
         gE = (function () {
           var t = function (e, r) {
@@ -49271,19 +49392,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         yE = (function (t) {
           function e(e, r, n, i) {
             var o = t.call(this, e, r) || this
-            return (o.expression = n), (o.matchCase = i), o
+            return ((o.expression = n), (o.matchCase = i), o)
           }
-          return gE(e, t), e
+          return (gE(e, t), e)
         })(pE),
         mE = (function () {
           var t = function (e, r) {
@@ -49302,18 +49423,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         vE = (function (t) {
           function e(e, r, n) {
             return t.call(this, 'PropertyIsEqualTo', e, r, n) || this
           }
-          return mE(e, t), e
+          return (mE(e, t), e)
         })(yE),
         _E = (function () {
           var t = function (e, r) {
@@ -49332,18 +49453,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         bE = (function (t) {
           function e(e, r) {
             return t.call(this, 'PropertyIsGreaterThan', e, r) || this
           }
-          return _E(e, t), e
+          return (_E(e, t), e)
         })(yE),
         xE = (function () {
           var t = function (e, r) {
@@ -49362,18 +49483,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         wE = (function (t) {
           function e(e, r) {
             return t.call(this, 'PropertyIsGreaterThanOrEqualTo', e, r) || this
           }
-          return xE(e, t), e
+          return (xE(e, t), e)
         })(yE),
         SE = (function () {
           var t = function (e, r) {
@@ -49392,18 +49513,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         EE = (function (t) {
           function e(e, r, n) {
             return t.call(this, 'Intersects', e, r, n) || this
           }
-          return SE(e, t), e
+          return (SE(e, t), e)
         })(iE),
         TE = (function () {
           var t = function (e, r) {
@@ -49422,19 +49543,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         CE = (function (t) {
           function e(e, r, n) {
             var i = t.call(this, 'PropertyIsBetween', e) || this
-            return (i.lowerBoundary = r), (i.upperBoundary = n), i
+            return ((i.lowerBoundary = r), (i.upperBoundary = n), i)
           }
-          return TE(e, t), e
+          return (TE(e, t), e)
         })(pE),
         OE = (function () {
           var t = function (e, r) {
@@ -49453,11 +49574,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         PE = (function (t) {
@@ -49472,7 +49593,7 @@
               s
             )
           }
-          return OE(e, t), e
+          return (OE(e, t), e)
         })(pE),
         RE = (function () {
           var t = function (e, r) {
@@ -49491,18 +49612,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         IE = (function (t) {
           function e(e) {
             return t.call(this, 'PropertyIsNull', e) || this
           }
-          return RE(e, t), e
+          return (RE(e, t), e)
         })(pE),
         LE = (function () {
           var t = function (e, r) {
@@ -49521,18 +49642,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ME = (function (t) {
           function e(e, r) {
             return t.call(this, 'PropertyIsLessThan', e, r) || this
           }
-          return LE(e, t), e
+          return (LE(e, t), e)
         })(yE),
         FE = (function () {
           var t = function (e, r) {
@@ -49551,18 +49672,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         AE = (function (t) {
           function e(e, r) {
             return t.call(this, 'PropertyIsLessThanOrEqualTo', e, r) || this
           }
-          return FE(e, t), e
+          return (FE(e, t), e)
         })(yE),
         kE = (function () {
           var t = function (e, r) {
@@ -49581,19 +49702,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         jE = (function (t) {
           function e(e) {
             var r = t.call(this, 'Not') || this
-            return (r.condition = e), r
+            return ((r.condition = e), r)
           }
-          return kE(e, t), e
+          return (kE(e, t), e)
         })(HS),
         NE = (function () {
           var t = function (e, r) {
@@ -49612,18 +49733,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         DE = (function (t) {
           function e(e, r, n) {
             return t.call(this, 'PropertyIsNotEqualTo', e, r, n) || this
           }
-          return NE(e, t), e
+          return (NE(e, t), e)
         })(yE),
         GE = (function () {
           var t = function (e, r) {
@@ -49642,11 +49763,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         zE = (function (t) {
@@ -49655,7 +49776,7 @@
               t.call(this, 'Or', Array.prototype.slice.call(arguments)) || this
             )
           }
-          return GE(e, t), e
+          return (GE(e, t), e)
         })(JS),
         UE = (function () {
           var t = function (e, r) {
@@ -49674,19 +49795,19 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         BE = (function (t) {
           function e(e) {
             var r = t.call(this, 'ResourceId') || this
-            return (r.rid = e), r
+            return ((r.rid = e), r)
           }
-          return UE(e, t), e
+          return (UE(e, t), e)
         })(HS),
         VE = (function () {
           var t = function (e, r) {
@@ -49705,18 +49826,18 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         YE = (function (t) {
           function e(e, r, n) {
             return t.call(this, 'Within', e, r, n) || this
           }
-          return VE(e, t), e
+          return (VE(e, t), e)
         })(iE)
       function WE(t) {
         var e = [null].concat(Array.prototype.slice.call(arguments))
@@ -49742,11 +49863,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         ZE = {
@@ -49849,11 +49970,11 @@
             }),
             (e.prototype.readFeaturesFromNode = function (t, e) {
               var r = { node: t }
-              O(r, {
+              ;(O(r, {
                 featureType: this.featureType_,
                 featureNS: this.featureNS_,
               }),
-                O(r, this.getReadOptions(t, e || {}))
+                O(r, this.getReadOptions(t, e || {})))
               var n = [r],
                 i = Uc(
                   [],
@@ -49864,7 +49985,7 @@
                   n,
                   this.gmlFormat_,
                 )
-              return i || (i = []), i
+              return (i || (i = []), i)
             }),
             (e.prototype.readTransactionResponse = function (t) {
               if (t) {
@@ -49898,7 +50019,10 @@
             (e.prototype.readFeatureCollectionMetadataFromNode = function (t) {
               var e = {},
                 r = z_(t.getAttribute('numberOfFeatures'))
-              return (e.numberOfFeatures = r), Uc(e, ZE, t, [], this.gmlFormat_)
+              return (
+                (e.numberOfFeatures = r),
+                Uc(e, ZE, t, [], this.gmlFormat_)
+              )
             }),
             (e.prototype.readTransactionResponseFromDocument = function (t) {
               for (var e = t.firstChild; e; e = e.nextSibling)
@@ -49911,7 +50035,7 @@
             (e.prototype.writeGetFeature = function (t) {
               var e = this,
                 r = Sc(eT[this.version_], 'GetFeature')
-              r.setAttribute('service', 'WFS'),
+              ;(r.setAttribute('service', 'WFS'),
                 r.setAttribute('version', this.version_),
                 t.handle && r.setAttribute('handle', t.handle),
                 t.outputFormat &&
@@ -49924,7 +50048,11 @@
                 void 0 !== t.count && r.setAttribute('count', String(t.count)),
                 void 0 !== t.viewParams &&
                   r.setAttribute('viewParams', t.viewParams),
-                r.setAttributeNS(wc, 'xsi:schemaLocation', this.schemaLocation_)
+                r.setAttributeNS(
+                  wc,
+                  'xsi:schemaLocation',
+                  this.schemaLocation_,
+                ))
               var n = { node: r }
               if (
                 (O(n, {
@@ -49938,7 +50066,7 @@
                 'string' == typeof t.featureTypes[0])
               ) {
                 var i = t.filter
-                t.bbox &&
+                ;(t.bbox &&
                   (pt(t.geometryName, 12),
                   (i = this.combineBboxAndFilter(
                     t.geometryName,
@@ -49947,7 +50075,7 @@
                     i,
                   ))),
                   O(n, { geometryName: t.geometryName, filter: i }),
-                  jT(r, t.featureTypes, [n])
+                  jT(r, t.featureTypes, [n]))
               } else
                 t.featureTypes.forEach(function (i) {
                   var o = e.combineBboxAndFilter(
@@ -49956,8 +50084,8 @@
                     t.srsName,
                     t.filter,
                   )
-                  O(n, { geometryName: i.geometryName, filter: o }),
-                    jT(r, [i.name], [n])
+                  ;(O(n, { geometryName: i.geometryName, filter: o }),
+                    jT(r, [i.name], [n]))
                 })
               return r
             }),
@@ -49970,12 +50098,12 @@
                 o = [],
                 a = n.version ? n.version : this.version_,
                 s = Sc(eT[a], 'Transaction')
-              s.setAttribute('service', 'WFS'),
+              ;(s.setAttribute('service', 'WFS'),
                 s.setAttribute('version', a),
                 n &&
                   ((i = n.gmlOptions ? n.gmlOptions : {}),
                   n.handle && s.setAttribute('handle', n.handle)),
-                s.setAttributeNS(wc, 'xsi:schemaLocation', nT[a])
+                s.setAttributeNS(wc, 'xsi:schemaLocation', nT[a]))
               var l = (function (t, e, r, n) {
                 var i,
                   o = n.featurePrefix ? n.featurePrefix : 'feature'
@@ -50069,19 +50197,19 @@
           o = n.featureNS,
           a = n.gmlVersion,
           s = Sc(o, i)
-        t.appendChild(s),
+        ;(t.appendChild(s),
           2 === a
             ? $_.prototype.writeFeatureElement(s, e, r)
             : 3 === a
               ? eb.prototype.writeFeatureElement(s, e, r)
-              : ab.prototype.writeFeatureElement(s, e, r)
+              : ab.prototype.writeFeatureElement(s, e, r))
       }
       function fT(t, e, r) {
         var n = r[r.length - 1].version,
           i = tT[n],
           o = Sc(i, 'Filter'),
           a = Sc(i, 'FeatureId')
-        o.appendChild(a), a.setAttribute('fid', e), t.appendChild(o)
+        ;(o.appendChild(a), a.setAttribute('fid', e), t.appendChild(o))
       }
       function dT(t, e) {
         var r = (t = t || 'feature') + ':'
@@ -50094,7 +50222,7 @@
           o = n.featurePrefix,
           a = n.featureNS,
           s = dT(o, i)
-        t.setAttribute('typeName', s), t.setAttributeNS(QE, 'xmlns:' + o, a)
+        ;(t.setAttribute('typeName', s), t.setAttributeNS(QE, 'xmlns:' + o, a))
         var l = e.getId()
         void 0 !== l && fT(t, l, r)
       }
@@ -50107,18 +50235,18 @@
           s = n.featureNS,
           l = dT(a, o),
           u = e.getGeometryName()
-        t.setAttribute('typeName', l), t.setAttributeNS(QE, 'xmlns:' + a, s)
+        ;(t.setAttribute('typeName', l), t.setAttributeNS(QE, 'xmlns:' + a, s))
         var c = e.getId()
         if (void 0 !== c) {
           for (var h = e.getKeys(), p = [], f = 0, d = h.length; f < d; f++) {
             var g = e.get(h[f])
             if (void 0 !== g) {
               var y = h[f]
-              g && 'function' == typeof g.getSimplifiedGeometry && (y = u),
-                p.push({ name: y, value: g })
+              ;(g && 'function' == typeof g.getSimplifiedGeometry && (y = u),
+                p.push({ name: y, value: g }))
             }
           }
-          Vc(
+          ;(Vc(
             {
               version: i,
               gmlVersion: n.gmlVersion,
@@ -50131,7 +50259,7 @@
             p,
             r,
           ),
-            fT(t, c, r)
+            fT(t, c, r))
         }
       }
       function mT(t, e, r) {
@@ -50146,21 +50274,21 @@
           void 0 !== e.value && null !== e.value)
         ) {
           var l = Sc(o, 'Value')
-          t.appendChild(l),
+          ;(t.appendChild(l),
             e.value && 'function' == typeof e.value.getSimplifiedGeometry
               ? 2 === s
                 ? $_.prototype.writeGeometryElement(l, e.value, r)
                 : 3 === s
                   ? eb.prototype.writeGeometryElement(l, e.value, r)
                   : ab.prototype.writeGeometryElement(l, e.value, r)
-              : X_(l, e.value)
+              : X_(l, e.value))
         }
       }
       function vT(t, e, r) {
-        e.vendorId && t.setAttribute('vendorId', e.vendorId),
+        ;(e.vendorId && t.setAttribute('vendorId', e.vendorId),
           void 0 !== e.safeToIgnore &&
             t.setAttribute('safeToIgnore', String(e.safeToIgnore)),
-          void 0 !== e.value && X_(t, e.value)
+          void 0 !== e.value && X_(t, e.value))
       }
       var _T = {
         'http://www.opengis.net/wfs': { Query: Ac(bT) },
@@ -50219,49 +50347,49 @@
           l = o.featureNS,
           u = o.propertyNames,
           c = o.srsName
-        ;(n = s ? dT(s, e) : e),
+        ;((n = s ? dT(s, e) : e),
           (i = '2.0.0' === a ? 'typeNames' : 'typeName'),
           t.setAttribute(i, n),
           c && t.setAttribute('srsName', c),
-          l && t.setAttributeNS(QE, 'xmlns:' + s, l)
+          l && t.setAttributeNS(QE, 'xmlns:' + s, l))
         var h = O({}, o)
-        ;(h.node = t), Vc(h, $E, jc('PropertyName'), u, r)
+        ;((h.node = t), Vc(h, $E, jc('PropertyName'), u, r))
         var p = o.filter
         if (p) {
           var f = Sc(NT(a), 'Filter')
-          t.appendChild(f), xT(f, p, r)
+          ;(t.appendChild(f), xT(f, p, r))
         }
       }
       function xT(t, e, r) {
         var n = r[r.length - 1],
           i = { node: t }
-        O(i, { context: n }), Vc(i, _T, jc(e.getTagName()), [e], r)
+        ;(O(i, { context: n }), Vc(i, _T, jc(e.getTagName()), [e], r))
       }
       function wT(t, e, r) {
         var n = r[r.length - 1],
           i = n.context.version
         n.srsName = e.srsName
         var o = iT[i]
-        AT(i, t, e.geometryName),
-          o.prototype.writeGeometryElement(t, e.extent, r)
+        ;(AT(i, t, e.geometryName),
+          o.prototype.writeGeometryElement(t, e.extent, r))
       }
       function ST(t, e, r) {
         var n = r[r.length - 1],
           i = n.context.version
         n.srsName = e.srsName
         var o = iT[i]
-        AT(i, t, e.geometryName),
-          o.prototype.writeGeometryElement(t, e.geometry, r)
+        ;(AT(i, t, e.geometryName),
+          o.prototype.writeGeometryElement(t, e.geometry, r))
       }
       function ET(t, e, r) {
         var n = r[r.length - 1].context.version
         ST(t, e, r)
         var i = Sc(NT(n), 'Distance')
-        X_(i, e.distance.toString()),
+        ;(X_(i, e.distance.toString()),
           '2.0.0' === n
             ? i.setAttribute('uom', e.unit)
             : i.setAttribute('units', e.unit),
-          t.appendChild(i)
+          t.appendChild(i))
       }
       function TT(t, e, r) {
         var n = r[r.length - 1].context.version
@@ -50269,9 +50397,9 @@
         var i = Sc(I_, 'TimePeriod')
         t.appendChild(i)
         var o = Sc(I_, 'begin')
-        i.appendChild(o), kT(o, e.begin)
+        ;(i.appendChild(o), kT(o, e.begin))
         var a = Sc(I_, 'end')
-        i.appendChild(a), kT(a, e.end)
+        ;(i.appendChild(a), kT(a, e.end))
       }
       function CT(t, e, r) {
         var n = r[r.length - 1].context,
@@ -50291,10 +50419,10 @@
       }
       function PT(t, e, r) {
         var n = r[r.length - 1].context.version
-        void 0 !== e.matchCase &&
+        ;(void 0 !== e.matchCase &&
           t.setAttribute('matchCase', e.matchCase.toString()),
           AT(n, t, e.propertyName),
-          FT(n, t, '' + e.expression)
+          FT(n, t, '' + e.expression))
       }
       function RT(t, e, r) {
         AT(r[r.length - 1].context.version, t, e.propertyName)
@@ -50304,23 +50432,23 @@
           i = NT(n)
         AT(n, t, e.propertyName)
         var o = Sc(i, 'LowerBoundary')
-        t.appendChild(o), FT(n, o, '' + e.lowerBoundary)
+        ;(t.appendChild(o), FT(n, o, '' + e.lowerBoundary))
         var a = Sc(i, 'UpperBoundary')
-        t.appendChild(a), FT(n, a, '' + e.upperBoundary)
+        ;(t.appendChild(a), FT(n, a, '' + e.upperBoundary))
       }
       function LT(t, e, r) {
         var n = r[r.length - 1].context.version
-        t.setAttribute('wildCard', e.wildCard),
+        ;(t.setAttribute('wildCard', e.wildCard),
           t.setAttribute('singleChar', e.singleChar),
           t.setAttribute('escapeChar', e.escapeChar),
           void 0 !== e.matchCase &&
             t.setAttribute('matchCase', e.matchCase.toString()),
           AT(n, t, e.propertyName),
-          FT(n, t, '' + e.pattern)
+          FT(n, t, '' + e.pattern))
       }
       function MT(t, e, r, n) {
         var i = Sc(t, e)
-        X_(i, n), r.appendChild(i)
+        ;(X_(i, n), r.appendChild(i))
       }
       function FT(t, e, r) {
         MT(NT(t), 'Literal', e, r)
@@ -50334,12 +50462,12 @@
         var r = Sc(I_, 'TimeInstant')
         t.appendChild(r)
         var n = Sc(I_, 'timePosition')
-        r.appendChild(n), X_(n, e)
+        ;(r.appendChild(n), X_(n, e))
       }
       function jT(t, e, r) {
         var n = r[r.length - 1],
           i = O({}, n)
-        ;(i.node = t), Vc(i, _T, jc('Query'), e, r)
+        ;((i.node = t), Vc(i, _T, jc('Query'), e, r))
       }
       function NT(t) {
         return '2.0.0' === t ? rT[t] : tT[t]
@@ -50362,11 +50490,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         zT = {
@@ -50387,7 +50515,7 @@
       for (var ZT in bt) XT[ZT] = bt[ZT].toUpperCase()
       var KT = (function () {
           function t(t) {
-            ;(this.wkt = t), (this.index_ = -1)
+            ;((this.wkt = t), (this.index_ = -1))
           }
           return (
             (t.prototype.isAlpha_ = function (t) {
@@ -50413,8 +50541,8 @@
               else if (',' == e) t = WT
               else if (')' == e) t = VT
               else if (this.isNumeric_(e) || '-' == e)
-                (t = YT), (n = this.readNumber_())
-              else if (this.isAlpha_(e)) (t = UT), (n = this.readText_())
+                ((t = YT), (n = this.readNumber_()))
+              else if (this.isAlpha_(e)) ((t = UT), (n = this.readText_()))
               else {
                 if (this.isWhiteSpace_(e)) return this.nextToken()
                 if ('' !== e) throw new Error('Unexpected character: ' + e)
@@ -50428,8 +50556,8 @@
                 r = !1,
                 n = !1
               do {
-                '.' == t ? (r = !0) : ('e' != t && 'E' != t) || (n = !0),
-                  (t = this.nextChar_())
+                ;('.' == t ? (r = !0) : ('e' != t && 'E' != t) || (n = !0),
+                  (t = this.nextChar_()))
               } while (
                 this.isNumeric_(t, r) ||
                 (!n && ('e' == t || 'E' == t)) ||
@@ -50450,7 +50578,7 @@
         })(),
         HT = (function () {
           function t(t) {
-            ;(this.lexer_ = t), this.token_, (this.layout_ = yt)
+            ;((this.lexer_ = t), this.token_, (this.layout_ = yt))
           }
           return (
             (t.prototype.consume_ = function () {
@@ -50461,22 +50589,22 @@
             }),
             (t.prototype.match = function (t) {
               var e = this.isTokenType(t)
-              return e && this.consume_(), e
+              return (e && this.consume_(), e)
             }),
             (t.prototype.parse = function () {
-              return this.consume_(), this.parseGeometry_()
+              return (this.consume_(), this.parseGeometry_())
             }),
             (t.prototype.parseGeometryLayout_ = function () {
               var t = yt,
                 e = this.token_
               if (this.isTokenType(UT)) {
                 var r = e.value
-                'Z' === r
+                ;('Z' === r
                   ? (t = mt)
                   : 'M' === r
                     ? (t = vt)
                     : 'ZM' === r && (t = _t),
-                  t !== yt && this.consume_()
+                  t !== yt && this.consume_())
               }
               return t
             }),
@@ -50570,7 +50698,7 @@
             }),
             (t.prototype.isEmptyGeometry_ = function () {
               var t = this.isTokenType(UT) && 'EMPTY' == this.token_.value
-              return t && this.consume_(), t
+              return (t && this.consume_(), t)
             }),
             (t.prototype.formatErrorMessage_ = function () {
               return (
@@ -50649,7 +50777,7 @@
               var r = this.readGeometryFromText(t, e)
               if (r) {
                 var n = new gt()
-                return n.setGeometry(r), n
+                return (n.setGeometry(r), n)
               }
               return null
             }),
@@ -50668,7 +50796,7 @@
                 ++o
               ) {
                 var s = new gt()
-                s.setGeometry(r[o]), i.push(s)
+                ;(s.setGeometry(r[o]), i.push(s))
               }
               return i
             }),
@@ -50785,11 +50913,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         oC = [null, 'http://www.opengis.net/wms'],
@@ -50817,7 +50945,7 @@
         lC = (function (t) {
           function e() {
             var e = t.call(this) || this
-            return (e.version = void 0), e
+            return ((e.version = void 0), e)
           }
           return (
             iC(e, t),
@@ -50910,13 +51038,13 @@
           }),
           AuthorityURL: Mc(function (t, e) {
             var r = TC(t, e)
-            if (r) return (r.name = t.getAttribute('name')), r
+            if (r) return ((r.name = t.getAttribute('name')), r)
             return
           }),
           Identifier: Mc(U_),
           MetadataURL: Mc(function (t, e) {
             var r = TC(t, e)
-            if (r) return (r.type = t.getAttribute('type')), r
+            if (r) return ((r.type = t.getAttribute('type')), r)
             return
           }),
           DataURL: Mc(TC),
@@ -50967,17 +51095,19 @@
           n = Uc({}, dC, t, e)
         if (n) {
           var i = k_(t.getAttribute('queryable'))
-          void 0 === i && (i = r.queryable), (n.queryable = void 0 !== i && i)
+          ;(void 0 === i && (i = r.queryable),
+            (n.queryable = void 0 !== i && i))
           var o = z_(t.getAttribute('cascaded'))
-          void 0 === o && (o = r.cascaded), (n.cascaded = o)
+          ;(void 0 === o && (o = r.cascaded), (n.cascaded = o))
           var a = k_(t.getAttribute('opaque'))
-          void 0 === a && (a = r.opaque), (n.opaque = void 0 !== a && a)
+          ;(void 0 === a && (a = r.opaque), (n.opaque = void 0 !== a && a))
           var s = k_(t.getAttribute('noSubsets'))
-          void 0 === s && (s = r.noSubsets), (n.noSubsets = void 0 !== s && s)
+          ;(void 0 === s && (s = r.noSubsets),
+            (n.noSubsets = void 0 !== s && s))
           var l = D_(t.getAttribute('fixedWidth'))
-          l || (l = r.fixedWidth), (n.fixedWidth = l)
+          ;(l || (l = r.fixedWidth), (n.fixedWidth = l))
           var u = D_(t.getAttribute('fixedHeight'))
-          u || (u = r.fixedHeight), (n.fixedHeight = u)
+          ;(u || (u = r.fixedHeight), (n.fixedHeight = u))
           ;['Style', 'CRS', 'AuthorityURL'].forEach(function (t) {
             if (t in r) {
               var e = n[t] || []
@@ -51012,7 +51142,7 @@
         var r = TC(t, e)
         if (r) {
           var n = [z_(t.getAttribute('width')), z_(t.getAttribute('height'))]
-          return (r.size = n), r
+          return ((r.size = n), r)
         }
       }
       function PC(t, e) {
@@ -51036,11 +51166,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         LC = (function (t) {
@@ -51076,7 +51206,7 @@
                       u = s.localName.replace('_layer', '')
                     if (!this.layers_ || g(this.layers_, u)) {
                       var c = u + '_feature'
-                      ;(l.featureType = c), (l.featureNS = this.featureNS_)
+                      ;((l.featureType = c), (l.featureNS = this.featureNS_))
                       var h = {}
                       h[c] = Ic(
                         this.gmlFormat_.readFeatureElement,
@@ -51104,7 +51234,8 @@
             (e.prototype.readFeaturesFromNode = function (t, e) {
               var r = {}
               return (
-                e && O(r, this.getReadOptions(t, e)), this.readFeatures_(t, [r])
+                e && O(r, this.getReadOptions(t, e)),
+                this.readFeatures_(t, [r])
               )
             }),
             e
@@ -51127,11 +51258,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         FC = [null, 'http://www.opengis.net/wmts/1.0'],
@@ -51144,7 +51275,7 @@
         jC = (function (t) {
           function e() {
             var e = t.call(this) || this
-            return (e.owsParser_ = new RS()), e
+            return ((e.owsParser_ = new RS()), e)
           }
           return (
             MC(e, t),
@@ -51174,7 +51305,7 @@
               var r = Uc({}, GC, t, e)
               if (!r) return
               var n = 'true' === t.getAttribute('isDefault')
-              return (r.isDefault = n), r
+              return ((r.isDefault = n), r)
             }),
             Format: Mc(U_),
             TileMatrixSetLink: Mc(function (t, e) {
@@ -51210,7 +51341,11 @@
           {
             LegendURL: Mc(function (t, e) {
               var r = {}
-              return (r.format = t.getAttribute('format')), (r.href = hS(t)), r
+              return (
+                (r.format = t.getAttribute('format')),
+                (r.href = hS(t)),
+                r
+              )
             }),
           },
           Gc(AC, { Title: Fc(U_), Identifier: Fc(U_) }),
@@ -51287,11 +51422,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         HC = [
@@ -51327,7 +51462,7 @@
           function e(e) {
             var r = this,
               n = e || {}
-            ;((r =
+            ;(((r =
               t.call(this, {
                 element: document.createElement('div'),
                 target: n.target,
@@ -51340,19 +51475,19 @@
               (r.inactiveClassName_ =
                 void 0 !== n.inactiveClassName
                   ? n.inactiveClassName.split(' ')
-                  : [r.cssClassName_ + '-false'])
+                  : [r.cssClassName_ + '-false']))
             var i = void 0 !== n.label ? n.label : '⤢'
             r.labelNode_ = 'string' == typeof i ? document.createTextNode(i) : i
             var o = void 0 !== n.labelActive ? n.labelActive : '×'
-            ;(r.labelActiveNode_ =
+            ;((r.labelActiveNode_ =
               'string' == typeof o ? document.createTextNode(o) : o),
-              (r.button_ = document.createElement('button'))
+              (r.button_ = document.createElement('button')))
             var a = n.tipLabel ? n.tipLabel : 'Toggle full-screen'
-            r.setClassName_(r.button_, tO()),
+            ;(r.setClassName_(r.button_, tO()),
               r.button_.setAttribute('type', 'button'),
               (r.button_.title = a),
               r.button_.appendChild(r.labelNode_),
-              r.button_.addEventListener(N, r.handleClick_.bind(r), !1)
+              r.button_.addEventListener(N, r.handleClick_.bind(r), !1))
             var s =
                 r.cssClassName_ +
                 ' ol-unselectable ol-control ' +
@@ -51369,7 +51504,7 @@
           return (
             KC(e, t),
             (e.prototype.handleClick_ = function (t) {
-              t.preventDefault(), this.handleFullScreen_()
+              ;(t.preventDefault(), this.handleFullScreen_())
             }),
             (e.prototype.handleFullScreen_ = function () {
               if (QC()) {
@@ -51384,7 +51519,7 @@
                           document.webkitExitFullscreen()
                   else {
                     var e = void 0
-                    ;(e = this.source_
+                    ;((e = this.source_
                       ? 'string' == typeof this.source_
                         ? document.getElementById(this.source_)
                         : this.source_
@@ -51395,20 +51530,20 @@
                               ? t.webkitRequestFullscreen()
                               : eO(t)
                           })(e)
-                        : eO(e)
+                        : eO(e))
                   }
               }
             }),
             (e.prototype.handleFullScreenChange_ = function () {
               var t = this.getMap()
-              tO()
+              ;(tO()
                 ? (this.setClassName_(this.button_, !0),
                   po(this.labelActiveNode_, this.labelNode_),
                   this.dispatchEvent($C))
                 : (this.setClassName_(this.button_, !1),
                   po(this.labelNode_, this.labelActiveNode_),
                   this.dispatchEvent(JC)),
-                t && t.updateSize()
+                t && t.updateSize())
             }),
             (e.prototype.setClassName_ = function (t, e) {
               var r,
@@ -51417,9 +51552,9 @@
                 o = this.activeClassName_,
                 a = this.inactiveClassName_,
                 s = e ? o : a
-              ;(r = t.classList).remove.apply(r, o),
+              ;((r = t.classList).remove.apply(r, o),
                 (n = t.classList).remove.apply(n, a),
-                (i = t.classList).add.apply(i, s)
+                (i = t.classList).add.apply(i, s))
             }),
             (e.prototype.setMap = function (e) {
               if ((t.prototype.setMap.call(this, e), e))
@@ -51448,11 +51583,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         iO = (function (t) {
@@ -51504,9 +51639,9 @@
             (e.prototype.setMap = function (e) {
               if ((t.prototype.setMap.call(this, e), e)) {
                 var r = e.getViewport()
-                this.listenerKeys.push(Z(r, za, this.handleMouseMove, this)),
+                ;(this.listenerKeys.push(Z(r, za, this.handleMouseMove, this)),
                   this.renderOnMouseOut_ &&
-                    this.listenerKeys.push(Z(r, Va, this.handleMouseOut, this))
+                    this.listenerKeys.push(Z(r, Va, this.handleMouseOut, this)))
               }
             }),
             (e.prototype.setCoordinateFormat = function (t) {
@@ -51525,8 +51660,8 @@
                 var n = this.getMap().getCoordinateFromPixelInternal(t)
                 if (n) {
                   var i = tn()
-                  i && (this.transform_ = Zr(this.mapProjection_, i)),
-                    this.transform_(n, n)
+                  ;(i && (this.transform_ = Zr(this.mapProjection_, i)),
+                    this.transform_(n, n))
                   var o = this.getCoordinateFormat()
                   e = o ? o(n) : n.toString()
                 }
@@ -51562,11 +51697,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         aO = (function (t) {
@@ -51585,7 +51720,7 @@
           function e(e) {
             var r = this,
               n = e || {}
-            ;((r =
+            ;(((r =
               t.call(this, {
                 element: document.createElement('div'),
                 render: n.render,
@@ -51597,7 +51732,7 @@
               r.collapsible_ || (r.collapsed_ = !1),
               (r.rotateWithView_ =
                 void 0 !== n.rotateWithView && n.rotateWithView),
-              (r.viewExtent_ = void 0)
+              (r.viewExtent_ = void 0))
             var i = void 0 !== n.className ? n.className : 'ol-overviewmap',
               o = void 0 !== n.tipLabel ? n.tipLabel : 'Overview map',
               a = void 0 !== n.collapseLabel ? n.collapseLabel : '«'
@@ -51613,35 +51748,35 @@
             var l =
                 r.collapsible_ && !r.collapsed_ ? r.collapseLabel_ : r.label_,
               u = document.createElement('button')
-            u.setAttribute('type', 'button'),
+            ;(u.setAttribute('type', 'button'),
               (u.title = o),
               u.appendChild(l),
               u.addEventListener(N, r.handleClick_.bind(r), !1),
               (r.ovmapDiv_ = document.createElement('div')),
               (r.ovmapDiv_.className = 'ol-overviewmap-map'),
               (r.view_ = n.view),
-              (r.ovmap_ = new aO({ view: n.view }))
+              (r.ovmap_ = new aO({ view: n.view })))
             var c = r.ovmap_
             n.layers &&
               n.layers.forEach(function (t) {
                 c.addLayer(t)
               })
             var h = document.createElement('div')
-            ;(h.className = 'ol-overviewmap-box'),
+            ;((h.className = 'ol-overviewmap-box'),
               (h.style.boxSizing = 'border-box'),
               (r.boxOverlay_ = new su({
                 position: [0, 0],
                 positioning: Hl,
                 element: h,
               })),
-              r.ovmap_.addOverlay(r.boxOverlay_)
+              r.ovmap_.addOverlay(r.boxOverlay_))
             var p =
                 i +
                 ' ol-unselectable ol-control' +
                 (r.collapsed_ && r.collapsible_ ? ' ol-collapsed' : '') +
                 (r.collapsible_ ? '' : ' ol-uncollapsible'),
               f = r.element
-            ;(f.className = p), f.appendChild(r.ovmapDiv_), f.appendChild(u)
+            ;((f.className = p), f.appendChild(r.ovmapDiv_), f.appendChild(u))
             var d = r,
               g = r.boxOverlay_,
               y = r.boxOverlay_.getElement(),
@@ -51653,14 +51788,14 @@
               },
               v = function (t) {
                 var e = c.getEventCoordinateInternal(t)
-                d.getMap().getView().setCenterInternal(e),
+                ;(d.getMap().getView().setCenterInternal(e),
                   window.removeEventListener('mousemove', m),
-                  window.removeEventListener('mouseup', v)
+                  window.removeEventListener('mouseup', v))
               }
             return (
               y.addEventListener('mousedown', function () {
-                window.addEventListener('mousemove', m),
-                  window.addEventListener('mouseup', v)
+                ;(window.addEventListener('mousemove', m),
+                  window.addEventListener('mouseup', v))
               }),
               r
             )
@@ -51672,13 +51807,13 @@
               if (e !== r) {
                 if (r) {
                   var n = r.getView()
-                  n && this.unbindView_(n), this.ovmap_.setTarget(null)
+                  ;(n && this.unbindView_(n), this.ovmap_.setTarget(null))
                 }
                 if ((t.prototype.setMap.call(this, e), e)) {
-                  this.ovmap_.setTarget(this.ovmapDiv_),
+                  ;(this.ovmap_.setTarget(this.ovmapDiv_),
                     this.listenerKeys.push(
                       Z(e, h, this.handleMapPropertyChange_, this),
-                    )
+                    ))
                   var i = e.getView()
                   i &&
                     (this.bindView_(i),
@@ -51700,8 +51835,8 @@
                 var e = new Cs({ projection: t.getProjection() })
                 this.ovmap_.setView(e)
               }
-              t.addEventListener(it(ss), this.boundHandleRotationChanged_),
-                this.handleRotationChanged_()
+              ;(t.addEventListener(it(ss), this.boundHandleRotationChanged_),
+                this.handleRotationChanged_())
             }),
             (e.prototype.unbindView_ = function (t) {
               t.removeEventListener(it(ss), this.boundHandleRotationChanged_)
@@ -51741,7 +51876,7 @@
                 n = t.getView().calculateExtentInternal(r),
                 i = e.getView(),
                 o = Math.log(7.5) / Math.LN2
-              Me(n, 1 / (0.1 * Math.pow(2, o / 2))), i.fitInternal(gi(n))
+              ;(Me(n, 1 / (0.1 * Math.pow(2, o / 2))), i.fitInternal(gi(n)))
             }),
             (e.prototype.recenter_ = function () {
               var t = this.getMap(),
@@ -51765,26 +51900,26 @@
                   h = (r[0] * u) / c,
                   p = (r[1] * u) / c
                 if ((a.setPosition(l), s)) {
-                  ;(s.style.width = h + 'px'), (s.style.height = p + 'px')
+                  ;((s.style.width = h + 'px'), (s.style.height = p + 'px'))
                   var f = 'rotate(' + o + 'rad)'
                   s.style.transform = f
                 }
               }
             }),
             (e.prototype.handleClick_ = function (t) {
-              t.preventDefault(), this.handleToggle_()
+              ;(t.preventDefault(), this.handleToggle_())
             }),
             (e.prototype.handleToggle_ = function () {
-              this.element.classList.toggle('ol-collapsed'),
+              ;(this.element.classList.toggle('ol-collapsed'),
                 this.collapsed_
                   ? po(this.collapseLabel_, this.label_)
                   : po(this.label_, this.collapseLabel_),
-                (this.collapsed_ = !this.collapsed_)
+                (this.collapsed_ = !this.collapsed_))
               var t = this.ovmap_
               if (!this.collapsed_) {
                 if (t.isRendered())
-                  return (this.viewExtent_ = void 0), void t.render()
-                t.updateSize(),
+                  return ((this.viewExtent_ = void 0), void t.render())
+                ;(t.updateSize(),
                   this.resetExtent_(),
                   K(
                     t,
@@ -51793,7 +51928,7 @@
                       this.updateBox_()
                     },
                     this,
-                  )
+                  ))
               }
             }),
             (e.prototype.getCollapsible = function () {
@@ -51829,7 +51964,7 @@
               return this.ovmap_
             }),
             (e.prototype.render = function (t) {
-              this.validateExtent_(), this.updateBox_()
+              ;(this.validateExtent_(), this.updateBox_())
             }),
             e
           )
@@ -51851,11 +51986,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         uO = 'degrees',
@@ -51979,7 +52114,7 @@
                   if (h >= a) break
                   ++d
                 }
-                ;(f = this.scaleBar_
+                ;((f = this.scaleBar_
                   ? this.createScaleBar(h, c, l)
                   : c.toFixed(p < 0 ? -p : 0) + ' ' + l),
                   this.renderedHTML_ != f &&
@@ -51990,7 +52125,7 @@
                     (this.renderedWidth_ = h)),
                   this.renderedVisible_ ||
                     ((this.element.style.display = ''),
-                    (this.renderedVisible_ = !0))
+                    (this.renderedVisible_ = !0)))
               } else
                 this.renderedVisible_ &&
                   ((this.element.style.display = 'none'),
@@ -52008,7 +52143,7 @@
                 s < this.scaleBarSteps_;
                 s++
               )
-                0 === s && i.push(this.createMarker('absolute', s)),
+                (0 === s && i.push(this.createMarker('absolute', s)),
                   i.push(
                     '<div><div class="ol-scale-singlebar" style="width: ' +
                       o +
@@ -52023,7 +52158,7 @@
                   ),
                   s === this.scaleBarSteps_ - 1 &&
                     i.push(this.createStepText(s + 1, t, !0, e, r)),
-                  (a = '#ffffff' === a ? '#000000' : '#ffffff')
+                  (a = '#ffffff' === a ? '#000000' : '#ffffff'))
               return (
                 '<div style="display: flex;">' +
                 (this.scaleBarText_
@@ -52078,7 +52213,8 @@
             }),
             (e.prototype.render = function (t) {
               var e = t.frameState
-              ;(this.viewState_ = e ? e.viewState : null), this.updateElement_()
+              ;((this.viewState_ = e ? e.viewState : null),
+                this.updateElement_())
             }),
             e
           )
@@ -52100,11 +52236,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         mO = 0,
@@ -52113,7 +52249,7 @@
           function e(e) {
             var r = this,
               n = e || {}
-            ;((r =
+            ;(((r =
               t.call(this, {
                 element: document.createElement('div'),
                 render: n.render,
@@ -52127,11 +52263,11 @@
               r.startY_,
               (r.thumbSize_ = null),
               (r.sliderInitialized_ = !1),
-              (r.duration_ = void 0 !== n.duration ? n.duration : 200)
+              (r.duration_ = void 0 !== n.duration ? n.duration : 200))
             var i = void 0 !== n.className ? n.className : 'ol-zoomslider',
               o = document.createElement('button')
-            o.setAttribute('type', 'button'),
-              (o.className = i + '-thumb ol-unselectable')
+            ;(o.setAttribute('type', 'button'),
+              (o.className = i + '-thumb ol-unselectable'))
             var a = r.element
             return (
               (a.className = i + ' ol-unselectable ol-control'),
@@ -52147,7 +52283,7 @@
           return (
             yO(e, t),
             (e.prototype.setMap = function (e) {
-              t.prototype.setMap.call(this, e), e && e.render()
+              ;(t.prototype.setMap.call(this, e), e && e.render())
             }),
             (e.prototype.initSlider_ = function () {
               var t = this.element,
@@ -52214,8 +52350,10 @@
                 var e = t.clientX - this.startX_,
                   r = t.clientY - this.startY_,
                   n = this.getRelativePosition_(e, r)
-                ;(this.currentResolution_ = this.getResolutionForPosition_(n)),
-                  this.getMap().getView().setResolution(this.currentResolution_)
+                ;((this.currentResolution_ = this.getResolutionForPosition_(n)),
+                  this.getMap()
+                    .getView()
+                    .setResolution(this.currentResolution_))
               }
             }),
             (e.prototype.handleDraggerEnd_ = function (t) {
@@ -52261,7 +52399,7 @@
                 (this.sliderInitialized_ || this.initSlider_())
               ) {
                 var e = t.frameState.viewState.resolution
-                ;(this.currentResolution_ = e), this.setThumbPosition_(e)
+                ;((this.currentResolution_ = e), this.setThumbPosition_(e))
               }
             }),
             e
@@ -52284,11 +52422,11 @@
             function n() {
               this.constructor = e
             }
-            t(e, r),
+            ;(t(e, r),
               (e.prototype =
                 null === r
                   ? Object.create(r)
-                  : ((n.prototype = r.prototype), new n()))
+                  : ((n.prototype = r.prototype), new n())))
           }
         })(),
         xO = (function (t) {
@@ -52304,20 +52442,20 @@
               o = void 0 !== n.label ? n.label : 'E',
               a = void 0 !== n.tipLabel ? n.tipLabel : 'Fit to extent',
               s = document.createElement('button')
-            s.setAttribute('type', 'button'),
+            ;(s.setAttribute('type', 'button'),
               (s.title = a),
               s.appendChild(
                 'string' == typeof o ? document.createTextNode(o) : o,
               ),
-              s.addEventListener(N, r.handleClick_.bind(r), !1)
+              s.addEventListener(N, r.handleClick_.bind(r), !1))
             var l = i + ' ol-unselectable ol-control',
               u = r.element
-            return (u.className = l), u.appendChild(s), r
+            return ((u.className = l), u.appendChild(s), r)
           }
           return (
             bO(e, t),
             (e.prototype.handleClick_ = function (t) {
-              t.preventDefault(), this.handleZoomToExtent()
+              ;(t.preventDefault(), this.handleZoomToExtent())
             }),
             (e.prototype.handleZoomToExtent = function () {
               var t = this.getMap().getView(),
@@ -52328,7 +52466,7 @@
           )
         })(As),
         wO = {}
-      ;(wO.AssertionError = l || {}),
+      ;((wO.AssertionError = l || {}),
         (wO.Collection = ht || {}),
         (wO.Collection.CollectionEvent = ct || {}),
         (wO.Disposable = p || {}),
@@ -52379,7 +52517,7 @@
           function (t, e) {
             var r = t.indexOf(e),
               n = r > -1
-            return n && t.splice(r, 1), n
+            return (n && t.splice(r, 1), n)
           } || {}),
         (wO.array.reverseSubArray = m || {}),
         (wO.array.stableSort =
@@ -52504,7 +52642,7 @@
         (wO.events.condition.penOnly =
           function (t) {
             var e = t.originalEvent
-            return pt(void 0 !== e, 56), 'pen' === e.pointerType
+            return (pt(void 0 !== e, 56), 'pen' === e.pointerType)
           } || {}),
         (wO.events.condition.platformModifierKeyOnly =
           function (t) {
@@ -52522,7 +52660,7 @@
         (wO.events.condition.touchOnly =
           function (t) {
             var e = t.originalEvent
-            return pt(void 0 !== e, 56), 'touch' === e.pointerType
+            return (pt(void 0 !== e, 56), 'touch' === e.pointerType)
           } || {}),
         (wO.events.listen = Z || {}),
         (wO.events.listenOnce = K || {}),
@@ -52660,7 +52798,7 @@
           function (t, e) {
             var r = Sc(tT[e], 'Filter'),
               n = { node: r }
-            return O(n, { version: e, filter: t }), xT(r, t, [n]), r
+            return (O(n, { version: e, filter: t }), xT(r, t, [n]), r)
           } || {}),
         (wO.format.WKT = nC || {}),
         (wO.format.WMSCapabilities = RC || {}),
@@ -52915,9 +53053,9 @@
             for (var l = 0, u = r.length; l < u; ++l) {
               var c = r[l],
                 h = []
-              ;(a = Ln(t, e, c, n, i, o, a, h)),
+              ;((a = Ln(t, e, c, n, i, o, a, h)),
                 s.push(h),
-                (e = c[c.length - 1])
+                (e = c[c.length - 1]))
             }
             return a
           } || {}),
@@ -52988,7 +53126,7 @@
                 o = e
               o ? o.setCoordinates(i) : (o = new fi(i))
               var a = tn()
-              return a && o.transform(r, a), o
+              return (a && o.transform(r, a), o)
             }
           } || {}),
         (wO.interaction.Draw.createRegularPolygon =
@@ -53006,7 +53144,7 @@
               }
               mi(l, o, s, u)
               var p = tn()
-              return p && l.transform(i, p), l
+              return (p && l.transform(i, p), l)
             }
           } || {}),
         (wO.interaction.Extent = qv || {}),
@@ -53100,7 +53238,7 @@
         (wO.proj.addProjections = Dr || {}),
         (wO.proj.clearAllProjections =
           function () {
-            lr(), pr()
+            ;(lr(), pr())
           } || {}),
         (wO.proj.clearUserProjection =
           function () {
@@ -53146,7 +53284,7 @@
               if (!Gr(o)) {
                 var a = t.defs(o),
                   s = a.units
-                s || 'longlat' !== a.projName || (s = St.DEGREES),
+                ;(s || 'longlat' !== a.projName || (s = St.DEGREES),
                   Nr(
                     new je({
                       code: o,
@@ -53154,7 +53292,7 @@
                       metersPerUnit: a.to_meter,
                       units: s,
                     }),
-                  )
+                  ))
               }
             }
             for (e = 0; e < i; ++e) {
@@ -53187,7 +53325,7 @@
           function (t, e) {
             var r = Hr(t, void 0 !== e ? e : 'EPSG:3857', 'EPSG:4326'),
               n = r[0]
-            return (n < -180 || n > 180) && (r[0] = We(n + 180, 360) - 180), r
+            return ((n < -180 || n > 180) && (r[0] = We(n + 180, 360) - 180), r)
           } || {}),
         (wO.proj.toUserCoordinate = en || {}),
         (wO.proj.toUserExtent = nn || {}),
@@ -53206,7 +53344,7 @@
             var r = t.getCode(),
               n = e.getCode(),
               i = hr[r][n]
-            return delete hr[r][n], I(hr[r]) && delete hr[r], i
+            return (delete hr[r][n], I(hr[r]) && delete hr[r], i)
           } || {}),
         (wO.proj.useGeographic =
           function () {
@@ -53262,7 +53400,7 @@
         (wO.render.getRenderPixel =
           function (t, e) {
             var r = e.slice(0)
-            return It(t.inversePixelTransform.slice(), r), r
+            return (It(t.inversePixelTransform.slice(), r), r)
           } || {}),
         (wO.render.getVectorContext = Ku || {}),
         (wO.render.toContext =
@@ -53437,17 +53575,17 @@
             var o = r.TileMatrixSetLink[n].TileMatrixSet,
               a = r.TileMatrixSetLink[n].TileMatrixSetLimits,
               s = r.Format[0]
-            'format' in e && (s = e.format),
+            ;('format' in e && (s = e.format),
               (n = x(r.Style, function (t, r, n) {
                 return 'style' in e ? t.Title == e.style : t.isDefault
-              })) < 0 && (n = 0)
+              })) < 0 && (n = 0))
             var l = r.Style[n].Identifier,
               u = {}
             'Dimension' in r &&
               r.Dimension.forEach(function (t, e, r) {
                 var n = t.Identifier,
                   i = t.Default
-                void 0 === i && (i = t.Value[0]), (u[n] = i)
+                ;(void 0 === i && (i = t.Value[0]), (u[n] = i))
               })
             var c,
               h = _(t.Contents.TileMatrixSet, function (t, e, r) {
@@ -53738,8 +53876,8 @@
         (wO.webgl.ELEMENT_ARRAY_BUFFER = 34963),
         (wO.webgl.FLOAT = 5126),
         (wO.webgl.Helper = gh || {}),
-        (wO.webgl.Helper.computeAttributesStride = fh || {})
-      ;(wO.webgl.PostProcessingPass = rh || {}),
+        (wO.webgl.Helper.computeAttributesStride = fh || {}))
+      ;((wO.webgl.PostProcessingPass = rh || {}),
         (wO.webgl.RenderTarget = mh || {}),
         (wO.webgl.STATIC_DRAW = 35044),
         (wO.webgl.STREAM_DRAW = 35040),
@@ -53786,7 +53924,7 @@
           function (t) {
             Yc = t
           } || {}),
-        (wO.xml.serialize = Bc || {})
+        (wO.xml.serialize = Bc || {}))
       e.default = wO
     },
   ]).default
