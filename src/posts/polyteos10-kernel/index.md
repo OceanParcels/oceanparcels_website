@@ -16,7 +16,7 @@ Up until now the kernel only computed the density anomaly, and was missing the v
 
 ![Vertical reference profile as a function of depth](/posts/polyteos10-kernel/depth_vs_r0.png)
 
-By using the old kernel implementation, the seawater density at depths below the ocean surface were being underestimated, as the actual seawater density would have otherwise been denser. Simulations that computed vertical velocities (such as sinking/rise velocities) using density differences between a particle and its surrounding seawater may be impacted.
+By using the kernel implementation before the fix in PR [#2133](https://github.com/OceanParcels/Parcels/pull/2133), the seawater density at depths below the ocean surface were being underestimated, as the actual seawater density would have otherwise been higher. Simulations that computed vertical velocities (such as sinking/rise velocities) using density differences between a particle and its surrounding seawater may have been impacted.
 
 Below we’ve compiled a list of several papers that may be impacted, but we urge the community to check their own projects for use of this kernel at depth. This list may be updated as we become aware of other potentially impacted papers.
 
