@@ -6,6 +6,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import ReactGA from 'react-ga4'
 import { useEffect } from 'react'
+import 'katex/dist/katex.min.css'
 
 // Google Analytics
 ReactGA.initialize('G-62W42QPRQC')
