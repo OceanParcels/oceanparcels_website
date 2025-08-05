@@ -20,7 +20,7 @@ By using the kernel implementation before the fix in PR [#2133](https://github.c
 
 Below we’ve compiled a list of several papers that may be impacted, but we urge the community to check their own projects for use of this kernel at depth. This list may be updated as we become aware of other potentially impacted papers.
 
-**Impacted papers**
+**Potentially impacted papers**
 
 - [Global mass of buoyant marine plastics dominated by large long-lived debris, _Nature Geoscience_ (2023)](https://doi.org/10.1038/s41561-023-01216-0)
 - [Modeling carbon export mediated by biofouled microplastics in the Mediterranean Sea, _Limnology and Oceanography_ (2023)](https://doi.org/10.1002/lno.12330)
