@@ -12,7 +12,7 @@ summary: 'An issue with the `PolyTEOS10_bsq` kernel has been identified, where i
 In recent days we’ve come across a bug in an application kernel of `parcels`. The `PolyTEOS10_bsq` kernel is used to calculate the density of seawater from the temperature and salinity fields. The kernel is based on equation (13) from
 [Roquet et al. (2014)](https://doi.org/10.1016/j.ocemod.2015.04.002) where the density $\rho$ is determined from the summation of a vertical reference profile $r_0$ and a residual function or density anomaly $r$. That is, $\rho(S,T,z) = r_0(z) + r(S,T,z)$.
 
-Up until now the kernel only computed the density anomaly, and was missing the vertical reference profile. At the ocean surface this isn’t a problem, as $r_0(z=0) = 0$ and so the computed density was correct. However, $r_0(z)>0$ below the ocean surface, and at relatively deep depths, this value can be significant. For example, at 100 m depth this value is 0.46443 kg/m$^3$ and at 500 m depth this value is 2.31175 kg/m$^3$, see the figure below.
+Up until the fix in [PR #2133](https://github.com/OceanParcels/Parcels/pull/2133), the kernel only computed the density anomaly $r$, and did not include the vertical reference profile. At the ocean surface this isn’t a problem, as $r_0(z=0) = 0$ and so the computed density was correct. However, $r_0(z)>0$ below the ocean surface, and at relatively deep depths, this value can be significant. For example, at 100 m depth this value is 0.46443 kg/m$^3$ and at 500 m depth this value is 2.31175 kg/m$^3$, see the figure below.
 
 ![Vertical reference profile as a function of depth](/posts/polyteos10-kernel/depth_vs_r0.png)
 
