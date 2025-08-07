@@ -27,3 +27,4 @@ Below we’ve compiled a list of several papers that may be impacted, but we urg
 - [Modelling submerged biofouled microplastics and their vertical trajectories, _Biogeosciences_ (2022)](https://doi.org/10.5194/bg-19-2211-2022)
 - [Influence of Particle Size and Fragmentation on Large-Scale Microplastic Transport in the Mediterranean Sea, _Environmental Science & Technology_ (2022)](https://doi.org/10.1021/acs.est.2c03363)
 - [Global Modeled Sinking Characteristics of Biofouled Microplastic, _JGR Oceans_ (2021)](https://doi.org/10.1029/2020JC017098)
+- [Resolution dependency of sinking Lagrangian particles in ocean general circulation models, _PLOS One_ (2020)](https://doi.org/10.1371/journal.pone.0238650)
