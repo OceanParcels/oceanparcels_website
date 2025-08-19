@@ -64,13 +64,6 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
     image: 'utrecht-team/JimenaMedinaRubio.jpeg',
   },
   {
-    name: 'Isabelle Pelster José',
-    position: 'BSc student',
-    description:
-      'Isabelle analyses how drifters track Sargassum in the Tropical Atlantic Ocean.',
-    image: 'utrecht-team/IsabellePelsterJose.jpeg',
-  },
-  {
     name: 'Marc Schneiter',
     position: 'PhD candidate',
     description:
@@ -297,6 +290,10 @@ export const PriorTeamMembers: PriorTeamMember[] = [
   {
     name: 'Bety Pechacova',
     position: 'BSc intern',
+  },
+  {
+    name: 'Isabelle Pelster José',
+    position: 'BSc student',
   },
   {
     name: 'Claudio Pierard',
