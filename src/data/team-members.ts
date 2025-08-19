@@ -23,6 +23,13 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
     image: 'utrecht-team/MeikeBos.jpg',
   },
   {
+    name: 'Gaia Buccino',
+    position: 'PhD exchange researcher from OGS Trieste',
+    description:
+      'Gaia develops models for the ingestion and egestion of microplastics by zooplankton.',
+    image: 'utrecht-team/GaiaBuccino.jpg',
+  },
+  {
     name: 'Emma Daniëls',
     position: 'Postdoctoral researcher',
     description: 'Emma leads the development of the Virtual Ship Classroom.',
