@@ -23,6 +23,13 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
     image: 'utrecht-team/MeikeBos.jpg',
   },
   {
+    name: 'Gaia Buccino',
+    position: 'PhD exchange researcher from OGS Trieste',
+    description:
+      'Gaia develops models for the ingestion and egestion of microplastics by zooplankton.',
+    image: 'utrecht-team/GaiaBuccino.jpg',
+  },
+  {
     name: 'Emma Daniëls',
     position: 'Postdoctoral researcher',
     description: 'Emma leads the development of the Virtual Ship Classroom.',
@@ -62,13 +69,6 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
     description:
       'Jimena investigates how ocean currents transport plastic in the North Sea.',
     image: 'utrecht-team/JimenaMedinaRubio.jpeg',
-  },
-  {
-    name: 'Isabelle Pelster José',
-    position: 'BSc student',
-    description:
-      'Isabelle analyses how drifters track Sargassum in the Tropical Atlantic Ocean.',
-    image: 'utrecht-team/IsabellePelsterJose.jpeg',
   },
   {
     name: 'Marc Schneiter',
@@ -297,6 +297,10 @@ export const PriorTeamMembers: PriorTeamMember[] = [
   {
     name: 'Bety Pechacova',
     position: 'BSc intern',
+  },
+  {
+    name: 'Isabelle Pelster José',
+    position: 'BSc student',
   },
   {
     name: 'Claudio Pierard',
