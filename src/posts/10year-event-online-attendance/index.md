@@ -9,7 +9,7 @@ summary: 'On October 1-3 2025, we will celebrate the 10 year anniversary of Parc
 
 On Wednesday 1 to Friday 3 October, we will host a series of workshops, a conference, and a hackathon, both in-person in Utrecht and online. See [the event website](https://oceanparcels.org/blog/10year-event) for more details.
 
-There are two links to join virtually that will remain the same for the entire 10 year anniversary:
+There are two links to join virtually that will remain the same for the entire anniversary event:
 
 1. You can follow presentations during the conference and workshops via Microsoft Teams using [this link](https://edu.nl/rupnr) (https://edu.nl/rupnr).
 
