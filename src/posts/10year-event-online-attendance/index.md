@@ -2,7 +2,7 @@
 title: 'Parcels 10 year anniversary event 🎉 - Information for joining online'
 date: '2025-08-29'
 authors:
-- name: Marc Schneiter
+  - name: Marc Schneiter
 github: mes-uu
 summary: 'On October 1-3 2025, we will celebrate the 10 year anniversary of Parcels in Utrecht, Netherlands. This page gives more information on how to join online.'
 ---
