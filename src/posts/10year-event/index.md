@@ -46,6 +46,11 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 
 There is a limited amount of funding available to support travel for attendants who do not have their own budget to travel to Utrecht. If you're interested in applying for this funding, please tick the box on the registration form, and we will be in contact to discuss your needs. Preference will be given to early career researchers and people from low- and middle-income countries.
 
+## Funding
+
+The Parcels anniversary event is financially supported by the Dutch Research Council NWO, under the project "Tracing Marine Macroplastics by Unraveling the Ocean’s Multiscale Transport Processes" with file
+number VI.C.222.025.
+
 ## Background of the event
 
 Michael Lange committed [b2ae2fd](https://github.com/OceanParcels/Parcels/commit/b2ae2fd44979c125fbc21f2c939289db62dc4816) on 29 September 2015, and we’ve come a long way since then (we didn’t even have an acronym at that point!).
