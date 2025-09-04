@@ -78,6 +78,13 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
     image: 'utrecht-team/MarcSchneiter.png',
   },
   {
+    name: 'Esmee van Amelsfort',
+    position: 'MSc student',
+    description:
+      'Esmee investigates the spread of pollution in the Adriatic Sea.',
+    image: 'utrecht-team/EsmeevanAmelsfort.jpeg',
+  },
+  {
     name: 'Erik van Sebille',
     position: 'Professor',
     description:
