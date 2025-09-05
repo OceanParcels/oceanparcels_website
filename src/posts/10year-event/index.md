@@ -26,7 +26,6 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 All times in the schedules below are in Central European Summer Time (GMT+2).
 
 - Wednesday 1 October
-
   - 9:30 – 10:00 Central welcome to the workshops
   - 10:00 – 12:00 Session 1a: How to get started with Parcels
   - 10:00 – 12:00 Session 1b: The Parcels internals: how to get started with code-development
@@ -36,7 +35,6 @@ All times in the schedules below are in Central European Summer Time (GMT+2).
   - 15:30 – 17:00 Session 3: Lagrangian Diagnostics.
 
 - Thursday 2 October
-
   - 9:30 – 10:00 Central recap of Day 1
   - 10:00 – 12:00 Session 4: What is Parcels v4? And how to get ready for it?
   - 12:00 – 13:30 Lunch break
@@ -45,7 +43,6 @@ All times in the schedules below are in Central European Summer Time (GMT+2).
   - 15:30 – 16:00 Central wrap-up of the workshops
 
 - Friday 3 October
-
   - 9:30 – 10:00 Opening – The past and future of Parcels | Erik van Sebille
   - 10:00 – 10:10 The Role of Submesoscale Processes in the Decay of Agulhas Rings | Leon-Cornelius Mock
   - 10:10 – 10:20 Detecting Salinity Fronts from Satellite Observations using a Lagrangian reconstruction method | Vincent Combes (online)
