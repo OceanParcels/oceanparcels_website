@@ -96,11 +96,3 @@ Michael Lange committed [b2ae2fd](https://github.com/OceanParcels/Parcels/commit
 [More than 200 articles have been published using Parcels](/papers-citing-parcels#papers-citing-parcels), on topics ranging from winds on Jupiter (the planet) and iceberg melt to AUV steering and tuna (the fish) behaviour.
 
 ![Parcels 10 year anniversary event banner](/posts/10year-event/anniversary-image.png)
-
-## Background of the event
-
-Michael Lange committed [b2ae2fd](https://github.com/OceanParcels/Parcels/commit/b2ae2fd44979c125fbc21f2c939289db62dc4816) on 29 September 2015, and we’ve come a long way since then (we didn’t even have an acronym at that point!).
-
-[More than 200 articles have been published using Parcels](/papers-citing-parcels#papers-citing-parcels), on topics ranging from winds on Jupiter (the planet) and iceberg melt to AUV steering and tuna (the fish) behaviour.
-
-![Parcels 10 year anniversary event banner](/posts/10year-event/anniversary-image.png)
