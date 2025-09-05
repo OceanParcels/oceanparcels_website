@@ -17,6 +17,7 @@ import { ArrowBackIcon } from '@chakra-ui/icons'
 
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
+import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -125,7 +126,7 @@ export async function getStaticProps({ params }) {
   const { content, data } = matter(source)
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkGfm, remarkMath],
       rehypePlugins: [rehypeSlug, rehypeKatex],
       format: 'mdx',
     },
