@@ -21,30 +21,63 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 
 ## Interested to join? 👉 [Sign up via this form!](https://forms.office.com/e/5Nug5tjM5Z) 👈
 
-## Preliminary schedule:
+## Schedule:
+
+All times in the schedules below are in Central European Summer Time (GMT+2).
 
 - Wednesday 1 October
-  - Workshop, tutorials and/or hackathons (in Utrecht and online)
+  - 9:30 – 10:00 Central welcome to the workshops
+  - 10:00 – 12:00 Session 1a: How to get started with Parcels
+  - 10:00 – 12:00 Session 1b: The Parcels internals: how to get started with code-development
+  - 12:00 – 13:30 Lunch break
+  - 13:30 – 15:00 Session 2: Making your own custom kernels
+  - 15:00 – 15:30 Tea break
+  - 15:30 – 17:00 Session 3: Lagrangian Diagnostics.
+
 - Thursday 2 October
-  - Workshop, tutorials and/or hackathons (in Utrecht and online)
+  - 9:30 – 10:00 Central recap of Day 1
+  - 10:00 – 12:00 Session 4: What is Parcels v4? And how to get ready for it?
+  - 12:00 – 13:30 Lunch break
+  - 13:30 – 15:00 Session 5: Particle visualisations
+  - 15:00 – 15:30 Tea break
+  - 15:30 – 16:00 Central wrap-up of the workshops
+
 - Friday 3 October
-  - Scientific conference with presentations from Parcels users (in Utrecht and online)
+  - 9:30 – 10:00 Opening – The past and future of Parcels | Erik van Sebille
+  - 10:00 – 10:10 The Role of Submesoscale Processes in the Decay of Agulhas Rings | Leon-Cornelius Mock
+  - 10:10 – 10:20 Detecting Salinity Fronts from Satellite Observations using a Lagrangian reconstruction method | Vincent Combes (online)
+  - 10:20 – 10:30 Role of Mesoscale Activity for Freshwater Pathways from the Amazon River Plume to the Atlantic Ocean | Daniel Andres Lizarbe Barreto
+  - 10:30 – 11:00 Coffee break
+  - 11:00 – 11:10 Tracking the Iceland Scotland Overflow South of Iceland and Spreading of Deep Waters by Submesoscale Processes | Angel Ruiz-Angulo
+  - 11:10 – 11:20 Investigating the generation of thermohaline variability in the Southern Ocean using Lagrangian methods | Maya Jakes
+    (online)
+  - 11:20 – 11:30 Representing ingestion and egestion of microplastic particles by zooplankton in PlasticParcels: development of a new kernel and preliminary results | Gaia Buccino
+  - 11:30 – 11:40 Seasonal effects of hydrodynamics and biofouling on the vertical transport of microplastics in the Vietnam coastal region, South China Sea | Caiyuan Cai
+    (online)
+  - 11:40 – 11:50 Tracking Floating Microplastics Pathways to the Kara Sea with OceanParcels | Anfisa Berezina
+  - 11:50 – 12:00 A multigrid approach with high coastal resolution for the numerical modelling of the dispersion and accumulation of floating marine litter in the coastal area of Barcelona | Ivan Hernandez (online)
+  - 12:00 – 12:10 The role of windage, currents and Stokes drift on the distribution of plastic litter released from the Indian rivers | Vasimilla Suneel (online)
+  - 12:10 – 12:20 Floating macro-plastics retention in Baltic semi-enclosed coastal systems: A model study under different wind conditions | Bruna De Ramos
+  - 12:20 – 13:30 Lunch
+  - 13:30 – 13:40 Larval pathways of Aristeus antennatus revealed by Lagrangian dynamics and network theory | Ignacio Martínez Caballero
+  - 13:40 – 13:50 Individual-Based Lagrangian Modelling of Ecklonia maxima Dispersal Along the South African Coast | Ross Coppin
+  - 13:50 – 14:00 Eukaryotic phytoplankton are sustained by eddies and lateral mixing in the open ocean | Alexandra Jones-Kellett
+  - 14:00 – 14:10 Particulate organic carbon export in the Amazon River Plume | Danilo Augusto Silva
+  - 14:10 – 14:20 Modelling the spatial bound of an eDNA signal in the marine environment - the effect of oceanographic conditions | Tiago Silva
+  - 14:20 – 14:30 Larval dispersion and connectivity in the south-central Tyrrhenian Sea: a Lagrangian modeling approach using OceanParcels | Gianluca Liguori
+  - 14:30 – 14:40 Towards Operational Readiness: A multi-model forcing system for oil spill monitoring in the Mediterranean Sea | Beatrice Maddalena Scotto
+  - 14:40 – 14:50 Optimizing Big Data Preprocessing Through Prompt Engineering: Toward a New Paradigm of Foundation Model Pipelines | Arin Dewangan
+  - 14:50 – 15:30 Tea break
+  - 15:30 – 15:40 Surface Dispersion of Particles Released in the Port of Genoa: A Scenario-Based Lagrangian Analysis | Mattia Scovenna
+  - 15:40 – 15:50 Cross-disciplinary applications of particle tracking in the Greater Agulhas System | Michael Hart-Davis (online)
+  - 15:50 – 16:00 VirtualShip for simulating in-class oceanographic fieldwork anywhere in the global ocean | Jamie Atkins
+  - 16:00 – 16:10 Safe seas for manatees: Identifying Optimal Release Windows Using Ocean Reanalysis Simulations | Iury Simoes-Sousa (online)
+  - 16:10 – 17:00 Discussion, reflection and wrap-up | All attending
+
 - Friday evening 3 October
   - Party (in Utrecht)
 
-## Deadlines:
-
-- 1 July 2025: Submission of request for travel funding
-- 15 July 2025: Travel funding notification
-- 13 August 2025: Submission of abstracts for presentations
-- 15 August 2025: Notification of acceptance
-- 1 September 2025: Final program available
-- 15 September 2025: Registration deadline
-- 1-3 October 2025: Event
-
-## Travel funding
-
-There is a limited amount of funding available to support travel for attendants who do not have their own budget to travel to Utrecht. If you're interested in applying for this funding, please tick the box on the registration form, and we will be in contact to discuss your needs. Preference will be given to early career researchers and people from low- and middle-income countries.
+See [this page](/blog/10year-event-online-attendance) for information on how to join online.
 
 ## Funding
 
