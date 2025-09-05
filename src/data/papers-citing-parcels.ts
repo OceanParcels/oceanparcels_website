@@ -2473,4 +2473,13 @@ export const papersCitingParcels: Paper[] = [
     abstract:
       'Identifying the sources of pollutants remains as one of the main challenges in research on marine debris pollution, which mainly consists of what is known as marine litter. In this work, we develop a method to estimate the origin of marine debris found along the coasts of the Balearic Islands during the summers of 2014 to 2021. We combine detailed records from coastal clean-up campaigns with ocean currents simulations from a high-resolution model to perform a probabilistic tracking of debris motion. We use an inverse modelling approach whereby, starting from where the debris was collected and working backwards, allows us to estimate its origin. In this way, the temporal evolution of marine debris emission from different coastal sections of the archipelago was quantified.',
   },
+  {
+    title:
+      'Are Coastal Marine Larvae Dispersed Less Than Would Be Expected by Ocean Currents?',
+    published_info: 'The Biological Bulletin, 245, 129-138',
+    authors: 'Pringle, JM (2025)',
+    doi: 'https://doi.org/10.1086/732015',
+    abstract:
+      'The distance that offspring disperse from their parents affects how a species responds to habitat disturbance, climate change, and interspecific interactions. For many benthic species, this dispersal is via planktonic larvae, but the distance these larvae disperse is difficult to observe directly. Dispersal distance has usually been estimated indirectly by combining an observed quantity (e.g., the rate of spread of an invasive organism or genetic similarity between locations) with a model that links that quantity to the dispersal of larvae. The estimates of dispersal distance based on the speed of spread of invasive organisms have led many researchers to conclude that the larvae of most of these organisms disperse much less than would be expected if they were being passively transported by the expected ocean currents (Shanks et al.; Shanks). I argue that the discrepancy is instead caused by the choice of model linking dispersal distance to invasion speed. Their model neglected the impact of life history, population growth, and oceanographic parameters on invasion speed. When dispersal distance is estimated from a more complete model of invasion speed, it is found that larval dispersal distance is not much less than would be expected for larvae drifting in the observed ocean currents.',
+  },
 ]
