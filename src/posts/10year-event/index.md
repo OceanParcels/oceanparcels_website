@@ -29,11 +29,12 @@ All times in the schedules below are in Central European Summer Time (GMT+2).
 
 | Time        | Title                                                                       | Presenter                                                           |
 | :---------- | :-------------------------------------------------------------------------- | :------------------------------------------------------------------ |
-| 9:30–10:00  | Central welcome to the workshops                                            | Erik van Sebille                                                    |
-| 10:00–12:00 | Session 1a: How to get started with Parcels                                 | Erik van Sebille                                                    |
-| 10:00–12:00 | Session 1b: The Parcels internals: how to get started with code-development | Nick Hodgskin                                                       |
+| 9:30–9:45   | Central welcome to the workshops                                            | Erik van Sebille                                                    |
+| 9:45–11:00  | Session 1a: How to get started with Parcels                                 | Erik van Sebille                                                    |
+| 9:45–12:00  | Session 1b: The Parcels internals: how to get started with code-development | Nick Hodgskin                                                       |
+| 11:00–12:00 | Session 2 part 1: Making your own custom kernels                            | Michael Denes                                                       |
 | 12:00–13:30 | Lunch break                                                                 |                                                                     |
-| 13:30–15:00 | Session 2: Making your own custom kernels                                   | Michael Denes                                                       |
+| 13:30–15:00 | Session 2 part 2: Making your own custom kernels                            | Michael Denes                                                       |
 | 15:00–15:30 | Tea break                                                                   |                                                                     |
 | 15:30–17:00 | Session 3: Lagrangian Diagnostics                                           | Jimena Medina Rubio, Laura Gomez Navarro, Siren Rühs, Nick Hodgskin |
 
