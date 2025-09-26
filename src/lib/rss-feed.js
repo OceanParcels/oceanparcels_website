@@ -10,7 +10,7 @@ export async function generateRssFeed(allPostsData) {
     const blogUrl = `${siteUrl}/blog`
 
 const feed = new Feed({
-    title: 'OceanParcels Blog Feed',
+    title: 'Parcels Blog Feed',
     description: 'The latest announcements and news from the Parcels team',
     id: blogUrl,
     link: blogUrl,
