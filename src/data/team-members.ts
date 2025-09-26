@@ -88,7 +88,7 @@ export const CurrentTeamMembers: CurrentTeamMember[] = [
     name: 'Erik van Sebille',
     position: 'Professor',
     description:
-      "Erik investigates how ocean currents move 'stuff' around, and leads the OceanParcels project.",
+      "Erik investigates how ocean currents move 'stuff' around, and leads the Parcels project.",
     links: {
       github: 'https://github.com/erikvansebille',
       googlescholar:

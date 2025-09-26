@@ -1,4 +1,4 @@
-# OceanParcels Website
+# Parcels Website
 
 Website for the Parcels project.
 
