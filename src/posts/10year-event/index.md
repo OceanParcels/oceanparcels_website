@@ -32,9 +32,9 @@ All times in the schedules below are in Central European Summer Time (GMT+2).
 | 9:30–9:45   | Central welcome to the workshops                                            | Erik van Sebille                                                    |
 | 9:45–11:00  | Session 1a: How to get started with Parcels                                 | Erik van Sebille                                                    |
 | 9:45–12:00  | Session 1b: The Parcels internals: how to get started with code-development | Nick Hodgskin                                                       |
-| 11:00–12:00 | Session 2 part 1: Making your own custom kernels                            | Michael Denes                                                       |
+| 11:00–12:00 | Session 2 part 1: Making custom kernels                                     | Michael Denes                                                       |
 | 12:00–13:30 | Lunch break                                                                 |                                                                     |
-| 13:30–15:00 | Session 2 part 2: Making your own custom kernels                            | Michael Denes                                                       |
+| 13:30–15:00 | Session 2 part 2: Making custom kernels                                     | Michael Denes                                                       |
 | 15:00–15:30 | Tea break                                                                   |                                                                     |
 | 15:30–17:00 | Session 3: Lagrangian Diagnostics                                           | Jimena Medina Rubio, Laura Gomez Navarro, Siren Rühs, Nick Hodgskin |
 
@@ -74,7 +74,7 @@ All times in the schedules below are in Central European Summer Time (GMT+2).
 | 14:10–14:20 | Modelling the spatial bound of an eDNA signal in the marine environment - the effect of oceanographic conditions                                                            | Tiago Silva                   |
 | 14:20–14:30 | Larval dispersion and connectivity in the south-central Tyrrhenian Sea: a Lagrangian modeling approach using OceanParcels                                                   | Gianluca Liguori              |
 | 14:30–14:40 | Towards Operational Readiness: A multi-model forcing system for oil spill monitoring in the Mediterranean Sea                                                               | Beatrice Maddalena Scotto     |
-| 14:40–14:50 | Optimizing Big Data Preprocessing Through Prompt Engineering: Toward a New Paradigm of Foundation Model Pipelines                                                           | Arin Dewangan                 |
+| 14:40–14:50 | Optimizing Big Data Preprocessing Through Prompt Engineering: Toward a New Paradigm of Foundation Model Pipelines                                                           | Arin Dewangan (online)        |
 | 14:50–15:30 | Tea break                                                                                                                                                                   |                               |
 | 15:30–15:40 | Surface Dispersion of Particles Released in the Port of Genoa: A Scenario-Based Lagrangian Analysis                                                                         | Mattia Scovenna               |
 | 15:40–15:50 | Cross-disciplinary applications of particle tracking in the Greater Agulhas System                                                                                          | Michael Hart-Davis (online)   |
