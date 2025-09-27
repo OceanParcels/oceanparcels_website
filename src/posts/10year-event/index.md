@@ -80,7 +80,7 @@ All times in the schedules below are in Central European Summer Time (GMT+2).
 | 15:40–15:50 | Cross-disciplinary applications of particle tracking in the Greater Agulhas System                                                                                          | Michael Hart-Davis (online)   |
 | 15:50–16:00 | VirtualShip for simulating in-class oceanographic fieldwork anywhere in the global ocean                                                                                    | Jamie Atkins                  |
 | 16:00–16:10 | Safe seas for manatees: Identifying Optimal Release Windows Using Ocean Reanalysis Simulations                                                                              | Iury Simoes-Sousa (online)    |
-| 16:10–17:00 | Discussion (on governance), reflection and wrap-up                                                                                                                          | All attending                 |
+| 16:10–17:00 | Discussion (on governance) and wrap-up                                                                                                                                      | All attending                 |
 | Evening     | Party (in Utrecht)                                                                                                                                                          |                               |
 
 See [this page](/blog/10year-event-online-attendance) for information on how to join online.
