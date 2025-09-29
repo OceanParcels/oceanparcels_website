@@ -25,6 +25,8 @@ The event will end with a party on Friday evening 3 October 2025, in Utrecht. Th
 
 All times in the schedules below are in Central European Summer Time (GMT+2).
 
+Some sessions have accompanying interactive notebooks. These - along with instructions - can be found [here](https://github.com/OceanParcels/10year-anniversary-event).
+
 ### Wednesday 1 October: Workshops
 
 | Time        | Title                                                                       | Presenter                                                           |
