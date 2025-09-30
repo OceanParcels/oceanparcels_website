@@ -19,7 +19,7 @@ You will also be able to sneak-peak and test-drive the first (pre)release of the
 
 The event will end with a party on Friday evening 3 October 2025, in Utrecht. This is to celebrate how far we’ve come, and to thank you all for your contributions and engagement over the years.
 
-## Interested to join? 👉 [Sign up via this form!](https://forms.office.com/e/5Nug5tjM5Z) 👈
+## Interested? 👉 See [this page](/blog/10year-event-online-attendance) for information on how to join online. 👈
 
 ## Schedule:
 
