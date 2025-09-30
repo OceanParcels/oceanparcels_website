@@ -19,7 +19,7 @@ You will also be able to sneak-peak and test-drive the first (pre)release of the
 
 The event will end with a party on Friday evening 3 October 2025, in Utrecht. This is to celebrate how far we’ve come, and to thank you all for your contributions and engagement over the years.
 
-## Interested to join? 👉 [Sign up via this form!](https://forms.office.com/e/5Nug5tjM5Z) 👈
+## Interested? 👉 [Check here for information on how to join online](/blog/10year-event-online-attendance). 👈
 
 ## Schedule:
 
@@ -82,7 +82,7 @@ Some sessions have accompanying interactive notebooks. These - along with instru
 | 15:40–15:50 | Cross-disciplinary applications of particle tracking in the Greater Agulhas System                                                                                          | Michael Hart-Davis (online)   |
 | 15:50–16:00 | VirtualShip for simulating in-class oceanographic fieldwork anywhere in the global ocean                                                                                    | Jamie Atkins                  |
 | 16:00–16:10 | Safe seas for manatees: Identifying Optimal Release Windows Using Ocean Reanalysis Simulations                                                                              | Iury Simoes-Sousa (online)    |
-| 16:10–17:00 | Discussion (on governance) and wrap-up                                                                                                                                      | All attending                 |
+| 16:10–17:00 | Discussion (on governance, engagement and fostering the community) and wrap-up                                                                                              | All attending                 |
 | Evening     | Party (in Utrecht)                                                                                                                                                          |                               |
 
 See [this page](/blog/10year-event-online-attendance) for information on how to join online.
