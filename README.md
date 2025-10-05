@@ -42,6 +42,6 @@ You can start editing the page by modifying `src/pages/index.js`. The page auto-
 
 ## Acknowledgements
 
-This website was built using the Xarray website (licensed under Apache 2.0) as a starting point. See [licenses/xarray.dev](./licenses/xarray.dev-license) for more details.
+This website was built using the Xarray website (licensed under Apache 2.0) as a starting point. See [licenses/xarray.dev](./licenses/xarray.dev) for more details.
 
 Any edits are licensed under the [Apache 2.0 license](./LICENSE).
