@@ -25,50 +25,43 @@ Some sessions have accompanying interactive notebooks. These - along with instru
 
 ### Wednesday 1 October: Workshops
 
-| Session          | Title                                                                                                                                                            | Presenters                                                          |
-| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
-| Session 1a       | How to get started with Parcels [[Video](https://surfdrive.surf.nl/index.php/s/2UTneRPQd6OFPJ0)]                                                                 | Erik van Sebille                                                    |
-| Session 1b       | The Parcels internals: how to get started with code-development                                                                                                  | Nick Hodgskin                                                       |
-| Session 2 part 1 | Making custom kernels [[Notebook]() & [Video](https://surfdrive.surf.nl/index.php/s/tbRmcWjUqGuuM01)]                                                            | Michael Denes                                                       |
-| Session 2 part 2 | Making custom kernels [[Notebook](https://github.com/OceanParcels/10year-anniversary-session2) & [Video](https://surfdrive.surf.nl/index.php/s/tbRmcWjUqGuuM01)] | Michael Denes                                                       |
-| Session 3        | Lagrangian Diagnostics [[Notebook](https://github.com/OceanParcels/Lagrangian_diags) & [Video](https://surfdrive.surf.nl/index.php/s/MEuGgibPLvxdoiw)]           | Jimena Medina Rubio, Laura Gomez Navarro, Siren Rühs, Nick Hodgskin |
+- Session 1a: How to get started with Parcels [[Video](https://surfdrive.surf.nl/index.php/s/2UTneRPQd6OFPJ0)] - _Erik van Sebille_
+- Session 1b: The Parcels internals: how to get started with code-development - _Nick Hodgskin_
+- Session 2: Making custom kernels [[Notebook]() & [Video](https://surfdrive.surf.nl/index.php/s/tbRmcWjUqGuuM01)] - _Michael Denes_
+- Session 3: Lagrangian Diagnostics [[Notebook](https://github.com/OceanParcels/Lagrangian_diags) & [Video](https://surfdrive.surf.nl/index.php/s/MEuGgibPLvxdoiw)] - _Jimena Medina Rubio, Laura Gomez Navarro, Siren Rühs, Nick Hodgskin_
 
 ### Thursday 2 October: Workshops
 
-| Session   | Title                                                                                                                                                                                                                                                                                                                   | Presenters                                      |
-| :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------- |
-| Session 4 | What is Parcels v4? And how to get ready for it? [[Notebook](https://github.com/OceanParcels/10year-anniversary-session4) & [Video](https://surfdrive.surf.nl/index.php/s/VtnUMPFAGDz2UPR)]                                                                                                                             | Nick Hodgskin, Joe Schoonover, Erik van Sebille |
-| Session 5 | Particle animations [[Notebook](https://github.com/OceanParcels/10year-anniversary-session5) & [Video](https://surfdrive.surf.nl/index.php/s/WsO8wySLhBemW76)] and colormaps [[Notebook](https://github.com/OceanParcels/10year-anniversary-session5) & [Video](https://surfdrive.surf.nl/index.php/s/5b6tvF6xgX1cN0G)] | Vesna Bertoncelj, Christian Kehl, Nick Hodgskin |
+- Session 4: What is Parcels v4? And how to get ready for it? [[Notebook](https://github.com/OceanParcels/10year-anniversary-session4) & [Video](https://surfdrive.surf.nl/index.php/s/VtnUMPFAGDz2UPR)]- _Nick Hodgskin, Joe Schoonover, Erik van Sebille_
+- Session 5: Particle animations [[Notebook](https://github.com/OceanParcels/10year-anniversary-session5) & [Video](https://surfdrive.surf.nl/index.php/s/WsO8wySLhBemW76)] and colormaps [[Notebook](https://github.com/OceanParcels/10year-anniversary-session5) & [Video](https://surfdrive.surf.nl/index.php/s/5b6tvF6xgX1cN0G)] - _Vesna Bertoncelj, Christian Kehl, Nick Hodgskin_
 
-### Friday 3 October: Mini-conference and party
+### Friday 3 October: Mini-conference
 
-| Title                                                                                                                                                                                                                                        | Presenter                     |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------- |
-| Opening – The past and future of Parcels [[Video](https://surfdrive.surf.nl/index.php/s/bAlZR5gOmIwKcKd)]                                                                                                                                    | Erik van Sebille              |
-| The Role of Submesoscale Processes in the Decay of Agulhas Rings [[Video](https://surfdrive.surf.nl/index.php/s/XLCXTR5tMfS3GWN)]                                                                                                            | Leon-Cornelius Mock           |
-| Detecting Salinity Fronts from Satellite Observations using a Lagrangian reconstruction method [[Video](https://surfdrive.surf.nl/index.php/s/Jp8TekofdLdGGif)]                                                                              | Vincent Combes (online)       |
-| Role of Mesoscale Activity for Freshwater Pathways from the Amazon River Plume to the Atlantic Ocean [[Video](https://surfdrive.surf.nl/index.php/s/lbc21TLtSfze1aH)]                                                                        | Daniel Andres Lizarbe Barreto |
-| Tracking the Iceland Scotland Overflow South of Iceland and Spreading of Deep Waters by Submesoscale Processes                                                                                                                               | Angel Ruiz-Angulo             |
-| Investigating the generation of thermohaline variability in the Southern Ocean using Lagrangian methods                                                                                                                                      | Maya Jakes (online)           |
-| Representing ingestion and egestion of microplastic particles by zooplankton in PlasticParcels: development of a new kernel and preliminary results                                                                                          | Gaia Buccino                  |
-| Seasonal effects of hydrodynamics and biofouling on the vertical transport of microplastics in the Vietnam coastal region, South China Sea [[Video](https://surfdrive.surf.nl/index.php/s/LpW8NyDrI6QLJt7)]                                  | Caiyuan Cai (online)          |
-| Tracking Floating Microplastics Pathways to the Kara Sea with OceanParcels                                                                                                                                                                   | Anfisa Berezina               |
-| A multigrid approach with high coastal resolution for the numerical modelling of the dispersion and accumulation of floating marine litter in the coastal area of Barcelona [[Video](https://surfdrive.surf.nl/index.php/s/ey8tSfciQOe6qW0)] | Ivan Hernandez (online)       |
-| The role of windage, currents and Stokes drift on the distribution of plastic litter released from the Indian rivers                                                                                                                         | Vasimilla Suneel (online)     |
-| Floating macro-plastics retention in Baltic semi-enclosed coastal systems: A model study under different wind conditions                                                                                                                     | Bruna De Ramos                |
-| Larval pathways of Aristeus antennatus revealed by Lagrangian dynamics and network theory                                                                                                                                                    | Ignacio Martínez Caballero    |
-| Individual-Based Lagrangian Modelling of Ecklonia maxima Dispersal Along the South African Coast [[Video](https://surfdrive.surf.nl/index.php/s/Q0uZ9qj1y2FZol5)]                                                                            | Ross Coppin                   |
-| Eukaryotic phytoplankton are sustained by eddies and lateral mixing in the open ocean [[Video](https://surfdrive.surf.nl/index.php/s/TBOwW0nFOop8PQx)]                                                                                       | Alexandra Jones-Kellett       |
-| Particulate organic carbon export in the Amazon River Plume [[Video](https://surfdrive.surf.nl/index.php/s/TBOwW0nFOop8PQx)]                                                                                                                 | Danilo Augusto Silva          |
-| Modelling the spatial bound of an eDNA signal in the marine environment - the effect of oceanographic conditions [[Video](https://surfdrive.surf.nl/index.php/s/kR0HsQF9pOQtRCh)]                                                            | Tiago Silva                   |
-| Larval dispersion and connectivity in the south-central Tyrrhenian Sea: a Lagrangian modeling approach using OceanParcels [[Video](https://surfdrive.surf.nl/index.php/s/S7w66k9LD2cT6lh)]                                                   | Gianluca Liguori              |
-| Towards Operational Readiness: A multi-model forcing system for oil spill monitoring in the Mediterranean Sea [[Video](https://surfdrive.surf.nl/index.php/s/ux4Gmnuf3EKGO3x)]                                                               | Beatrice Maddalena Scotto     |
-| Optimizing Big Data Preprocessing Through Prompt Engineering: Toward a New Paradigm of Foundation Model Pipelines                                                                                                                            | Arin Dewangan (online)        |
-| Surface Dispersion of Particles Released in the Port of Genoa: A Scenario-Based Lagrangian Analysis [[Video](https://surfdrive.surf.nl/index.php/s/kg7VBhbY3aI51Qm)]                                                                         | Mattia Scovenna               |
-| Cross-disciplinary applications of particle tracking in the Greater Agulhas System [[Video](https://surfdrive.surf.nl/index.php/s/lkGo1oWvZd7MBc8)]                                                                                          | Björn Backeberg               |
-| VirtualShip for simulating in-class oceanographic fieldwork anywhere in the global ocean [[Video](https://surfdrive.surf.nl/index.php/s/B8ShctQGd9bbgMO)]                                                                                    | Jamie Atkins                  |
-| Safe seas for manatees: Identifying Optimal Release Windows Using Ocean Reanalysis Simulations [[Video](https://surfdrive.surf.nl/index.php/s/ntLrft5Q65H4EJn)]                                                                              | Iury Simoes-Sousa (online)    |
-| Discussion on governance, engagement and fostering the community [[Video](https://surfdrive.surf.nl/index.php/s/g5Cgwos16LfM2u5)]                                                                                                            | All attending                 |
+1. Opening – The past and future of Parcels [[Video](https://surfdrive.surf.nl/index.php/s/bAlZR5gOmIwKcKd)] - _Erik van Sebille_
+2. The Role of Submesoscale Processes in the Decay of Agulhas Rings [[Video](https://surfdrive.surf.nl/index.php/s/XLCXTR5tMfS3GWN)] - _Leon-Cornelius Mock_
+3. Detecting Salinity Fronts from Satellite Observations using a Lagrangian reconstruction method [[Video](https://surfdrive.surf.nl/index.php/s/Jp8TekofdLdGGif)] - _Vincent Combes (online)_
+4. Role of Mesoscale Activity for Freshwater Pathways from the Amazon River Plume to the Atlantic Ocean [[Video](https://surfdrive.surf.nl/index.php/s/lbc21TLtSfze1aH)] - _Daniel Andres Lizarbe Barreto_
+5. Tracking the Iceland Scotland Overflow South of Iceland and Spreading of Deep Waters by Submesoscale Processes - _Angel Ruiz-Angulo_
+6. Investigating the generation of thermohaline variability in the Southern Ocean using Lagrangian methods - _Maya Jakes (online)_
+7. Representing ingestion and egestion of microplastic particles by zooplankton in PlasticParcels: development of a new kernel and preliminary results - _Gaia Buccino_
+8. Seasonal effects of hydrodynamics and biofouling on the vertical transport of microplastics in the Vietnam coastal region, South China Sea [[Video](https://surfdrive.surf.nl/index.php/s/LpW8NyDrI6QLJt7)] - _Caiyuan Cai (online)_
+9. Tracking Floating Microplastics Pathways to the Kara Sea with OceanParcels - _Anfisa Berezina_
+10. A multigrid approach with high coastal resolution for the numerical modelling of the dispersion and accumulation of floating marine litter in the coastal area of Barcelona [[Video](https://surfdrive.surf.nl/index.php/s/ey8tSfciQOe6qW0)] - _Ivan Hernandez (online)_
+11. The role of windage, currents and Stokes drift on the distribution of plastic litter released from the Indian rivers - _Vasimilla Suneel (online)_
+12. Floating macro-plastics retention in Baltic semi-enclosed coastal systems: A model study under different wind conditions - _Bruna De Ramos_
+13. Larval pathways of Aristeus antennatus revealed by Lagrangian dynamics and network theory - _Ignacio Martínez Caballero_
+14. Individual-Based Lagrangian Modelling of Ecklonia maxima Dispersal Along the South African Coast [[Video](https://surfdrive.surf.nl/index.php/s/Q0uZ9qj1y2FZol5)] - _Ross Coppin_
+15. Eukaryotic phytoplankton are sustained by eddies and lateral mixing in the open ocean [[Video](https://surfdrive.surf.nl/index.php/s/TBOwW0nFOop8PQx)] - _Alexandra Jones-Kellett_
+16. Particulate organic carbon export in the Amazon River Plume [[Video](https://surfdrive.surf.nl/index.php/s/ux8Ih62wqyLDfOj)] - _Danilo Augusto Silva_
+17. Modelling the spatial bound of an eDNA signal in the marine environment - the effect of oceanographic conditions [[Video](https://surfdrive.surf.nl/index.php/s/kR0HsQF9pOQtRCh)] - _Tiago Silva_
+18. Larval dispersion and connectivity in the south-central Tyrrhenian Sea: a Lagrangian modeling approach using OceanParcels [[Video](https://surfdrive.surf.nl/index.php/s/S7w66k9LD2cT6lh)] - _Gianluca Liguori_
+19. Towards Operational Readiness: A multi-model forcing system for oil spill monitoring in the Mediterranean Sea [[Video](https://surfdrive.surf.nl/index.php/s/ux4Gmnuf3EKGO3x)] - _Beatrice Maddalena Scotto_
+20. Optimizing Big Data Preprocessing Through Prompt Engineering: Toward a New Paradigm of Foundation Model Pipelines - _Arin Dewangan (online)_
+21. Surface Dispersion of Particles Released in the Port of Genoa: A Scenario-Based Lagrangian Analysis [[Video](https://surfdrive.surf.nl/index.php/s/kg7VBhbY3aI51Qm)] - _Mattia Scovenna_
+22. Cross-disciplinary applications of particle tracking in the Greater Agulhas System [[Video](https://surfdrive.surf.nl/index.php/s/lkGo1oWvZd7MBc8)] - _Björn Backeberg_
+23. VirtualShip for simulating in-class oceanographic fieldwork anywhere in the global ocean [[Video](https://surfdrive.surf.nl/index.php/s/B8ShctQGd9bbgMO)] - _Jamie Atkins_
+24. Safe seas for manatees: Identifying Optimal Release Windows Using Ocean Reanalysis Simulations [[Video](https://surfdrive.surf.nl/index.php/s/ntLrft5Q65H4EJn)] - _Iury Simoes-Sousa (online)_
+25. Discussion on governance, engagement and fostering the community [[Video](https://surfdrive.surf.nl/index.php/s/g5Cgwos16LfM2u5)] - _All attending_
 
 ## Funding
 
