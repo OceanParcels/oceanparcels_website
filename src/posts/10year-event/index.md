@@ -27,7 +27,7 @@ Some sessions have accompanying interactive notebooks. These - along with instru
 
 - Session 1a: How to get started with Parcels [[Video](https://surfdrive.surf.nl/index.php/s/2UTneRPQd6OFPJ0)] - _Erik van Sebille_
 - Session 1b: The Parcels internals: how to get started with code-development - _Nick Hodgskin_
-- Session 2: Making custom kernels [[Notebook]() & [Video](https://surfdrive.surf.nl/index.php/s/tbRmcWjUqGuuM01)] - _Michael Denes_
+- Session 2: Making custom kernels [[Notebook](https://github.com/OceanParcels/10year-anniversary-session2) & [Video](https://surfdrive.surf.nl/index.php/s/tbRmcWjUqGuuM01)] - _Michael Denes_
 - Session 3: Lagrangian Diagnostics [[Notebook](https://github.com/OceanParcels/Lagrangian_diags) & [Video](https://surfdrive.surf.nl/index.php/s/MEuGgibPLvxdoiw)] - _Jimena Medina Rubio, Laura Gomez Navarro, Siren Rühs, Nick Hodgskin_
 
 ### Thursday 2 October: Workshops
