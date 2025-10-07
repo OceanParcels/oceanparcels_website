@@ -43,7 +43,7 @@ Some sessions have accompanying interactive notebooks. These - along with instru
 4. Role of Mesoscale Activity for Freshwater Pathways from the Amazon River Plume to the Atlantic Ocean [[Video](https://surfdrive.surf.nl/index.php/s/lbc21TLtSfze1aH)] - _Daniel Andres Lizarbe Barreto_
 5. Tracking the Iceland Scotland Overflow South of Iceland and Spreading of Deep Waters by Submesoscale Processes - _Angel Ruiz-Angulo_
 6. Investigating the generation of thermohaline variability in the Southern Ocean using Lagrangian methods - _Maya Jakes (online)_
-7. Representing ingestion and egestion of microplastic particles by zooplankton in PlasticParcels: development of a new kernel and preliminary results - _Gaia Buccino_
+7. Representing ingestion and egestion of microplastic particles by zooplankton in PlasticParcels: development of a new kernel and preliminary results [[Video](https://surfdrive.surf.nl/index.php/s/xJfDVRoDsptmOzD)] - _Gaia Buccino_
 8. Seasonal effects of hydrodynamics and biofouling on the vertical transport of microplastics in the Vietnam coastal region, South China Sea [[Video](https://surfdrive.surf.nl/index.php/s/LpW8NyDrI6QLJt7)] - _Caiyuan Cai (online)_
 9. Tracking Floating Microplastics Pathways to the Kara Sea with OceanParcels - _Anfisa Berezina_
 10. A multigrid approach with high coastal resolution for the numerical modelling of the dispersion and accumulation of floating marine litter in the coastal area of Barcelona [[Video](https://surfdrive.surf.nl/index.php/s/ey8tSfciQOe6qW0)] - _Ivan Hernandez (online)_
