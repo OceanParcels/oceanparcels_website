@@ -19,22 +19,22 @@ export const footerItems = {
   resources: [
     {
       label: 'Documentation',
-      href: 'https://docs.oceanparcels.org/en/latest/index.html',
+      href: 'https://docs.parcels-code.org/en/latest/index.html',
     },
     {
       label: 'Installation',
-      href: 'https://docs.oceanparcels.org/en/latest/installation.html',
+      href: 'https://docs.parcels-code.org/en/latest/installation.html',
     },
     {
       label: 'Tutorials',
-      href: 'https://docs.oceanparcels.org/en/latest/documentation/index.html',
+      href: 'https://docs.parcels-code.org/en/latest/documentation/index.html',
     },
   ],
 
   community: [
     {
       label: 'Contribute',
-      href: 'https://docs.oceanparcels.org/en/latest/community/index.html',
+      href: 'https://docs.parcels-code.org/en/latest/community/index.html',
     },
     {
       label: 'GitHub Discussions',

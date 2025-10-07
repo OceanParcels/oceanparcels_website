@@ -7,7 +7,7 @@ authors:
 summary: 'On October 1-3 2025, we will celebrate the 10 year anniversary of Parcels in Utrecht, Netherlands. This page gives more information on how to join online.'
 ---
 
-From Wednesday 1st to Friday 3rd October, we will host a series of presentations and workshops, both in-person in Utrecht and online. See [the event website](https://oceanparcels.org/blog/10year-event) for more details.
+From Wednesday 1st to Friday 3rd October, we will host a series of presentations and workshops, both in-person in Utrecht and online. See [the event website](https://parcels-code.org/blog/10year-event) for more details.
 
 There are two links to attend online that remain the same for the entire event:
 
