@@ -16,7 +16,7 @@ export const Layout = ({
   description,
   card,
   children,
-  url = 'https://oceanparcels.org',
+  url = 'https://parcels-code.org',
   enableBanner = false,
 }) => {
   // Track page views
@@ -28,13 +28,13 @@ export const Layout = ({
     'Join the Parcels 10 year anniversary event 🎉 on 1-3 Oct 2025!'
   const bannerDescription = ''
   const bannerChildren = (
-    <Link href='https://oceanparcels.org/10year-event'>Learn more</Link>
+    <Link href='https://parcels-code.org/10year-event'>Learn more</Link>
   )
 
   // Determine the base URL based on the environment
   const baseUrl =
     process.env.NODE_ENV === 'production'
-      ? 'https://oceanparcels.org'
+      ? 'https://parcels-code.org'
       : 'http://localhost:3000'
 
   // Construct the full card URL
