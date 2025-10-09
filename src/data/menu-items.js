@@ -3,5 +3,5 @@ export const menuItems = [
   { label: 'Projects', href: '/#projects' },
   { label: 'Funders', href: '/#funders' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Documentation', href: 'https://docs.oceanparcels.org' },
+  { label: 'Documentation', href: 'https://docs.parcels-code.org' },
 ]

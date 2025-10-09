@@ -61,7 +61,7 @@ export const HeroBanner = () => {
                 as={Link}
                 variant={'outline'}
                 colorScheme={'blue'}
-                href='https://docs.oceanparcels.org'
+                href='https://docs.parcels-code.org'
               >
                 Get Started
               </Button>

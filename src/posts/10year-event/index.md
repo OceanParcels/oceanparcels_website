@@ -11,7 +11,7 @@ summary: 'On October 1-3 2025, we celebrated the 10 year anniversary of Parcels 
 
 The goal of the event was to showcase how Parcels is used by different researchers, and learn from each other. There were workshops, tutorials, hackathons and a mini-conference.
 
-Attendees were also able to sneak-peak and test-drive the first (pre)release of the **[new Parcels v4](https://docs.oceanparcels.org/en/v4-dev/v4/)**, a major, radical overhaul of the Parcels codebase. Parcels v4 is even more powerful and versatile - including support for unstructured grids!
+Attendees were also able to sneak-peak and test-drive the first (pre)release of the **[new Parcels v4](https://docs.parcels-code.org/en/v4-dev/v4/)**, a major, radical overhaul of the Parcels codebase. Parcels v4 is even more powerful and versatile - including support for unstructured grids!
 
 The event ended with a party on Friday evening 3 October 2025, in Utrecht. This was to celebrate how far we’ve come, and to thank all for their contributions and engagement over the years.
 

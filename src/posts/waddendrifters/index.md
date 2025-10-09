@@ -24,7 +24,7 @@ We would appreciate it if you could send us a photo and information about where 
 We deployed the first batch of 24 drifters from the R/V Adriaen Coenen on 14 November 2023. Their tracks can be seen in the interactive map below.
 
 <iframe
-  src='https://oceanparcels.org/driftermap.html?fn=waddendrifters.json&anim_freq=1'
+  src='https://parcels-code.org/driftermap.html?fn=waddendrifters.json&anim_freq=1'
   width='100%'
   height='500px'
 ></iframe>
@@ -34,7 +34,7 @@ We deployed the first batch of 24 drifters from the R/V Adriaen Coenen on 14 Nov
 We deployed the second batch of 12 drifters from just north of [Moddergat](https://maps.app.goo.gl/YoBDXxKDyHqNmW3s7) on 25 April 2024. Their tracks can be seen in the interactive map below.
 
 <iframe
-  src='https://oceanparcels.org/driftermap.html?fn=waddendrifters2024.json&anim_freq=1'
+  src='https://parcels-code.org/driftermap.html?fn=waddendrifters2024.json&anim_freq=1'
   width='100%'
   height='500px'
 ></iframe>
